@@ -1,9 +1,0 @@
-Hi,
-
-To verify your account, visit the following link:
-{{ url_for('users.verify_email', token=token, _external=True) }}
-
-If you did not make this request, simply ignore this email.
-
-Thanks,
-The CipherLab Team
