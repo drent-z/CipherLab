@@ -87,27 +87,15 @@
           <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
-          <!-- 
-            If you want to display "Account"/"Logout" only when users are logged in,
-            you'd need actual server-side code. For a static site, we can just remove them
-            or always display them. Below is commented out for clarity.
-          <li class="nav-item"><a class="nav-link" href="/account.html">Account</a></li>
-          <li class="nav-item"><a class="nav-link" href="/logout.html">Logout</a></li>
-          -->
-          <!-- 
-            Similarly, "Login" and "Register" are always displayed in a static site,
-            but you can remove them if you don't plan on having any login system at all.
-          -->
-          <li class="nav-item"><a class="nav-link" href="/login.html">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="/register.html">Register</a></li>
+          <!-- Removed login/register references since you no longer need them. -->
         </ul>
       </div>
     </nav>
   </header>
 
   <div class="container">
-    <!-- Removed Flask flash messages logic
-         If you want static notifications, you can implement them in JS -->
+    <!-- No flash messages in a static site; removed any Flask code.
+         If you want custom notifications, implement them via JS. -->
     {% block content %}{% endblock %}
   </div>
 
