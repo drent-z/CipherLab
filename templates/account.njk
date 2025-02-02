@@ -25,12 +25,12 @@
             <form id="editForm" method="POST" style="display: none;">
                 <!-- no hidden_tag -->
                 <div class="form-group">
-                    {{ form.username.label(class="form-label") }}
+                    <label for="username" class="form-label">Username</label>
                     {{ form.username(class="form-control bg-dark text-white", placeholder="Enter your username") }}
                     <div id="usernameFeedback" class="text-danger mt-2"></div>
                 </div>
                 <div class="form-group">
-                    {{ form.email.label(class="form-label") }}
+                    <label for="email" class="form-label">Email</label>
                     {{ form.email(class="form-control bg-dark text-white", placeholder="Enter your email") }}
                     <div id="emailFeedback" class="text-danger mt-2"></div>
                 </div>

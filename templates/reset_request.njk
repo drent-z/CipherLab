@@ -8,7 +8,7 @@
             <form action="/reset_request.html" method="POST">
                 <!-- no hidden_tag -->
                 <div class="form-group">
-                    {{ form.email.label(class="form-label") }}
+                    <label for="email" class="form-label">Email</label>
                     {{ form.email(class="form-control", placeholder="Enter your email") }}
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-3">Request Password Reset</button>
