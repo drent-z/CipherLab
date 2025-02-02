@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <h2 class="text-center mb-4">Login</h2>
             <form action="/login.html" method="POST">
-                {{ form.hidden_tag() }}
+                <!-- no hidden_tag -->
                 <div class="form-group">
                     {{ form.email.label(class="form-label") }}
                     {{ form.email(class="form-control bg-dark text-white", placeholder="Enter your email", id="email", autocomplete="email", value=email if email else "") }}

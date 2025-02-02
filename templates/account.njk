@@ -23,7 +23,7 @@
 
             <!-- Edit Account Information Form -->
             <form id="editForm" method="POST" style="display: none;">
-                {{ form.hidden_tag() }}
+                <!-- no hidden_tag -->
                 <div class="form-group">
                     {{ form.username.label(class="form-label") }}
                     {{ form.username(class="form-control bg-dark text-white", placeholder="Enter your username") }}

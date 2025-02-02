@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <h2 class="text-center mb-4">Reset Password</h2>
             <form action="/reset_request.html" method="POST">
-                {{ form.hidden_tag() }}
+                <!-- no hidden_tag -->
                 <div class="form-group">
                     {{ form.email.label(class="form-label") }}
                     {{ form.email(class="form-control", placeholder="Enter your email") }}
