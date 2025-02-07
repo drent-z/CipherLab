@@ -6,50 +6,70 @@
 ![JavaScript](https://img.shields.io/badge/Interactive%20with-JavaScript-f7df1e?logo=javascript)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
+---
+
 ## Table of Contents
+
 - [Project Description](#project-description)
 - [Features](#features)
 - [Usage](#usage)
 - [License](#license)
 - [Contact](#contact)
 - [Project Team](#project-team)
+- [Visit Our Website](#visit-our-website)
+
+---
 
 ## Project Description
 
-**CipherLab** is an interactive web platform designed to educate users on cryptographic concepts and techniques. Through engaging content and hands-on activities, users can learn about encryption methods, decipher codes, and enhance their understanding of cryptography fundamentals. The platform is accessible at [https://cipherlab.app](https://cipherlab.app).
+**CipherLab** is an interactive educational platform designed to demystify cryptography. Through engaging static content, interactive lessons, and quizzes, users can explore encryption methods, decipher codes, and deepen their understanding of cryptographic techniques. Our goal is to make the fascinating world of ciphers accessible and fun!
+
+The platform is fully accessible at **[https://cipherlab.app](https://cipherlab.app)**.
+
+---
 
 ## Features
 
-- **User Registration**: Create an account to track your cryptography learning progress.
-- **Interactive Lessons**: Learn about ciphers, encryption, and decryption through dynamic lessons.
-- **Quizzes**: Test your cryptographic knowledge with interactive quizzes.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
-- **Static Hosting**: Hosted on Cloudflare Pages for fast and secure access.
+- **Interactive Lessons:** Learn about ciphers, encryption, and decryption through dynamic, hands-on lessons.
+- **Quizzes:** Test your cryptographic knowledge with interactive quizzes.
+- **Responsive Design:** Enjoy a seamless experience on both desktop and mobile devices.
+- **Static Hosting:** Experience fast and secure access powered by Cloudflare Pages.
+
+---
 
 ## Usage
 
-1. **Home Page**:
-    - Visit the home page to get an overview of CipherLab and start your cryptography journey.
+1. **Home Page:**  
+   Visit the home page to get an overview of CipherLab and begin your cryptography journey.
 
-2. **Register**:
-    - Create an account to save your progress and access personalized content.
+2. **Explore Lessons:**  
+   Dive into various cryptographic techniques, including the Caesar Cipher, Vigenère Cipher, and more.
 
-3. **Explore Lessons**:
-    - Dive into various cryptographic techniques, including Caesar Cipher, Vigenère Cipher, and more.
+3. **Take Quizzes:**  
+   Reinforce your learning with quizzes that test your knowledge and help solidify your understanding.
 
-4. **Take Quizzes**:
-    - Test your knowledge after completing lessons to reinforce learning.
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Contact
 
-- **GitHub**: [drent-z](https://github.com/drent-z)
+- **GitHub:** [drent-z](https://github.com/drent-z)
+
+---
 
 ## Project Team
 
 - **Aileen Medina**  
 - **Daniel Rentz**  
 - **Kevin Zopfi**
+
+---
+
+## Visit Our Website
+
+Experience CipherLab live at: **[https://cipherlab.app](https://cipherlab.app)**
