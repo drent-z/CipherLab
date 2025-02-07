@@ -1,8 +1,9 @@
 module.exports = function(eleventyConfig) {
   return {
     dir: {
-      input: "templates",   // Tell Eleventy to use the 'templates' folder as the source
-      output: "_site"       // The built site will be output to the '_site' folder
+      input: "templates",
+      includes: ".",  // Use the root of "templates" as the includes folder
+      output: "_site"
     },
     templateFormats: ["njk", "md", "html"],
     htmlTemplateEngine: "njk",
