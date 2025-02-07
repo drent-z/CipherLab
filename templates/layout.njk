@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{% endblock %}</title>
+  <title>{{ title }}</title>
   <!-- Favicon -->
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <!-- Bootstrap CSS -->
@@ -78,14 +78,12 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg">
-      <!-- Home is the root -->
       <a class="navbar-brand glitch" data-text="CipherLab" href="/">CipherLab</a>
       <button class="navbar-toggler" type="button">
         &#9776;
       </button>
       <div class="navbar-collapse">
         <ul class="navbar-nav ml-auto nav-links">
-          <!-- Use absolute URLs with trailing slashes -->
           <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
           <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
@@ -95,7 +93,7 @@
   </header>
 
   <div class="container">
-    {% block content %}{% endblock %}
+    {{ content | safe }}
   </div>
 
   <footer>
@@ -110,5 +108,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Custom Scripts -->
   <script src="/assets/scripts.js"></script>
+  <!-- Cloudflare Pages Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6757a1ffd7df4c35a1333783bc8a0529"}'></script>
 </body>
 </html>
