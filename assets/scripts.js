@@ -26,10 +26,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $('.navbar-collapse').toggleClass('show');
     });
 
-    // Framer Motion scroll animation
+    /* 
+    // Framer Motion scroll animation (currently disabled since the necessary library is not included)
     const featureContainer = document.querySelector('.feature-container');
     const featureBoxes = document.querySelectorAll('.feature-box');
-    const controls = useAnimation();
+    const controls = useAnimation();  // This function is undefined
 
     let currentIndex = 0;
 
@@ -68,4 +69,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Event listener for scroll
     window.addEventListener('wheel', scrollHandler, { passive: false });
+    */
 });
