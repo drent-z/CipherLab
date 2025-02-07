@@ -87,15 +87,12 @@
           <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
-          <!-- Removed login/register references since you no longer need them. -->
         </ul>
       </div>
     </nav>
   </header>
 
   <div class="container">
-    <!-- No flash messages in a static site; removed any Flask code.
-         If you want custom notifications, implement them via JS. -->
     {% block content %}{% endblock %}
   </div>
 

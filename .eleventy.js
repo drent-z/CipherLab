@@ -1,4 +1,7 @@
 module.exports = function(eleventyConfig) {
+  // Tell Eleventy to copy the assets folder (from the project root) to the output directory
+  eleventyConfig.addPassthroughCopy("assets");
+
   return {
     dir: {
       input: "templates",
