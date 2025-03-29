@@ -11,8 +11,8 @@ title: Contact - CipherLab
                 <p class="lead">Have questions, feedback, or want to contribute to CipherLab? We'd love to hear from you!</p>
             </div>
             
-            <div class="row justify-content-center">
-                <div class="col-md-10 mb-4 fade-in">
+            <div class="row">
+                <div class="col-md-12 mb-4 fade-in">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fab fa-github"></i>
@@ -39,7 +39,7 @@ title: Contact - CipherLab
                             </div>
                         </div>
                         
-                        <div class="direct-contact-options text-center">
+                        <div class="direct-contact-options">
                             <h3><i class="fab fa-github"></i> GitHub Repository</h3>
                             <div class="github-box mt-3">
                                 <div class="github-stats">
@@ -68,7 +68,7 @@ title: Contact - CipherLab
                         </div>
                         
                         <div class="contact-alternatives mt-4">
-                            <h3 class="text-center mb-3"><i class="fas fa-comment-alt"></i> Ways to Contribute</h3>
+                            <h3><i class="fas fa-comment-alt"></i> Ways to Contribute</h3>
                             <ul>
                                 <li><strong>Bug Reports:</strong> <a href="https://github.com/drent-z/cipherlab/issues" target="_blank">Open a new issue</a> with detailed information about any bugs you encounter</li>
                                 <li><strong>Feature Requests:</strong> <a href="https://github.com/drent-z/cipherlab/issues" target="_blank">Create an issue</a> tagged as "enhancement" to suggest new features</li>
@@ -153,10 +153,12 @@ title: Contact - CipherLab
         background-color: var(--medium-dark);
         border: 1px solid var(--primary-dark);
         border-radius: 8px;
-        padding: 2.5rem;
-        max-width: 550px;
-        margin: 0 auto;
+        padding: 2rem;
+        height: 100%;
         transition: all 0.3s ease;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 550px;
     }
     
     .contact-card:hover {
@@ -289,8 +291,8 @@ title: Contact - CipherLab
         padding: 1.5rem;
         border-radius: 8px;
         border: 1px solid var(--primary-dark);
-        max-width: 500px;
         margin: 0 auto;
+        max-width: 550px;
     }
     
     .github-stats {
@@ -337,16 +339,22 @@ title: Contact - CipherLab
         padding: 1rem;
         margin: 1.5rem 0;
         border-radius: 0 4px 4px 0;
-        text-align: left;
     }
     
     .contact-alternatives ul {
         margin-top: 1rem;
-        text-align: left;
     }
     
     .contact-alternatives li {
         margin-bottom: 0.8rem;
+    }
+    
+    .contact-form-container {
+        display: block !important; /* Ensure visibility */
+    }
+    
+    .faq-section {
+        display: block !important; /* Ensure visibility */
     }
     
     @media (max-width: 768px) {
