@@ -12,7 +12,7 @@ title: Contact - CipherLab
             </div>
             
             <div class="row">
-                <div class="col-md-6 mb-4 fade-in">
+                <div class="col-md-12 mb-4 fade-in">
                     <div class="contact-card">
                         <div class="contact-icon">
                             <i class="fab fa-github"></i>
@@ -25,89 +25,58 @@ title: Contact - CipherLab
                         </a>
                     </div>
                 </div>
-                
-                <div class="col-md-6 mb-4 fade-in">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <p>For general inquiries or partnership opportunities, feel free to reach out via email.</p>
-                        <a href="mailto:info@cipherlab.app" class="btn-contact">
-                            <span>Send Email</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
             
             <div class="contact-form-container mt-5 fade-in">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="mb-0"><i class="fas fa-paper-plane"></i> Send Us a Message</h2>
+                        <h2 class="mb-0"><i class="fas fa-paper-plane"></i> Contact &amp; Contribute</h2>
                     </div>
                     <div class="card-body">
-                        <form id="contact-form" class="needs-validation" novalidate>
-                            <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user"></i>
-                                        </span>
+                        <div class="static-site-notice mb-4">
+                            <div class="note-box">
+                                <strong>Note:</strong> CipherLab is an open-source educational project hosted on GitHub. For questions, feature requests, or bug reports, please use the GitHub repository.
+                            </div>
+                        </div>
+                        
+                        <div class="direct-contact-options">
+                            <h3><i class="fab fa-github"></i> GitHub Repository</h3>
+                            <div class="github-box mt-3">
+                                <div class="github-stats">
+                                    <div class="github-stat">
+                                        <i class="fas fa-code-branch"></i>
+                                        <span>Forks</span>
                                     </div>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                    
+                                    <div class="github-stat">
+                                        <i class="fas fa-star"></i>
+                                        <span>Stars</span>
+                                    </div>
+                                    
+                                    <div class="github-stat">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span>Issues</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="repository-link mt-4">
+                                    <a href="https://github.com/drent-z/cipherlab" target="_blank" class="btn-github">
+                                        <i class="fab fa-github"></i> Visit Repository
+                                    </a>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Your Email</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-heading"></i>
-                                        </span>
-                                    </div>
-                                    <select class="form-control" id="subject" required>
-                                        <option value="" selected disabled>Select a subject</option>
-                                        <option value="general">General Inquiry</option>
-                                        <option value="bug">Bug Report</option>
-                                        <option value="feature">Feature Request</option>
-                                        <option value="contribute">Contribution</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
-                            </div>
-                            
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="agreement" required>
-                                <label class="form-check-label" for="agreement">I agree to the privacy policy and terms of service</label>
-                            </div>
-                            
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn-submit">
-                                    <span>Send Message</span>
-                                    <i class="fas fa-paper-plane ml-2"></i>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
+                        
+                        <div class="contact-alternatives mt-4">
+                            <h3><i class="fas fa-comment-alt"></i> Ways to Contribute</h3>
+                            <ul>
+                                <li><strong>Bug Reports:</strong> <a href="https://github.com/drent-z/cipherlab/issues" target="_blank">Open a new issue</a> with detailed information about any bugs you encounter</li>
+                                <li><strong>Feature Requests:</strong> <a href="https://github.com/drent-z/cipherlab/issues" target="_blank">Create an issue</a> tagged as "enhancement" to suggest new features</li>
+                                <li><strong>Code Contributions:</strong> Submit a pull request with your improvements or additions</li>
+                                <li><strong>Documentation:</strong> Help improve tutorials, examples, or this website itself</li>
+                                <li><strong>Share:</strong> Star the repository and share CipherLab with others interested in cryptography</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -314,106 +283,73 @@ title: Contact - CipherLab
         transform: rotate(-90deg);
     }
     
-    /* Form validation styles */
-    .form-control.is-invalid {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    /* GitHub Box Styling */
+    .github-box {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--primary-dark);
     }
     
-    .invalid-feedback {
-        color: #dc3545;
+    .github-stats {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .github-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .github-stat i {
+        font-size: 2rem;
+        color: var(--primary);
+    }
+    
+    .btn-github {
+        display: inline-block;
+        background-color: #161b22;
+        color: var(--text);
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .btn-github:hover {
+        background-color: var(--primary);
+        color: var(--dark);
+    }
+    
+    .repository-link {
+        text-align: center;
+    }
+    
+    .note-box {
+        background-color: var(--darker);
+        border-left: 3px solid var(--primary);
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .contact-alternatives ul {
+        margin-top: 1rem;
+    }
+    
+    .contact-alternatives li {
+        margin-bottom: 0.8rem;
+    }
+    
+    @media (max-width: 768px) {
+        .github-stats {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
     }
 </style>
-
-<!-- Additional JavaScript for form validation -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Form validation
-        const form = document.getElementById('contact-form');
-        
-        if (form) {
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    
-                    // Add validation styling
-                    Array.from(form.elements).forEach(input => {
-                        if (!input.validity.valid) {
-                            input.classList.add('is-invalid');
-                            
-                            // Add feedback message if not exists
-                            const parent = input.parentElement;
-                            if (!parent.querySelector('.invalid-feedback')) {
-                                const feedback = document.createElement('div');
-                                feedback.classList.add('invalid-feedback');
-                                feedback.textContent = input.validationMessage || 'This field is required';
-                                
-                                if (parent.classList.contains('input-group')) {
-                                    parent.parentElement.appendChild(feedback);
-                                } else {
-                                    parent.appendChild(feedback);
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    // Simulate form submission (would be handled by backend in reality)
-                    event.preventDefault();
-                    
-                    // Show success message
-                    const formContainer = form.parentElement;
-                    form.style.display = 'none';
-                    
-                    const successMsg = document.createElement('div');
-                    successMsg.classList.add('text-center', 'py-5');
-                    successMsg.innerHTML = `
-                        <div class="success-icon mb-4">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>Message Sent Successfully!</h3>
-                        <p>Thank you for contacting us. We'll get back to you soon.</p>
-                    `;
-                    
-                    formContainer.appendChild(successMsg);
-                    
-                    // Style the success message
-                    const successIcon = successMsg.querySelector('.success-icon i');
-                    successIcon.style.fontSize = '4rem';
-                    successIcon.style.color = 'var(--primary)';
-                    
-                    // Add animation
-                    successIcon.style.animation = 'pulse 2s infinite';
-                    
-                    // Add keyframe animation
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        @keyframes pulse {
-                            0% { transform: scale(1); }
-                            50% { transform: scale(1.2); }
-                            100% { transform: scale(1); }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
-                
-                form.classList.add('was-validated');
-            });
-            
-            // Clear validation styling when input changes
-            Array.from(form.elements).forEach(input => {
-                input.addEventListener('input', function() {
-                    input.classList.remove('is-invalid');
-                    
-                    const parent = input.parentElement;
-                    const feedback = parent.querySelector('.invalid-feedback') || 
-                                   (parent.parentElement && parent.parentElement.querySelector('.invalid-feedback'));
-                    
-                    if (feedback) {
-                        feedback.remove();
-                    }
-                });
-            });
-        }
-    });
-</script>
