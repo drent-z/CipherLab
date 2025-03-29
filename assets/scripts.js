@@ -207,7 +207,7 @@ function initParticleNetwork() {
     animateParticles();
 }
 
-// Scroll animations
+// Scroll animations - UPDATED WITH FIX
 function initScrollAnimations() {
     const fadeElements = document.querySelectorAll('.fade-in');
     
@@ -228,6 +228,13 @@ function initScrollAnimations() {
             element.classList.add('fade-in');
         }
     });
+    
+    // Special handling for contact page elements - THIS IS THE NEW CODE
+    if (window.location.pathname.includes('/contact')) {
+        document.querySelectorAll('.fade-in').forEach(element => {
+            element.classList.add('visible');
+        });
+    }
     
     window.addEventListener('scroll', checkScroll);
     checkScroll(); // Check on initial load

@@ -349,12 +349,37 @@ title: Contact - CipherLab
         margin-bottom: 0.8rem;
     }
     
+    /* Fix for visibility issues - strengthen existing rules */
+    .contact-intro {
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    h1.section-title {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Immediate visibility for these elements even before JS runs */
+    .fade-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none !important;
+    }
+
+    /* Strengthen the existing rules with !important */
     .contact-form-container {
-        display: block !important; /* Ensure visibility */
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     .faq-section {
-        display: block !important; /* Ensure visibility */
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     @media (max-width: 768px) {
