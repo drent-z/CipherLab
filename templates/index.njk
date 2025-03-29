@@ -12,7 +12,7 @@ title: CipherLab - Cryptography Educational Platform
     </div>
     <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
     <div class="cta-buttons fade-in">
-        <a href="/about/" class="cta-button mr-3"><i class="fas fa-rocket"></i> Get Started</a>
+        <a href="/learn/" class="cta-button mr-3"><i class="fas fa-rocket"></i> Get Started</a>
         <a href="https://github.com/drent-z/cipherlab" target="_blank" class="cta-button cta-button-alt"><i class="fab fa-github"></i> View on GitHub</a>
     </div>
     
@@ -29,7 +29,7 @@ title: CipherLab - Cryptography Educational Platform
             <h2>Classic Ciphers</h2>
             <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
             <div class="feature-button">
-                <a href="#caesar-demo" class="btn-learn-more">Try It <i class="fas fa-arrow-right"></i></a>
+                <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         
@@ -38,7 +38,7 @@ title: CipherLab - Cryptography Educational Platform
             <h2>Modern Encryption</h2>
             <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
             <div class="feature-button">
-                <a href="#modern-crypto" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
+                <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         
@@ -47,7 +47,7 @@ title: CipherLab - Cryptography Educational Platform
             <h2>Cryptanalysis</h2>
             <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
             <div class="feature-button">
-                <a href="#challenges" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
+                <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -95,110 +95,12 @@ C → F (shift 3)
     </div>
 </section>
 
-<section class="container section" id="modern-crypto">
-    <h2 class="section-title text-center mb-5 fade-in">Modern Cryptography</h2>
-    
-    <div class="row">
-        <div class="col-md-6 mb-4 fade-in">
-            <div class="card h-100">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-lock"></i> Symmetric Encryption</h3>
-                </div>
-                <div class="card-body">
-                    <p>Symmetric encryption uses the same key for both encryption and decryption. Modern algorithms like AES (Advanced Encryption Standard) provide strong security for sensitive data.</p>
-                    <div class="text-center mt-4">
-                        <div class="cipher-icon">
-                            <i class="fas fa-key"></i> ⟶ <i class="fas fa-lock"></i> ⟶ <i class="fas fa-key"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-6 mb-4 fade-in">
-            <div class="card h-100">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-key"></i> Asymmetric Encryption</h3>
-                </div>
-                <div class="card-body">
-                    <p>Asymmetric encryption uses a pair of keys: public and private. RSA and ECC algorithms enable secure communications without sharing secret keys, powering HTTPS and digital signatures.</p>
-                    <div class="text-center mt-4">
-                        <div class="cipher-icon">
-                            <i class="fas fa-unlock"></i> ⟶ <i class="fas fa-lock"></i> ⟶ <i class="fas fa-key"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="container section" id="challenges">
-    <h2 class="section-title text-center mb-5 fade-in">Cryptography Challenges</h2>
-    
-    <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4 fade-in">
-            <div class="card challenge-card">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-star"></i> Beginner</h3>
-                </div>
-                <div class="card-body">
-                    <h4>Caesar Cipher Break</h4>
-                    <p>Decrypt a message encoded with a Caesar cipher without knowing the key.</p>
-                    <div class="difficulty">
-                        <span class="difficulty-dot active"></span>
-                        <span class="difficulty-dot"></span>
-                        <span class="difficulty-dot"></span>
-                    </div>
-                    <a href="#" class="btn-challenge mt-3">Start Challenge</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-6 mb-4 fade-in">
-            <div class="card challenge-card">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-star"></i><i class="fas fa-star"></i> Intermediate</h3>
-                </div>
-                <div class="card-body">
-                    <h4>Vigenère Analysis</h4>
-                    <p>Break a Vigenère cipher by determining the keyword length and performing frequency analysis.</p>
-                    <div class="difficulty">
-                        <span class="difficulty-dot active"></span>
-                        <span class="difficulty-dot active"></span>
-                        <span class="difficulty-dot"></span>
-                    </div>
-                    <a href="#" class="btn-challenge mt-3">Start Challenge</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-6 mb-4 fade-in">
-            <div class="card challenge-card">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Advanced</h3>
-                </div>
-                <div class="card-body">
-                    <h4>RSA Implementation</h4>
-                    <p>Build a basic RSA encryption and decryption system and explore its mathematical foundations.</p>
-                    <div class="difficulty">
-                        <span class="difficulty-dot active"></span>
-                        <span class="difficulty-dot active"></span>
-                        <span class="difficulty-dot active"></span>
-                    </div>
-                    <a href="#" class="btn-challenge mt-3">Start Challenge</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
             <h2 class="section-title mb-4 fade-in">Ready to Unlock the World of Cryptography?</h2>
             <p class="mb-5 fade-in">Join our community of cryptography enthusiasts and start your journey from basic ciphers to advanced encryption techniques.</p>
-            <a href="/about/" class="cta-button fade-in"><i class="fas fa-rocket"></i> Get Started Now</a>
+            <a href="/learn/" class="cta-button fade-in"><i class="fas fa-rocket"></i> Get Started Now</a>
         </div>
     </div>
 </section>
@@ -346,11 +248,45 @@ C → F (shift 3)
         // Update shift value display
         const shiftSlider = document.getElementById('caesar-shift');
         const shiftValue = document.getElementById('shift-value');
+        const caesarInput = document.getElementById('caesar-input');
+        const caesarOutput = document.getElementById('caesar-output');
         
-        if (shiftSlider && shiftValue) {
-            shiftSlider.addEventListener('input', function() {
-                shiftValue.textContent = this.value;
-            });
+        function updateCaesarOutput() {
+            if (!caesarInput || !caesarOutput || !shiftSlider) return;
+            
+            const text = caesarInput.value.toUpperCase();
+            const shift = parseInt(shiftSlider.value);
+            
+            // Update shift value display
+            if (shiftValue) {
+                shiftValue.textContent = shift;
+            }
+            
+            // Calculate Caesar cipher
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                
+                if (char.match(/[A-Z]/)) {
+                    const code = text.charCodeAt(i);
+                    result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                } else {
+                    result += char;
+                }
+            }
+            
+            caesarOutput.textContent = result;
         }
+        
+        if (shiftSlider) {
+            shiftSlider.addEventListener('input', updateCaesarOutput);
+        }
+        
+        if (caesarInput) {
+            caesarInput.addEventListener('input', updateCaesarOutput);
+        }
+        
+        // Initialize Caesar cipher output
+        updateCaesarOutput();
     });
 </script>
