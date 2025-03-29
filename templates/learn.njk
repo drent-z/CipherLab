@@ -1,4 +1,1042 @@
----
+.pass-fail-badge.pass {
+        background-color: rgba(39, 201, 63, 0.2);
+        color: #27c93f;
+    }
+    
+    .pass-fail-badge.fail {
+        background-color: rgba(255, 62, 62, 0.2);
+        color: #ff3e3e;
+    }
+    
+    .result-details {
+        flex-grow: 1;
+    }
+    
+    .result-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .result-item:last-child {
+        border-bottom: none;
+    }
+    
+    .result-label {
+        color: var(--text-muted);
+    }
+    
+    /* Certificate Styling */
+    .certification-container {
+        margin: 3rem 0;
+    }
+    
+    .certificate {
+        background-color: var(--darker);
+        border: 2px solid var(--primary);
+        padding: 3rem;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .certificate::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="monospace" font-size="10" fill="rgba(0, 255, 65, 0.03)" text-anchor="middle" dominant-baseline="middle">CIPHERLAB</text></svg>');
+        background-size: 100px 100px;
+        opacity: 0.5;
+    }
+    
+    .certificate-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .certificate-logo {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+    
+    .certificate-title {
+        font-size: 2.5rem;
+        margin: 0;
+        color: var(--primary);
+    }
+    
+    .certificate-body {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .certificate-text {
+        font-size: 1.25rem;
+        margin: 0.5rem 0;
+    }
+    
+    .certificate-name {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 1.5rem 0;
+        color: var(--secondary);
+    }
+    
+    .certificate-course {
+        font-size: 1.75rem;
+        font-weight: bold;
+        margin: 1.5rem 0;
+        color: var(--primary);
+    }
+    
+    .certificate-date {
+        font-size: 1.25rem;
+        margin-top: 2rem;
+    }
+    
+    .certificate-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    
+    .certificate-signature {
+        text-align: center;
+    }
+    
+    .signature-line {
+        width: 200px;
+        height: 2px;
+        background-color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .certificate-seal {
+        text-align: center;
+    }
+    
+    .seal-icon {
+        font-size: 3rem;
+        color: var(--primary);
+    }
+    
+    .certificate-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    /* Quiz Review Styling */
+    .quiz-review-container {
+        margin-top: 3rem;
+    }
+    
+    .review-title {
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .quiz-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+    
+    /* Media queries for responsive design */
+    @media (max-width: 992px) {
+        .two-column {
+            flex-direction: column;
+        }
+        
+        .historical-info {
+            flex-direction: column;
+        }
+        
+        .history-image {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .final-quiz-footer {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .requirements {
+            margin-right: 0;
+        }
+        
+        .results-summary {
+            flex-direction: column;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .module-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .module-icon {
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .module-progress {
+            margin-top: 1rem;
+        }
+        
+        .timeline::before {
+            left: 20px;
+        }
+        
+        .timeline-item {
+            flex-direction: column;
+        }
+        
+        .timeline-marker {
+            width: 100%;
+            text-align: left;
+            padding-left: 40px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .timeline-marker::after {
+            left: 20px;
+            right: auto;
+        }
+        
+        .quiz-navigation {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .certificate {
+            padding: 1.5rem;
+        }
+        
+        .certificate-title {
+            font-size: 2rem;
+        }
+        
+        .certificate-name {
+            font-size: 2rem;
+        }
+        
+        .certificate-footer {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .certificate-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<!-- JavaScript Functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize progress tracking
+        updateProgress();
+        
+        // Set up module toggling
+        const moduleHeaders = document.querySelectorAll('.module-header');
+        moduleHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const contentId = this.getAttribute('onclick').replace(/toggleModule\('(.+)'\)/, '$1');
+                toggleModule(contentId);
+            });
+        });
+        
+        // Initialize lesson navigation
+        const prevButton = document.getElementById('prev-lesson');
+        const nextButton = document.getElementById('next-lesson');
+        const completeButton = document.getElementById('complete-lesson');
+        
+        if (prevButton) {
+            prevButton.addEventListener('click', navigateToPreviousLesson);
+        }
+        
+        if (nextButton) {
+            nextButton.addEventListener('click', navigateToNextLesson);
+        }
+        
+        if (completeButton) {
+            completeButton.addEventListener('click', completeCurrentLesson);
+        }
+        
+        // Initialize quiz functionality
+        const quizButtons = document.querySelectorAll('.check-answer-btn');
+        quizButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const lessonKey = this.getAttribute('onclick').match(/checkAnswer\(this, '(.+)'\)/)[1];
+                checkAnswer(this, lessonKey);
+            });
+        });
+        
+        // Initialize final quiz
+        const startFinalQuizBtn = document.getElementById('start-final-quiz');
+        if (startFinalQuizBtn) {
+            startFinalQuizBtn.addEventListener('click', startFinalQuiz);
+            
+            // Check if all modules are completed to unlock final quiz
+            const completedLessons = getCompletedLessons();
+            const totalLessons = document.querySelectorAll('.lesson-item').length;
+            
+            if (completedLessons.length === totalLessons) {
+                startFinalQuizBtn.disabled = false;
+                document.getElementById('quiz-status-text').textContent = 'Unlocked';
+                document.getElementById('quiz-lock-icon').className = 'fas fa-unlock';
+            }
+        }
+        
+        // Begin final quiz button
+        const beginFinalQuizBtn = document.getElementById('begin-final-quiz');
+        if (beginFinalQuizBtn) {
+            beginFinalQuizBtn.addEventListener('click', beginFinalQuiz);
+        }
+        
+        // Final quiz navigation
+        const prevQuizQuestionBtn = document.getElementById('prev-quiz-question');
+        const nextQuizQuestionBtn = document.getElementById('next-quiz-question');
+        const submitQuizBtn = document.getElementById('submit-quiz');
+        
+        if (prevQuizQuestionBtn) {
+            prevQuizQuestionBtn.addEventListener('click', navigateToPrevQuestion);
+        }
+        
+        if (nextQuizQuestionBtn) {
+            nextQuizQuestionBtn.addEventListener('click', navigateToNextQuestion);
+        }
+        
+        if (submitQuizBtn) {
+            submitQuizBtn.addEventListener('click', submitFinalQuiz);
+        }
+        
+        // Retake and return buttons
+        const retakeQuizBtn = document.getElementById('retake-quiz');
+        const returnToModulesBtn = document.getElementById('return-to-modules');
+        
+        if (retakeQuizBtn) {
+            retakeQuizBtn.addEventListener('click', retakeQuiz);
+        }
+        
+        if (returnToModulesBtn) {
+            returnToModulesBtn.addEventListener('click', returnToModules);
+        }
+        
+        // Interactive Caesar cipher demo
+        const caesarInput = document.getElementById('caesar-input');
+        const caesarShift = document.getElementById('caesar-shift');
+        const caesarOutput = document.getElementById('caesar-output');
+        const shiftDisplay = document.getElementById('shift-display');
+        const alphabetShifted = document.querySelector('.alphabet-row.shifted');
+        
+        if (caesarInput && caesarShift && caesarOutput && shiftDisplay) {
+            caesarShift.addEventListener('input', function() {
+                const shift = parseInt(this.value);
+                shiftDisplay.textContent = shift;
+                
+                // Update Caesar cipher output
+                const text = caesarInput.value.toUpperCase();
+                let result = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    
+                    if (char.match(/[A-Z]/)) {
+                        const code = text.charCodeAt(i);
+                        result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                    } else {
+                        result += char;
+                    }
+                }
+                
+                caesarOutput.textContent = result;
+                
+                // Update shifted alphabet visualization
+                updateShiftedAlphabet(shift);
+            });
+            
+            caesarInput.addEventListener('input', function() {
+                const shift = parseInt(caesarShift.value);
+                const text = this.value.toUpperCase();
+                let result = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    
+                    if (char.match(/[A-Z]/)) {
+                        const code = text.charCodeAt(i);
+                        result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                    } else {
+                        result += char;
+                    }
+                }
+                
+                caesarOutput.textContent = result;
+            });
+        }
+        
+        function updateShiftedAlphabet(shift) {
+            if (!alphabetShifted) return;
+            
+            alphabetShifted.innerHTML = '';
+            for (let i = 0; i < 26; i++) {
+                const shifted = (i + shift) % 26;
+                const letter = String.fromCharCode(65 + shifted);
+                const letterDiv = document.createElement('div');
+                letterDiv.className = 'alphabet-letter';
+                letterDiv.textContent = letter;
+                alphabetShifted.appendChild(letterDiv);
+            }
+        }
+    });
+    
+    // Toggle module content
+    function toggleModule(contentId) {
+        const content = document.getElementById(contentId);
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+        }
+    }
+    
+    // Show lesson content
+    function showLesson(lessonId) {
+        // Get module and lesson indices
+        const [modulePrefix, lessonNumber] = lessonId.split('-');
+        const moduleIndex = modulePrefix.replace('lesson', '');
+        const lessonIndex = lessonNumber;
+        
+        // Set current lesson data
+        currentModule = moduleIndex;
+        currentLesson = lessonIndex;
+        
+        // Show lesson content section
+        document.getElementById('lesson-content-section').style.display = 'block';
+        
+        // Scroll to lesson content
+        document.getElementById('lesson-content-section').scrollIntoView({ behavior: 'smooth' });
+        
+        // Load lesson content
+        const lessonContentId = `${lessonId}-content`;
+        const lessonContent = document.getElementById(lessonContentId);
+        const lessonTitle = document.querySelector(`[onclick="showLesson('${lessonId}')"] .lesson-title`).textContent;
+        
+        document.getElementById('lesson-title').textContent = lessonTitle;
+        document.getElementById('lesson-content').innerHTML = lessonContent.innerHTML;
+        
+        // Update navigation buttons
+        updateNavigation(moduleIndex, lessonIndex);
+        
+        // Update complete button state
+        updateCompleteButtonState(moduleIndex, lessonIndex);
+    }
+    
+    // Navigation functions
+    function navigateToPreviousLesson() {
+        // Implementation depends on lesson structure
+        // This is a simplified version
+        let moduleIndex = parseInt(currentModule);
+        let lessonIndex = parseInt(currentLesson);
+        
+        if (lessonIndex > 1) {
+            // Previous lesson in same module
+            lessonIndex--;
+        } else if (moduleIndex > 1) {
+            // Last lesson of previous module
+            moduleIndex--;
+            // Assume 3 lessons per module for simplicity
+            lessonIndex = 3;
+        } else {
+            // Already at first lesson
+            return;
+        }
+        
+        showLesson(`lesson${moduleIndex}-${lessonIndex}`);
+    }
+    
+    function navigateToNextLesson() {
+        // Implementation depends on lesson structure
+        // This is a simplified version
+        let moduleIndex = parseInt(currentModule);
+        let lessonIndex = parseInt(currentLesson);
+        
+        // Assume 3 lessons per module for simplicity
+        if (lessonIndex < 3) {
+            // Next lesson in same module
+            lessonIndex++;
+        } else if (moduleIndex < 5) {
+            // First lesson of next module
+            moduleIndex++;
+            lessonIndex = 1;
+        } else {
+            // Already at last lesson
+            return;
+        }
+        
+        showLesson(`lesson${moduleIndex}-${lessonIndex}`);
+    }
+    
+    // Update navigation buttons
+    function updateNavigation(moduleIndex, lessonIndex) {
+        const prevButton = document.getElementById('prev-lesson');
+        const nextButton = document.getElementById('next-lesson');
+        
+        // Disable previous button if at first lesson
+        if (moduleIndex === '1' && lessonIndex === '1') {
+            prevButton.disabled = true;
+        } else {
+            prevButton.disabled = false;
+        }
+        
+        // Disable next button if at last lesson
+        if (moduleIndex === '5' && lessonIndex === '3') {
+            nextButton.disabled = true;
+        } else {
+            nextButton.disabled = false;
+        }
+    }
+    
+    // Complete current lesson
+    function completeCurrentLesson() {
+        // Get current lesson information from URL or state
+        const moduleIndex = currentModule;
+        const lessonIndex = currentLesson;
+        
+        // Mark lesson as completed
+        const lessonKey = `${moduleIndex}-${lessonIndex}`;
+        const completedLessons = getCompletedLessons();
+        
+        if (!completedLessons.includes(lessonKey)) {
+            completedLessons.push(lessonKey);
+            localStorage.setItem('cipherlab-completed-lessons', JSON.stringify(completedLessons));
+            
+            // Update UI
+            const statusIcon = document.getElementById(`status-${moduleIndex}-${lessonIndex}`);
+            if (statusIcon) {
+                statusIcon.className = 'fas fa-check-circle';
+            }
+            
+            // Update progress
+            updateProgress();
+            
+            // Show completion feedback
+            showCompletionFeedback();
+        }
+        
+        // Disable complete button
+        document.getElementById('complete-lesson').disabled = true;
+        document.getElementById('complete-lesson').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+        
+        // Check if all lessons are completed to unlock final quiz
+        const totalLessons = document.querySelectorAll('.lesson-item').length;
+        if (completedLessons.length === totalLessons) {
+            unlockFinalQuiz();
+        }
+    }
+    
+    // Update complete button state
+    function updateCompleteButtonState(moduleIndex, lessonIndex) {
+        const lessonKey = `${moduleIndex}-${lessonIndex}`;
+        const completedLessons = getCompletedLessons();
+        const completeButton = document.getElementById('complete-lesson');
+        
+        if (completedLessons.includes(lessonKey)) {
+            completeButton.disabled = true;
+            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+        } else {
+            completeButton.disabled = false;
+            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+        }
+    }
+    
+    // Show completion feedback
+    function showCompletionFeedback() {
+        // You could add an animation or notification here
+        console.log('Lesson completed!');
+    }
+    
+    // Unlock final quiz
+    function unlockFinalQuiz() {
+        const startFinalQuizBtn = document.getElementById('start-final-quiz');
+        const quizStatusText = document.getElementById('quiz-status-text');
+        const quizLockIcon = document.getElementById('quiz-lock-icon');
+        
+        if (startFinalQuizBtn && quizStatusText && quizLockIcon) {
+            startFinalQuizBtn.disabled = false;
+            quizStatusText.textContent = 'Unlocked';
+            quizLockIcon.className = 'fas fa-unlock';
+            
+            // Update progress bar
+            document.getElementById('quiz-progress-value').style.width = '100%';
+        }
+    }
+    
+    // Get completed lessons from localStorage
+    function getCompletedLessons() {
+        const stored = localStorage.getItem('cipherlab-completed-lessons');
+        return stored ? JSON.parse(stored) : [];
+    }
+    
+    // Update overall progress
+    function updateProgress() {
+        const completedLessons = getCompletedLessons();
+        
+        // Count total lessons
+        const totalLessons = document.querySelectorAll('.lesson-item').length;
+        
+        // Update progress stats
+        document.getElementById('completed-count').textContent = completedLessons.length;
+        document.getElementById('total-count').textContent = totalLessons;
+        
+        // Calculate percentage
+        const percentage = totalLessons > 0 ? Math.round((completedLessons.length / totalLessons) * 100) : 0;
+        document.getElementById('percentage').textContent = `${percentage}%`;
+        document.getElementById('progress-value').style.width = `${percentage}%`;
+        
+        // Update module progress
+        updateModuleProgress(completedLessons);
+        
+        // Update lesson status icons
+        updateLessonStatusIcons(completedLessons);
+        
+        // Update final quiz progress
+        document.getElementById('quiz-progress-value').style.width = `${percentage}%`;
+    }
+    
+    // Update module progress
+    function updateModuleProgress(completedLessons) {
+        const modules = document.querySelectorAll('.learning-module');
+        
+        modules.forEach((module, index) => {
+            const moduleIndex = index + 1;
+            const lessons = module.querySelectorAll('.lesson-item');
+            const completedModuleLessons = completedLessons.filter(lesson => lesson.startsWith(`${moduleIndex}-`));
+            
+            const modulePercentage = lessons.length > 0 ? Math.round((completedModuleLessons.length / lessons.length) * 100) : 0;
+            
+            // Update module percentage display
+            const modulePercentageElement = module.querySelector('.module-percentage');
+            if (modulePercentageElement) {
+                modulePercentageElement.textContent = `${modulePercentage}%`;
+            }
+            
+            // Update module header color based on progress
+            if (modulePercentage === 100) {
+                module.querySelector('.module-header').style.borderLeft = '4px solid var(--primary)';
+            } else if (modulePercentage > 0) {
+                module.querySelector('.module-header').style.borderLeft = '4px solid var(--secondary)';
+            }
+        });
+    }
+    
+    // Update lesson status icons
+    function updateLessonStatusIcons(completedLessons) {
+        const lessons = document.querySelectorAll('.lesson-item');
+        
+        lessons.forEach((lesson) => {
+            const onclickAttr = lesson.getAttribute('onclick');
+            const lessonId = onclickAttr.match(/showLesson\('(.+)'\)/)[1];
+            const [modulePrefix, lessonNumber] = lessonId.split('-');
+            const moduleIndex = modulePrefix.replace('lesson', '');
+            const lessonIndex = lessonNumber;
+            
+            const lessonKey = `${moduleIndex}-${lessonIndex}`;
+            const statusIcon = document.getElementById(`status-${moduleIndex}-${lessonIndex}`);
+            
+            if (statusIcon) {
+                if (completedLessons.includes(lessonKey)) {
+                    statusIcon.className = 'fas fa-check-circle';
+                } else {
+                    statusIcon.className = 'far fa-circle';
+                }
+            }
+        });
+    }
+    
+    // Check quiz answers
+    function checkAnswer(button, lessonKey) {
+        const correctAnswer = button.getAttribute('data-correct');
+        const questionContainer = button.closest('.quiz-question');
+        const selectedOption = questionContainer.querySelector('input[name^="quiz"]:checked');
+        const feedbackContainer = questionContainer.querySelector('.quiz-feedback');
+        
+        if (!selectedOption) {
+            alert('Please select an answer before checking!');
+            return;
+        }
+        
+        feedbackContainer.style.display = 'block';
+        
+        if (selectedOption.value === correctAnswer) {
+            // Correct answer
+            feedbackContainer.querySelector('.correct-feedback').style.display = 'block';
+            feedbackContainer.querySelector('.incorrect-feedback').style.display = 'none';
+            
+            // Mark lesson as completed if not already completed
+            if (lessonKey) {
+                const completedLessons = getCompletedLessons();
+                if (!completedLessons.includes(lessonKey)) {
+                    completedLessons.push(lessonKey);
+                    localStorage.setItem('cipherlab-completed-lessons', JSON.stringify(completedLessons));
+                    
+                    // Update UI
+                    const statusIcon = document.getElementById(`status-${lessonKey}`);
+                    if (statusIcon) {
+                        statusIcon.className = 'fas fa-check-circle';
+                    }
+                    
+                    // Update progress
+                    updateProgress();
+                }
+            }
+        } else {
+            // Incorrect answer
+            feedbackContainer.querySelector('.correct-feedback').style.display = 'none';
+            feedbackContainer.querySelector('.incorrect-feedback').style.display = 'block';
+        }
+        
+        // Disable all options and the check button
+        questionContainer.querySelectorAll('input[name^="quiz"]').forEach(input => {
+            input.disabled = true;
+        });
+        button.disabled = true;
+    }
+    
+    // Start final quiz
+    function startFinalQuiz() {
+        // Hide modules view
+        document.querySelector('.learning-path-card').style.display = 'none';
+        
+        // Show quiz content
+        const lessonContentSection = document.getElementById('lesson-content-section');
+        lessonContentSection.style.display = 'block';
+        
+        // Set quiz content
+        document.getElementById('lesson-title').textContent = 'Final Certification Quiz';
+        document.getElementById('lesson-content').innerHTML = document.getElementById('final-quiz-content').innerHTML;
+        
+        // Hide navigation and complete buttons
+        document.getElementById('prev-lesson').style.display = 'none';
+        document.getElementById('next-lesson').style.display = 'none';
+        document.getElementById('complete-lesson').style.display = 'none';
+        
+        // Scroll to quiz
+        lessonContentSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Begin final quiz
+    function beginFinalQuiz() {
+        // Hide intro and show questions
+        document.querySelector('.final-quiz-intro').style.display = 'none';
+        document.querySelector('.final-quiz-questions').style.display = 'block';
+        
+        // Initialize timer
+        startQuizTimer();
+        
+        // Show first question
+        document.querySelector('[data-question="1"]').style.display = 'block';
+    }
+    
+    // Quiz timer
+    let quizTimerInterval;
+    let quizTimeRemaining = 15 * 60; // 15 minutes in seconds
+    
+    function startQuizTimer() {
+        const timerDisplay = document.getElementById('quiz-time');
+        
+        updateTimerDisplay();
+        
+        quizTimerInterval = setInterval(() => {
+            quizTimeRemaining--;
+            updateTimerDisplay();
+            
+            if (quizTimeRemaining <= 0) {
+                clearInterval(quizTimerInterval);
+                submitFinalQuiz(); // Auto-submit when time runs out
+            }
+        }, 1000);
+    }
+    
+    function updateTimerDisplay() {
+        const minutes = Math.floor(quizTimeRemaining / 60);
+        const seconds = quizTimeRemaining % 60;
+        
+        document.getElementById('quiz-time').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    // Question navigation
+    let currentQuestionNumber = 1;
+    const totalQuestions = 10;
+    
+    function navigateToPrevQuestion() {
+        if (currentQuestionNumber > 1) {
+            // Hide current question
+            document.querySelector(`[data-question="${currentQuestionNumber}"]`).style.display = 'none';
+            
+            // Show previous question
+            currentQuestionNumber--;
+            document.querySelector(`[data-question="${currentQuestionNumber}"]`).style.display = 'block';
+            
+            // Update question counter
+            document.getElementById('current-question-num').textContent = currentQuestionNumber;
+            
+            // Update buttons
+            updateQuizNavigationButtons();
+        }
+    }
+    
+    function navigateToNextQuestion() {
+        if (currentQuestionNumber < totalQuestions) {
+            // Hide current question
+            document.querySelector(`[data-question="${currentQuestionNumber}"]`).style.display = 'none';
+            
+            // Show next question
+            currentQuestionNumber++;
+            document.querySelector(`[data-question="${currentQuestionNumber}"]`).style.display = 'block';
+            
+            // Update question counter
+            document.getElementById('current-question-num').textContent = currentQuestionNumber;
+            
+            // Update buttons
+            updateQuizNavigationButtons();
+        }
+    }
+    
+    function updateQuizNavigationButtons() {
+        const prevButton = document.getElementById('prev-quiz-question');
+        const nextButton = document.getElementById('next-quiz-question');
+        const submitButton = document.getElementById('submit-quiz');
+        
+        // Update previous button
+        prevButton.disabled = currentQuestionNumber === 1;
+        
+        // Update next button and show/hide submit button
+        if (currentQuestionNumber === totalQuestions) {
+            nextButton.style.display = 'none';
+            submitButton.style.display = 'block';
+        } else {
+            nextButton.style.display = 'block';
+            submitButton.style.display = 'none';
+        }
+    }
+    
+    // Submit final quiz
+    function submitFinalQuiz() {
+        // Stop timer
+        clearInterval(quizTimerInterval);
+        
+        // Calculate score
+        const correctAnswers = [
+            'b', // Question 1
+            'c', // Question 2
+            'a', // Question 3
+            'b', // Question 4
+            'c', // Question 5
+            'c', // Question 6
+            'd', // Question 7
+            'd', // Question 8
+            'b', // Question 9
+            'a'  // Question 10
+        ];
+        
+        let score = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
+        
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selectedOption = document.querySelector(`input[name="final-q${i}"]:checked`);
+            
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswers[i-1]) {
+                    score += 10;
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            } else {
+                incorrectCount++;
+            }
+        }
+        
+        // Hide questions and show results
+        document.querySelector('.final-quiz-questions').style.display = 'none';
+        document.querySelector('.final-quiz-results').style.display = 'block';
+        
+        // Update results
+        document.getElementById('quiz-score-value').textContent = score;
+        document.getElementById('correct-answers-count').textContent = correctCount;
+        document.getElementById('incorrect-answers-count').textContent = incorrectCount;
+        document.getElementById('time-taken').textContent = formatTime(15 * 60 - quizTimeRemaining);
+        
+        // Update score circle
+        document.querySelector('.score-circle').style.background = 
+            `conic-gradient(var(--primary) 0%, var(--primary) ${score}%, var(--darker) ${score}%)`;
+        
+        // Show pass/fail badge
+        const passFail = document.getElementById('pass-fail-badge');
+        if (score >= 80) {
+            passFail.textContent = 'PASSED';
+            passFail.className = 'pass-fail-badge pass';
+            
+            // Show certificate
+            document.getElementById('certification-container').style.display = 'block';
+            
+            // Set certificate date
+            const today = new Date();
+            document.getElementById('certificate-date').textContent = 
+                today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        } else {
+            passFail.textContent = 'FAILED';
+            passFail.className = 'pass-fail-badge fail';
+            
+            // Hide certificate
+            document.getElementById('certification-container').style.display = 'none';
+        }
+        
+        // Generate answers review
+        generateAnswersReview(correctAnswers);
+    }
+    
+    // Generate answers review
+    function generateAnswersReview(correctAnswers) {
+        const reviewContainer = document.getElementById('answers-review-container');
+        reviewContainer.innerHTML = '';
+        
+        for (let i = 1; i <= totalQuestions; i++) {
+            const questionText = document.querySelector(`[data-question="${i}"] .question-title`).textContent;
+            const selectedOption = document.querySelector(`input[name="final-q${i}"]:checked`);
+            const selectedValue = selectedOption ? selectedOption.value : null;
+            const correctValue = correctAnswers[i-1];
+            
+            // Create review item
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
+            
+            // Question number and text
+            const questionHeader = document.createElement('div');
+            questionHeader.className = 'review-question';
+            questionHeader.innerHTML = `<span class="question-number">${i}.</span> ${questionText}`;
+            reviewItem.appendChild(questionHeader);
+            
+            // Status (correct/incorrect/unanswered)
+            const statusDiv = document.createElement('div');
+            
+            if (!selectedValue) {
+                statusDiv.className = 'review-status unanswered';
+                statusDiv.innerHTML = '<i class="fas fa-minus-circle"></i> Not Answered';
+            } else if (selectedValue === correctValue) {
+                statusDiv.className = 'review-status correct';
+                statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Correct';
+            } else {
+                statusDiv.className = 'review-status incorrect';
+                statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect';
+                
+                // Add correct answer
+                const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.className = 'correct-answer';
+                correctAnswerDiv.innerHTML = `<strong>Correct Answer:</strong> ${getAnswerText(i, correctValue)}`;
+                reviewItem.appendChild(correctAnswerDiv);
+            }
+            
+            reviewItem.appendChild(statusDiv);
+            
+            // Add to container
+            reviewContainer.appendChild(reviewItem);
+        }
+    }
+    
+    // Get answer text based on value
+    function getAnswerText(questionNumber, value) {
+        const question = document.querySelector(`[data-question="${questionNumber}"]`);
+        const option = question.querySelector(`input[value="${value}"]`).closest('.quiz-option');
+        return option.textContent.trim();
+    }
+    
+    // Format time from seconds to MM:SS
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+    
+    // Retake quiz
+    function retakeQuiz() {
+        // Reset current question number
+        currentQuestionNumber = 1;
+        
+        // Reset timer
+        quizTimeRemaining = 15 * 60;
+        
+        // Reset all radio buttons
+        for (let i = 1; i <= totalQuestions; i++) {
+            const radios = document.querySelectorAll(`input[name="final-q${i}"]`);
+            radios.forEach(radio => {
+                radio.checked = false;
+            });
+        }
+        
+        // Hide results and show intro
+        document.querySelector('.final-quiz-results').style.display = 'none';
+        document.querySelector('.final-quiz-intro').style.display = 'block';
+        document.querySelector('.final-quiz-questions').style.display = 'none';
+        
+        // Show first question and hide others
+        for (let i = 1; i <= totalQuestions; i++) {
+            const question = document.querySelector(`[data-question="${i}"]`);
+            question.style.display = i === 1 ? 'block' : 'none';
+        }
+        
+        // Reset navigation buttons
+        document.getElementById('prev-quiz-question').disabled = true;
+        document.getElementById('next-quiz-question').style.display = 'block';
+        document.getElementById('submit-quiz').style.display = 'none';
+        
+        // Update question counter
+        document.getElementById('current-question-num').textContent = 1;
+    }
+    
+    // Return to modules
+    function returnToModules() {
+        // Show modules view
+        document.querySelector('.learning-path-card').style.display = 'block';
+        
+        // Hide lesson content section
+        document.getElementById('lesson-content-section').style.display = 'none';
+        
+        // Reset current lesson data
+        currentModule = null;
+        currentLesson = null;
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+    
+    // Current module and lesson tracking
+    let currentModule = null;
+    let currentLesson = null;
+</script>---
 layout: layout.njk
 title: Learn Cryptography - CipherLab
 ---
@@ -160,6 +1198,69 @@ title: Learn Cryptography - CipherLab
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Module 5 -->
+                <div class="learning-module" id="module5">
+                    <div class="module-header" onclick="toggleModule('module5-content')">
+                        <div class="module-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="module-title">
+                            <h3>Module 5: Advanced Topics</h3>
+                            <p>Discover cutting-edge cryptographic concepts and future directions</p>
+                        </div>
+                        <div class="module-progress">
+                            <span class="module-percentage" id="module5-percentage">0%</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="module-content" id="module5-content">
+                        <div class="lessons-list">
+                            <div class="lesson-item" onclick="showLesson('lesson5-1')">
+                                <div class="lesson-title">Quantum Cryptography</div>
+                                <div class="lesson-status"><i class="far fa-circle" id="status-5-1"></i></div>
+                            </div>
+                            <div class="lesson-item" onclick="showLesson('lesson5-2')">
+                                <div class="lesson-title">Zero-Knowledge Proofs</div>
+                                <div class="lesson-status"><i class="far fa-circle" id="status-5-2"></i></div>
+                            </div>
+                            <div class="lesson-item" onclick="showLesson('lesson5-3')">
+                                <div class="lesson-title">Homomorphic Encryption</div>
+                                <div class="lesson-status"><i class="far fa-circle" id="status-5-3"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Final Quiz Section -->
+                <div class="final-quiz-container" id="final-quiz-section">
+                    <div class="final-quiz-card">
+                        <div class="final-quiz-header">
+                            <div class="quiz-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="quiz-info">
+                                <h3>Final Certification Quiz</h3>
+                                <p>Test your knowledge and earn your cryptography certification</p>
+                            </div>
+                            <div class="quiz-status">
+                                <span id="quiz-status-text">Locked</span>
+                                <i class="fas fa-lock" id="quiz-lock-icon"></i>
+                            </div>
+                        </div>
+                        <div class="final-quiz-footer">
+                            <div class="requirements">
+                                <p><i class="fas fa-info-circle"></i> Complete all modules to unlock the final quiz</p>
+                                <div class="progress-bar quiz-progress">
+                                    <div class="progress-value" id="quiz-progress-value" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <button id="start-final-quiz" class="final-quiz-button" disabled>
+                                <i class="fas fa-play"></i> Start Final Quiz
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1028,6 +2129,328 @@ title: Learn Cryptography - CipherLab
     </div>
     
     <!-- More lesson templates would be added here... -->
+
+    <!-- Final Quiz Content -->
+    <div id="final-quiz-content">
+        <div class="final-quiz-intro">
+            <h2 class="section-title">Cryptography Certification Quiz</h2>
+            <p class="mb-4">Congratulations on completing all the modules! This final quiz will test your understanding of cryptographic concepts across all areas you've studied. Answer all questions correctly to earn your CipherLab Cryptography certification.</p>
+            
+            <div class="quiz-instructions">
+                <h3><i class="fas fa-clipboard-list"></i> Instructions</h3>
+                <ul>
+                    <li>The quiz consists of 10 questions covering all modules</li>
+                    <li>You need to score at least 80% to pass and receive your certification</li>
+                    <li>You can retake the quiz if needed</li>
+                    <li>Read each question carefully before answering</li>
+                </ul>
+            </div>
+            
+            <div class="start-quiz-container">
+                <button id="begin-final-quiz" class="cta-button">
+                    <i class="fas fa-play-circle"></i> Begin Certification Quiz
+                </button>
+            </div>
+        </div>
+        
+        <div class="final-quiz-questions" style="display: none;">
+            <div class="quiz-progress-indicator">
+                <div class="question-counter">
+                    Question <span id="current-question-num">1</span> of <span id="total-questions-num">10</span>
+                </div>
+                <div class="quiz-timer">
+                    Time Remaining: <span id="quiz-time">15:00</span>
+                </div>
+            </div>
+            
+            <div id="quiz-questions-container">
+                <!-- Question 1 -->
+                <div class="quiz-question-container" data-question="1">
+                    <h3 class="question-title">What is the main purpose of cryptography?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q1" value="a"> To analyze large datasets
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q1" value="b"> To secure information and communications
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q1" value="c"> To improve computer processing speed
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q1" value="d"> To develop artificial intelligence
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="quiz-question-container" data-question="2" style="display: none;">
+                    <h3 class="question-title">Which of the following is NOT a type of cryptography?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q2" value="a"> Symmetric key cryptography
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q2" value="b"> Asymmetric key cryptography
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q2" value="c"> Bidirectional key cryptography
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q2" value="d"> Hash functions
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="quiz-question-container" data-question="3" style="display: none;">
+                    <h3 class="question-title">In the Caesar cipher with a shift of 3, how would the word "ZEBRA" be encrypted?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q3" value="a"> CHEUD
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q3" value="b"> WHEUV
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q3" value="c"> CEBUD
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q3" value="d"> CHFUD
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="quiz-question-container" data-question="4" style="display: none;">
+                    <h3 class="question-title">What key property differentiates asymmetric encryption from symmetric encryption?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q4" value="a"> Asymmetric encryption is always faster
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q4" value="b"> Asymmetric encryption uses different keys for encryption and decryption
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q4" value="c"> Asymmetric encryption can only encrypt text, not binary data
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q4" value="d"> Asymmetric encryption doesn't require any keys
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 5 -->
+                <div class="quiz-question-container" data-question="5" style="display: none;">
+                    <h3 class="question-title">Which of the following is NOT a property of secure hash functions?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q5" value="a"> Pre-image resistance
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q5" value="b"> Collision resistance
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q5" value="c"> Reversibility
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q5" value="d"> Second pre-image resistance
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 6 -->
+                <div class="quiz-question-container" data-question="6" style="display: none;">
+                    <h3 class="question-title">Which encryption standard has replaced DES as the recommended standard for government information?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q6" value="a"> RSA
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q6" value="b"> 3DES
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q6" value="c"> AES
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q6" value="d"> MD5
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 7 -->
+                <div class="quiz-question-container" data-question="7" style="display: none;">
+                    <h3 class="question-title">What is the primary weakness of the Caesar cipher?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q7" value="a"> It's too slow for modern computers
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q7" value="b"> It can only encrypt uppercase letters
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q7" value="c"> It has too many possible keys to try
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q7" value="d"> It has only 25 possible keys, making it vulnerable to brute force attacks
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 8 -->
+                <div class="quiz-question-container" data-question="8" style="display: none;">
+                    <h3 class="question-title">In public key cryptography, which key is used to encrypt a message?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q8" value="a"> The sender's private key
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q8" value="b"> The recipient's private key
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q8" value="c"> The sender's public key
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q8" value="d"> The recipient's public key
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 9 -->
+                <div class="quiz-question-container" data-question="9" style="display: none;">
+                    <h3 class="question-title">What cryptographic concept is being used when websites show a padlock icon in the browser address bar?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q9" value="a"> Caesar cipher
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q9" value="b"> SSL/TLS certificates
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q9" value="c"> Password hashing
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q9" value="d"> One-time pads
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 10 -->
+                <div class="quiz-question-container" data-question="10" style="display: none;">
+                    <h3 class="question-title">Which of the following technologies is being developed to counter the threat quantum computers pose to current cryptography?</h3>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q10" value="a"> Post-quantum cryptography
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q10" value="b"> Larger RSA keys
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q10" value="c"> More complex Caesar ciphers
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="final-q10" value="d"> Double encryption with AES
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-navigation">
+                <button id="prev-quiz-question" class="nav-button" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button id="next-quiz-question" class="nav-button">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+                <button id="submit-quiz" class="submit-quiz-button" style="display: none;">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+            </div>
+        </div>
+        
+        <div class="final-quiz-results" style="display: none;">
+            <div class="results-header">
+                <h2 class="section-title">Quiz Results</h2>
+                <div class="results-summary">
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <div class="score-value" id="quiz-score-value">0</div>
+                            <div class="score-percent">%</div>
+                        </div>
+                        <div class="pass-fail-badge" id="pass-fail-badge">Calculating...</div>
+                    </div>
+                    <div class="result-details">
+                        <div class="result-item">
+                            <div class="result-label">Total Questions:</div>
+                            <div class="result-value">10</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Correct Answers:</div>
+                            <div class="result-value" id="correct-answers-count">0</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Incorrect Answers:</div>
+                            <div class="result-value" id="incorrect-answers-count">0</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Time Taken:</div>
+                            <div class="result-value" id="time-taken">00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certification-container" id="certification-container" style="display: none;">
+                <div class="certificate">
+                    <div class="certificate-header">
+                        <div class="certificate-logo">CipherLab</div>
+                        <h2 class="certificate-title">Certificate of Completion</h2>
+                    </div>
+                    <div class="certificate-body">
+                        <p class="certificate-text">This certifies that</p>
+                        <p class="certificate-name" id="certificate-name">Crypto Enthusiast</p>
+                        <p class="certificate-text">has successfully completed the</p>
+                        <p class="certificate-course">Cryptography Fundamentals Course</p>
+                        <p class="certificate-date">Date: <span id="certificate-date"></span></p>
+                    </div>
+                    <div class="certificate-footer">
+                        <div class="certificate-signature">
+                            <div class="signature-line"></div>
+                            <p>CipherLab Instructor</p>
+                        </div>
+                        <div class="certificate-seal">
+                            <div class="seal-icon"><i class="fas fa-award"></i></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="certificate-actions">
+                    <button id="download-certificate" class="cta-button">
+                        <i class="fas fa-download"></i> Download Certificate
+                    </button>
+                    <button id="share-certificate" class="cta-button cta-button-alt">
+                        <i class="fas fa-share-alt"></i> Share Achievement
+                    </button>
+                </div>
+            </div>
+            
+            <div class="quiz-review-container">
+                <h3 class="review-title"><i class="fas fa-search"></i> Review Your Answers</h3>
+                <div id="answers-review-container">
+                    <!-- Review content will be dynamically generated -->
+                </div>
+                
+                <div class="quiz-actions">
+                    <button id="retake-quiz" class="cta-button cta-button-alt">
+                        <i class="fas fa-redo"></i> Retake Quiz
+                    </button>
+                    <button id="return-to-modules" class="cta-button">
+                        <i class="fas fa-home"></i> Return to Modules
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- CSS Styles -->
