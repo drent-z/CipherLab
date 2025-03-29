@@ -1,15 +1,1116 @@
 ---
 layout: layout.njk
+title: Cryptography Quiz - CipherLab
 ---
-
-{% block title %}Quiz{% endblock %}
-
-{% block content %}
-<div class="container">
-    <h1>Cybersecurity Quiz</h1>
-    <form method="POST">
-        <!-- Quiz questions go here -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<div class="quiz-hero">
+    <h1 class="glitch" data-text="Cryptography Challenge">
+        <span>Cryptography Challenge</span>
+        <span aria-hidden="true">Cryptography Challenge</span>
+        <span aria-hidden="true">Cryptography Challenge</span>
+    </h1>
+    <p class="mb-4 fade-in">Test your knowledge of encryption, ciphers, and cryptographic techniques</p>
 </div>
-{% endblock %}
+
+<section class="container section">
+    <div class="quiz-container fade-in">
+        <div class="quiz-header">
+            <div class="quiz-progress">
+                <div class="progress-stats">
+                    <span class="current-question">1</span>/<span class="total-questions">10</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-value" style="width: 10%;"></div>
+                </div>
+            </div>
+            
+            <div class="quiz-timer">
+                <i class="fas fa-clock"></i>
+                <span id="timer">00:00</span>
+            </div>
+            
+            <div class="quiz-score">
+                <i class="fas fa-star"></i>
+                <span id="score">0</span> pts
+            </div>
+        </div>
+        
+        <div class="quiz-body">
+            <div id="quiz-start-screen" class="quiz-start-screen">
+                <h2>Ready to test your cryptography knowledge?</h2>
+                <div class="quiz-info">
+                    <div class="quiz-info-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>10 Questions</span>
+                    </div>
+                    <div class="quiz-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>15 Minutes</span>
+                    </div>
+                    <div class="quiz-info-item">
+                        <i class="fas fa-star"></i>
+                        <span>100 Points</span>
+                    </div>
+                </div>
+                <p>This quiz will test your knowledge of both classical and modern cryptographic concepts. Are you up for the challenge?</p>
+                <div class="quiz-levels">
+                    <button class="quiz-level" data-level="beginner">
+                        <i class="fas fa-star"></i>
+                        <span>Beginner</span>
+                    </button>
+                    <button class="quiz-level" data-level="intermediate">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>Intermediate</span>
+                    </button>
+                    <button class="quiz-level" data-level="advanced">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>Advanced</span>
+                    </button>
+                </div>
+                <button id="start-quiz" class="cta-button">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+            </div>
+            
+            <div id="quiz-questions" class="quiz-questions" style="display: none;">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            
+            <div id="quiz-results" class="quiz-results" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <div class="results-score">
+                    <div class="score-circle">
+                        <span id="final-score">0</span>
+                        <span class="score-label">pts</span>
+                    </div>
+                </div>
+                <div class="results-details">
+                    <div class="result-item">
+                        <div class="result-label">Correct Answers:</div>
+                        <div class="result-value"><span id="correct-answers">0</span>/<span id="total-answered">0</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Accuracy:</div>
+                        <div class="result-value"><span id="accuracy">0</span>%</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Time Taken:</div>
+                        <div class="result-value"><span id="time-taken">00:00</span></div>
+                    </div>
+                </div>
+                
+                <div class="results-feedback">
+                    <h3>Performance Analysis:</h3>
+                    <p id="feedback-message">Great job! You have a solid understanding of cryptography basics.</p>
+                </div>
+                
+                <div class="results-badges">
+                    <div class="badge">
+                        <div class="badge-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="badge-title">Crypto Scholar</div>
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button id="review-answers" class="cta-button">
+                        <i class="fas fa-search"></i> Review Answers
+                    </button>
+                    <button id="retake-quiz" class="cta-button cta-button-alt">
+                        <i class="fas fa-redo"></i> Retake Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section" id="leaderboard-section" style="display: none;">
+    <h2 class="section-title text-center mb-5 fade-in">Leaderboard</h2>
+    
+    <div class="leaderboard-container fade-in">
+        <div class="leaderboard-header">
+            <div class="rank-column">Rank</div>
+            <div class="name-column">Name</div>
+            <div class="score-column">Score</div>
+            <div class="time-column">Time</div>
+            <div class="date-column">Date</div>
+        </div>
+        
+        <div class="leaderboard-body">
+            <!-- Leaderboard entries will be dynamically inserted here -->
+        </div>
+    </div>
+</section>
+
+<!-- Additional CSS for this page -->
+<style>
+    .quiz-hero {
+        min-height: 40vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .quiz-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        z-index: -1;
+    }
+    
+    .quiz-container {
+        background-color: var(--medium-dark);
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        margin-bottom: 4rem;
+    }
+    
+    .quiz-header {
+        background-color: var(--darker);
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .quiz-progress {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+    }
+    
+    .progress-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+        height: 6px;
+        background-color: var(--dark);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    
+    .progress-value {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+        transition: width 0.5s ease;
+    }
+    
+    .quiz-timer, .quiz-score {
+        background-color: var(--dark);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+    }
+    
+    .quiz-timer i, .quiz-score i {
+        color: var(--primary);
+    }
+    
+    .quiz-body {
+        padding: 2rem;
+    }
+    
+    .quiz-start-screen {
+        text-align: center;
+    }
+    
+    .quiz-start-screen h2 {
+        margin-bottom: 2rem;
+    }
+    
+    .quiz-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .quiz-info-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .quiz-info-item i {
+        font-size: 2rem;
+        color: var(--primary);
+    }
+    
+    .quiz-levels {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .quiz-level {
+        background-color: var(--darker);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 1rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .quiz-level i {
+        color: var(--primary);
+    }
+    
+    .quiz-level:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+    
+    .quiz-level.selected {
+        background-color: var(--primary-dark);
+        border-color: var(--primary);
+        color: var(--dark);
+    }
+    
+    .quiz-level.selected i {
+        color: var(--dark);
+    }
+    
+    .quiz-question {
+        margin-bottom: 2rem;
+    }
+    
+    .question-header {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 4px 4px 0 0;
+        border: 1px solid var(--primary-dark);
+        border-bottom: none;
+    }
+    
+    .question-category {
+        display: inline-block;
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        padding: 0.3rem 0.8rem;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .question-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    
+    .question-options {
+        background-color: var(--dark);
+        padding: 1rem;
+        border-radius: 0 0 4px 4px;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .option {
+        background-color: var(--medium-dark);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid var(--dark);
+    }
+    
+    .option:last-child {
+        margin-bottom: 0;
+    }
+    
+    .option:hover {
+        background-color: var(--light-dark);
+        border-color: var(--primary-dark);
+    }
+    
+    .option.selected {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border-color: var(--primary);
+    }
+    
+    .option.correct {
+        background-color: rgba(39, 201, 63, 0.2);
+        border-color: #27c93f;
+    }
+    
+    .option.incorrect {
+        background-color: rgba(255, 62, 62, 0.2);
+        border-color: #ff3e3e;
+    }
+    
+    .question-explanation {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: var(--darker);
+        border-radius: 4px;
+        border-left: 3px solid var(--primary);
+    }
+    
+    .question-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+    
+    .quiz-results {
+        text-align: center;
+    }
+    
+    .results-score {
+        margin: 2rem 0;
+    }
+    
+    .score-circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    }
+    
+    #final-score {
+        font-size: 3rem;
+        font-weight: bold;
+        color: var(--dark);
+    }
+    
+    .score-label {
+        color: var(--dark);
+        font-size: 1.2rem;
+    }
+    
+    .results-details {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .result-item {
+        text-align: center;
+    }
+    
+    .result-label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+    
+    .result-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .results-feedback {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    
+    .results-badges {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .badge {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .badge-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+    
+    .badge-title {
+        font-weight: 600;
+    }
+    
+    .results-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .leaderboard-container {
+        background-color: var(--medium-dark);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .leaderboard-header {
+        background-color: var(--darker);
+        padding: 1rem 1.5rem;
+        display: flex;
+        font-weight: 600;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .leaderboard-body {
+        padding: 0.5rem 0;
+    }
+    
+    .leaderboard-row {
+        display: flex;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+        transition: all 0.3s ease;
+    }
+    
+    .leaderboard-row:hover {
+        background-color: var(--light-dark);
+    }
+    
+    .leaderboard-row:last-child {
+        border-bottom: none;
+    }
+    
+    .leaderboard-row.current-user {
+        background-color: rgba(0, 255, 65, 0.1);
+        border-left: 3px solid var(--primary);
+    }
+    
+    .rank-column {
+        width: 10%;
+    }
+    
+    .name-column {
+        width: 40%;
+    }
+    
+    .score-column {
+        width: 15%;
+    }
+    
+    .time-column {
+        width: 15%;
+    }
+    
+    .date-column {
+        width: 20%;
+    }
+    
+    @media (max-width: 768px) {
+        .quiz-header {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .quiz-progress {
+            width: 100%;
+        }
+        
+        .quiz-info {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .quiz-levels {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .results-details {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .results-actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .leaderboard-header, .leaderboard-row {
+            font-size: 0.8rem;
+        }
+        
+        .rank-column {
+            width: 15%;
+        }
+        
+        .name-column {
+            width: 30%;
+        }
+        
+        .score-column {
+            width: 15%;
+        }
+        
+        .time-column {
+            width: 15%;
+        }
+        
+        .date-column {
+            width: 25%;
+        }
+    }
+</style>
+
+<!-- Additional JavaScript for quiz functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Quiz data
+        const quizData = {
+            beginner: [
+                {
+                    category: "Classical Ciphers",
+                    question: "Which of these is NOT a classical cipher?",
+                    options: [
+                        "Caesar Cipher",
+                        "Vigenère Cipher",
+                        "AES Cipher",
+                        "Substitution Cipher"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "AES (Advanced Encryption Standard) is a modern symmetric encryption algorithm, not a classical cipher. Classical ciphers include Caesar, Vigenère, and substitution ciphers."
+                },
+                {
+                    category: "Encryption Basics",
+                    question: "What is the key characteristic of symmetric encryption?",
+                    options: [
+                        "It uses two different keys for encryption and decryption",
+                        "It uses the same key for encryption and decryption",
+                        "It doesn't require any keys",
+                        "It can only encrypt text, not binary data"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Symmetric encryption uses the same key for both encryption and decryption. This means both the sender and recipient must have access to the same secret key."
+                },
+                {
+                    category: "Historical Context",
+                    question: "Which ancient civilization is credited with inventing the first known cipher device?",
+                    options: [
+                        "Ancient Egypt",
+                        "Ancient Greece",
+                        "Sparta",
+                        "Ancient Rome"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The Spartans invented the scytale, a cylinder-shaped device used to decrypt messages written on parchment that was wrapped around it. This is considered one of the first cipher devices."
+                },
+                {
+                    category: "Caesar Cipher",
+                    question: "In a Caesar cipher with a shift of 3, how would the letter 'Z' be encrypted?",
+                    options: [
+                        "C",
+                        "W",
+                        "A",
+                        "X"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "In a Caesar cipher, each letter is shifted a certain number of positions in the alphabet. With a shift of 3, 'Z' wraps around to become 'C' (Z→A→B→C)."
+                },
+                {
+                    category: "Cryptography Basics",
+                    question: "What is the primary purpose of cryptography?",
+                    options: [
+                        "Making data faster to transmit",
+                        "Compressing data to save space",
+                        "Securing communication by making it unreadable to unauthorized parties",
+                        "Creating artistic patterns from data"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "The primary purpose of cryptography is to secure communication from unauthorized access by converting readable information into an unreadable format."
+                }
+            ],
+            intermediate: [
+                {
+                    category: "Hash Functions",
+                    question: "Which of the following is NOT a property of a secure cryptographic hash function?",
+                    options: [
+                        "Deterministic output",
+                        "Reversibility",
+                        "Avalanche effect",
+                        "Collision resistance"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Secure hash functions are one-way functions that cannot be reversed. The other options are all important properties of secure hash functions."
+                },
+                {
+                    category: "Public Key Cryptography",
+                    question: "In RSA encryption, which of these keys is used to encrypt a message?",
+                    options: [
+                        "Private key of the sender",
+                        "Private key of the recipient",
+                        "Public key of the sender",
+                        "Public key of the recipient"
+                    ],
+                    correctAnswer: 3,
+                    explanation: "In RSA, messages are encrypted using the recipient's public key, and can only be decrypted using the recipient's private key."
+                },
+                {
+                    category: "Digital Signatures",
+                    question: "What is the main purpose of a digital signature?",
+                    options: [
+                        "To encrypt the message content",
+                        "To compress the message for faster transmission",
+                        "To verify the identity of the sender and ensure message integrity",
+                        "To timestamp when a message was sent"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Digital signatures are primarily used to verify the identity of the sender (authentication) and ensure that the message has not been altered (integrity)."
+                },
+                {
+                    category: "Vigenère Cipher",
+                    question: "What is the key weakness of the Vigenère cipher that led to its eventual break?",
+                    options: [
+                        "The small key space",
+                        "The repeating nature of the key",
+                        "The vulnerability to brute force attacks",
+                        "The requirement for a shared secret"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "The Vigenère cipher's weakness is the repeating nature of its key. This repetition creates patterns that can be analyzed using techniques like the Kasiski examination to determine the key length."
+                },
+                {
+                    category: "Modern Cryptography",
+                    question: "Which encryption algorithm is currently recommended by NIST for sensitive government information?",
+                    options: [
+                        "DES (Data Encryption Standard)",
+                        "3DES (Triple DES)",
+                        "AES (Advanced Encryption Standard)",
+                        "RC4"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "AES (Advanced Encryption Standard) was selected by NIST in 2001 as the standard for encrypting sensitive government information, replacing the older DES algorithm."
+                }
+            ],
+            advanced: [
+                {
+                    category: "Quantum Cryptography",
+                    question: "Which of the following encryption algorithms is considered quantum-resistant?",
+                    options: [
+                        "RSA",
+                        "ECC (Elliptic Curve Cryptography)",
+                        "Lattice-based cryptography",
+                        "Diffie-Hellman key exchange"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Lattice-based cryptography is considered quantum-resistant because it relies on mathematical problems that quantum computers cannot easily solve, unlike RSA and ECC which are vulnerable to Shor's algorithm."
+                },
+                {
+                    category: "Zero-Knowledge Proofs",
+                    question: "What is the main principle of a zero-knowledge proof?",
+                    options: [
+                        "Proving knowledge of a secret without revealing any information about the secret itself",
+                        "Encrypting data so that it can be verified without being decrypted",
+                        "Using quantum entanglement to transmit encryption keys",
+                        "Creating mathematical functions that can only be computed in one direction"
+                    ],
+                    correctAnswer: 0,
+                    explanation: "Zero-knowledge proofs allow one party to prove to another that they know a value or secret without revealing any information about the secret itself."
+                },
+                {
+                    category: "Blockchain Cryptography",
+                    question: "Which cryptographic algorithm does Bitcoin use for its digital signatures?",
+                    options: [
+                        "RSA",
+                        "ECDSA (Elliptic Curve Digital Signature Algorithm)",
+                        "DSA (Digital Signature Algorithm)",
+                        "Ed25519"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Bitcoin uses ECDSA (Elliptic Curve Digital Signature Algorithm) with the secp256k1 curve for its digital signatures in transactions."
+                },
+                {
+                    category: "Homomorphic Encryption",
+                    question: "What makes homomorphic encryption special compared to traditional encryption?",
+                    options: [
+                        "It's faster than traditional encryption",
+                        "It uses quantum mechanics principles",
+                        "It allows computations on encrypted data without decryption",
+                        "It can encrypt larger amounts of data"
+                    ],
+                    correctAnswer: 2,
+                    explanation: "Homomorphic encryption allows computations to be performed on encrypted data without decrypting it first, which enables secure processing of sensitive data in untrusted environments."
+                },
+                {
+                    category: "Secure Multi-party Computation",
+                    question: "In secure multi-party computation, what is the main goal?",
+                    options: [
+                        "To encrypt data so only authorized parties can access it",
+                        "To compute a function across multiple inputs while keeping each input private",
+                        "To validate digital signatures from multiple parties",
+                        "To ensure all parties have the same encryption keys"
+                    ],
+                    correctAnswer: 1,
+                    explanation: "Secure multi-party computation allows multiple parties to jointly compute a function over their inputs while keeping those inputs private, with no party learning anything beyond what can be inferred from their own input and the result."
+                }
+            ]
+        };
+        
+        // Quiz variables
+        let currentLevel = 'beginner';
+        let currentQuestion = 0;
+        let score = 0;
+        let correctAnswers = 0;
+        let quizStarted = false;
+        let quizCompleted = false;
+        let timer;
+        let seconds = 0;
+        let selectedAnswers = [];
+        let questions = [];
+        
+        // DOM elements
+        const startScreen = document.getElementById('quiz-start-screen');
+        const questionsScreen = document.getElementById('quiz-questions');
+        const resultsScreen = document.getElementById('quiz-results');
+        const leaderboardSection = document.getElementById('leaderboard-section');
+        const levelButtons = document.querySelectorAll('.quiz-level');
+        const startQuizButton = document.getElementById('start-quiz');
+        const timerElement = document.getElementById('timer');
+        const scoreElement = document.getElementById('score');
+        const currentQuestionElement = document.querySelector('.current-question');
+        const totalQuestionsElement = document.querySelector('.total-questions');
+        const progressValueElement = document.querySelector('.progress-value');
+        
+        // Results elements
+        const finalScoreElement = document.getElementById('final-score');
+        const correctAnswersElement = document.getElementById('correct-answers');
+        const totalAnsweredElement = document.getElementById('total-answered');
+        const accuracyElement = document.getElementById('accuracy');
+        const timeTakenElement = document.getElementById('time-taken');
+        const feedbackMessageElement = document.getElementById('feedback-message');
+        const reviewAnswersButton = document.getElementById('review-answers');
+        const retakeQuizButton = document.getElementById('retake-quiz');
+        
+        // Level selection
+        levelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                levelButtons.forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                currentLevel = this.getAttribute('data-level');
+            });
+        });
+        
+        // Initialize quiz
+        function initQuiz() {
+            // Select questions based on level
+            questions = [...quizData[currentLevel]];
+            
+            // Reset variables
+            currentQuestion = 0;
+            score = 0;
+            correctAnswers = 0;
+            seconds = 0;
+            selectedAnswers = Array(questions.length).fill(-1);
+            
+            // Update UI elements
+            totalQuestionsElement.textContent = questions.length;
+            currentQuestionElement.textContent = currentQuestion + 1;
+            scoreElement.textContent = score;
+            progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // Start timer
+            startTimer();
+            
+            // Show first question
+            showQuestion();
+        }
+        
+        // Timer function
+        function startTimer() {
+            timer = setInterval(function() {
+                seconds++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+        
+        // Show question
+        function showQuestion() {
+            if (currentQuestion >= questions.length) {
+                endQuiz();
+                return;
+            }
+            
+            const questionData = questions[currentQuestion];
+            
+            // Create question element
+            questionsScreen.innerHTML = `
+                <div class="quiz-question" id="question-${currentQuestion}">
+                    <div class="question-header">
+                        <div class="question-category">${questionData.category}</div>
+                        <div class="question-text">${questionData.question}</div>
+                    </div>
+                    <div class="question-options">
+                        ${questionData.options.map((option, index) => `
+                            <div class="option ${selectedAnswers[currentQuestion] === index ? 'selected' : ''}" data-index="${index}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ${selectedAnswers[currentQuestion] !== -1 ? `
+                        <div class="question-explanation">
+                            <strong>${selectedAnswers[currentQuestion] === questionData.correctAnswer ? 'Correct!' : 'Incorrect!'}</strong> ${questionData.explanation}
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="question-navigation">
+                    ${currentQuestion > 0 ? `
+                        <button class="cta-button cta-button-alt" id="prev-question">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                    ` : `<div></div>`}
+                    ${selectedAnswers[currentQuestion] !== -1 ? `
+                        <button class="cta-button" id="next-question">
+                            ${currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'} <i class="fas fa-arrow-right"></i>
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+            
+            // Add event listeners to options
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (selectedAnswers[currentQuestion] !== -1) return; // Already answered
+                    
+                    const selectedIndex = parseInt(this.getAttribute('data-index'));
+                    selectAnswer(selectedIndex);
+                });
+            });
+            
+            // Add event listeners to navigation buttons
+            const prevButton = document.getElementById('prev-question');
+            const nextButton = document.getElementById('next-question');
+            
+            if (prevButton) {
+                prevButton.addEventListener('click', function() {
+                    currentQuestion--;
+                    currentQuestionElement.textContent = currentQuestion + 1;
+                    progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+                    showQuestion();
+                });
+            }
+            
+            if (nextButton) {
+                nextButton.addEventListener('click', function() {
+                    if (currentQuestion === questions.length - 1) {
+                        endQuiz();
+                    } else {
+                        currentQuestion++;
+                        currentQuestionElement.textContent = currentQuestion + 1;
+                        progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+                        showQuestion();
+                    }
+                });
+            }
+        }
+        
+        // Select answer
+        function selectAnswer(selectedIndex) {
+            const questionData = questions[currentQuestion];
+            const isCorrect = selectedIndex === questionData.correctAnswer;
+            
+            // Update selected answers array
+            selectedAnswers[currentQuestion] = selectedIndex;
+            
+            // Update score
+            if (isCorrect) {
+                score += 10;
+                correctAnswers++;
+                scoreElement.textContent = score;
+            }
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('selected');
+                if (index === selectedIndex) {
+                    option.classList.add('selected');
+                    option.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+                if (index === questionData.correctAnswer && !isCorrect) {
+                    option.classList.add('correct');
+                }
+            });
+            
+            // Add explanation
+            const questionElement = document.getElementById(`question-${currentQuestion}`);
+            const explanationDiv = document.createElement('div');
+            explanationDiv.classList.add('question-explanation');
+            explanationDiv.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Incorrect!'}</strong> ${questionData.explanation}`;
+            
+            if (!questionElement.querySelector('.question-explanation')) {
+                questionElement.querySelector('.question-options').after(explanationDiv);
+            }
+            
+            // Add next button if not already present
+            if (!document.getElementById('next-question')) {
+                const navigationDiv = document.querySelector('.question-navigation');
+                const nextButton = document.createElement('button');
+                nextButton.classList.add('cta-button');
+                nextButton.id = 'next-question';
+                nextButton.innerHTML = `${currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'} <i class="fas fa-arrow-right"></i>`;
+                
+                nextButton.addEventListener('click', function() {
+                    if (currentQuestion === questions.length - 1) {
+                        endQuiz();
+                    } else {
+                        currentQuestion++;
+                        currentQuestionElement.textContent = currentQuestion + 1;
+                        progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+                        showQuestion();
+                    }
+                });
+                
+                navigationDiv.appendChild(nextButton);
+            }
+        }
+        
+        // End quiz
+        function endQuiz() {
+            clearInterval(timer);
+            quizCompleted = true;
+            
+            // Calculate results
+            const totalAnswered = selectedAnswers.filter(answer => answer !== -1).length;
+            const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
+            
+            // Update results screen
+            finalScoreElement.textContent = score;
+            correctAnswersElement.textContent = correctAnswers;
+            totalAnsweredElement.textContent = totalAnswered;
+            accuracyElement.textContent = accuracy;
+            timeTakenElement.textContent = timerElement.textContent;
+            
+            // Set feedback message based on score
+            if (score >= 40) {
+                feedbackMessageElement.textContent = 'Outstanding! You have an excellent grasp of cryptographic concepts.';
+            } else if (score >= 30) {
+                feedbackMessageElement.textContent = 'Great job! You have a solid understanding of cryptography fundamentals.';
+            } else if (score >= 20) {
+                feedbackMessageElement.textContent = 'Good effort! You're on your way to understanding cryptography.';
+            } else {
+                feedbackMessageElement.textContent = 'Keep studying! Cryptography can be challenging, but you'll improve with practice.';
+            }
+            
+            // Show results screen and leaderboard
+            questionsScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
+            leaderboardSection.style.display = 'block';
+            
+            // Simulate leaderboard entries
+            populateLeaderboard();
+        }
+        
+        // Populate leaderboard with simulated data
+        function populateLeaderboard() {
+            const leaderboardBody = document.querySelector('.leaderboard-body');
+            
+            // Generate some fake entries plus the current user
+            const entries = [
+                { rank: 1, name: 'CryptoMaster', score: 50, time: '04:32', date: '2025-03-25' },
+                { rank: 2, name: 'AliceSecure', score: 45, time: '06:15', date: '2025-03-24' },
+                { rank: 3, name: 'BobPrivate', score: 40, time: '05:40', date: '2025-03-22' },
+                { rank: 4, name: 'Enigma2025', score: 35, time: '07:12', date: '2025-03-20' },
+                // Current user will be inserted based on score
+            ];
+            
+            // Add current user
+            let userRank = entries.findIndex(entry => entry.score < score) + 1;
+            if (userRank === 0) userRank = entries.length + 1;
+            
+            entries.splice(userRank - 1, 0, {
+                rank: userRank,
+                name: 'You',
+                score: score,
+                time: timerElement.textContent,
+                date: '2025-03-29' // Current date
+            });
+            
+            // Rerank entries
+            entries.forEach((entry, index) => {
+                entry.rank = index + 1;
+            });
+            
+            // Generate HTML
+            leaderboardBody.innerHTML = entries.map(entry => `
+                <div class="leaderboard-row ${entry.name === 'You' ? 'current-user' : ''}">
+                    <div class="rank-column">${entry.rank}</div>
+                    <div class="name-column">${entry.name}</div>
+                    <div class="score-column">${entry.score}</div>
+                    <div class="time-column">${entry.time}</div>
+                    <div class="date-column">${entry.date}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Event listeners
+        startQuizButton.addEventListener('click', function() {
+            startScreen.style.display = 'none';
+            questionsScreen.style.display = 'block';
+            quizStarted = true;
+            initQuiz();
+        });
+        
+        retakeQuizButton.addEventListener('click', function() {
+            resultsScreen.style.display = 'none';
+            startScreen.style.display = 'block';
+            leaderboardSection.style.display = 'none';
+            quizCompleted = false;
+        });
+        
+        reviewAnswersButton.addEventListener('click', function() {
+            resultsScreen.style.display = 'none';
+            questionsScreen.style.display = 'block';
+            currentQuestion = 0;
+            currentQuestionElement.textContent = currentQuestion + 1;
+            progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            showQuestion();
+        });
+        
+        // Initialize with beginner level selected
+        levelButtons[0].classList.add('selected');
+    });
+</script>

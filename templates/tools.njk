@@ -1,0 +1,1581 @@
+---
+layout: layout.njk
+title: Interactive Crypto Tools - CipherLab
+---
+<div class="tools-hero">
+    <h1 class="glitch" data-text="Interactive Tools">
+        <span>Interactive Tools</span>
+        <span aria-hidden="true">Interactive Tools</span>
+        <span aria-hidden="true">Interactive Tools</span>
+    </h1>
+    <p class="mb-4 fade-in">Experiment with encryption and decryption in real-time</p>
+</div>
+
+<section class="container section">
+    <div class="tool-selector fade-in">
+        <div class="tool-tabs">
+            <button class="tool-tab active" data-tool="text-encoder">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Text Encoder</span>
+            </button>
+            <button class="tool-tab" data-tool="caesar-cipher">
+                <i class="fas fa-key"></i>
+                <span>Caesar Cipher</span>
+            </button>
+            <button class="tool-tab" data-tool="vigenere-cipher">
+                <i class="fas fa-lock"></i>
+                <span>Vigenère Cipher</span>
+            </button>
+            <button class="tool-tab" data-tool="hash-generator">
+                <i class="fas fa-fingerprint"></i>
+                <span>Hash Generator</span>
+            </button>
+            <button class="tool-tab" data-tool="password-generator">
+                <i class="fas fa-shield-alt"></i>
+                <span>Password Generator</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="tool-container fade-in">
+        <!-- Text Encoder Tool -->
+        <div class="tool-content active" id="text-encoder-tool">
+            <div class="tool-header">
+                <h2><i class="fas fa-exchange-alt"></i> Text Encoder</h2>
+                <p>Convert text between different formats including Base64, Binary, Hex, and URL encoding.</p>
+            </div>
+            
+            <div class="tool-interface">
+                <div class="form-group">
+                    <label for="encoder-input">Input Text:</label>
+                    <textarea id="encoder-input" class="form-control" rows="5" placeholder="Enter text to encode or decode"></textarea>
+                </div>
+                
+                <div class="encoder-options">
+                    <div class="encoder-mode">
+                        <label>Mode:</label>
+                        <div class="radio-options">
+                            <label class="radio-option">
+                                <input type="radio" name="encoder-direction" value="encode" checked>
+                                <span>Encode</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="encoder-direction" value="decode">
+                                <span>Decode</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="encoder-type">
+                        <label>Encoding Type:</label>
+                        <select id="encoder-type" class="form-control">
+                            <option value="base64">Base64</option>
+                            <option value="binary">Binary</option>
+                            <option value="hex">Hexadecimal</option>
+                            <option value="url">URL Encoding</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="encoder-convert" class="tool-button">
+                        <i class="fas fa-cog"></i> Convert
+                    </button>
+                    <button id="encoder-copy" class="tool-button tool-button-alt">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                    <button id="encoder-clear" class="tool-button tool-button-alt">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="encoder-output">Result:</label>
+                    <div class="output-container">
+                        <div class="code-block" data-language="output">
+                            <pre id="encoder-output">The converted text will appear here...</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Caesar Cipher Tool -->
+        <div class="tool-content" id="caesar-cipher-tool">
+            <div class="tool-header">
+                <h2><i class="fas fa-key"></i> Caesar Cipher</h2>
+                <p>Encrypt or decrypt text using a simple shift cipher, where each letter is replaced by a letter some fixed number of positions down the alphabet.</p>
+            </div>
+            
+            <div class="tool-interface">
+                <div class="form-group">
+                    <label for="caesar-input">Input Text:</label>
+                    <textarea id="caesar-input" class="form-control" rows="5" placeholder="Enter text to encrypt or decrypt"></textarea>
+                </div>
+                
+                <div class="caesar-options">
+                    <div class="caesar-mode">
+                        <label>Mode:</label>
+                        <div class="radio-options">
+                            <label class="radio-option">
+                                <input type="radio" name="caesar-direction" value="encrypt" checked>
+                                <span>Encrypt</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="caesar-direction" value="decrypt">
+                                <span>Decrypt</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="caesar-shift">
+                        <label for="caesar-shift-value">Shift Value (1-25):</label>
+                        <div class="shift-control">
+                            <input type="range" id="caesar-shift-value" min="1" max="25" value="3" class="slider">
+                            <span id="shift-display">3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="caesar-convert" class="tool-button">
+                        <i class="fas fa-cog"></i> Apply Cipher
+                    </button>
+                    <button id="caesar-copy" class="tool-button tool-button-alt">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                    <button id="caesar-clear" class="tool-button tool-button-alt">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="caesar-output">Result:</label>
+                    <div class="output-container">
+                        <div class="code-block" data-language="output">
+                            <pre id="caesar-output">The encrypted/decrypted text will appear here...</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cipher-visualization mt-4">
+                    <h3><i class="fas fa-chart-bar"></i> Frequency Analysis</h3>
+                    <p>Character frequency can be used to crack simple substitution ciphers:</p>
+                    <div class="frequency-chart" id="caesar-frequency-chart">
+                        <!-- Frequency bars will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vigenère Cipher Tool -->
+        <div class="tool-content" id="vigenere-cipher-tool">
+            <div class="tool-header">
+                <h2><i class="fas fa-lock"></i> Vigenère Cipher</h2>
+                <p>A method of encrypting alphabetic text by using a simple form of polyalphabetic substitution based on a keyword.</p>
+            </div>
+            
+            <div class="tool-interface">
+                <div class="form-group">
+                    <label for="vigenere-input">Input Text:</label>
+                    <textarea id="vigenere-input" class="form-control" rows="5" placeholder="Enter text to encrypt or decrypt"></textarea>
+                </div>
+                
+                <div class="vigenere-options">
+                    <div class="vigenere-mode">
+                        <label>Mode:</label>
+                        <div class="radio-options">
+                            <label class="radio-option">
+                                <input type="radio" name="vigenere-direction" value="encrypt" checked>
+                                <span>Encrypt</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="vigenere-direction" value="decrypt">
+                                <span>Decrypt</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="vigenere-key">
+                        <label for="vigenere-key-value">Encryption Key:</label>
+                        <input type="text" id="vigenere-key-value" class="form-control" placeholder="Enter key (letters only)" value="CIPHER">
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="vigenere-convert" class="tool-button">
+                        <i class="fas fa-cog"></i> Apply Cipher
+                    </button>
+                    <button id="vigenere-copy" class="tool-button tool-button-alt">
+                        <i class="fas fa-copy"></i> Copy Result
+                    </button>
+                    <button id="vigenere-clear" class="tool-button tool-button-alt">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="vigenere-output">Result:</label>
+                    <div class="output-container">
+                        <div class="code-block" data-language="output">
+                            <pre id="vigenere-output">The encrypted/decrypted text will appear here...</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vigenere-table-container mt-4">
+                    <h3><i class="fas fa-table"></i> Vigenère Square</h3>
+                    <p>The tabula recta used for encryption and decryption:</p>
+                    <div class="vigenere-table" id="vigenere-table">
+                        <!-- The Vigenère square will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hash Generator Tool -->
+        <div class="tool-content" id="hash-generator-tool">
+            <div class="tool-header">
+                <h2><i class="fas fa-fingerprint"></i> Hash Generator</h2>
+                <p>Generate cryptographic hash values using various algorithms including MD5, SHA-1, SHA-256, and SHA-512.</p>
+            </div>
+            
+            <div class="tool-interface">
+                <div class="form-group">
+                    <label for="hash-input">Input Text:</label>
+                    <textarea id="hash-input" class="form-control" rows="5" placeholder="Enter text to hash"></textarea>
+                </div>
+                
+                <div class="hash-options">
+                    <label>Hash Algorithm:</label>
+                    <div class="hash-algorithms">
+                        <button class="hash-algorithm active" data-algorithm="md5">MD5</button>
+                        <button class="hash-algorithm" data-algorithm="sha1">SHA-1</button>
+                        <button class="hash-algorithm" data-algorithm="sha256">SHA-256</button>
+                        <button class="hash-algorithm" data-algorithm="sha512">SHA-512</button>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="hash-generate" class="tool-button">
+                        <i class="fas fa-cog"></i> Generate Hash
+                    </button>
+                    <button id="hash-copy" class="tool-button tool-button-alt">
+                        <i class="fas fa-copy"></i> Copy Hash
+                    </button>
+                    <button id="hash-clear" class="tool-button tool-button-alt">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                </div>
+                
+                <div class="form-group mt-4">
+                    <label for="hash-output">Hash Value:</label>
+                    <div class="output-container">
+                        <div class="code-block" data-language="output">
+                            <pre id="hash-output">The hash value will appear here...</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hash-info mt-4">
+                    <h3><i class="fas fa-info-circle"></i> Hash Information</h3>
+                    <div class="hash-details">
+                        <div class="hash-detail">
+                            <div class="detail-label">Algorithm:</div>
+                            <div class="detail-value" id="hash-algorithm-info">MD5</div>
+                        </div>
+                        <div class="hash-detail">
+                            <div class="detail-label">Digest Size:</div>
+                            <div class="detail-value" id="hash-size-info">128 bits (16 bytes)</div>
+                        </div>
+                        <div class="hash-detail">
+                            <div class="detail-label">Security Status:</div>
+                            <div class="detail-value" id="hash-security-info">
+                                <span class="security-warning">Insecure</span> - MD5 is cryptographically broken and unsuitable for further use
+                            </div>
+                        </div>
+                        <div class="hash-detail">
+                            <div class="detail-label">Common Uses:</div>
+                            <div class="detail-value" id="hash-uses-info">Checksums, file identification (not for security purposes)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Password Generator Tool -->
+        <div class="tool-content" id="password-generator-tool">
+            <div class="tool-header">
+                <h2><i class="fas fa-shield-alt"></i> Password Generator</h2>
+                <p>Create strong, random passwords with customizable parameters for maximum security.</p>
+            </div>
+            
+            <div class="tool-interface">
+                <div class="password-output-container">
+                    <div class="password-display" id="password-display">P4$$w0rd</div>
+                    <button id="password-copy" class="password-copy-btn">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                
+                <div class="password-strength">
+                    <div class="strength-label">Password Strength:</div>
+                    <div class="strength-meter">
+                        <div class="strength-value" id="strength-value"></div>
+                    </div>
+                    <div class="strength-text" id="strength-text">Medium</div>
+                </div>
+                
+                <div class="password-options">
+                    <div class="option-group">
+                        <label for="password-length">Password Length:</label>
+                        <div class="length-control">
+                            <input type="range" id="password-length" min="8" max="64" value="16" class="slider">
+                            <span id="length-display">16</span>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label>Character Types:</label>
+                        <div class="checkbox-options">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="include-uppercase" checked>
+                                <span>Uppercase (A-Z)</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="include-lowercase" checked>
+                                <span>Lowercase (a-z)</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="include-numbers" checked>
+                                <span>Numbers (0-9)</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="include-symbols" checked>
+                                <span>Symbols (!@#$%&*)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label>Advanced Options:</label>
+                        <div class="checkbox-options">
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="exclude-similar">
+                                <span>Exclude Similar Characters (i, l, 1, L, o, 0, O)</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" id="exclude-ambiguous">
+                                <span>Exclude Ambiguous Characters ({}, [], (), /\, etc.)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button id="generate-password" class="tool-button">
+                        <i class="fas fa-sync-alt"></i> Generate Password
+                    </button>
+                </div>
+                
+                <div class="password-tips mt-4">
+                    <h3><i class="fas fa-lightbulb"></i> Password Security Tips</h3>
+                    <ul>
+                        <li>Use a minimum of 12 characters, more if possible</li>
+                        <li>Include a mix of uppercase, lowercase, numbers, and symbols</li>
+                        <li>Avoid using personal information like names, birthdates, or common words</li>
+                        <li>Use different passwords for different accounts</li>
+                        <li>Consider using a password manager to store your passwords securely</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card tool-info-card fade-in">
+                <div class="card-header">
+                    <h3><i class="fas fa-info-circle"></i> About These Tools</h3>
+                </div>
+                <div class="card-body">
+                    <p>These interactive tools are designed for educational purposes to help you understand the principles of cryptography and encryption. They demonstrate various techniques used in securing digital information.</p>
+                    <p>While these tools implement real cryptographic algorithms, they are running in your browser and should not be used for securing sensitive information in production environments. For real-world security applications, use established cryptographic libraries and frameworks.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card tool-info-card fade-in">
+                <div class="card-header">
+                    <h3><i class="fas fa-graduation-cap"></i> Learning Resources</h3>
+                </div>
+                <div class="card-body">
+                    <p>Want to learn more about cryptography and security? Check out these resources:</p>
+                    <ul>
+                        <li><a href="/ciphers/">CipherLab Learning Center</a> - Our collection of interactive tutorials</li>
+                        <li><a href="/quiz/">Cryptography Quizzes</a> - Test your knowledge</li>
+                        <li><a href="https://www.nist.gov/cybersecurity" target="_blank">NIST Cybersecurity</a> - Standards and guidelines</li>
+                        <li><a href="https://www.khanacademy.org/computing/computer-science/cryptography" target="_blank">Khan Academy: Cryptography</a> - Free online courses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional CSS for this page -->
+<style>
+    .tools-hero {
+        min-height: 40vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .tools-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        z-index: -1;
+    }
+    
+    .tool-selector {
+        margin-bottom: 2rem;
+    }
+    
+    .tool-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .tool-tab {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 120px;
+    }
+    
+    .tool-tab i {
+        font-size: 1.5rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+    }
+    
+    .tool-tab:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+    
+    .tool-tab.active {
+        background-color: var(--primary-dark);
+        border-color: var(--primary);
+        color: var(--dark);
+    }
+    
+    .tool-tab.active i {
+        color: var(--dark);
+    }
+    
+    .tool-container {
+        background-color: var(--medium-dark);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        margin-bottom: 3rem;
+    }
+    
+    .tool-content {
+        display: none;
+    }
+    
+    .tool-content.active {
+        display: block;
+    }
+    
+    .tool-header {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .tool-header h2 {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .tool-header p {
+        color: var(--text-muted);
+        margin-bottom: 0;
+    }
+    
+    .tool-interface {
+        padding: 2rem;
+    }
+    
+    .form-control {
+        background-color: var(--darker);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 0.75rem;
+        border-radius: 4px;
+        width: 100%;
+        font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    .form-control:focus {
+        background-color: var(--dark);
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.25);
+    }
+    
+    .encoder-options, .caesar-options, .vigenere-options, .hash-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 1.5rem 0;
+    }
+    
+    .encoder-mode, .caesar-mode, .vigenere-mode {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .radio-options {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+    
+    .encoder-type, .vigenere-key, .caesar-shift {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .shift-control, .length-control {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        background: var(--darker);
+        border-radius: 4px;
+        outline: none;
+    }
+    
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px var(--primary);
+    }
+    
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .tool-button {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .tool-button:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .tool-button-alt {
+        background-color: var(--darker);
+        color: var(--text);
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .tool-button-alt:hover {
+        background-color: var(--medium-dark);
+        border-color: var(--primary);
+    }
+    
+    .output-container {
+        background-color: var(--darker);
+        border-radius: 4px;
+        border: 1px solid var(--primary-dark);
+        padding: 1rem;
+        position: relative;
+    }
+    
+    .code-block {
+        font-family: 'IBM Plex Mono', monospace;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    
+    .hash-algorithms {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .hash-algorithm {
+        background-color: var(--darker);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .hash-algorithm:hover {
+        background-color: var(--medium-dark);
+        border-color: var(--primary);
+    }
+    
+    .hash-algorithm.active {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border-color: var(--primary);
+    }
+    
+    .hash-info {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+    
+    .hash-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .hash-detail {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .detail-label {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+    
+    .security-warning {
+        color: #ff3e3e;
+    }
+    
+    .frequency-chart {
+        display: flex;
+        align-items: flex-end;
+        height: 150px;
+        gap: 2px;
+        padding: 1rem;
+        background-color: var(--darker);
+        border-radius: 4px;
+        margin-top: 1rem;
+    }
+    
+    .frequency-bar {
+        background: linear-gradient(to top, var(--primary-dark), var(--primary));
+        width: 100%;
+        border-radius: 2px 2px 0 0;
+        position: relative;
+        transition: height 0.5s ease;
+    }
+    
+    .frequency-bar::after {
+        content: attr(data-char);
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+    }
+    
+    .vigenere-table-container {
+        margin-top: 2rem;
+    }
+    
+    .vigenere-table {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        overflow-x: auto;
+    }
+    
+    .vigenere-row {
+        display: flex;
+        gap: 1px;
+    }
+    
+    .vigenere-cell {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        background-color: var(--medium-dark);
+    }
+    
+    .vigenere-cell.header {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        font-weight: bold;
+    }
+    
+    .password-output-container {
+        background-color: var(--darker);
+        border: 1px solid var(--primary-dark);
+        border-radius: 4px;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .password-display {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1.5rem;
+        word-break: break-all;
+    }
+    
+    .password-copy-btn {
+        background: none;
+        border: none;
+        color: var(--primary);
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .password-copy-btn:hover {
+        color: var(--secondary);
+        transform: scale(1.2);
+    }
+    
+    .password-strength {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .strength-meter {
+        flex-grow: 1;
+        height: 8px;
+        background-color: var(--darker);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .strength-value {
+        height: 100%;
+        width: 50%;
+        background: linear-gradient(90deg, #ff3e3e, #ffbd2e, var(--primary));
+        transition: width 0.3s ease;
+    }
+    
+    .checkbox-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .checkbox-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+    
+    .password-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .password-tips {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+    
+    .password-tips ul {
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+    }
+    
+    .password-tips li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .tool-info-card {
+        height: 100%;
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .tool-info-card .card-header {
+        background-color: var(--darker);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .tool-info-card .card-header h3 {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .tool-info-card .card-body {
+        padding: 1.5rem;
+    }
+    
+    .tool-info-card ul {
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+    }
+    
+    .tool-info-card li {
+        margin-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .tool-tabs {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            justify-content: flex-start;
+        }
+        
+        .encoder-options, .caesar-options, .vigenere-options, .hash-options {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .button-group {
+            flex-direction: column;
+        }
+        
+        .hash-algorithms {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<!-- Additional JavaScript for tools functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tool tabs functionality
+        const toolTabs = document.querySelectorAll('.tool-tab');
+        const toolContents = document.querySelectorAll('.tool-content');
+        
+        toolTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const toolId = this.getAttribute('data-tool');
+                
+                // Remove active class from all tabs and contents
+                toolTabs.forEach(t => t.classList.remove('active'));
+                toolContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(`${toolId}-tool`).classList.add('active');
+            });
+        });
+        
+        // === Text Encoder Tool ===
+        const encoderInput = document.getElementById('encoder-input');
+        const encoderOutput = document.getElementById('encoder-output');
+        const encoderType = document.getElementById('encoder-type');
+        const encoderDirections = document.getElementsByName('encoder-direction');
+        const encoderConvertBtn = document.getElementById('encoder-convert');
+        const encoderCopyBtn = document.getElementById('encoder-copy');
+        const encoderClearBtn = document.getElementById('encoder-clear');
+        
+        if (encoderConvertBtn) {
+            encoderConvertBtn.addEventListener('click', function() {
+                const text = encoderInput.value;
+                const type = encoderType.value;
+                const direction = Array.from(encoderDirections).find(radio => radio.checked).value;
+                
+                let result = '';
+                
+                if (direction === 'encode') {
+                    switch (type) {
+                        case 'base64':
+                            result = btoa(text);
+                            break;
+                        case 'binary':
+                            result = textToBinary(text);
+                            break;
+                        case 'hex':
+                            result = textToHex(text);
+                            break;
+                        case 'url':
+                            result = encodeURIComponent(text);
+                            break;
+                    }
+                } else {
+                    try {
+                        switch (type) {
+                            case 'base64':
+                                result = atob(text);
+                                break;
+                            case 'binary':
+                                result = binaryToText(text);
+                                break;
+                            case 'hex':
+                                result = hexToText(text);
+                                break;
+                            case 'url':
+                                result = decodeURIComponent(text);
+                                break;
+                        }
+                    } catch (e) {
+                        result = 'Error: Invalid input for selected format';
+                    }
+                }
+                
+                encoderOutput.textContent = result;
+            });
+        }
+        
+        if (encoderCopyBtn) {
+            encoderCopyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(encoderOutput.textContent)
+                    .then(() => {
+                        encoderCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => {
+                            encoderCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
+                        }, 2000);
+                    });
+            });
+        }
+        
+        if (encoderClearBtn) {
+            encoderClearBtn.addEventListener('click', function() {
+                encoderInput.value = '';
+                encoderOutput.textContent = 'The converted text will appear here...';
+            });
+        }
+        
+        // Text to Binary conversion
+        function textToBinary(text) {
+            return text.split('').map(char => {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            }).join(' ');
+        }
+        
+        // Binary to Text conversion
+        function binaryToText(binary) {
+            return binary.split(' ').map(bin => {
+                return String.fromCharCode(parseInt(bin, 2));
+            }).join('');
+        }
+        
+        // Text to Hex conversion
+        function textToHex(text) {
+            return text.split('').map(char => {
+                return char.charCodeAt(0).toString(16).padStart(2, '0');
+            }).join(' ');
+        }
+        
+        // Hex to Text conversion
+        function hexToText(hex) {
+            return hex.split(' ').map(h => {
+                return String.fromCharCode(parseInt(h, 16));
+            }).join('');
+        }
+        
+        // === Caesar Cipher Tool ===
+        const caesarInput = document.getElementById('caesar-input');
+        const caesarOutput = document.getElementById('caesar-output');
+        const caesarShiftValue = document.getElementById('caesar-shift-value');
+        const shiftDisplay = document.getElementById('shift-display');
+        const caesarDirections = document.getElementsByName('caesar-direction');
+        const caesarConvertBtn = document.getElementById('caesar-convert');
+        const caesarCopyBtn = document.getElementById('caesar-copy');
+        const caesarClearBtn = document.getElementById('caesar-clear');
+        const frequencyChart = document.getElementById('caesar-frequency-chart');
+        
+        if (caesarShiftValue && shiftDisplay) {
+            caesarShiftValue.addEventListener('input', function() {
+                shiftDisplay.textContent = this.value;
+            });
+        }
+        
+        if (caesarConvertBtn) {
+            caesarConvertBtn.addEventListener('click', function() {
+                const text = caesarInput.value.toUpperCase();
+                const shift = parseInt(caesarShiftValue.value);
+                const direction = Array.from(caesarDirections).find(radio => radio.checked).value;
+                const actualShift = direction === 'encrypt' ? shift : (26 - shift);
+                
+                let result = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    
+                    if (char.match(/[A-Z]/)) {
+                        const code = text.charCodeAt(i);
+                        result += String.fromCharCode(((code - 65 + actualShift) % 26) + 65);
+                    } else {
+                        result += char;
+                    }
+                }
+                
+                caesarOutput.textContent = result;
+                
+                // Update frequency chart
+                updateFrequencyChart(result);
+            });
+        }
+        
+        if (caesarCopyBtn) {
+            caesarCopyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(caesarOutput.textContent)
+                    .then(() => {
+                        caesarCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => {
+                            caesarCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
+                        }, 2000);
+                    });
+            });
+        }
+        
+        if (caesarClearBtn) {
+            caesarClearBtn.addEventListener('click', function() {
+                caesarInput.value = '';
+                caesarOutput.textContent = 'The encrypted/decrypted text will appear here...';
+                clearFrequencyChart();
+            });
+        }
+        
+        function updateFrequencyChart(text) {
+            if (!frequencyChart) return;
+            
+            // Clear previous chart
+            frequencyChart.innerHTML = '';
+            
+            // Count letter frequencies
+            const frequencies = {};
+            for (let i = 0; i < 26; i++) {
+                frequencies[String.fromCharCode(65 + i)] = 0;
+            }
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                if (char.match(/[A-Z]/)) {
+                    frequencies[char]++;
+                }
+            }
+            
+            // Find the maximum frequency for scaling
+            const maxFrequency = Math.max(...Object.values(frequencies));
+            
+            // Create frequency bars
+            for (let i = 0; i < 26; i++) {
+                const char = String.fromCharCode(65 + i);
+                const frequency = frequencies[char];
+                const height = maxFrequency > 0 ? (frequency / maxFrequency) * 100 : 0;
+                
+                const bar = document.createElement('div');
+                bar.classList.add('frequency-bar');
+                bar.style.height = `${height}%`;
+                bar.setAttribute('data-char', char);
+                bar.setAttribute('title', `${char}: ${frequency}`);
+                
+                frequencyChart.appendChild(bar);
+            }
+        }
+        
+        function clearFrequencyChart() {
+            if (!frequencyChart) return;
+            frequencyChart.innerHTML = '';
+        }
+        
+        // === Vigenère Cipher Tool ===
+        const vigenereInput = document.getElementById('vigenere-input');
+        const vigenereOutput = document.getElementById('vigenere-output');
+        const vigenereKeyValue = document.getElementById('vigenere-key-value');
+        const vigenereDirections = document.getElementsByName('vigenere-direction');
+        const vigenereConvertBtn = document.getElementById('vigenere-convert');
+        const vigenereCopyBtn = document.getElementById('vigenere-copy');
+        const vigenereClearBtn = document.getElementById('vigenere-clear');
+        const vigenereTable = document.getElementById('vigenere-table');
+        
+        // Generate Vigenère table
+        if (vigenereTable) {
+            generateVigenereTable();
+        }
+        
+        function generateVigenereTable() {
+            // Clear previous table
+            vigenereTable.innerHTML = '';
+            
+            // Create header row
+            const headerRow = document.createElement('div');
+            headerRow.classList.add('vigenere-row');
+            
+            // Add empty corner cell
+            const cornerCell = document.createElement('div');
+            cornerCell.classList.add('vigenere-cell', 'header');
+            cornerCell.textContent = '+';
+            headerRow.appendChild(cornerCell);
+            
+            // Add column headers (A-Z)
+            for (let i = 0; i < 26; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('vigenere-cell', 'header');
+                cell.textContent = String.fromCharCode(65 + i);
+                headerRow.appendChild(cell);
+            }
+            
+            vigenereTable.appendChild(headerRow);
+            
+            // Create table rows
+            for (let i = 0; i < 26; i++) {
+                const row = document.createElement('div');
+                row.classList.add('vigenere-row');
+                
+                // Add row header
+                const rowHeader = document.createElement('div');
+                rowHeader.classList.add('vigenere-cell', 'header');
+                rowHeader.textContent = String.fromCharCode(65 + i);
+                row.appendChild(rowHeader);
+                
+                // Add cells
+                for (let j = 0; j < 26; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('vigenere-cell');
+                    cell.textContent = String.fromCharCode(65 + (i + j) % 26);
+                    row.appendChild(cell);
+                }
+                
+                vigenereTable.appendChild(row);
+            }
+        }
+        
+        if (vigenereConvertBtn) {
+            vigenereConvertBtn.addEventListener('click', function() {
+                const text = vigenereInput.value.toUpperCase();
+                let key = vigenereKeyValue.value.toUpperCase().replace(/[^A-Z]/g, '');
+                
+                if (key.length === 0) {
+                    vigenereOutput.textContent = 'Error: Key cannot be empty';
+                    return;
+                }
+                
+                const direction = Array.from(vigenereDirections).find(radio => radio.checked).value;
+                
+                let result = '';
+                let keyIndex = 0;
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    
+                    if (char.match(/[A-Z]/)) {
+                        // Get the key character and its value (0-25)
+                        const keyChar = key.charAt(keyIndex % key.length);
+                        const keyValue = keyChar.charCodeAt(0) - 65;
+                        
+                        // Encrypt or decrypt
+                        if (direction === 'encrypt') {
+                            // (plaintext + key) mod 26
+                            const charCode = char.charCodeAt(0) - 65;
+                            const encryptedChar = String.fromCharCode(((charCode + keyValue) % 26) + 65);
+                            result += encryptedChar;
+                        } else {
+                            // (ciphertext - key + 26) mod 26
+                            const charCode = char.charCodeAt(0) - 65;
+                            const decryptedChar = String.fromCharCode(((charCode - keyValue + 26) % 26) + 65);
+                            result += decryptedChar;
+                        }
+                        
+                        keyIndex++;
+                    } else {
+                        result += char;
+                    }
+                }
+                
+                vigenereOutput.textContent = result;
+            });
+        }
+        
+        if (vigenereCopyBtn) {
+            vigenereCopyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(vigenereOutput.textContent)
+                    .then(() => {
+                        vigenereCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => {
+                            vigenereCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
+                        }, 2000);
+                    });
+            });
+        }
+        
+        if (vigenereClearBtn) {
+            vigenereClearBtn.addEventListener('click', function() {
+                vigenereInput.value = '';
+                vigenereOutput.textContent = 'The encrypted/decrypted text will appear here...';
+            });
+        }
+        
+        // === Hash Generator Tool ===
+        const hashInput = document.getElementById('hash-input');
+        const hashOutput = document.getElementById('hash-output');
+        const hashAlgorithmButtons = document.querySelectorAll('.hash-algorithm');
+        const hashGenerateBtn = document.getElementById('hash-generate');
+        const hashCopyBtn = document.getElementById('hash-copy');
+        const hashClearBtn = document.getElementById('hash-clear');
+        const hashAlgorithmInfo = document.getElementById('hash-algorithm-info');
+        const hashSizeInfo = document.getElementById('hash-size-info');
+        const hashSecurityInfo = document.getElementById('hash-security-info');
+        const hashUsesInfo = document.getElementById('hash-uses-info');
+        
+        // Hash algorithm information
+        const hashInfo = {
+            md5: {
+                name: 'MD5',
+                size: '128 bits (16 bytes)',
+                security: '<span class="security-warning">Insecure</span> - MD5 is cryptographically broken and unsuitable for further use',
+                uses: 'Checksums, file identification (not for security purposes)'
+            },
+            sha1: {
+                name: 'SHA-1',
+                size: '160 bits (20 bytes)',
+                security: '<span class="security-warning">Weak</span> - SHA-1 is cryptographically weak and not recommended for new applications',
+                uses: 'Legacy systems, version control systems like Git'
+            },
+            sha256: {
+                name: 'SHA-256',
+                size: '256 bits (32 bytes)',
+                security: 'Secure - Currently considered cryptographically strong',
+                uses: 'Digital signatures, file integrity verification, password storage'
+            },
+            sha512: {
+                name: 'SHA-512',
+                size: '512 bits (64 bytes)',
+                security: 'Very secure - Currently considered cryptographically strong with larger digest size',
+                uses: 'High-security applications, password storage, blockchain'
+            }
+        };
+        
+        if (hashAlgorithmButtons.length > 0) {
+            hashAlgorithmButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const algorithm = this.getAttribute('data-algorithm');
+                    
+                    // Update active button
+                    hashAlgorithmButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update hash information
+                    updateHashInfo(algorithm);
+                });
+            });
+        }
+        
+        function updateHashInfo(algorithm) {
+            if (!hashAlgorithmInfo || !hashSizeInfo || !hashSecurityInfo || !hashUsesInfo) return;
+            
+            const info = hashInfo[algorithm];
+            hashAlgorithmInfo.textContent = info.name;
+            hashSizeInfo.textContent = info.size;
+            hashSecurityInfo.innerHTML = info.security;
+            hashUsesInfo.textContent = info.uses;
+        }
+        
+        if (hashGenerateBtn) {
+            hashGenerateBtn.addEventListener('click', function() {
+                const text = hashInput.value;
+                const activeAlgorithm = document.querySelector('.hash-algorithm.active');
+                
+                if (!activeAlgorithm) return;
+                
+                const algorithm = activeAlgorithm.getAttribute('data-algorithm');
+                
+                // Simulate hash generation (in a real app, use a proper crypto library)
+                let hash = '';
+                
+                switch (algorithm) {
+                    case 'md5':
+                        hash = simulateHash(text, 32);
+                        break;
+                    case 'sha1':
+                        hash = simulateHash(text, 40);
+                        break;
+                    case 'sha256':
+                        hash = simulateHash(text, 64);
+                        break;
+                    case 'sha512':
+                        hash = simulateHash(text, 128);
+                        break;
+                }
+                
+                hashOutput.textContent = hash;
+            });
+        }
+        
+        if (hashCopyBtn) {
+            hashCopyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(hashOutput.textContent)
+                    .then(() => {
+                        hashCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => {
+                            hashCopyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Hash';
+                        }, 2000);
+                    });
+            });
+        }
+        
+        if (hashClearBtn) {
+            hashClearBtn.addEventListener('click', function() {
+                hashInput.value = '';
+                hashOutput.textContent = 'The hash value will appear here...';
+            });
+        }
+        
+        // Simulate hash generation (for demo purposes only)
+        function simulateHash(text, length) {
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0; // Convert to 32bit integer
+            }
+            
+            // Generate deterministic but random-looking hex string based on input
+            let result = '';
+            const characters = '0123456789abcdef';
+            const seed = Math.abs(hash);
+            
+            for (let i = 0; i < length; i++) {
+                const charIndex = (seed * (i + 1)) % 16;
+                result += characters.charAt(charIndex);
+            }
+            
+            return result;
+        }
+        
+        // === Password Generator Tool ===
+        const passwordDisplay = document.getElementById('password-display');
+        const passwordLength = document.getElementById('password-length');
+        const lengthDisplay = document.getElementById('length-display');
+        const includeUppercase = document.getElementById('include-uppercase');
+        const includeLowercase = document.getElementById('include-lowercase');
+        const includeNumbers = document.getElementById('include-numbers');
+        const includeSymbols = document.getElementById('include-symbols');
+        const excludeSimilar = document.getElementById('exclude-similar');
+        const excludeAmbiguous = document.getElementById('exclude-ambiguous');
+        const generatePasswordBtn = document.getElementById('generate-password');
+        const passwordCopyBtn = document.getElementById('password-copy');
+        const strengthValue = document.getElementById('strength-value');
+        const strengthText = document.getElementById('strength-text');
+        
+        if (passwordLength && lengthDisplay) {
+            passwordLength.addEventListener('input', function() {
+                lengthDisplay.textContent = this.value;
+                
+                // Generate new password when length changes
+                if (generatePasswordBtn) {
+                    generatePasswordBtn.click();
+                }
+            });
+        }
+        
+        if (generatePasswordBtn) {
+            generatePasswordBtn.addEventListener('click', function() {
+                const length = parseInt(passwordLength.value);
+                const options = {
+                    uppercase: includeUppercase.checked,
+                    lowercase: includeLowercase.checked,
+                    numbers: includeNumbers.checked,
+                    symbols: includeSymbols.checked,
+                    excludeSimilar: excludeSimilar.checked,
+                    excludeAmbiguous: excludeAmbiguous.checked
+                };
+                
+                // Check that at least one character type is selected
+                if (!options.uppercase && !options.lowercase && !options.numbers && !options.symbols) {
+                    passwordDisplay.textContent = 'Please select at least one character type!';
+                    return;
+                }
+                
+                const password = generatePassword(length, options);
+                passwordDisplay.textContent = password;
+                
+                // Update password strength
+                updatePasswordStrength(password);
+            });
+        }
+        
+        if (passwordCopyBtn) {
+            passwordCopyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(passwordDisplay.textContent)
+                    .then(() => {
+                        passwordCopyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            passwordCopyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 2000);
+                    });
+            });
+        }
+        
+        // Update all checkboxes to also trigger password generation
+        [includeUppercase, includeLowercase, includeNumbers, includeSymbols, excludeSimilar, excludeAmbiguous].forEach(checkbox => {
+            if (checkbox) {
+                checkbox.addEventListener('change', function() {
+                    if (generatePasswordBtn) {
+                        generatePasswordBtn.click();
+                    }
+                });
+            }
+        });
+        
+        function generatePassword(length, options) {
+            // Define character sets
+            let chars = '';
+            
+            if (options.uppercase) {
+                chars += options.excludeSimilar ? 'ABCDEFGHJKLMNPQRSTUVWXYZ' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            }
+            
+            if (options.lowercase) {
+                chars += options.excludeSimilar ? 'abcdefghijkmnopqrstuvwxyz' : 'abcdefghijklmnopqrstuvwxyz';
+            }
+            
+            if (options.numbers) {
+                chars += options.excludeSimilar ? '23456789' : '0123456789';
+            }
+            
+            if (options.symbols) {
+                chars += options.excludeAmbiguous ? '!@#$%&*' : '!@#$%^&*()[]{}/<>?|:;,.~-_=+';
+            }
+            
+            if (chars.length === 0) {
+                return 'Error: No character types selected';
+            }
+            
+            // Generate password
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars.charAt(randomIndex);
+            }
+            
+            return password;
+        }
+        
+        function updatePasswordStrength(password) {
+            if (!strengthValue || !strengthText) return;
+            
+            // Calculate strength score (0-100)
+            let score = 0;
+            
+            // Length contribution (up to 40 points)
+            score += Math.min(40, password.length * 2);
+            
+            // Character variety contribution (up to 60 points)
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasLowercase = /[a-z]/.test(password);
+            const hasNumbers = /[0-9]/.test(password);
+            const hasSymbols = /[^A-Za-z0-9]/.test(password);
+            
+            if (hasUppercase) score += 15;
+            if (hasLowercase) score += 15;
+            if (hasNumbers) score += 15;
+            if (hasSymbols) score += 15;
+            
+            // Update UI
+            strengthValue.style.width = `${score}%`;
+            
+            // Set strength text
+            if (score < 40) {
+                strengthText.textContent = 'Weak';
+                strengthText.style.color = '#ff3e3e';
+            } else if (score < 70) {
+                strengthText.textContent = 'Medium';
+                strengthText.style.color = '#ffbd2e';
+            } else {
+                strengthText.textContent = 'Strong';
+                strengthText.style.color = '#27c93f';
+            }
+        }
+        
+        // Initial calls
+        if (generatePasswordBtn) {
+            generatePasswordBtn.click();
+        }
+        
+        // Set default hash info
+        updateHashInfo('md5');
+    });
+</script>

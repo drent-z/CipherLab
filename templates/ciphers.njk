@@ -1,0 +1,920 @@
+---
+layout: layout.njk
+title: Ciphers & Learning - CipherLab
+---
+<div class="hero cipher-hero">
+    <h1 class="glitch" data-text="Cryptography Learning Lab">
+        <span>Cryptography Learning Lab</span>
+        <span aria-hidden="true">Cryptography Learning Lab</span>
+        <span aria-hidden="true">Cryptography Learning Lab</span>
+    </h1>
+    <p class="mb-4 fade-in">Interactive demonstrations of classic and modern cryptographic techniques</p>
+</div>
+
+<section class="container section">
+    <ul class="nav cipher-nav fade-in" id="cipher-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="caesar-tab" data-toggle="tab" href="#caesar" role="tab" aria-controls="caesar" aria-selected="true">
+                <i class="fas fa-key"></i> Caesar Cipher
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="vigenere-tab" data-toggle="tab" href="#vigenere" role="tab" aria-controls="vigenere" aria-selected="false">
+                <i class="fas fa-lock"></i> Vigenère Cipher
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="substitution-tab" data-toggle="tab" href="#substitution" role="tab" aria-controls="substitution" aria-selected="false">
+                <i class="fas fa-random"></i> Substitution Cipher
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="hash-tab" data-toggle="tab" href="#hash" role="tab" aria-controls="hash" aria-selected="false">
+                <i class="fas fa-fingerprint"></i> Hash Functions
+            </a>
+        </li>
+    </ul>
+    
+    <div class="tab-content cipher-content fade-in mt-4" id="cipher-tabs-content">
+        <!-- Caesar Cipher Section -->
+        <div class="tab-pane fade show active" id="caesar" role="tabpanel" aria-labelledby="caesar-tab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="mb-0"><i class="fas fa-key"></i> Caesar Cipher</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>The Caesar cipher is one of the earliest and simplest encryption techniques. Named after Julius Caesar, who used it to communicate with his generals, this cipher works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+                            
+                            <div class="code-block mt-4" data-language="example">
+                                <pre>
+Shift of 3:
+A → D
+B → E
+C → F
+...
+Z → C
+                                </pre>
+                            </div>
+                            
+                            <p class="mt-4">Despite its simplicity, the Caesar cipher laid the groundwork for more complex cryptographic systems. Today, it's primarily used for educational purposes and as a starting point for understanding encryption.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card cipher-history">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-history"></i> Historical Context</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>In ancient Rome, Julius Caesar used a shift of 3 for his private correspondence. According to historical accounts, this basic encryption was sufficient during that era, as literacy was limited and the concept of cryptanalysis wasn't widely understood.</p>
+                            <p>The Caesar cipher is a type of substitution cipher where each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-cogs"></i> Interactive Demo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="caesar-input">Plain Text:</label>
+                                <textarea id="caesar-input" class="form-control" rows="4" placeholder="Enter text to encrypt">THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="caesar-shift">Shift Value: <span id="shift-value">3</span></label>
+                                <input type="range" id="caesar-shift" class="form-control-range" min="1" max="25" value="3">
+                            </div>
+                            
+                            <div class="output-container mt-4">
+                                <h4><i class="fas fa-lock"></i> Encrypted Text:</h4>
+                                <div class="code-block" data-language="output">
+                                    <pre id="caesar-output">WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h4><i class="fas fa-unlock"></i> How to Decrypt:</h4>
+                                <p>To decrypt a Caesar cipher, simply shift each letter in the opposite direction by the same number of positions. In other words, use a negative shift value.</p>
+                            </div>
+                            
+                            <div class="cipher-security-note mt-4">
+                                <h4><i class="fas fa-shield-alt"></i> Security Note:</h4>
+                                <p>The Caesar cipher is extremely weak by modern standards. With only 25 possible shift values, an attacker can easily try all possibilities (brute force attack) or use frequency analysis to quickly break the encryption.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vigenère Cipher Section -->
+        <div class="tab-pane fade" id="vigenere" role="tabpanel" aria-labelledby="vigenere-tab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="mb-0"><i class="fas fa-lock"></i> Vigenère Cipher</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>The Vigenère cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. Unlike the Caesar cipher, which uses a single shift for all letters, the Vigenère cipher uses a keyword to determine different shift values for each letter of the plaintext.</p>
+                            
+                            <div class="code-block mt-4" data-language="example">
+                                <pre>
+Keyword: "KEY"
+Plaintext: "HELLO"
+
+H + K = R (shift by 10)
+E + E = I (shift by 4)
+L + Y = J (shift by 24)
+L + K = V (shift by 10)
+O + E = S (shift by 4)
+
+Encrypted: "RIJVS"
+                                </pre>
+                            </div>
+                            
+                            <p class="mt-4">The Vigenère cipher was considered "unbreakable" for centuries, until methods of cryptanalysis were developed in the 19th century. It's significantly stronger than the Caesar cipher but still vulnerable to modern techniques.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card cipher-history">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-history"></i> Historical Context</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>The Vigenère cipher was invented by Giovan Battista Bellaso in 1553, but was misattributed to Blaise de Vigenère in the 19th century. For three centuries, it was considered unbreakable, earning the nickname "le chiffre indéchiffrable" (the indecipherable cipher).</p>
+                            <p>Charles Babbage and Friedrich Kasiski independently developed methods to break the Vigenère cipher in the 19th century, demonstrating that repeated use of the same key creates patterns that can be analyzed.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-cogs"></i> Interactive Demo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="vigenere-input">Plain Text:</label>
+                                <textarea id="vigenere-input" class="form-control" rows="4" placeholder="Enter text to encrypt">CRYPTOGRAPHY IS FASCINATING</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vigenere-key">Encryption Key:</label>
+                                <input type="text" id="vigenere-key" class="form-control" placeholder="Enter key (letters only)" value="CIPHER">
+                                <small class="form-text text-muted">The key will be repeated to match the length of your message.</small>
+                            </div>
+                            
+                            <div class="output-container mt-4">
+                                <h4><i class="fas fa-lock"></i> Encrypted Text:</h4>
+                                <div class="code-block" data-language="output">
+                                    <pre id="vigenere-output">EZWPVSDVRGDM KG HRWEKPRVKRS</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="cipher-visualization mt-4">
+                                <h4><i class="fas fa-eye"></i> Visualization:</h4>
+                                <div class="vigenere-table-container">
+                                    <div class="vigenere-table-placeholder">
+                                        <p>[Vigenère Square Visualization]</p>
+                                        <p class="text-muted">The encryption uses a tabula recta (Vigenère square) to combine the plaintext with the repeating key.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cipher-security-note mt-4">
+                                <h4><i class="fas fa-shield-alt"></i> Security Note:</h4>
+                                <p>While stronger than Caesar, the Vigenère cipher is still vulnerable to frequency analysis if the key length can be determined. Modern cryptanalysis can break it using statistical methods, especially with longer texts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Substitution Cipher Section -->
+        <div class="tab-pane fade" id="substitution" role="tabpanel" aria-labelledby="substitution-tab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="mb-0"><i class="fas fa-random"></i> Substitution Cipher</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>A substitution cipher is a method of encrypting in which each letter in the plaintext is replaced with another letter or symbol according to a fixed system. The receiver deciphers the text by performing the inverse substitution.</p>
+                            
+                            <p>Unlike the Caesar cipher, which uses a simple shift, a general substitution cipher can use any arbitrary mapping of the alphabet, giving it a much larger key space (26! or approximately 4 × 10²⁶ possible keys).</p>
+                            
+                            <div class="code-block mt-4" data-language="example">
+                                <pre>
+Example mapping:
+A → X    B → P    C → M    ...
+                                </pre>
+                            </div>
+                            
+                            <p class="mt-4">Substitution ciphers were widely used throughout history for secure communication. However, they're vulnerable to frequency analysis, as letters in any language occur with predictable frequencies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card cipher-history">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-history"></i> Historical Context</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Substitution ciphers have been used for thousands of years. One famous example is the "pigpen cipher," used by Freemasons in the 18th century, which substitutes letters with geometric symbols.</p>
+                            <p>In the 9th century, Arab mathematician Al-Kindi wrote a book on cryptography that included the first description of frequency analysis—the technique used to break substitution ciphers by analyzing the occurrence patterns of letters.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-cogs"></i> Interactive Demo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="substitution-key-container mb-4">
+                                <h4><i class="fas fa-key"></i> Cipher Key:</h4>
+                                <div class="substitution-key">
+                                    <div class="plaintext-alphabet">
+                                        <div class="key-label">Original:</div>
+                                        <div class="alphabet-row">
+                                            <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+                                        </div>
+                                    </div>
+                                    <div class="substitution-alphabet">
+                                        <div class="key-label">Cipher:</div>
+                                        <div class="alphabet-row">
+                                            <span>Q</span><span>W</span><span>E</span><span>R</span><span>T</span><span>Y</span><span>U</span><span>I</span><span>O</span><span>P</span><span>A</span><span>S</span><span>D</span><span>F</span><span>G</span><span>H</span><span>J</span><span>K</span><span>L</span><span>Z</span><span>X</span><span>C</span><span>V</span><span>B</span><span>N</span><span>M</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn-generate mt-3">
+                                    <i class="fas fa-sync-alt"></i> Generate New Key
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="substitution-input">Plain Text:</label>
+                                <textarea id="substitution-input" class="form-control" rows="4" placeholder="Enter text to encrypt">MEET ME AT MIDNIGHT</textarea>
+                            </div>
+                            
+                            <div class="output-container mt-4">
+                                <h4><i class="fas fa-lock"></i> Encrypted Text:</h4>
+                                <div class="code-block" data-language="output">
+                                    <pre id="substitution-output">DTTZ DT QZ DORFOUIZ</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="cipher-security-note mt-4">
+                                <h4><i class="fas fa-shield-alt"></i> Security Analysis:</h4>
+                                <p>Simple substitution ciphers are vulnerable to frequency analysis. In English, 'E' is the most common letter, followed by 'T', 'A', 'O', etc. By analyzing the frequencies of letters in the ciphertext, an attacker can often deduce the substitution key.</p>
+                                <p>Additional techniques like examining common digraphs (letter pairs) and trigraphs further aid in breaking these ciphers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hash Functions Section -->
+        <div class="tab-pane fade" id="hash" role="tabpanel" aria-labelledby="hash-tab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2 class="mb-0"><i class="fas fa-fingerprint"></i> Hash Functions</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Hash functions are fundamental components of modern cryptography. Unlike encryption, which is reversible, hashing is a one-way process that transforms input data of any size into a fixed-size string of characters, typically a hexadecimal number.</p>
+                            
+                            <p>Key properties of cryptographic hash functions include:</p>
+                            <ul>
+                                <li><strong>Deterministic:</strong> The same input always produces the same output</li>
+                                <li><strong>Quick to compute:</strong> Efficient for any input size</li>
+                                <li><strong>Irreversible:</strong> Practically impossible to derive the original input from its hash</li>
+                                <li><strong>Collision-resistant:</strong> Extremely difficult to find two different inputs with the same hash</li>
+                                <li><strong>Avalanche effect:</strong> A small change in input creates a completely different hash</li>
+                            </ul>
+                            
+                            <p>Common hash functions include MD5 (now considered insecure), SHA-1 (being phased out), and the SHA-2 and SHA-3 families.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card cipher-history">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-history"></i> Applications</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Hash functions have numerous applications in modern security:</p>
+                            <ul>
+                                <li><strong>Password storage:</strong> Systems store hashes of passwords rather than actual passwords</li>
+                                <li><strong>Data integrity:</strong> Verifying that files or messages haven't been altered</li>
+                                <li><strong>Digital signatures:</strong> Authenticating the sender of a message</li>
+                                <li><strong>Blockchain technology:</strong> Securing transactions in cryptocurrencies like Bitcoin</li>
+                                <li><strong>Certificate validation:</strong> Verifying digital certificates in HTTPS connections</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="fas fa-cogs"></i> Interactive Demo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="hash-input">Input Text:</label>
+                                <textarea id="hash-input" class="form-control" rows="4" placeholder="Enter text to hash">Hello, World!</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Hash Algorithm:</label>
+                                <div class="hash-algorithm-selector">
+                                    <button class="hash-algorithm active" data-algorithm="md5">MD5</button>
+                                    <button class="hash-algorithm" data-algorithm="sha1">SHA-1</button>
+                                    <button class="hash-algorithm" data-algorithm="sha256">SHA-256</button>
+                                    <button class="hash-algorithm" data-algorithm="sha512">SHA-512</button>
+                                </div>
+                            </div>
+                            
+                            <div class="output-container mt-4">
+                                <h4><i class="fas fa-fingerprint"></i> Hash Output:</h4>
+                                <div class="code-block hash-output" data-language="output">
+                                    <pre id="hash-output">65a8e27d8879283831b664bd8b7f0ad4</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="hash-visualization mt-4">
+                                <h4><i class="fas fa-eye"></i> Avalanche Effect Demo:</h4>
+                                <p>Try changing a single character in your input text and observe how the entire hash output changes dramatically. This property makes hash functions useful for detecting even the smallest changes in data.</p>
+                            </div>
+                            
+                            <div class="cipher-security-note mt-4">
+                                <h4><i class="fas fa-shield-alt"></i> Security Note:</h4>
+                                <p>Not all hash functions are created equal. MD5 and SHA-1 are now considered cryptographically broken. For security-critical applications, use SHA-256 or better. When storing passwords, specialized password hashing functions like bcrypt, scrypt, or Argon2 should be used instead of general-purpose hash functions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card learning-path-card fade-in">
+                <div class="card-header">
+                    <h2 class="mb-0"><i class="fas fa-graduation-cap"></i> Learning Path</h2>
+                </div>
+                <div class="card-body">
+                    <div class="learning-path">
+                        <div class="learning-path-item">
+                            <div class="learning-path-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="learning-path-content">
+                                <h3>Fundamentals</h3>
+                                <p>Start with the basics of cryptography, including classic ciphers and key concepts.</p>
+                                <ul>
+                                    <li>Caesar Cipher</li>
+                                    <li>Substitution Cipher</li>
+                                    <li>Vigenère Cipher</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-path-connector"></div>
+                        
+                        <div class="learning-path-item">
+                            <div class="learning-path-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="learning-path-content">
+                                <h3>Modern Cryptography</h3>
+                                <p>Explore contemporary algorithms and techniques used in secure communications.</p>
+                                <ul>
+                                    <li>Symmetric Encryption (AES)</li>
+                                    <li>Asymmetric Encryption (RSA)</li>
+                                    <li>Hash Functions (SHA)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-path-connector"></div>
+                        
+                        <div class="learning-path-item">
+                            <div class="learning-path-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="learning-path-content">
+                                <h3>Applications</h3>
+                                <p>Learn how cryptography is applied in real-world scenarios and systems.</p>
+                                <ul>
+                                    <li>Password Security</li>
+                                    <li>HTTPS & TLS</li>
+                                    <li>Digital Signatures</li>
+                                    <li>Blockchain & Cryptocurrencies</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="learning-path-connector"></div>
+                        
+                        <div class="learning-path-item">
+                            <div class="learning-path-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="learning-path-content">
+                                <h3>Advanced Topics</h3>
+                                <p>Dive into cutting-edge areas of cryptography and security.</p>
+                                <ul>
+                                    <li>Quantum Cryptography</li>
+                                    <li>Homomorphic Encryption</li>
+                                    <li>Zero-Knowledge Proofs</li>
+                                    <li>Post-Quantum Cryptography</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional CSS for this page -->
+<style>
+    .cipher-hero {
+        min-height: 40vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="monospace" font-size="10" fill="rgba(0, 255, 65, 0.1)" text-anchor="middle" dominant-baseline="middle">01001001</text></svg>');
+        background-size: 100px 100px;
+    }
+    
+    .cipher-nav {
+        display: flex;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--primary-dark);
+        padding-bottom: 1px;
+    }
+    
+    .cipher-nav .nav-link {
+        color: var(--text-muted);
+        padding: 1rem 1.5rem;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .cipher-nav .nav-link:hover {
+        color: var(--primary);
+    }
+    
+    .cipher-nav .nav-link.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+    }
+    
+    .cipher-content {
+        padding: 2rem 0;
+    }
+    
+    .cipher-history {
+        border-left: 3px solid var(--primary);
+    }
+    
+    .cipher-security-note {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 4px;
+        border-left: 3px solid var(--secondary);
+    }
+    
+    .substitution-key {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 4px;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .plaintext-alphabet, .substitution-alphabet {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .key-label {
+        width: 80px;
+        color: var(--text-muted);
+    }
+    
+    .alphabet-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .alphabet-row span {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-generate {
+        background-color: var(--darker);
+        color: var(--primary);
+        border: 1px solid var(--primary-dark);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-generate:hover {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+    }
+    
+    .hash-algorithm-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .hash-algorithm {
+        background-color: var(--darker);
+        color: var(--text-muted);
+        border: 1px solid var(--primary-dark);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .hash-algorithm:hover {
+        background-color: var(--medium-dark);
+        color: var(--text);
+    }
+    
+    .hash-algorithm.active {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+    }
+    
+    .hash-output {
+        word-break: break-all;
+    }
+    
+    .vigenere-table-container, .hash-visualization {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 4px;
+        border: 1px solid var(--primary-dark);
+        text-align: center;
+    }
+    
+    /* Learning path styling */
+    .learning-path-card {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        border: none;
+        background-color: transparent;
+    }
+    
+    .learning-path {
+        position: relative;
+        padding: 2rem 0;
+    }
+    
+    .learning-path-item {
+        display: flex;
+        margin-bottom: 3rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .learning-path-icon {
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 0 15px var(--primary-dark);
+        flex-shrink: 0;
+        z-index: 2;
+    }
+    
+    .learning-path-content {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-left: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .learning-path-content h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+    
+    .learning-path-content ul {
+        margin-bottom: 0;
+        columns: 2;
+    }
+    
+    .learning-path-connector {
+        position: absolute;
+        left: 30px;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        z-index: 0;
+    }
+    
+    @media (max-width: 768px) {
+        .learning-path-content ul {
+            columns: 1;
+        }
+    }
+</style>
+
+<!-- Additional JavaScript for this page -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Caesar Cipher Demo
+        const caesarInput = document.getElementById('caesar-input');
+        const caesarOutput = document.getElementById('caesar-output');
+        const caesarShift = document.getElementById('caesar-shift');
+        const shiftValue = document.getElementById('shift-value');
+        
+        function updateCaesarCipher() {
+            if (!caesarInput || !caesarOutput || !caesarShift) return;
+            
+            const text = caesarInput.value.toUpperCase();
+            const shift = parseInt(caesarShift.value);
+            
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                let char = text.charAt(i);
+                
+                if (char.match(/[A-Z]/)) {
+                    const code = text.charCodeAt(i);
+                    char = String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                }
+                
+                result += char;
+            }
+            
+            caesarOutput.textContent = result;
+            
+            if (shiftValue) {
+                shiftValue.textContent = shift;
+            }
+        }
+        
+        if (caesarInput) {
+            caesarInput.addEventListener('input', updateCaesarCipher);
+        }
+        
+        if (caesarShift) {
+            caesarShift.addEventListener('input', updateCaesarCipher);
+        }
+        
+        // Vigenère Cipher Demo
+        const vigenereInput = document.getElementById('vigenere-input');
+        const vigenereOutput = document.getElementById('vigenere-output');
+        const vigenereKey = document.getElementById('vigenere-key');
+        
+        function updateVigenereCipher() {
+            if (!vigenereInput || !vigenereOutput || !vigenereKey) return;
+            
+            const text = vigenereInput.value.toUpperCase();
+            let key = vigenereKey.value.toUpperCase().replace(/[^A-Z]/g, '');
+            
+            if (key.length === 0) {
+                vigenereOutput.textContent = text;
+                return;
+            }
+            
+            let result = '';
+            let keyIndex = 0;
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                
+                if (char.match(/[A-Z]/)) {
+                    // Get the key character and its value (0-25)
+                    const keyChar = key.charAt(keyIndex % key.length);
+                    const keyValue = keyChar.charCodeAt(0) - 65;
+                    
+                    // Encrypt the character
+                    const charCode = char.charCodeAt(0) - 65;
+                    const encryptedChar = String.fromCharCode(((charCode + keyValue) % 26) + 65);
+                    
+                    result += encryptedChar;
+                    keyIndex++;
+                } else {
+                    result += char;
+                }
+            }
+            
+            vigenereOutput.textContent = result;
+        }
+        
+        if (vigenereInput) {
+            vigenereInput.addEventListener('input', updateVigenereCipher);
+        }
+        
+        if (vigenereKey) {
+            vigenereKey.addEventListener('input', updateVigenereCipher);
+        }
+        
+        // Substitution Cipher Demo
+        const substitutionInput = document.getElementById('substitution-input');
+        const substitutionOutput = document.getElementById('substitution-output');
+        const generateKeyBtn = document.querySelector('.btn-generate');
+        
+        // Current substitution key mapping
+        let substitutionMap = {
+            'A': 'Q', 'B': 'W', 'C': 'E', 'D': 'R', 'E': 'T', 'F': 'Y', 'G': 'U', 'H': 'I', 'I': 'O', 'J': 'P',
+            'K': 'A', 'L': 'S', 'M': 'D', 'N': 'F', 'O': 'G', 'P': 'H', 'Q': 'J', 'R': 'K', 'S': 'L', 'T': 'Z',
+            'U': 'X', 'V': 'C', 'W': 'V', 'X': 'B', 'Y': 'N', 'Z': 'M'
+        };
+        
+        function updateSubstitutionCipher() {
+            if (!substitutionInput || !substitutionOutput) return;
+            
+            const text = substitutionInput.value.toUpperCase();
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                
+                if (substitutionMap[char]) {
+                    result += substitutionMap[char];
+                } else {
+                    result += char;
+                }
+            }
+            
+            substitutionOutput.textContent = result;
+        }
+        
+        function generateNewKey() {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const shuffled = [...alphabet].sort(() => Math.random() - 0.5);
+            
+            // Update the mapping
+            for (let i = 0; i < alphabet.length; i++) {
+                substitutionMap[alphabet[i]] = shuffled[i];
+            }
+            
+            // Update the visual display
+            const cipherAlphabet = document.querySelector('.substitution-alphabet .alphabet-row');
+            if (cipherAlphabet) {
+                cipherAlphabet.innerHTML = '';
+                
+                for (let i = 0; i < alphabet.length; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = substitutionMap[alphabet[i]];
+                    cipherAlphabet.appendChild(span);
+                }
+            }
+            
+            // Update the output
+            updateSubstitutionCipher();
+        }
+        
+        if (substitutionInput) {
+            substitutionInput.addEventListener('input', updateSubstitutionCipher);
+        }
+        
+        if (generateKeyBtn) {
+            generateKeyBtn.addEventListener('click', generateNewKey);
+        }
+        
+        // Hash Function Demo
+        const hashInput = document.getElementById('hash-input');
+        const hashOutput = document.getElementById('hash-output');
+        const hashAlgorithmButtons = document.querySelectorAll('.hash-algorithm');
+        
+        // Simple hash function simulations
+        function md5(text) {
+            // This is just a simulation - not an actual MD5 implementation
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            // Convert to a 32-character hex string
+            return Math.abs(hash).toString(16).padStart(32, '0');
+        }
+        
+        function sha1(text) {
+            // This is just a simulation - not an actual SHA-1 implementation
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 7) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            // Convert to a 40-character hex string
+            return Math.abs(hash).toString(16).padStart(40, '0');
+        }
+        
+        function sha256(text) {
+            // This is just a simulation - not an actual SHA-256 implementation
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 11) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            // Convert to a 64-character hex string
+            return Math.abs(hash).toString(16).padStart(64, '0');
+        }
+        
+        function sha512(text) {
+            // This is just a simulation - not an actual SHA-512 implementation
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 13) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            // Convert to a 128-character hex string
+            return Math.abs(hash).toString(16).padStart(128, '0');
+        }
+        
+        function updateHash() {
+            if (!hashInput || !hashOutput) return;
+            
+            const text = hashInput.value;
+            const activeAlgorithm = document.querySelector('.hash-algorithm.active');
+            
+            if (!activeAlgorithm) return;
+            
+            const algorithm = activeAlgorithm.getAttribute('data-algorithm');
+            let result = '';
+            
+            switch (algorithm) {
+                case 'md5':
+                    result = md5(text);
+                    break;
+                case 'sha1':
+                    result = sha1(text);
+                    break;
+                case 'sha256':
+                    result = sha256(text);
+                    break;
+                case 'sha512':
+                    result = sha512(text);
+                    break;
+                default:
+                    result = md5(text);
+            }
+            
+            hashOutput.textContent = result;
+        }
+        
+        if (hashInput) {
+            hashInput.addEventListener('input', updateHash);
+        }
+        
+        if (hashAlgorithmButtons.length > 0) {
+            hashAlgorithmButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    hashAlgorithmButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update hash output
+                    updateHash();
+                });
+            });
+        }
+    });
+</script>
