@@ -1981,3 +1981,1429 @@ title: Learn Cryptography - CipherLab
     
     .quiz-option {
         background-color: var(--darker);
+        border: 1px solid var(--primary-dark);
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .quiz-option:hover {
+        background-color: var(--medium-dark);
+        transform: translateX(5px);
+    }
+    
+.quiz-option.selected {
+        border-color: var(--primary);
+        background-color: var(--primary-dark);
+        color: var(--dark);
+    }
+    
+    .quiz-feedback {
+        background-color: var(--darker);
+        border-radius: 4px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .correct-feedback {
+        color: #27c93f;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .incorrect-feedback {
+        color: #ff3e3e;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .check-answer-btn {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+    
+    .check-answer-btn:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Grid Container */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    .grid-item {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .grid-item:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .principle-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2rem;
+        color: var(--dark);
+    }
+    
+    /* Timeline Styling */
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 2rem auto;
+    }
+    
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background: linear-gradient(to bottom, var(--primary-dark), var(--primary));
+        top: 0;
+        bottom: 0;
+        left: 50px;
+        margin-left: -3px;
+        border-radius: 3px;
+    }
+    
+    .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+    
+    .timeline-marker {
+        min-width: 100px;
+        text-align: center;
+        padding: 0.5rem;
+        background-color: var(--primary);
+        color: var(--dark);
+        border-radius: 4px;
+        font-weight: bold;
+        z-index: 1;
+    }
+    
+    .timeline-content {
+        margin-left: 2rem;
+        padding: 1.5rem;
+        background-color: var(--darker);
+        border-radius: 8px;
+        position: relative;
+        flex-grow: 1;
+    }
+    
+    .timeline-content::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 20px;
+        width: 20px;
+        height: 20px;
+        background-color: var(--darker);
+        transform: rotate(45deg);
+    }
+    
+    .timeline-content h4 {
+        margin-top: 0;
+        color: var(--primary);
+    }
+    
+    /* Application List */
+    .application-list {
+        list-style-type: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .application-list li {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .application-list li:hover {
+        transform: translateX(5px);
+        background-color: var(--medium-dark);
+    }
+    
+    .application-list li i {
+        color: var(--primary);
+        font-size: 1.5rem;
+    }
+    
+    /* Industry Grid */
+    .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .industry-item {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .industry-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .industry-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .industry-item h4 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    /* Applications Container */
+    .applications-container {
+        margin-top: 2rem;
+    }
+    
+    .app-category {
+        margin-bottom: 2rem;
+    }
+    
+    .app-category h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+    
+    .app-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+    }
+    
+    .app-item {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .app-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .app-item h5 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Implementation Grid */
+    .implementation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .implementation-item {
+        background-color: var(--darker);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .implementation-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .implementation-header {
+        background-color: var(--medium-dark);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .implementation-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+    
+    .implementation-header h4 {
+        margin: 0;
+        color: var(--primary);
+    }
+    
+    .implementation-content {
+        padding: 1.5rem;
+    }
+    
+    .implementation-content ul {
+        margin: 0.5rem 0 0;
+        padding-left: 1.5rem;
+    }
+    
+    .implementation-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Trends Container */
+    .trends-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .trend-item {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .trend-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .trend-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .trend-item h4 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    /* Application Grid */
+    .application-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .application-item {
+        background-color: var(--medium-dark);
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    
+    .application-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .application-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 1rem;
+    }
+    
+    .application-item h5 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    /* Attributes Container */
+    .attributes-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--primary-dark);
+    }
+    
+    .attribute {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .attribute:hover {
+        transform: translateY(-5px);
+    }
+    
+    .attribute-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin: 0 auto 1rem;
+    }
+    
+    .attribute h5 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    /* Algorithm List */
+    .algorithm-list {
+        margin-top: 1rem;
+    }
+    
+    .algorithm-item {
+        background-color: var(--darker);
+        padding: 1.25rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    }
+    
+    .algorithm-item h5 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    .algorithm-item ul {
+        padding-left: 1.5rem;
+        margin-bottom: 0;
+    }
+    
+    .algorithm-item li {
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Final Quiz Section */
+    .final-quiz-container {
+        margin-top: 3rem;
+    }
+    
+    .final-quiz-card {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .final-quiz-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .final-quiz-header {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .quiz-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--dark);
+        flex-shrink: 0;
+    }
+    
+    .quiz-info {
+        flex-grow: 1;
+    }
+    
+    .quiz-info h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+    
+    .quiz-info p {
+        margin: 0;
+        color: var(--text-muted);
+    }
+    
+    .quiz-status {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+    }
+    
+    .quiz-status span {
+        color: var(--text-muted);
+    }
+    
+    .quiz-status i {
+        color: #ff3e3e;
+        font-size: 1.5rem;
+    }
+    
+    .final-quiz-footer {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+    
+    .requirements {
+        flex-grow: 1;
+    }
+    
+    .requirements p {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .quiz-progress {
+        height: 8px;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .final-quiz-button {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border: none;
+        border-radius: 4px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .final-quiz-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .final-quiz-button:disabled {
+        background: linear-gradient(135deg, var(--text-muted), var(--light-dark));
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Final Quiz Content */
+    .final-quiz-intro {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .quiz-instructions {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: left;
+        margin: 2rem 0;
+    }
+    
+    .quiz-instructions h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+    }
+    
+    .quiz-instructions ul {
+        padding-left: 1.5rem;
+        margin-bottom: 0;
+    }
+    
+    .quiz-instructions li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .start-quiz-container {
+        margin-top: 2rem;
+    }
+    
+    .quiz-progress-indicator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--darker);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    
+    .question-counter {
+        font-weight: 600;
+    }
+    
+    .quiz-timer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .quiz-question-container {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .question-title {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+    }
+    
+    .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .submit-quiz-button {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border: none;
+        border-radius: 4px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .submit-quiz-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Quiz Results */
+    .results-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .results-summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+    
+    .score-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .score-circle {
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark);
+    }
+    
+    .score-value {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+    
+    .score-percent {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    .pass-fail-badge {
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+    
+    .pass-fail-badge.pass {
+        background-color: rgba(39, 201, 63, 0.2);
+        color: #27c93f;
+        border: 1px solid #27c93f;
+    }
+    
+    .pass-fail-badge.fail {
+        background-color: rgba(255, 62, 62, 0.2);
+        color: #ff3e3e;
+        border: 1px solid #ff3e3e;
+    }
+    
+    .result-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .result-item {
+        text-align: center;
+    }
+    
+    .result-label {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .result-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    /* Certificate */
+    .certification-container {
+        max-width: 800px;
+        margin: 3rem auto;
+    }
+    
+    .certificate {
+        background-color: var(--darker);
+        border: 5px solid var(--primary);
+        border-radius: 8px;
+        padding: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .certificate::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100"><path d="M50,3 L97,25 L97,75 L50,97 L3,75 L3,25 Z" fill="none" stroke="rgba(0,255,65,0.1)" stroke-width="1" /></svg>');
+        background-size: 300px 300px;
+        opacity: 0.3;
+        z-index: -1;
+    }
+    
+    .certificate-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .certificate-logo {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+    
+    .certificate-title {
+        font-size: 2.5rem;
+        margin: 0;
+        color: var(--primary);
+    }
+    
+    .certificate-body {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .certificate-text {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .certificate-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1.5rem 0;
+    }
+    
+    .certificate-course {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 1.5rem 0;
+    }
+    
+    .certificate-date {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+    }
+    
+    .certificate-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    
+    .certificate-signature {
+        text-align: center;
+    }
+    
+    .signature-line {
+        width: 200px;
+        height: 2px;
+        background-color: var(--text);
+        margin-bottom: 0.5rem;
+    }
+    
+    .certificate-seal {
+        text-align: center;
+    }
+    
+    .seal-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .certificate-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    /* Review Container */
+    .quiz-review-container {
+        margin-top: 3rem;
+    }
+    
+    .review-title {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+    }
+    
+    .quiz-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 992px) {
+        .two-column {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .final-quiz-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .final-quiz-footer {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .grid-container,
+        .industry-grid,
+        .trends-container,
+        .application-grid,
+        .attributes-container,
+        .result-details {
+            grid-template-columns: 1fr;
+        }
+        
+        .historical-info {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .alphabet-visualization {
+            overflow-x: scroll;
+        }
+        
+        .certificate {
+            padding: 1.5rem;
+        }
+        
+        .certificate-footer {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .quiz-actions {
+            flex-direction: column;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .application-list {
+            grid-template-columns: 1fr;
+        }
+        
+        .app-items {
+            grid-template-columns: 1fr;
+        }
+        
+        .implementation-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .quiz-progress-indicator {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .certificate-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<!-- JavaScript for Interactive Functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get elements
+        const moduleContents = document.querySelectorAll('.module-content');
+        const completedCount = document.getElementById('completed-count');
+        const totalCount = document.getElementById('total-count');
+        const percentage = document.getElementById('percentage');
+        const progressValue = document.getElementById('progress-value');
+        const lessonContentSection = document.getElementById('lesson-content-section');
+        const lessonTitle = document.getElementById('lesson-title');
+        const lessonContent = document.getElementById('lesson-content');
+        const prevLessonBtn = document.getElementById('prev-lesson');
+        const nextLessonBtn = document.getElementById('next-lesson');
+        const completeBtn = document.getElementById('complete-lesson');
+        const quizStatusText = document.getElementById('quiz-status-text');
+        const quizLockIcon = document.getElementById('quiz-lock-icon');
+        const quizProgressValue = document.getElementById('quiz-progress-value');
+        const startFinalQuizBtn = document.getElementById('start-final-quiz');
+        
+        // Lesson templates
+        const lessonTemplates = document.getElementById('lesson-templates');
+        
+        // Store completed lessons
+        let completedLessons = [];
+        let currentLesson = null;
+        
+        // Module and lesson data
+        const modules = [
+            {
+                id: 'module1',
+                title: 'Fundamentals of Cryptography',
+                lessons: [
+                    { id: 'lesson1-1', title: 'What is Cryptography?' },
+                    { id: 'lesson1-2', title: 'Types of Cryptography' },
+                    { id: 'lesson1-3', title: 'The Use of Cryptography in the Real World' }
+                ]
+            },
+            {
+                id: 'module2',
+                title: 'Classical Ciphers',
+                lessons: [
+                    { id: 'lesson2-1', title: 'Caesar Cipher' },
+                    { id: 'lesson2-2', title: 'Vigenère Cipher' },
+                    { id: 'lesson2-3', title: 'Substitution Cipher' }
+                ]
+            },
+            {
+                id: 'module3',
+                title: 'Modern Cryptography',
+                lessons: [
+                    { id: 'lesson3-1', title: 'Symmetric Encryption' },
+                    { id: 'lesson3-2', title: 'Asymmetric Encryption' },
+                    { id: 'lesson3-3', title: 'Hash Functions' }
+                ]
+            },
+            {
+                id: 'module4',
+                title: 'Practical Applications',
+                lessons: [
+                    { id: 'lesson4-1', title: 'Secure Communications' },
+                    { id: 'lesson4-2', title: 'Digital Signatures & PKI' },
+                    { id: 'lesson4-3', title: 'Blockchain & Cryptocurrencies' }
+                ]
+            },
+            {
+                id: 'module5',
+                title: 'Advanced Topics',
+                lessons: [
+                    { id: 'lesson5-1', title: 'Quantum Cryptography' },
+                    { id: 'lesson5-2', title: 'Zero-Knowledge Proofs' },
+                    { id: 'lesson5-3', title: 'Homomorphic Encryption' }
+                ]
+            }
+        ];
+        
+        // Total number of lessons
+        const totalLessons = modules.reduce((sum, module) => sum + module.lessons.length, 0);
+        totalCount.textContent = totalLessons;
+        
+        // Toggle module content visibility
+        window.toggleModule = function(moduleContentId) {
+            const moduleContent = document.getElementById(moduleContentId);
+            
+            if (moduleContent.style.display === 'block') {
+                moduleContent.style.display = 'none';
+            } else {
+                // Hide all other module contents
+                moduleContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // Show the selected module content
+                moduleContent.style.display = 'block';
+            }
+        };
+        
+        // Show lesson content
+        window.showLesson = function(lessonId) {
+            // Find the lesson
+            let lesson = null;
+            let moduleId = '';
+            let moduleIndex = 0;
+            let lessonIndex = 0;
+            
+            for (let i = 0; i < modules.length; i++) {
+                const module = modules[i];
+                for (let j = 0; j < module.lessons.length; j++) {
+                    if (module.lessons[j].id === lessonId) {
+                        lesson = module.lessons[j];
+                        moduleId = module.id;
+                        moduleIndex = i;
+                        lessonIndex = j;
+                        break;
+                    }
+                }
+                if (lesson) break;
+            }
+            
+            if (!lesson) return;
+            
+            // Update current lesson
+            currentLesson = {
+                id: lessonId,
+                moduleId: moduleId,
+                moduleIndex: moduleIndex,
+                lessonIndex: lessonIndex
+            };
+            
+            // Set lesson title
+            lessonTitle.textContent = lesson.title;
+            
+            // Get lesson content from template
+            const template = document.getElementById(`${lessonId}-content`);
+            if (template) {
+                lessonContent.innerHTML = template.innerHTML;
+            } else {
+                lessonContent.innerHTML = '<p>Content for this lesson is not available yet.</p>';
+            }
+            
+            // Update navigation buttons
+            updateNavButtons();
+            
+            // Check if lesson is completed
+            if (completedLessons.includes(lessonId)) {
+                completeBtn.disabled = true;
+                completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            } else {
+                completeBtn.disabled = false;
+                completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+            }
+            
+            // Show lesson content section
+            lessonContentSection.style.display = 'block';
+            
+            // Scroll to lesson content
+            lessonContentSection.scrollIntoView({ behavior: 'smooth' });
+        };
+        
+        // Update navigation buttons
+        function updateNavButtons() {
+            if (!currentLesson) return;
+            
+            const { moduleIndex, lessonIndex } = currentLesson;
+            
+            // Previous button
+            if (moduleIndex === 0 && lessonIndex === 0) {
+                // First lesson in first module
+                prevLessonBtn.disabled = true;
+            } else {
+                prevLessonBtn.disabled = false;
+            }
+            
+            // Next button
+            if (moduleIndex === modules.length - 1 && lessonIndex === modules[moduleIndex].lessons.length - 1) {
+                // Last lesson in last module
+                nextLessonBtn.disabled = true;
+            } else {
+                nextLessonBtn.disabled = false;
+            }
+        }
+        
+        // Go to previous lesson
+        prevLessonBtn.addEventListener('click', function() {
+            if (!currentLesson) return;
+            
+            const { moduleIndex, lessonIndex } = currentLesson;
+            
+            if (lessonIndex > 0) {
+                // Previous lesson in same module
+                showLesson(modules[moduleIndex].lessons[lessonIndex - 1].id);
+            } else if (moduleIndex > 0) {
+                // Last lesson in previous module
+                const prevModule = modules[moduleIndex - 1];
+                showLesson(prevModule.lessons[prevModule.lessons.length - 1].id);
+            }
+        });
+        
+        // Go to next lesson
+        nextLessonBtn.addEventListener('click', function() {
+            if (!currentLesson) return;
+            
+            const { moduleIndex, lessonIndex } = currentLesson;
+            
+            if (lessonIndex < modules[moduleIndex].lessons.length - 1) {
+                // Next lesson in same module
+                showLesson(modules[moduleIndex].lessons[lessonIndex + 1].id);
+            } else if (moduleIndex < modules.length - 1) {
+                // First lesson in next module
+                showLesson(modules[moduleIndex + 1].lessons[0].id);
+            }
+        });
+        
+        // Mark lesson as complete
+        completeBtn.addEventListener('click', function() {
+            if (!currentLesson) return;
+            
+            const lessonId = currentLesson.id;
+            
+            // Check if already completed
+            if (completedLessons.includes(lessonId)) return;
+            
+            // Add to completed lessons
+            completedLessons.push(lessonId);
+            
+            // Update UI
+            completeBtn.disabled = true;
+            completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            
+            // Update lesson status icon
+            const statusIcon = document.getElementById(`status-${lessonId.split('-')[1]}`);
+            if (statusIcon) {
+                statusIcon.classList.remove('far', 'fa-circle');
+                statusIcon.classList.add('fas', 'fa-check-circle');
+            }
+            
+            // Update progress
+            updateProgress();
+        });
+        
+        // Check quiz answer
+        window.checkAnswer = function(button, questionId) {
+            const correctOption = button.getAttribute('data-correct');
+            const selectedOption = document.querySelector(`input[name="quiz${questionId}"]:checked`);
+            
+            if (!selectedOption) {
+                alert('Please select an answer.');
+                return;
+            }
+            
+            const isCorrect = selectedOption.value === correctOption;
+            const feedbackDiv = button.previousElementSibling;
+            
+            // Show feedback
+            feedbackDiv.style.display = 'block';
+            
+            if (isCorrect) {
+                feedbackDiv.querySelector('.correct-feedback').style.display = 'block';
+                feedbackDiv.querySelector('.incorrect-feedback').style.display = 'none';
+            } else {
+                feedbackDiv.querySelector('.correct-feedback').style.display = 'none';
+                feedbackDiv.querySelector('.incorrect-feedback').style.display = 'block';
+            }
+            
+            // Disable button
+            button.disabled = true;
+        };
+        
+        // Update progress
+        function updateProgress() {
+            const completed = completedLessons.length;
+            const percentageValue = Math.round((completed / totalLessons) * 100);
+            
+            completedCount.textContent = completed;
+            percentage.textContent = `${percentageValue}%`;
+            progressValue.style.width = `${percentageValue}%`;
+            
+            // Update module percentages
+            modules.forEach(module => {
+                const moduleCompleted = module.lessons.filter(lesson => completedLessons.includes(lesson.id)).length;
+                const modulePercentage = Math.round((moduleCompleted / module.lessons.length) * 100);
+                
+                document.getElementById(`${module.id}-percentage`).textContent = `${modulePercentage}%`;
+            });
+            
+            // Update final quiz status
+            quizProgressValue.style.width = `${percentageValue}%`;
+            
+            if (percentageValue === 100) {
+                quizStatusText.textContent = 'Unlocked';
+                quizLockIcon.classList.remove('fa-lock');
+                quizLockIcon.classList.add('fa-unlock');
+                quizLockIcon.style.color = 'var(--primary)';
+                startFinalQuizBtn.disabled = false;
+            }
+        }
+        
+        // Final Quiz Functionality
+        startFinalQuizBtn.addEventListener('click', function() {
+            // Hide final quiz intro
+            document.querySelector('.final-quiz-intro').style.display = 'none';
+            
+            // Show questions
+            document.querySelector('.final-quiz-questions').style.display = 'block';
+            
+            // Start quiz timer
+            startQuizTimer();
+        });
+        
+        // Start quiz timer
+        function startQuizTimer() {
+            let minutes = 15;
+            let seconds = 0;
+            const timerEl = document.getElementById('quiz-time');
+            
+            const timer = setInterval(function() {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(timer);
+                        endQuiz();
+                        return;
+                    }
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+                
+                timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // Navigation between quiz questions
+        const prevQuizQuestionBtn = document.getElementById('prev-quiz-question');
+        const nextQuizQuestionBtn = document.getElementById('next-quiz-question');
+        const submitQuizBtn = document.getElementById('submit-quiz');
+        
+        let currentQuestionNum = 1;
+        const totalQuestions = 10;
+        
+        // Update the current question display
+        function updateQuestionDisplay() {
+            document.getElementById('current-question-num').textContent = currentQuestionNum;
+            
+            // Hide all questions
+            const questions = document.querySelectorAll('.quiz-question-container');
+            questions.forEach(q => q.style.display = 'none');
+            
+            // Show current question
+            const currentQuestion = document.querySelector(`.quiz-question-container[data-question="${currentQuestionNum}"]`);
+            if (currentQuestion) currentQuestion.style.display = 'block';
+            
+            // Update navigation buttons
+            if (currentQuestionNum === 1) {
+                prevQuizQuestionBtn.disabled = true;
+            } else {
+                prevQuizQuestionBtn.disabled = false;
+            }
+            
+            if (currentQuestionNum === totalQuestions) {
+                nextQuizQuestionBtn.style.display = 'none';
+                submitQuizBtn.style.display = 'block';
+            } else {
+                nextQuizQuestionBtn.style.display = 'block';
+                submitQuizBtn.style.display = 'none';
+            }
+        }
+        
+        // Previous question
+        prevQuizQuestionBtn.addEventListener('click', function() {
+            if (currentQuestionNum > 1) {
+                currentQuestionNum--;
+                updateQuestionDisplay();
+            }
+        });
+        
+        // Next question
+        nextQuizQuestionBtn.addEventListener('click', function() {
+            if (currentQuestionNum < totalQuestions) {
+                currentQuestionNum++;
+                updateQuestionDisplay();
+            }
+        });
+        
+        // Submit quiz
+        submitQuizBtn.addEventListener('click', function() {
+            endQuiz();
+        });
+        
+        // End quiz
+        function endQuiz() {
+            // Hide questions
+            document.querySelector('.final-quiz-questions').style.display = 'none';
+            
+            // Calculate score
+            let correctAnswers = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="final-q${i}"]:checked`);
+                if (selected) {
+                    // For demonstration, assume correct answers follow a pattern (in a real app, this would be a lookup)
+                    if ((i % 4) === selected.value.charCodeAt(0) - 97) { // Convert a=0, b=1, etc.
+                        correctAnswers++;
+                    }
+                }
+            }
+            
+            const score = Math.round((correctAnswers / totalQuestions) * 100);
+            
+            // Update results
+            document.getElementById('quiz-score-value').textContent = score;
+            document.getElementById('correct-answers-count').textContent = correctAnswers;
+            document.getElementById('incorrect-answers-count').textContent = totalQuestions - correctAnswers;
+            
+            // Pass/fail badge
+            const passFailBadge = document.getElementById('pass-fail-badge');
+            if (score >= 80) {
+                passFailBadge.textContent = 'Passed';
+                passFailBadge.classList.add('pass');
+                
+                // Show certificate
+                document.getElementById('certification-container').style.display = 'block';
+                
+                // Set certificate date
+                const today = new Date();
+                document.getElementById('certificate-date').textContent = today.toLocaleDateString();
+            } else {
+                passFailBadge.textContent = 'Try Again';
+                passFailBadge.classList.add('fail');
+            }
+            
+            // Show results
+            document.querySelector('.final-quiz-results').style.display = 'block';
+        }
+        
+        // Initialize
+        updateProgress();
+    });
+</script>
+    
