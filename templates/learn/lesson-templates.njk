@@ -1,0 +1,1153 @@
+<!-- Lesson 1-1: What is Cryptography? -->
+<div id="lesson1-1-content">
+    <p class="mb-4">Cryptography is a technique of securing information and communications through the use of codes so that only individuals for whom the information is intended can read it and process it. Derived from the Greek word "kryptos," meaning hidden, cryptography translates to "hidden writing."</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-lightbulb"></i> Key Concept</h4>
+        <p>Cryptography transforms messages into an unreadable format (known as <strong>ciphertext</strong>) that can only be decrypted into a readable format (known as <strong>plaintext</strong>) by the authorized intended recipient using a specific secret key.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Core Principles</h3>
+        <p>Modern cryptography is built on four fundamental principles:</p>
+        
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="principle-icon"><i class="fas fa-user-secret"></i></div>
+                <h4>Confidentiality</h4>
+                <p>Information remains private and is accessible only to authorized parties</p>
+            </div>
+            <div class="grid-item">
+                <div class="principle-icon"><i class="fas fa-fingerprint"></i></div>
+                <h4>Integrity</h4>
+                <p>Data cannot be altered in storage or transit without detection</p>
+            </div>
+            <div class="grid-item">
+                <div class="principle-icon"><i class="fas fa-signature"></i></div>
+                <h4>Authentication</h4>
+                <p>Verification of the identity of users and the origin of data</p>
+            </div>
+            <div class="grid-item">
+                <div class="principle-icon"><i class="fas fa-ban"></i></div>
+                <h4>Non-repudiation</h4>
+                <p>Sender cannot deny having sent a message</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Historical Context</h3>
+        <p>Cryptography has a rich history spanning thousands of years:</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker">1900 BCE</div>
+                <div class="timeline-content">
+                    <h4>Ancient Egypt</h4>
+                    <p>Non-standard hieroglyphics found in the tomb of Khnumhotep II represent one of the earliest known examples of cryptography</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">500 BCE</div>
+                <div class="timeline-content">
+                    <h4>Sparta</h4>
+                    <p>The Spartans used a device called a scytale for secure military communications</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">50 BCE</div>
+                <div class="timeline-content">
+                    <h4>Roman Empire</h4>
+                    <p>Julius Caesar used a simple substitution cipher (now known as the Caesar cipher) to protect military messages</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">1500s</div>
+                <div class="timeline-content">
+                    <h4>Renaissance</h4>
+                    <p>Vigenère cipher developed, considered "le chiffre indéchiffrable" (the unbreakable cipher) for three centuries</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">1940s</div>
+                <div class="timeline-content">
+                    <h4>World War II</h4>
+                    <p>Enigma machine used by Germany for secure communications, later broken by Allied cryptanalysts led by Alan Turing</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">1970s</div>
+                <div class="timeline-content">
+                    <h4>Modern Era</h4>
+                    <p>Development of DES (Data Encryption Standard) and the concept of public-key cryptography, revolutionizing the field</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Applications in Today's World</h3>
+        <p>Cryptography ensures the security of modern-day communication channels and is ubiquitous in our digital lives:</p>
+        
+        <ul class="application-list">
+            <li><i class="fas fa-envelope"></i> Email encryption and digital signatures</li>
+            <li><i class="fas fa-shopping-cart"></i> Secure online shopping and banking (HTTPS)</li>
+            <li><i class="fas fa-lock"></i> Password protection and authentication</li>
+            <li><i class="fas fa-mobile-alt"></i> Mobile phone communications</li>
+            <li><i class="fas fa-broadcast-tower"></i> Wireless networks (WPA/WPA2)</li>
+            <li><i class="fas fa-database"></i> Secure storage of sensitive data</li>
+            <li><i class="fas fa-credit-card"></i> Credit card transactions</li>
+            <li><i class="fas fa-bitcoin"></i> Cryptocurrencies and blockchain technology</li>
+        </ul>
+    </div>
+    
+    <div class="interactive-quiz">
+        <h3 class="quiz-title"><i class="fas fa-question-circle"></i> Knowledge Check</h3>
+        <div class="quiz-question">
+            <p>Who is able to read and process information secured by cryptography?</p>
+            <div class="quiz-options">
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-1" value="a"> Anyone who intercepts the message
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-1" value="b"> Only the authorized intended recipient
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-1" value="c"> Government agencies
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-1" value="d"> Hackers
+                </label>
+            </div>
+            <div class="quiz-feedback" style="display: none;">
+                <div class="correct-feedback">
+                    <i class="fas fa-check-circle"></i> Correct! Only the authorized intended recipient with the proper decryption key should be able to read the information.
+                </div>
+                <div class="incorrect-feedback">
+                    <i class="fas fa-times-circle"></i> Incorrect. The whole purpose of cryptography is to ensure that only the authorized intended recipient can read the encrypted information.
+                </div>
+            </div>
+            <button class="check-answer-btn" data-correct="b" onclick="checkAnswer(this, '1-1')">Check Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 1-2: Types of Cryptography -->
+<div id="lesson1-2-content">
+    <p class="mb-4">Cryptography can be categorized into three primary types, each with its distinct approach to securing information. Understanding these types is essential for grasping how modern security systems work.</p>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">1. Symmetric Key Cryptography</h3>
+        
+        <div class="key-concept mb-4">
+            <h4><i class="fas fa-key"></i> Definition</h4>
+            <p>Symmetric key cryptography uses a <strong>single shared key</strong> for both encryption and decryption processes. Both the sender and recipient of an encrypted message have access to the same secret key.</p>
+        </div>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">How It Works</h4>
+                <ol class="process-list">
+                    <li>Alice and Bob agree on a secret key</li>
+                    <li>Alice encrypts her message using the key</li>
+                    <li>Alice sends the encrypted message to Bob</li>
+                    <li>Bob decrypts the message using the same key</li>
+                </ol>
+                
+                <div class="note-box">
+                    <p><strong>Key Challenge:</strong> How do Alice and Bob securely share the key initially?</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Common Algorithms</h4>
+                <div class="algorithm-list">
+                    <div class="algorithm-item">
+                        <h5>DES (Data Encryption Standard)</h5>
+                        <ul>
+                            <li>Developed in the 1970s</li>
+                            <li>56-bit key (considered insecure today)</li>
+                            <li>Block cipher operating on 64-bit blocks</li>
+                        </ul>
+                    </div>
+                    <div class="algorithm-item">
+                        <h5>AES (Advanced Encryption Standard)</h5>
+                        <ul>
+                            <li>Adopted by NIST in 2001</li>
+                            <li>128, 192, or 256-bit keys</li>
+                            <li>Current standard for government and industry</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="attributes-container">
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-bolt"></i></div>
+                <h5>Speed</h5>
+                <p>Fast and efficient for large amounts of data</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-cogs"></i></div>
+                <h5>Efficiency</h5>
+                <p>Low computational overhead</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-user-secret"></i></div>
+                <h5>Confidentiality</h5>
+                <p>Provides strong confidentiality if key remains secret</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-exchange-alt"></i></div>
+                <h5>Key Exchange</h5>
+                <p>Requires secure method to share keys</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">2. Asymmetric Key Cryptography</h3>
+        
+        <div class="key-concept mb-4">
+            <h4><i class="fas fa-key"></i> Definition</h4>
+            <p>Asymmetric cryptography uses <strong>a pair of keys</strong> - a public key for encryption and a private key for decryption. The keys are mathematically related but knowing the public key does not reveal the private key.</p>
+        </div>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">How It Works</h4>
+                <ol class="process-list">
+                    <li>Bob generates a key pair (public and private)</li>
+                    <li>Bob shares his public key with anyone, including Alice</li>
+                    <li>Alice encrypts her message using Bob's public key</li>
+                    <li>Alice sends the encrypted message to Bob</li>
+                    <li>Only Bob can decrypt the message using his private key</li>
+                </ol>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Common Algorithms</h4>
+                <div class="algorithm-list">
+                    <div class="algorithm-item">
+                        <h5>RSA (Rivest-Shamir-Adleman)</h5>
+                        <ul>
+                            <li>Based on the factorization of large prime numbers</li>
+                            <li>Commonly used for secure data transmission</li>
+                            <li>The backbone of many security protocols</li>
+                        </ul>
+                    </div>
+                    <div class="algorithm-item">
+                        <h5>ECC (Elliptic Curve Cryptography)</h5>
+                        <ul>
+                            <li>Uses algebraic structure of elliptic curves</li>
+                            <li>Smaller key sizes for equivalent security</li>
+                            <li>More efficient for mobile and IoT devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="attributes-container">
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-shield-alt"></i></div>
+                <h5>Security</h5>
+                <p>Strong security based on mathematical problems</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-globe"></i></div>
+                <h5>Key Distribution</h5>
+                <p>Solves the key exchange problem</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <h5>Performance</h5>
+                <p>Slower than symmetric encryption</p>
+            </div>
+            <div class="attribute">
+                <div class="attribute-icon"><i class="fas fa-signature"></i></div>
+                <h5>Authentication</h5>
+                <p>Enables digital signatures and authentication</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">3. Hash Functions</h3>
+        
+        <div class="key-concept mb-4">
+            <h4><i class="fas fa-fingerprint"></i> Definition</h4>
+            <p>A hash function is a <strong>one-way method</strong> that transforms data of any size into a fixed-size output (hash value or digest). Unlike encryption, hashing is not reversible—you cannot derive the original data from its hash.</p>
+        </div>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">How It Works</h4>
+                <ol class="process-list">
+                    <li>Input data (of any size) is processed by the hash function</li>
+                    <li>The function produces a fixed-length output (hash)</li>
+                    <li>Even a small change in input produces a completely different hash</li>
+                    <li>The process cannot be reversed to obtain the original input</li>
+                </ol>
+                
+                <div class="note-box">
+                    <p><strong>Key Properties:</strong> Deterministic, quick to compute, pre-image resistant, collision-resistant, and exhibits the avalanche effect</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Common Algorithms</h4>
+                <div class="algorithm-list">
+                    <div class="algorithm-item">
+                        <h5>SHA-2 & SHA-3 (Secure Hash Algorithm)</h5>
+                        <ul>
+                            <li>SHA-256, SHA-384, SHA-512 variants</li>
+                            <li>Widely used in security applications</li>
+                            <li>Current standard recommended by NIST</li>
+                        </ul>
+                    </div>
+                    <div class="algorithm-item">
+                        <h5>MD5 & SHA-1 (Legacy)</h5>
+                        <ul>
+                            <li>Older algorithms now considered broken</li>
+                            <li>Vulnerable to collision attacks</li>
+                            <li>Not recommended for security purposes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="applications-container">
+            <h4 class="subsection-title">Common Applications</h4>
+            <div class="application-grid">
+                <div class="application-item">
+                    <div class="application-icon"><i class="fas fa-lock"></i></div>
+                    <h5>Password Storage</h5>
+                    <p>Systems store hashed passwords rather than plaintext</p>
+                </div>
+                <div class="application-item">
+                    <div class="application-icon"><i class="fas fa-file-alt"></i></div>
+                    <h5>Data Integrity</h5>
+                    <p>Verifying files haven't been altered during transfer</p>
+                </div>
+                <div class="application-item">
+                    <div class="application-icon"><i class="fas fa-signature"></i></div>
+                    <h5>Digital Signatures</h5>
+                    <p>Creating and verifying document signatures</p>
+                </div>
+                <div class="application-item">
+                    <div class="application-icon"><i class="fas fa-link"></i></div>
+                    <h5>Blockchain</h5>
+                    <p>Securing transactions in cryptocurrencies</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="interactive-quiz">
+        <h3 class="quiz-title"><i class="fas fa-question-circle"></i> Knowledge Check</h3>
+        <div class="quiz-question">
+            <p>Which is not a cryptography key type?</p>
+            <div class="quiz-options">
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-2" value="a"> Hash Function
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-2" value="b"> Asymmetric Key
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-2" value="c"> Symmetric Key
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-2" value="d"> Two-way Key
+                </label>
+            </div>
+            <div class="quiz-feedback" style="display: none;">
+                <div class="correct-feedback">
+                    <i class="fas fa-check-circle"></i> Correct! "Two-way Key" is not a standard cryptography key type. The three main types are symmetric key, asymmetric key, and hash functions.
+                </div>
+                <div class="incorrect-feedback">
+                    <i class="fas fa-times-circle"></i> Incorrect. The three main types of cryptography are symmetric key, asymmetric key, and hash functions. "Two-way Key" is not a standard cryptography type.
+                </div>
+            </div>
+            <button class="check-answer-btn" data-correct="d" onclick="checkAnswer(this, '1-2')">Check Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 1-3: The Use of Cryptography in the Real World -->
+<div id="lesson1-3-content">
+    <p class="mb-4">Cryptography is vastly important since it secures and encrypts our sensitive information/data so that only those with permission can access it. It plays a crucial role in modern-day digital security, spanning multiple industries and technologies to guarantee privacy, data integrity, and security.</p>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Industries Relying on Cryptography</h3>
+        
+        <div class="industry-grid">
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-hospital"></i></div>
+                <h4>Healthcare</h4>
+                <p>Protects patient records (EHRs), maintains HIPAA compliance, and secures medical device communications</p>
+            </div>
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-university"></i></div>
+                <h4>Finance & Banking</h4>
+                <p>Secures online transactions, banking apps, ATM operations, and credit card processing</p>
+            </div>
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-fighter-jet"></i></div>
+                <h4>Military & Defense</h4>
+                <p>Protects classified information, secures communications, and safeguards strategic assets</p>
+            </div>
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-truck"></i></div>
+                <h4>Supply Chain</h4>
+                <p>Ensures secure tracking, authenticates products, and prevents counterfeiting</p>
+            </div>
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-gavel"></i></div>
+                <h4>Government</h4>
+                <p>Protects citizen data, secures voting systems, and enables confidential communications</p>
+            </div>
+            <div class="industry-item">
+                <div class="industry-icon"><i class="fas fa-shopping-cart"></i></div>
+                <h4>E-commerce</h4>
+                <p>Enables secure online shopping, payment processing, and customer data protection</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Everyday Applications</h3>
+        
+        <div class="applications-container">
+            <div class="app-category">
+                <h4><i class="fas fa-globe"></i> Web Security</h4>
+                <div class="app-items">
+                    <div class="app-item">
+                        <h5>HTTPS Protocol</h5>
+                        <p>Secures websites with SSL/TLS encryption, indicated by the padlock icon in browsers</p>
+                    </div>
+                    <div class="app-item">
+                        <h5>Certificate Authorities</h5>
+                        <p>Verify the identity of websites and issue digital certificates</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-category">
+                <h4><i class="fas fa-comments"></i> Communications</h4>
+                <div class="app-items">
+                    <div class="app-item">
+                        <h5>End-to-End Encryption</h5>
+                        <p>Used in messaging apps like Signal and WhatsApp to ensure only the intended recipients can read messages</p>
+                    </div>
+                    <div class="app-item">
+                        <h5>Email Encryption</h5>
+                        <p>PGP (Pretty Good Privacy) and S/MIME protocols for secure email communications</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-category">
+                <h4><i class="fas fa-bitcoin"></i> Cryptocurrencies</h4>
+                <div class="app-items">
+                    <div class="app-item">
+                        <h5>Blockchain Technology</h5>
+                        <p>Uses cryptographic techniques to secure transactions and control token creation</p>
+                    </div>
+                    <div class="app-item">
+                        <h5>Digital Wallets</h5>
+                        <p>Secure storage of cryptocurrency private keys using encryption</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Modern Implementation Examples</h3>
+        
+        <div class="implementation-grid">
+            <div class="implementation-item">
+                <div class="implementation-header">
+                    <div class="implementation-icon"><i class="fas fa-wifi"></i></div>
+                    <h4>Wi-Fi Security</h4>
+                </div>
+                <div class="implementation-content">
+                    <p>WPA2/WPA3 protocols use cryptography to:</p>
+                    <ul>
+                        <li>Authenticate legitimate network users</li>
+                        <li>Encrypt data transmitted between devices and routers</li>
+                        <li>Prevent eavesdropping on wireless communications</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-item">
+                <div class="implementation-header">
+                    <div class="implementation-icon"><i class="fas fa-signature"></i></div>
+                    <h4>Digital Signatures</h4>
+                </div>
+                <div class="implementation-content">
+                    <p>Used for:</p>
+                    <ul>
+                        <li>Authenticating the source of digital documents</li>
+                        <li>Ensuring document integrity</li>
+                        <li>Non-repudiation in legal and financial contexts</li>
+                        <li>Software code signing to verify authenticity</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-item">
+                <div class="implementation-header">
+                    <div class="implementation-icon"><i class="fas fa-cloud"></i></div>
+                    <h4>Cloud Storage</h4>
+                </div>
+                <div class="implementation-content">
+                    <p>Cryptography enables:</p>
+                    <ul>
+                        <li>Encryption of data before it's uploaded to the cloud</li>
+                        <li>Secure storage of sensitive information on third-party servers</li>
+                        <li>Client-side encryption where only the user holds the decryption keys</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-item">
+                <div class="implementation-header">
+                    <div class="implementation-icon"><i class="fas fa-key"></i></div>
+                    <h4>Password Management</h4>
+                </div>
+                <div class="implementation-content">
+                    <p>Password managers use cryptography to:</p>
+                    <ul>
+                        <li>Securely store encrypted passwords</li>
+                        <li>Generate strong, unique passwords</li>
+                        <li>Safely sync credentials across multiple devices</li>
+                        <li>Use a master password to decrypt stored credentials</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Future Trends</h3>
+        
+        <div class="trends-container">
+            <div class="trend-item">
+                <div class="trend-icon"><i class="fas fa-atom"></i></div>
+                <h4>Quantum Cryptography</h4>
+                <p>Leverages quantum mechanics principles to create theoretically unbreakable encryption, including quantum key distribution (QKD) that can detect eavesdropping attempts.</p>
+            </div>
+            
+            <div class="trend-item">
+                <div class="trend-icon"><i class="fas fa-microchip"></i></div>
+                <h4>Post-Quantum Cryptography</h4>
+                <p>Development of encryption algorithms resistant to quantum computing attacks, protecting against future threats to current cryptographic systems.</p>
+            </div>
+            
+            <div class="trend-item">
+                <div class="trend-icon"><i class="fas fa-brain"></i></div>
+                <h4>Homomorphic Encryption</h4>
+                <p>Allows computations on encrypted data without decrypting it first, enabling secure cloud computing and privacy-preserving data analysis.</p>
+            </div>
+            
+            <div class="trend-item">
+                <div class="trend-icon"><i class="fas fa-user-shield"></i></div>
+                <h4>Zero-Knowledge Proofs</h4>
+                <p>Cryptographic methods that allow one party to prove knowledge of information without revealing the information itself, enhancing privacy in authentication.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="interactive-quiz">
+        <h3 class="quiz-title"><i class="fas fa-question-circle"></i> Knowledge Check</h3>
+        <div class="quiz-question">
+            <p>What is the main purpose of cryptography?</p>
+            <div class="quiz-options">
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-3" value="a"> To make computers faster
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-3" value="b"> To secure information
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-3" value="c"> To create computer games
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz1-3" value="d"> To design websites
+                </label>
+            </div>
+            <div class="quiz-feedback" style="display: none;">
+                <div class="correct-feedback">
+                    <i class="fas fa-check-circle"></i> Correct! The main purpose of cryptography is to secure information by transforming it into a format that can only be read by authorized parties.
+                </div>
+                <div class="incorrect-feedback">
+                    <i class="fas fa-times-circle"></i> Incorrect. Cryptography is fundamentally about securing information and communications through the use of codes and encryption techniques.
+                </div>
+            </div>
+            <button class="check-answer-btn" data-correct="b" onclick="checkAnswer(this, '1-3')">Check Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 2-1: Caesar Cipher -->
+<div id="lesson2-1-content">
+    <p class="mb-4">The Caesar cipher is one of the earliest and simplest encryption techniques. Named after Julius Caesar, who used it to communicate with his generals, this cipher works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>In a Caesar cipher, each letter in the plaintext is replaced by a letter a fixed number of positions further in the alphabet. This shift value acts as the encryption key.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">Encryption Process</h4>
+                <ol class="process-list">
+                    <li>Choose a shift value (key) between 1 and 25</li>
+                    <li>For each letter in the plaintext:
+                        <ul>
+                            <li>Shift it forward in the alphabet by the key amount</li>
+                            <li>If shifting passes Z, wrap around to the beginning of the alphabet</li>
+                        </ul>
+                    </li>
+                    <li>Non-alphabetic characters remain unchanged</li>
+                </ol>
+                
+                <div class="formula-box">
+                    <h5>Mathematical Representation:</h5>
+                    <p>For each plaintext letter p, the ciphertext letter c is:</p>
+                    <div class="formula">c = (p + k) % 26</div>
+                    <p>where k is the shift value and % represents modulo operation</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Example: Shift of 3</h4>
+                <div class="cipher-example">
+                    <div class="example-row">
+                        <div class="label">Plaintext:</div>
+                        <div class="value">HELLO WORLD</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Shift:</div>
+                        <div class="value">3</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Ciphertext:</div>
+                        <div class="value">KHOOR ZRUOG</div>
+                    </div>
+                    
+                    <div class="letter-mapping">
+                        <div class="mapping-item">H → K</div>
+                        <div class="mapping-item">E → H</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">O → R</div>
+                        <div class="mapping-item">(space)</div>
+                        <div class="mapping-item">W → Z</div>
+                        <div class="mapping-item">O → R</div>
+                        <div class="mapping-item">R → U</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">D → G</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Interactive Demo</h3>
+        
+        <div class="interactive-cipher-demo">
+            <div class="demo-form">
+                <div class="form-group">
+                    <label for="caesar-input">Plaintext:</label>
+                    <input type="text" id="caesar-input" class="cipher-input" value="HELLO WORLD">
+                </div>
+                
+                <div class="form-group">
+                    <label for="caesar-shift">Shift Value:</label>
+                    <div class="shift-control">
+                        <input type="range" id="caesar-shift" min="1" max="25" value="3" class="slider">
+                        <span id="shift-display">3</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ciphertext:</label>
+                    <div id="caesar-output" class="cipher-output">KHOOR ZRUOG</div>
+                </div>
+            </div>
+            
+            <div class="alphabet-visualization">
+                <div class="alphabet-row">
+                    <div class="alphabet-letter">A</div>
+                    <div class="alphabet-letter">B</div>
+                    <div class="alphabet-letter">C</div>
+                    <div class="alphabet-letter">D</div>
+                    <div class="alphabet-letter">E</div>
+                    <div class="alphabet-letter">F</div>
+                    <div class="alphabet-letter">G</div>
+                    <div class="alphabet-letter">H</div>
+                    <div class="alphabet-letter">I</div>
+                    <div class="alphabet-letter">J</div>
+                    <div class="alphabet-letter">K</div>
+                    <div class="alphabet-letter">L</div>
+                    <div class="alphabet-letter">M</div>
+                    <div class="alphabet-letter">N</div>
+                    <div class="alphabet-letter">O</div>
+                    <div class="alphabet-letter">P</div>
+                    <div class="alphabet-letter">Q</div>
+                    <div class="alphabet-letter">R</div>
+                    <div class="alphabet-letter">S</div>
+                    <div class="alphabet-letter">T</div>
+                    <div class="alphabet-letter">U</div>
+                    <div class="alphabet-letter">V</div>
+                    <div class="alphabet-letter">W</div>
+                    <div class="alphabet-letter">X</div>
+                    <div class="alphabet-letter">Y</div>
+                    <div class="alphabet-letter">Z</div>
+                </div>
+                <div class="alphabet-row shifted">
+                    <div class="alphabet-letter">D</div>
+                    <div class="alphabet-letter">E</div>
+                    <div class="alphabet-letter">F</div>
+                    <div class="alphabet-letter">G</div>
+                    <div class="alphabet-letter">H</div>
+                    <div class="alphabet-letter">I</div>
+                    <div class="alphabet-letter">J</div>
+                    <div class="alphabet-letter">K</div>
+                    <div class="alphabet-letter">L</div>
+                    <div class="alphabet-letter">M</div>
+                    <div class="alphabet-letter">N</div>
+                    <div class="alphabet-letter">O</div>
+                    <div class="alphabet-letter">P</div>
+                    <div class="alphabet-letter">Q</div>
+                    <div class="alphabet-letter">R</div>
+                    <div class="alphabet-letter">S</div>
+                    <div class="alphabet-letter">T</div>
+                    <div class="alphabet-letter">U</div>
+                    <div class="alphabet-letter">V</div>
+                    <div class="alphabet-letter">W</div>
+                    <div class="alphabet-letter">X</div>
+                    <div class="alphabet-letter">Y</div>
+                    <div class="alphabet-letter">Z</div>
+                    <div class="alphabet-letter">A</div>
+                    <div class="alphabet-letter">B</div>
+                    <div class="alphabet-letter">C</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Historical Context</h3>
+        
+        <div class="historical-info">
+            <div class="history-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-crown"></i>
+                </div>
+            </div>
+            <div class="history-text">
+                <p>Julius Caesar used this cipher with a shift of 3 to protect sensitive military communications during the Gallic Wars in the 1st century BCE. According to the Roman historian Suetonius, Caesar replaced each letter in his messages with the letter that was three positions ahead in the alphabet.</p>
+                <p>The simplicity of the method made it practical for field use in ancient times when literacy itself was rare. Caesar's generals could easily encrypt and decrypt messages without complex tools or extensive training.</p>
+                <p>While revolutionary for its time, the Caesar cipher provided adequate security primarily because potential adversaries lacked the education and cryptanalytic knowledge to break it systematically.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Analysis</h3>
+        
+        <div class="security-analysis">
+            <div class="security-item">
+                <div class="security-icon negative"><i class="fas fa-unlock"></i></div>
+                <h4>Vulnerability to Brute Force</h4>
+                <p>With only 25 possible shift values, an attacker can easily try all possibilities until finding the correct decryption. This makes the Caesar cipher extremely vulnerable to brute force attacks.</p>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon negative"><i class="fas fa-chart-bar"></i></div>
+                <h4>Frequency Analysis</h4>
+                <p>The cipher doesn't change the frequency patterns of letters in the language. In English, 'E' is the most common letter, followed by 'T', 'A', and 'O'. By analyzing the frequencies of letters in the ciphertext, an attacker can easily determine the shift value.</p>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon negative"><i class="fas fa-times-circle"></i></div>
+                <h4>Modern Security Rating</h4>
+                <p>By today's standards, the Caesar cipher provides virtually no security. It is now primarily used for educational purposes as an introduction to cryptography concepts.</p>
+            </div>
+            
+            <div class="warning-box">
+                <div class="warning-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="warning-text">
+                    <h4>Security Warning</h4>
+                    <p>Never use the Caesar cipher for any sensitive or private information. It is intended for educational purposes only and provides no real security in the modern age.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="interactive-quiz">
+        <h3 class="quiz-title"><i class="fas fa-question-circle"></i> Knowledge Check</h3>
+        <div class="quiz-question">
+            <p>In a Caesar cipher with a shift of 3, how would the letter 'Z' be encrypted?</p>
+            <div class="quiz-options">
+                <label class="quiz-option">
+                    <input type="radio" name="quiz2-1" value="a"> C
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz2-1" value="b"> W
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz2-1" value="c"> A
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="quiz2-1" value="d"> X
+                </label>
+            </div>
+            <div class="quiz-feedback" style="display: none;">
+                <div class="correct-feedback">
+                    <i class="fas fa-check-circle"></i> Correct! When we shift 'Z' by 3 positions, we wrap around the alphabet to get 'C' (Z → A → B → C).
+                </div>
+                <div class="incorrect-feedback">
+                    <i class="fas fa-times-circle"></i> Incorrect. When shifting 'Z' by 3 positions, we need to wrap around to the beginning of the alphabet. So Z + 3 = C (Z → A → B → C).
+                </div>
+            </div>
+            <button class="check-answer-btn" data-correct="a" onclick="checkAnswer(this, '2-1')">Check Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- More lesson templates would be added here... -->
+
+<!-- Final Quiz Content -->
+<div id="final-quiz-content">
+    <div class="final-quiz-intro">
+        <h2 class="section-title">Cryptography Certification Quiz</h2>
+        <p class="mb-4">Congratulations on completing all the modules! This final quiz will test your understanding of cryptographic concepts across all areas you've studied. Answer all questions correctly to earn your CipherLab Cryptography certification.</p>
+        
+        <div class="quiz-instructions">
+            <h3><i class="fas fa-clipboard-list"></i> Instructions</h3>
+            <ul>
+                <li>The quiz consists of 10 questions covering all modules</li>
+                <li>You need to score at least 80% to pass and receive your certification</li>
+                <li>You can retake the quiz if needed</li>
+                <li>Read each question carefully before answering</li>
+            </ul>
+        </div>
+        
+        <div class="start-quiz-container">
+            <button id="begin-final-quiz" class="cta-button">
+                <i class="fas fa-play-circle"></i> Begin Certification Quiz
+            </button>
+        </div>
+    </div>
+    
+    <div class="final-quiz-questions" style="display: none;">
+        <div class="quiz-progress-indicator">
+            <div class="question-counter">
+                Question <span id="current-question-num">1</span> of <span id="total-questions-num">10</span>
+            </div>
+            <div class="quiz-timer">
+                Time Remaining: <span id="quiz-time">15:00</span>
+            </div>
+        </div>
+        
+        <div id="quiz-questions-container">
+            <!-- Question 1 -->
+            <div class="quiz-question-container" data-question="1">
+                <h3 class="question-title">What is the main purpose of cryptography?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q1" value="a"> To analyze large datasets
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q1" value="b"> To secure information and communications
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q1" value="c"> To improve computer processing speed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q1" value="d"> To develop artificial intelligence
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="quiz-question-container" data-question="2" style="display: none;">
+                <h3 class="question-title">Which of the following is NOT a type of cryptography?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q2" value="a"> Symmetric key cryptography
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q2" value="b"> Asymmetric key cryptography
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q2" value="c"> Bidirectional key cryptography
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q2" value="d"> Hash functions
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="quiz-question-container" data-question="3" style="display: none;">
+                <h3 class="question-title">In the Caesar cipher with a shift of 3, how would the word "ZEBRA" be encrypted?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q3" value="a"> CHEUD
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q3" value="b"> WHEUV
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q3" value="c"> CEBUD
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q3" value="d"> CHFUD
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="quiz-question-container" data-question="4" style="display: none;">
+                <h3 class="question-title">What key property differentiates asymmetric encryption from symmetric encryption?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q4" value="a"> Asymmetric encryption is always faster
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q4" value="b"> Asymmetric encryption uses different keys for encryption and decryption
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q4" value="c"> Asymmetric encryption can only encrypt text, not binary data
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q4" value="d"> Asymmetric encryption doesn't require any keys
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="quiz-question-container" data-question="5" style="display: none;">
+                <h3 class="question-title">Which of the following is NOT a property of secure hash functions?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q5" value="a"> Pre-image resistance
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q5" value="b"> Collision resistance
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q5" value="c"> Reversibility
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q5" value="d"> Second pre-image resistance
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="quiz-question-container" data-question="6" style="display: none;">
+                <h3 class="question-title">Which encryption standard has replaced DES as the recommended standard for government information?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q6" value="a"> RSA
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q6" value="b"> 3DES
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q6" value="c"> AES
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q6" value="d"> MD5
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="quiz-question-container" data-question="7" style="display: none;">
+                <h3 class="question-title">What is the primary weakness of the Caesar cipher?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q7" value="a"> It's too slow for modern computers
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q7" value="b"> It can only encrypt uppercase letters
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q7" value="c"> It has too many possible keys to try
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q7" value="d"> It has only 25 possible keys, making it vulnerable to brute force attacks
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="quiz-question-container" data-question="8" style="display: none;">
+                <h3 class="question-title">In public key cryptography, which key is used to encrypt a message?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q8" value="a"> The sender's private key
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q8" value="b"> The recipient's private key
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q8" value="c"> The sender's public key
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q8" value="d"> The recipient's public key
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 9 -->
+            <div class="quiz-question-container" data-question="9" style="display: none;">
+                <h3 class="question-title">What cryptographic concept is being used when websites show a padlock icon in the browser address bar?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q9" value="a"> Caesar cipher
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q9" value="b"> SSL/TLS certificates
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q9" value="c"> Password hashing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q9" value="d"> One-time pads
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 10 -->
+            <div class="quiz-question-container" data-question="10" style="display: none;">
+                <h3 class="question-title">Which of the following technologies is being developed to counter the threat quantum computers pose to current cryptography?</h3>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q10" value="a"> Post-quantum cryptography
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q10" value="b"> Larger RSA keys
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q10" value="c"> More complex Caesar ciphers
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="final-q10" value="d"> Double encryption with AES
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quiz-navigation">
+            <button id="prev-quiz-question" class="nav-button" disabled>
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <button id="next-quiz-question" class="nav-button">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+            <button id="submit-quiz" class="submit-quiz-button" style="display: none;">
+                <i class="fas fa-check-circle"></i> Submit Quiz
+            </button>
+        </div>
+    </div>
+    
+    <div class="final-quiz-results" style="display: none;">
+        <div class="results-header">
+            <h2 class="section-title">Quiz Results</h2>
+            <div class="results-summary">
+                <div class="score-container">
+                    <div class="score-circle">
+                        <div class="score-value" id="quiz-score-value">0</div>
+                        <div class="score-percent">%</div>
+                    </div>
+                    <div class="pass-fail-badge" id="pass-fail-badge">Calculating...</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-item">
+                        <div class="result-label">Total Questions:</div>
+                        <div class="result-value">10</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Correct Answers:</div>
+                        <div class="result-value" id="correct-answers-count">0</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Incorrect Answers:</div>
+                        <div class="result-value" id="incorrect-answers-count">0</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Time Taken:</div>
+                        <div class="result-value" id="time-taken">00:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="certification-container" id="certification-container" style="display: none;">
+            <div class="certificate">
+                <div class="certificate-header">
+                    <div class="certificate-logo">CipherLab</div>
+                    <h2 class="certificate-title">Certificate of Completion</h2>
+                </div>
+                <div class="certificate-body">
+                    <p class="certificate-text">This certifies that</p>
+                    <p class="certificate-name" id="certificate-name">Crypto Enthusiast</p>
+                    <p class="certificate-text">has successfully completed the</p>
+                    <p class="certificate-course">Cryptography Fundamentals Course</p>
+                    <p class="certificate-date">Date: <span id="certificate-date"></span></p>
+                </div>
+                <div class="certificate-footer">
+                    <div class="certificate-signature">
+                        <div class="signature-line"></div>
+                        <p>CipherLab Instructor</p>
+                    </div>
+                    <div class="certificate-seal">
+                        <div class="seal-icon"><i class="fas fa-award"></i></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certificate-actions">
+                <button id="download-certificate" class="cta-button">
+                    <i class="fas fa-download"></i> Download Certificate
+                </button>
+                <button id="share-certificate" class="cta-button cta-button-alt">
+                    <i class="fas fa-share-alt"></i> Share Achievement
+                </button>
+            </div>
+        </div>
+        
+        <div class="quiz-review-container">
+            <h3 class="review-title"><i class="fas fa-search"></i> Review Your Answers</h3>
+            <div id="answers-review-container">
+                <!-- Review content will be dynamically generated -->
+            </div>
+            
+            <div class="quiz-actions">
+                <button id="retake-quiz" class="cta-button cta-button-alt">
+                    <i class="fas fa-redo"></i> Retake Quiz
+                </button>
+                <button id="return-to-modules" class="cta-button">
+                    <i class="fas fa-home"></i> Return to Modules
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
