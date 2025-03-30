@@ -465,13 +465,11 @@ body {
     text-align: center;
 }
 
-/* Fix for hero glitch effect with better alignment */
-.hero .glitch {
+/* Fix for hero text centering */
+.hero .glitch, .typing-container h1 {
     position: relative;
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+    text-align: center !important;
+    margin: 0 auto !important;
     font-size: 4.5rem;
     font-weight: 800;
     letter-spacing: -1px;
@@ -483,7 +481,8 @@ body {
     animation: shine 3s linear infinite;
     will-change: background-position;
     line-height: 1.2;
-    text-align: center;
+    display: block !important;
+    width: 100% !important;
 }
 
 /* Adjust the glitch spans for better positioning */
@@ -803,15 +802,16 @@ footer::before {
     position: relative;
 }
 
-.section-title, .row .section-title {
-    text-align: center;
+/* Fix for all section titles to be properly centered */
+.section-title {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     margin-bottom: 3rem;
     color: var(--primary);
     font-size: 2.5rem;
     font-weight: 700;
     position: relative;
-    display: block;
-    width: 100%;
     background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
     background-size: 200% auto;
     background-clip: text;
@@ -819,8 +819,21 @@ footer::before {
     color: transparent;
     animation: shine 3s linear infinite;
     will-change: background-position;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    width: fit-content;
+}
+
+/* Center the underline decoration */
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
 }
 
 .section-title::after {
