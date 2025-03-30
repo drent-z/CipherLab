@@ -17,17 +17,32 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <!-- Animate.css for animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    /* Screen reader only class for accessibility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
 </head>
 <body>
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <svg width="200" height="40" viewBox="0 0 200 40" class="navbar-brand-svg">
+          <svg width="140" height="40" viewBox="0 0 140 40" class="navbar-brand-svg" aria-hidden="true">
             <text x="5" y="28" class="brand-text-base">CipherLab</text>
             <text x="5" y="28" class="brand-text-glitch brand-text-glitch1">CipherLab</text>
             <text x="5" y="28" class="brand-text-glitch brand-text-glitch2">CipherLab</text>
           </svg>
+          <span class="sr-only">CipherLab</span>
         </a>
         <button class="navbar-toggler" type="button">
           <i class="fas fa-bars"></i>
