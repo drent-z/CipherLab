@@ -3,16 +3,20 @@ layout: layout.njk
 title: CipherLab - Cryptography Educational Platform
 ---
 <section class="hero" id="home">
-    <div class="typing-container mb-4">
-        <h1 class="glitch centered-heading hero-welcome-text visible" data-text="Welcome to CipherLab">
-			<span>Welcome to CipherLab</span>
-			<span aria-hidden="true">Welcome to CipherLab</span>
-			<span aria-hidden="true">Welcome to CipherLab</span>
-		</h1>
-    </div>
-    <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
-    <div class="cta-buttons fade-in">
-        <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="typing-container mb-4">
+                <h1 class="glitch centered-heading hero-welcome-text visible" data-text="Welcome to CipherLab">
+                    <span>Welcome to CipherLab</span>
+                    <span aria-hidden="true">Welcome to CipherLab</span>
+                    <span aria-hidden="true">Welcome to CipherLab</span>
+                </h1>
+            </div>
+            <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
+            <div class="cta-buttons fade-in">
+                <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+            </div>
+        </div>
     </div>
     
     <!-- Animated binary code decoration -->
@@ -27,31 +31,39 @@ title: CipherLab - Cryptography Educational Platform
         </div>
     </div>
     
-    <div class="features">
-        <div class="feature-box fade-in visible">
-            <i class="fas fa-key feature-icon"></i>
-            <h2>Classic Ciphers</h2>
-            <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
-            <div class="feature-button">
-                <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+    <div class="features-container">
+        <div class="features">
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-key feature-icon"></i>
+                </div>
+                <h2>Classic Ciphers</h2>
+                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-        </div>
-        
-        <div class="feature-box fade-in visible">
-            <i class="fas fa-shield-alt feature-icon"></i>
-            <h2>Modern Encryption</h2>
-            <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
-            <div class="feature-button">
-                <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                </div>
+                <h2>Modern Encryption</h2>
+                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-        </div>
-        
-        <div class="feature-box fade-in visible">
-            <i class="fas fa-unlock feature-icon"></i>
-            <h2>Cryptanalysis</h2>
-            <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
-            <div class="feature-button">
-                <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-unlock feature-icon"></i>
+                </div>
+                <h2>Cryptanalysis</h2>
+                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </div>
@@ -131,6 +143,185 @@ C → F (shift 3)
         text-align: center !important;
     }
     
+    /* Enhanced styling for hero section */
+    .hero {
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Enhanced welcome text */
+    .hero-welcome-text {
+        font-size: 5.5rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 2rem !important;
+        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+    }
+    
+    /* Improved features container */
+    .features-container {
+        padding: 2rem 0;
+    }
+    
+    .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        padding: 2rem 0;
+    }
+    
+    /* Enhanced feature box styling */
+    .feature-box {
+        width: 350px;
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary);
+        border-radius: 12px;
+        padding: 2.5rem;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .feature-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+        z-index: 0;
+    }
+    
+    .feature-box:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary);
+        border-color: var(--secondary);
+    }
+    
+    /* Improved icon container */
+    .feature-icon-container {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+        box-shadow: 0 0 15px var(--primary-dark);
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--dark);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-box:hover .feature-icon-container {
+        transform: scale(1.1) rotate(5deg);
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        box-shadow: 0 0 20px var(--secondary);
+    }
+    
+    /* Title styling */
+    .feature-box h2 {
+        color: var(--primary);
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-box h2::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-box:hover h2 {
+        color: var(--secondary);
+        text-shadow: 0 0 5px var(--secondary);
+    }
+    
+    .feature-box:hover h2::after {
+        width: 60px;
+        background-color: var(--secondary);
+    }
+    
+    .feature-box p {
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        z-index: 1;
+        position: relative;
+    }
+    
+    /* Learn more button styling */
+    .btn-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn-learn-more::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary);
+        transition: width 0.3s ease;
+    }
+    
+    .btn-learn-more:hover {
+        color: var(--secondary);
+        transform: translateX(3px);
+    }
+    
+    .btn-learn-more:hover::after {
+        width: 100%;
+    }
+    
+    .btn-learn-more i {
+        transition: transform 0.3s ease;
+    }
+    
+    .btn-learn-more:hover i {
+        transform: translateX(3px);
+    }
+    
     .cta-button-alt {
         background: transparent;
         border: 2px solid var(--primary);
@@ -161,20 +352,6 @@ C → F (shift 3)
     .cipher-icon {
         font-size: 2rem;
         color: var(--primary);
-    }
-    
-    .btn-learn-more {
-        display: inline-block;
-        color: var(--primary);
-        text-decoration: none;
-        margin-top: 1rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .btn-learn-more:hover {
-        color: var(--secondary);
-        transform: translateX(5px);
     }
     
     .cipher-explanation pre {
@@ -263,6 +440,51 @@ C → F (shift 3)
     input[type=range]::-webkit-slider-thumb:hover {
         background: var(--secondary);
         box-shadow: 0 0 10px var(--secondary);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .features {
+            gap: 2rem;
+        }
+        
+        .feature-box {
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .hero-welcome-text {
+            font-size: 4.5rem !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .feature-box {
+            padding: 2rem;
+        }
+        
+        .hero-welcome-text {
+            font-size: 3.5rem !important;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .feature-box {
+            padding: 1.5rem;
+        }
+        
+        .hero-welcome-text {
+            font-size: 3rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+        }
     }
 </style>
 
