@@ -123,6 +123,14 @@ body {
     top: 0;
     z-index: 1000;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navbar > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar-scrolled {
@@ -130,36 +138,49 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+/* Reset the navbar brand to a more basic structure */
 .navbar-brand {
-    display: flex; /* Use flexbox for better control */
-    align-items: center;
+    display: inline-block;
     font-weight: 700;
     font-size: 2rem;
-    position: relative;
     text-decoration: none;
     color: var(--primary) !important;
     text-shadow: var(--glow-primary);
     transition: all 0.3s ease;
-    height: 50px; /* Set a fixed height */
+    padding: 0;
+    line-height: 1;
 }
 
-/* Fix for glitch effect in navbar */
+/* Handle the glitch container specifically */
 .navbar-brand .glitch {
-    position: relative;
     display: inline-block;
-    width: auto;
-    height: 100%;
-    line-height: 50px; /* Match the container height */
+    position: relative;
+    margin: 0;
+    padding: 0;
 }
 
-/* Fix the positioning of the glitch spans in navbar */
-.navbar-brand .glitch span {
+/* Simple positioning for the base text */
+.navbar-brand .glitch > span:first-of-type {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+}
+
+/* Position the glitch effect spans to overlay exactly */
+.navbar-brand .glitch > span:nth-of-type(2),
+.navbar-brand .glitch > span:nth-of-type(3) {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    line-height: inherit;
+    z-index: 1;
+}
+
+/* Apply a minimal glitch effect for the navbar brand to avoid positioning issues */
+.navbar-brand .glitch > span:nth-of-type(2),
+.navbar-brand .glitch > span:nth-of-type(3) {
+    animation: none; /* Disable animation for better stability */
 }
 
 .navbar-brand:hover {
