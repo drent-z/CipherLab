@@ -802,13 +802,15 @@ footer::before {
     position: relative;
 }
 
-/* Special Bootstrap-compatible centering fix */
-h2.section-title {
+/* Universal heading centering solution */
+.centered-heading {
     display: block !important;
-    position: relative;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
+    width: 100% !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
     background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
     background-size: 200% auto;
     background-clip: text;
@@ -816,29 +818,26 @@ h2.section-title {
     color: transparent;
     animation: shine 3s linear infinite;
     will-change: background-position;
+    position: relative;
 }
 
-/* This is the key Bootstrap fix */
-.row .col-lg-8.text-center h2.section-title,
-.row .col-lg-10 h2.section-title,
-h2.section-title.text-center {
-    width: 100% !important; 
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-/* Fix the underline position */
-h2.section-title::after {
+/* Underline for centered headings */
+.centered-heading::after {
     content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary);
     position: absolute;
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background-color: var(--primary);
     transition: width 0.3s ease;
+}
+
+.centered-heading:hover::after {
+    width: 100px;
+    background-color: var(--secondary);
 }
 
 .section-title::after {
