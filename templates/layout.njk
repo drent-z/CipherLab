@@ -4,19 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="CipherLab - An interactive platform for learning cryptography and cipher techniques">
+  <meta name="theme-color" content="#0a0a0a">
   <title>{{ title }}</title>
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/assets/styles.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" as="font" crossorigin>
+  
   <!-- Favicon -->
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
   <!-- Custom CSS -->
   <link href="/assets/styles.css" rel="stylesheet">
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  
   <!-- Animate.css for animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  
   <style>
     /* Screen reader only class for accessibility */
     .sr-only {
@@ -30,13 +42,23 @@
       white-space: nowrap;
       border-width: 0;
     }
+    
+    /* Quick fix for FOUC (Flash of Unstyled Content) */
+    body {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    body.loaded {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/" aria-label="CipherLab Home">
           <svg width="140" height="40" viewBox="0 0 140 40" class="navbar-brand-svg" aria-hidden="true">
             <text x="5" y="28" class="brand-text-base">CipherLab</text>
             <text x="5" y="28" class="brand-text-glitch brand-text-glitch1">CipherLab</text>
@@ -44,31 +66,44 @@
           </svg>
           <span class="sr-only">CipherLab</span>
         </a>
-        <button class="navbar-toggler" type="button">
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
         <div class="navbar-collapse">
           <ul class="navbar-nav ml-auto nav-links">
-            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/about/"><i class="fas fa-info-circle"></i> About</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact/"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://github.com/drent-z/cipherlab" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about/"><i class="fas fa-info-circle" aria-hidden="true"></i> About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact/"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <div class="flash-messages"></div>
+  {% if messages %}
+  <div class="flash-messages">
+    <div class="container">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.type }} animate__animated animate__fadeInDown">
+        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ message.content | safe }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 
-  <main>
+  <main id="main-content">
     {{ content | safe }}
   </main>
 
   <footer>
     <div class="footer-content">
       <div class="footer-social">
-        <a href="https://github.com/drent-z/cipherlab" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub Repository">
+          <i class="fab fa-github" aria-hidden="true"></i>
+        </a>
       </div>
       <div class="footer-links">
         <a href="/about/">About</a>
@@ -76,19 +111,54 @@
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
       </div>
+      <div class="footer-branding">
+        <div class="footer-logo">
+          <svg width="120" height="30" viewBox="0 0 140 40" aria-hidden="true">
+            <text x="5" y="28" class="brand-text-base">CipherLab</text>
+          </svg>
+        </div>
+      </div>
       <p>&copy; 2025 CipherLab. All rights reserved.</p>
       <p class="text-muted">Created by: Aileen Medina, Daniel Rentz, Kevin Zopfi</p>
     </div>
   </footer>
 
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" defer></script>
+  
   <!-- Bootstrap JS, Popper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+  
   <!-- Custom Scripts -->
   <script src="/assets/scripts.js"></script>
+  
   <!-- Cloudflare Pages Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6757a1ffd7df4c35a1333783bc8a0529"}'></script>
+  
+  <script>
+    // Add 'loaded' class to body after DOM content is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('loaded');
+      
+      // Initialize animations for elements in viewport
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(element => {
+        if (isElementInViewport(element)) {
+          element.classList.add('visible');
+        }
+      });
+      
+      function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+          rect.bottom >= 0 &&
+          rect.right >= 0
+        );
+      }
+    });
+  </script>
 </body>
 </html>

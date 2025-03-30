@@ -40,6 +40,7 @@ body::before {
     z-index: 9999;
     opacity: 0.15;
     animation: scanline 8s linear infinite;
+    will-change: background-position;
 }
 
 /* Create subtle grid background */
@@ -117,6 +118,7 @@ body {
 .navbar {
     background-color: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
     border-bottom: 1px solid var(--primary);
     padding: 1rem 2rem;
     position: sticky;
@@ -146,6 +148,7 @@ body {
     margin: 0;
     height: 40px;
     position: relative;
+    will-change: transform;
 }
 
 .navbar-brand-svg {
@@ -162,6 +165,7 @@ body {
     filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 4px var(--primary));
     transition: all 0.3s ease;
     animation: pulse-glow 3s infinite alternate;
+    will-change: filter;
 }
 
 /* More intense glitch animations */
@@ -173,6 +177,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    will-change: transform, opacity;
 }
 
 .brand-text-glitch1 {
@@ -203,6 +208,7 @@ body {
     z-index: -1;
     animation: static-noise 0.5s steps(1) infinite;
     pointer-events: none;
+    will-change: transform;
 }
 
 /* Hard-edge "digital" glitch animation (first part) */
@@ -444,6 +450,7 @@ body {
     -webkit-background-clip: text;
     color: transparent;
     animation: shine 3s linear infinite;
+    will-change: background-position;
 }
 
 /* Adjust the glitch spans for better positioning */
@@ -505,6 +512,11 @@ body {
 
 .cta-button:hover::before {
     left: 0;
+}
+
+.cta-button:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
 }
 
 /* Feature boxes */
@@ -608,14 +620,25 @@ body {
     transform: rotate(360deg) scale(1.2);
 }
 
-/* Footer styling */
+/* Footer styling - Enhanced */
 footer {
     background-color: var(--darker);
     border-top: 1px solid var(--primary);
     color: var(--text-muted);
-    padding: 3rem 0;
+    padding: 4rem 0 3rem;
     text-align: center;
     position: relative;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+    z-index: -1;
 }
 
 .footer-content {
@@ -627,8 +650,19 @@ footer {
     padding: 0 2rem;
 }
 
+.footer-branding {
+    margin-bottom: 1.5rem;
+}
+
+.footer-logo {
+    max-width: 120px;
+    margin: 0 auto;
+}
+
 .footer-links {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
     margin: 1.5rem 0;
 }
@@ -637,11 +671,28 @@ footer {
     color: var(--primary);
     text-decoration: none;
     transition: all 0.3s ease;
+    position: relative;
+    padding: 0.3rem 0;
+}
+
+.footer-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--secondary);
+    transition: width 0.3s ease;
 }
 
 .footer-links a:hover {
     color: var(--secondary);
     text-shadow: var(--glow-secondary);
+}
+
+.footer-links a:hover::after {
+    width: 100%;
 }
 
 .footer-social {
@@ -654,11 +705,21 @@ footer {
     color: var(--primary);
     font-size: 1.5rem;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-dark);
+    background-color: var(--dark);
 }
 
 .social-icon:hover {
     color: var(--secondary);
     transform: translateY(-5px);
+    border-color: var(--secondary);
+    box-shadow: 0 0 15px var(--secondary);
 }
 
 /* Form styling */
@@ -812,6 +873,49 @@ footer {
     padding: 1.5rem;
 }
 
+/* Flash messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+}
+
+.alert {
+    background-color: var(--medium-dark);
+    border-left: 4px solid var(--primary);
+    color: var(--text);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.alert.alert-success {
+    border-left-color: #28a745;
+}
+
+.alert.alert-danger {
+    border-left-color: #dc3545;
+}
+
+.alert.alert-warning {
+    border-left-color: var(--accent);
+}
+
+.alert .close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
 /* Responsive tweaks */
 @media (max-width: 992px) {
     .navbar-toggler {
@@ -883,6 +987,10 @@ footer {
 
     .feature-box {
         padding: 1.5rem;
+    }
+    
+    .footer-links {
+        gap: 1rem;
     }
 }
 
@@ -1048,4 +1156,80 @@ footer {
     z-index: -1;
     user-select: none;
     overflow: hidden;
+}
+
+/* Focus styles for accessibility */
+:focus {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+    position: absolute;
+    left: -999px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    overflow: hidden;
+    z-index: 9999;
+    color: var(--primary);
+    background-color: var(--dark);
+    padding: 1rem;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.skip-to-content:focus {
+    left: 50%;
+    top: 1rem;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .brand-text-base {
+        animation: none !important;
+        filter: drop-shadow(0 0 2px var(--primary));
+    }
+    
+    .brand-text-glitch1,
+    .brand-text-glitch2 {
+        animation: none !important;
+        opacity: 0.5;
+    }
+    
+    .navbar-brand::before {
+        animation: none !important;
+    }
+    
+    .navbar-brand:hover .brand-text-base,
+    .navbar-brand:hover .brand-text-glitch1,
+    .navbar-brand:hover .brand-text-glitch2 {
+        animation: none !important;
+    }
+    
+    .hero .glitch {
+        animation: none !important;
+        background: var(--primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+    
+    .fade-in.visible {
+        transition: none !important;
+    }
 }
