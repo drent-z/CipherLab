@@ -896,3 +896,86 @@ footer {
     user-select: none;
     overflow: hidden;
 }
+
+/* SVG-based glitch effect for perfect navbar alignment */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    margin: 0;
+    height: 40px;
+}
+
+.navbar-brand-svg {
+    overflow: visible;
+}
+
+.brand-text-base {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    fill: var(--primary);
+}
+
+.brand-text-glitch {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    fill: var(--primary);
+    opacity: 0.8;
+}
+
+.brand-text-glitch1 {
+    animation: glitch1 4s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.brand-text-glitch2 {
+    animation: glitch2 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch1 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    20% {
+        transform: translate(-1px, 1px);
+    }
+    40% {
+        transform: translate(1px, -1px);
+    }
+    60% {
+        transform: translate(-1px, -1px);
+    }
+    80% {
+        transform: translate(1px, 1px);
+    }
+}
+
+@keyframes glitch2 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(1px, 1px);
+    }
+    50% {
+        transform: translate(-1px, 1px);
+    }
+    75% {
+        transform: translate(1px, -1px);
+    }
+}
+
+.navbar-brand:hover .brand-text-base,
+.navbar-brand:hover .brand-text-glitch {
+    fill: var(--secondary);
+}
+
+/* Ensure proper navbar layout */
+.navbar > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
