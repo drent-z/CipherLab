@@ -20,10 +20,15 @@ title: CipherLab - Cryptography Educational Platform
 </section>
 
 <section class="container section">
-    <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
+    <!-- Wrap heading in its own row and col for proper centering -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
+        </div>
+    </div>
     
     <div class="features">
-        <div class="feature-box fade-in">
+        <div class="feature-box fade-in visible">
             <i class="fas fa-key feature-icon"></i>
             <h2>Classic Ciphers</h2>
             <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
@@ -32,7 +37,7 @@ title: CipherLab - Cryptography Educational Platform
             </div>
         </div>
         
-        <div class="feature-box fade-in">
+        <div class="feature-box fade-in visible">
             <i class="fas fa-shield-alt feature-icon"></i>
             <h2>Modern Encryption</h2>
             <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
@@ -41,7 +46,7 @@ title: CipherLab - Cryptography Educational Platform
             </div>
         </div>
         
-        <div class="feature-box fade-in">
+        <div class="feature-box fade-in visible">
             <i class="fas fa-unlock feature-icon"></i>
             <h2>Cryptanalysis</h2>
             <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
@@ -53,11 +58,16 @@ title: CipherLab - Cryptography Educational Platform
 </section>
 
 <section class="container section" id="caesar-demo">
+    <!-- Wrap heading in its own row and col for proper centering -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="section-title mb-4 fade-in centered-heading visible">Interactive Caesar Cipher</h2>
+        </div>
+    </div>
+    
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <h2 class="section-title mb-4 fade-in centered-heading visible">Interactive Caesar Cipher</h2>
-            
-            <div class="card fade-in">
+            <div class="card fade-in visible">
                 <div class="card-header">
                     <h3 class="mb-0"><i class="fas fa-cog"></i> Cipher Playground</h3>
                 </div>
@@ -106,6 +116,21 @@ C → F (shift 3)
 
 <!-- Additional CSS for this page -->
 <style>
+    /* Force center align all section titles */
+    .section-title.centered-heading {
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+    
+    /* Force the text-center class to work properly */
+    .text-center {
+        text-align: center !important;
+    }
+    
     .cta-button-alt {
         background: transparent;
         border: 2px solid var(--primary);
