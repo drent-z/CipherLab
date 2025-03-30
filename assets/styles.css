@@ -138,54 +138,98 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Reset the navbar brand to a more basic structure */
+/* Updated SVG-based glitch effect with enhanced styling */
 .navbar-brand {
-    display: inline-block;
-    font-weight: 700;
-    font-size: 2rem;
-    text-decoration: none;
-    color: var(--primary) !important;
-    text-shadow: var(--glow-primary);
-    transition: all 0.3s ease;
-    padding: 0;
-    line-height: 1;
-}
-
-/* Handle the glitch container specifically */
-.navbar-brand .glitch {
-    display: inline-block;
-    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
     margin: 0;
-    padding: 0;
+    height: 40px;
 }
 
-/* Simple positioning for the base text */
-.navbar-brand .glitch > span:first-of-type {
-    position: relative;
-    z-index: 2;
-    display: inline-block;
+.navbar-brand-svg {
+    overflow: visible;
 }
 
-/* Position the glitch effect spans to overlay exactly */
-.navbar-brand .glitch > span:nth-of-type(2),
-.navbar-brand .glitch > span:nth-of-type(3) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+.brand-text-base {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 24px; /* Increased font size */
+    fill: var(--primary);
+    filter: drop-shadow(0 0 2px var(--primary));
+    transition: all 0.3s ease;
 }
 
-/* Apply a minimal glitch effect for the navbar brand to avoid positioning issues */
-.navbar-brand .glitch > span:nth-of-type(2),
-.navbar-brand .glitch > span:nth-of-type(3) {
-    animation: none; /* Disable animation for better stability */
+.brand-text-glitch {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 24px; /* Increased font size */
+    fill: var(--primary);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 2px var(--primary));
 }
 
-.navbar-brand:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 15px var(--primary), 0 0 25px var(--primary);
+.brand-text-glitch1 {
+    animation: glitch1 3s infinite linear alternate-reverse;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.brand-text-glitch2 {
+    animation: glitch2 2.5s infinite linear alternate-reverse;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch1 {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0.8;
+    }
+    20% {
+        transform: translate(-2px, 1px);
+        opacity: 0.9;
+    }
+    40% {
+        transform: translate(2px, -1px);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(-2px, -1px);
+        opacity: 0.9;
+    }
+    80% {
+        transform: translate(2px, 1px);
+        opacity: 0.8;
+    }
+}
+
+@keyframes glitch2 {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0.8;
+    }
+    25% {
+        transform: translate(2px, 1px);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translate(-2px, 1px);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(2px, -1px);
+        opacity: 0.9;
+    }
+}
+
+.navbar-brand:hover .brand-text-base {
+    fill: var(--secondary);
+    filter: drop-shadow(0 0 4px var(--secondary));
+}
+
+.navbar-brand:hover .brand-text-glitch {
+    fill: var(--secondary);
+    filter: drop-shadow(0 0 4px var(--secondary));
+    animation-duration: 0.5s;
 }
 
 .nav-links {
@@ -895,87 +939,4 @@ footer {
     z-index: -1;
     user-select: none;
     overflow: hidden;
-}
-
-/* SVG-based glitch effect for perfect navbar alignment */
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0;
-    margin: 0;
-    height: 40px;
-}
-
-.navbar-brand-svg {
-    overflow: visible;
-}
-
-.brand-text-base {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 700;
-    font-size: 22px;
-    fill: var(--primary);
-}
-
-.brand-text-glitch {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 700;
-    font-size: 22px;
-    fill: var(--primary);
-    opacity: 0.8;
-}
-
-.brand-text-glitch1 {
-    animation: glitch1 4s infinite linear alternate-reverse;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-}
-
-.brand-text-glitch2 {
-    animation: glitch2 3s infinite linear alternate-reverse;
-    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-}
-
-@keyframes glitch1 {
-    0%, 100% {
-        transform: translate(0, 0);
-    }
-    20% {
-        transform: translate(-1px, 1px);
-    }
-    40% {
-        transform: translate(1px, -1px);
-    }
-    60% {
-        transform: translate(-1px, -1px);
-    }
-    80% {
-        transform: translate(1px, 1px);
-    }
-}
-
-@keyframes glitch2 {
-    0%, 100% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(1px, 1px);
-    }
-    50% {
-        transform: translate(-1px, 1px);
-    }
-    75% {
-        transform: translate(1px, -1px);
-    }
-}
-
-.navbar-brand:hover .brand-text-base,
-.navbar-brand:hover .brand-text-glitch {
-    fill: var(--secondary);
-}
-
-/* Ensure proper navbar layout */
-.navbar > .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
