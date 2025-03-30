@@ -9,28 +9,39 @@
   
   <!-- Preload critical resources -->
   <link rel="preload" href="/assets/styles.css" as="style">
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" as="font" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" as="font" type="font/woff2" crossorigin>
   
   <!-- Favicon -->
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   
   <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   
   <!-- Custom CSS -->
   <link href="/assets/styles.css" rel="stylesheet">
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts - with proper display swap -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </noscript>
   
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <!-- Font Awesome - with integrity hashes -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
   
-  <!-- Animate.css for animations -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Animate.css for animations - with integrity hash -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <!-- Meta tags for SEO and social sharing -->
+  <meta name="keywords" content="cryptography, cipher, encryption, learning, security, education">
+  <meta name="author" content="CipherLab Team">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="CipherLab - An interactive platform for learning cryptography and cipher techniques">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cipherlab.app">
   
   <style>
-    /* Screen reader only class for accessibility */
+    /* Critical CSS for faster initial rendering */
     .sr-only {
       position: absolute;
       width: 1px;
@@ -43,7 +54,7 @@
       border-width: 0;
     }
     
-    /* Quick fix for FOUC (Flash of Unstyled Content) */
+    /* Fix for FOUC (Flash of Unstyled Content) */
     body {
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -52,11 +63,31 @@
     body.loaded {
       opacity: 1;
     }
+
+    /* Skip link for keyboard navigation */
+    .skip-to-content {
+      position: absolute;
+      left: -9999px;
+      top: 1em;
+      z-index: 999;
+      background: #000; 
+      color: #00ff41;
+      padding: 1em;
+      border: 2px solid #00ff41;
+      text-decoration: none;
+    }
+
+    .skip-to-content:focus {
+      left: 1em;
+    }
   </style>
 </head>
 <body>
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
   <header>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
       <div class="container">
         <a class="navbar-brand" href="/" aria-label="CipherLab Home">
           <svg width="140" height="40" viewBox="0 0 140 40" class="navbar-brand-svg" aria-hidden="true">
@@ -66,15 +97,15 @@
           </svg>
           <span class="sr-only">CipherLab</span>
         </a>
-        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+          <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
-        <div class="navbar-collapse">
+        <div class="navbar-collapse" id="main-nav">
           <ul class="navbar-nav ml-auto nav-links">
-            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/about/"><i class="fas fa-info-circle" aria-hidden="true"></i> About</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact/"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home" aria-hidden="true"></i> <span>Home</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/about/"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>About</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact/"><i class="fas fa-envelope" aria-hidden="true"></i> <span>Contact</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener" aria-label="GitHub Repository (opens in a new tab)"><i class="fab fa-github" aria-hidden="true"></i> <span>GitHub</span></a></li>
           </ul>
         </div>
       </div>
@@ -82,10 +113,10 @@
   </header>
 
   {% if messages %}
-  <div class="flash-messages">
+  <div class="flash-messages" aria-live="polite">
     <div class="container">
       {% for message in messages %}
-      <div class="alert alert-{{ message.type }} animate__animated animate__fadeInDown">
+      <div class="alert alert-{{ message.type }} animate__animated animate__fadeInDown" role="alert">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{ message.content | safe }}
       </div>
@@ -101,7 +132,7 @@
   <footer>
     <div class="footer-content">
       <div class="footer-social">
-        <a href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub Repository">
+        <a href="https://github.com/drent-z/cipherlab" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub Repository (opens in a new tab)">
           <i class="fab fa-github" aria-hidden="true"></i>
         </a>
       </div>
@@ -123,18 +154,18 @@
     </div>
   </footer>
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" defer></script>
+  <!-- jQuery with integrity hash -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous" defer></script>
   
-  <!-- Bootstrap JS, Popper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" defer></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
+  <!-- Bootstrap JS, Popper.js with integrity hashes -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous" defer></script>
   
   <!-- Custom Scripts -->
-  <script src="/assets/scripts.js"></script>
+  <script src="/assets/scripts.js" defer></script>
   
-  <!-- Cloudflare Pages Analytics -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6757a1ffd7df4c35a1333783bc8a0529"}'></script>
+  <!-- Cloudflare Pages Analytics with CSP-compliant async loading -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6757a1ffd7df4c35a1333783bc8a0529"}' async></script>
   
   <script>
     // Add 'loaded' class to body after DOM content is loaded
@@ -152,13 +183,99 @@
       function isElementInViewport(el) {
         const rect = el.getBoundingClientRect();
         return (
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) + 100 &&
           rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
           rect.bottom >= 0 &&
           rect.right >= 0
         );
       }
+
+      // Improved navbar toggle for accessibility
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+      
+      if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener('click', () => {
+          const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+          navbarToggler.setAttribute('aria-expanded', !isExpanded);
+          navbarCollapse.classList.toggle('show');
+          
+          if (!isExpanded) {
+            // Create overlay when menu is open
+            const overlay = document.createElement('div');
+            overlay.classList.add('navbar-overlay');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            overlay.style.zIndex = '1000';
+            document.body.appendChild(overlay);
+            
+            overlay.addEventListener('click', () => {
+              navbarCollapse.classList.remove('show');
+              navbarToggler.setAttribute('aria-expanded', 'false');
+              overlay.remove();
+            });
+          } else {
+            const existingOverlay = document.querySelector('.navbar-overlay');
+            if (existingOverlay) {
+              existingOverlay.remove();
+            }
+          }
+        });
+      }
+
+      // Set up intersection observer for animations
+      if ('IntersectionObserver' in window) {
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -50px 0px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+          observer.observe(element);
+        });
+      } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        document.querySelectorAll('.fade-in').forEach(element => {
+          element.classList.add('visible');
+        });
+      }
+
+      // Add active class to current nav item based on URL
+      const currentUrl = window.location.pathname;
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentUrl || (linkPath !== '/' && currentUrl.startsWith(linkPath))) {
+          link.setAttribute('aria-current', 'page');
+          link.classList.add('active');
+        }
+      });
     });
+
+    // Add scroll listener for navbar effect
+    document.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (!navbar) return;
+      
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
