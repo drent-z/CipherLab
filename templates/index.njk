@@ -3,7 +3,7 @@ layout: layout.njk
 title: CipherLab - Cryptography Educational Platform
 ---
 <section class="hero" id="home">
-    <div class="row">
+    <div class="row hero-row">
         <div class="col-12 text-center">
             <div class="typing-container mb-4">
                 <h1 class="glitch centered-heading hero-welcome-text visible" data-text="Welcome to CipherLab">
@@ -12,9 +12,11 @@ title: CipherLab - Cryptography Educational Platform
                     <span aria-hidden="true">Welcome to CipherLab</span>
                 </h1>
             </div>
-            <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
-            <div class="cta-buttons fade-in">
-                <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+            <div class="hero-content">
+                <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
+                <div class="cta-buttons fade-in">
+                    <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+                </div>
             </div>
         </div>
     </div>
@@ -86,7 +88,7 @@ title: CipherLab - Cryptography Educational Platform
         text-align: center !important;
     }
     
-    /* Enhanced styling for hero section */
+    /* Enhanced styling for hero section with stronger spacing controls */
     .hero {
         min-height: 85vh;
         display: flex;
@@ -97,35 +99,70 @@ title: CipherLab - Cryptography Educational Platform
         padding: 3rem 1rem;
         position: relative;
         overflow: hidden;
+        box-sizing: border-box;
     }
     
-    /* Fix for the typing container - changed to block display to prevent overlap */
-    .typing-container {
+    /* Force row to be full-width and block-displayed */
+    .hero-row {
         width: 100%;
-        position: relative;
-        margin-bottom: 3rem; /* Increased spacing after title */
-        text-align: center;
-        display: block; /* Changed from flex to block */
+        display: block !important;
+        margin: 0 !important;
     }
     
-    /* Fix for hero text centering */
-    .hero .glitch, .typing-container h1 {
-        position: relative;
+    /* Force column to be block displayed with adequate margins */
+    .hero .col-12 {
+        display: block !important;
+        float: none !important;
+        clear: both !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* Fix for the typing container with more aggressive styling */
+    .typing-container {
+        width: 100% !important;
+        position: relative !important;
+        margin-bottom: 5rem !important; /* Increased spacing after title */
+        text-align: center !important;
+        display: block !important; /* Override any flexbox layout */
+        float: none !important;
+        clear: both !important;
+        height: auto !important;
+        min-height: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Wrap content in a new container to ensure visual separation */
+    .hero-content {
+        margin-top: 3rem !important;
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    /* Fix for hero text centering with more specific rules */
+    .hero .glitch, 
+    .typing-container h1 {
+        position: relative !important;
         text-align: center !important;
         margin: 0 auto !important;
-        font-size: 4.5rem;
-        font-weight: 800;
-        letter-spacing: -1px;
+        font-size: 4.5rem !important;
+        font-weight: 800 !important;
+        letter-spacing: -1px !important;
         background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
         background-size: 200% auto;
         background-clip: text;
         -webkit-background-clip: text;
-        color: transparent;
+        color: transparent !important;
         animation: shine 3s linear infinite;
         will-change: background-position;
-        line-height: 1.2;
+        line-height: 1.2 !important;
         display: block !important;
         width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        z-index: 1 !important;
     }
     
     /* New class for making the welcome text larger with proper spacing */
@@ -133,25 +170,33 @@ title: CipherLab - Cryptography Educational Platform
         font-size: 5rem !important; /* Slightly reduced from 5.5rem */
         line-height: 1.2 !important;
         margin-bottom: 0 !important; /* Remove bottom margin from h1 itself */
-        padding-bottom: 0.5rem; /* Add padding instead */
+        padding-bottom: 0.5rem !important; /* Add padding instead */
         text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+        position: relative !important;
+        z-index: 1 !important;
     }
     
     /* Add extra spacing for the paragraph that follows the title */
     .hero p.mb-4 {
         margin-top: 2rem !important;
         margin-bottom: 2rem !important;
-        max-width: 800px;
+        max-width: 800px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        font-size: 1.5rem;
-        clear: both; /* Ensure nothing floats around it */
+        font-size: 1.5rem !important;
+        clear: both !important;
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
     }
     
     /* Make sure the CTA buttons have proper spacing */
     .cta-buttons {
-        margin-top: 1rem;
-        clear: both;
+        margin-top: 1rem !important;
+        clear: both !important;
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
     }
     
     /* Improved features container */
