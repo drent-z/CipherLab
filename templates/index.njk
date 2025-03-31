@@ -6,10 +6,10 @@ title: CipherLab - Cryptography Educational Platform
     <div class="row hero-row">
         <div class="col-12 text-center">
             <div class="typing-container mb-4">
-                <svg width="700" height="100" viewBox="0 0 700 100" class="navbar-brand-svg welcome-svg">
-                    <text x="5" y="70" class="brand-text-base welcome-size">Welcome to CipherLab</text>
-                    <text x="5" y="70" class="brand-text-glitch brand-text-glitch1 welcome-size">Welcome to CipherLab</text>
-                    <text x="5" y="70" class="brand-text-glitch brand-text-glitch2 welcome-size">Welcome to CipherLab</text>
+                <svg width="100%" height="120" viewBox="0 0 800 120" class="navbar-brand-svg welcome-svg">
+                    <text x="50%" y="70" class="brand-text-base welcome-size" text-anchor="middle">Welcome to CipherLab</text>
+                    <text x="50%" y="70" class="brand-text-glitch brand-text-glitch1 welcome-size" text-anchor="middle">Welcome to CipherLab</text>
+                    <text x="50%" y="70" class="brand-text-glitch brand-text-glitch2 welcome-size" text-anchor="middle">Welcome to CipherLab</text>
                 </svg>
             </div>
             <div class="hero-content">
@@ -139,11 +139,22 @@ title: CipherLab - Cryptography Educational Platform
     }
     
     .welcome-size {
-        font-size: 50px;
+        font-size: 72px;
         font-weight: 700;
     }
     
-    /* Remove old welcome text styles that are no longer needed */
+    /* Responsive welcome text sizing */
+    @media (max-width: 768px) {
+        .welcome-size {
+            font-size: 56px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .welcome-size {
+            font-size: 42px;
+        }
+    }
     
     /* Wrap content in a new container to ensure visual separation */
     .hero-content {
