@@ -6,7 +6,14 @@ title: CipherLab - Cryptography Educational Platform
     <div class="row hero-row">
         <div class="col-12 text-center">
             <div class="typing-container mb-4">
-                <h1 class="mega-title">Welcome to CipherLab</h1>
+                <!-- EXACT SAME STRUCTURE AS NAVBAR, JUST LARGER -->
+                <div class="welcome-container">
+                    <svg width="100%" height="120" viewBox="0 0 700 120" aria-hidden="true">
+                        <text x="50%" y="80" class="welcome-text-base" text-anchor="middle">Welcome to CipherLab</text>
+                        <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">Welcome to CipherLab</text>
+                        <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">Welcome to CipherLab</text>
+                    </svg>
+                </div>
             </div>
             <div class="hero-content">
                 <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
@@ -19,52 +26,6 @@ title: CipherLab - Cryptography Educational Platform
     
     <!-- Animated binary code decoration -->
     <div class="binary-stream">01001100 01000101 01000001 01010010 01001110</div>
-</section>
-
-<section class="container section">
-    <!-- Wrap heading in its own row and col for proper centering -->
-    <div class="row">
-        <div class="col-12 text-center">
-            <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
-        </div>
-    </div>
-    
-    <div class="features-container">
-        <div class="features-grid">
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-key feature-icon"></i>
-                </div>
-                <h2>Classic Ciphers</h2>
-                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-shield-alt feature-icon"></i>
-                </div>
-                <h2>Modern Encryption</h2>
-                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-unlock feature-icon"></i>
-                </div>
-                <h2>Cryptanalysis</h2>
-                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 <!-- Additional CSS for this page -->
@@ -128,131 +89,49 @@ title: CipherLab - Cryptography Educational Platform
         padding-bottom: 0 !important;
     }
     
-    /* Mega title with custom styling */
-    .mega-title {
-        font-size: 6rem;
-        font-weight: 800;
+    /* WELCOME TEXT STYLES - EXACT COPY OF NAVBAR STYLES BUT LARGER */
+    .welcome-container {
+        display: block;
         text-align: center;
-        color: var(--primary);
         margin: 0 auto;
-        text-shadow: 0 0 10px var(--primary);
+        height: auto;
         position: relative;
-        display: inline-block;
-        width: 100%;
-        letter-spacing: -2px;
-        animation: pulse-text 3s infinite alternate;
     }
     
-    @keyframes pulse-text {
-        0% {
-            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
-        }
-        100% {
-            text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 40px var(--primary);
-        }
+    .welcome-text-base {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 80px;
+        fill: var(--primary);
+        filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 5px var(--primary));
+        transition: all 0.3s ease;
+        animation: pulse-glow 3s infinite alternate;
+        letter-spacing: -0.5px;
     }
     
-    .mega-title::before,
-    .mega-title::after {
-        content: "Welcome to CipherLab";
+    .welcome-text-glitch {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 80px;
+        opacity: 0.65;
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        color: var(--primary);
+        letter-spacing: -0.5px;
     }
     
-    .mega-title::before {
-        left: -2px;
-        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%, 0 66%, 100% 66%, 100% 100%, 0 100%);
-        animation: glitch-effect 3s infinite;
-    }
-    
-    .mega-title::after {
-        left: 2px;
-        clip-path: polygon(0 33%, 100% 33%, 100% 66%, 0 66%);
-        animation: glitch-effect 2.5s infinite alternate-reverse;
-    }
-    
-    @keyframes glitch-effect {
-        0%, 100% {
-            opacity: 0.8;
-            transform: translate(0);
-            text-shadow: -1px 0 var(--primary);
-        }
-        10% {
-            transform: translate(-2px, -2px);
-            text-shadow: 1px 0 var(--primary);
-        }
-        20% {
-            transform: translate(2px, 2px);
-            text-shadow: -1px 0 var(--primary);
-        }
-        30% {
-            transform: translate(-1px, 2px);
-            text-shadow: 1px 0 var(--primary);
-        }
-        40% {
-            transform: translate(1px, -1px);
-            text-shadow: -1px 0 var(--primary);
-        }
-        50% {
-            transform: translate(-1px, -1px);
-            text-shadow: 1px 0 var(--primary);
-        }
-    }
-    
-    .mega-title::before {
-        /* Creates left part of the glitch effect */
-        left: 2px;
-        text-shadow: -2px 0 var(--primary);
+    .welcome-text-glitch1 {
+        fill: var(--primary);
+        filter: drop-shadow(0 0 2px var(--primary));
+        animation: hard-glitch1 2s infinite steps(1);
         clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        animation: glitch-anim 2s infinite linear alternate-reverse;
     }
     
-    .mega-title::after {
-        /* Creates right part of the glitch effect */
-        left: -2px;
-        text-shadow: 2px 0 var(--primary);
-        clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-        animation: glitch-anim2 3s infinite linear alternate-reverse;
-    }
-    
-    @keyframes glitch-anim {
-        0% {
-            transform: translate(-1px, -1px);
-        }
-        25% {
-            transform: translate(1px, 0);
-        }
-        50% {
-            transform: translate(-1px, 1px);
-        }
-        75% {
-            transform: translate(1px, -1px);
-        }
-        100% {
-            transform: translate(-1px, -1px);
-        }
-    }
-    
-    @keyframes glitch-anim2 {
-        0% {
-            transform: translate(1px, 1px);
-        }
-        25% {
-            transform: translate(-1px, 0);
-        }
-        50% {
-            transform: translate(1px, -1px);
-        }
-        75% {
-            transform: translate(-1px, 1px);
-        }
-        100% {
-            transform: translate(1px, 1px);
-        }
+    .welcome-text-glitch2 {
+        fill: var(--primary); 
+        filter: drop-shadow(0 0 2px var(--primary));
+        animation: hard-glitch2 1.5s infinite steps(1);
+        clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
     }
     
     /* Wrap content in a new container to ensure visual separation */
@@ -494,9 +373,9 @@ title: CipherLab - Cryptography Educational Platform
             padding: 2rem;
         }
         
-        .hero-welcome-text {
-            font-size: 3.5rem !important;
-            min-height: 4rem !important;
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 48px;
         }
     }
     
@@ -510,9 +389,9 @@ title: CipherLab - Cryptography Educational Platform
             max-width: 100%;
         }
         
-        .hero-welcome-text {
-            font-size: 3rem !important;
-            min-height: 3.5rem !important;
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 36px;
         }
         
         .feature-icon-container {
