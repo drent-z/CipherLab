@@ -6,10 +6,8 @@ title: CipherLab - Cryptography Educational Platform
     <div class="row hero-row">
         <div class="col-12 text-center">
             <div class="typing-container mb-4">
-                <h1 class="glitch centered-heading hero-welcome-text visible" data-text="Welcome to CipherLab">
-                    <span>Welcome to CipherLab</span>
-                    <span aria-hidden="true">Welcome to CipherLab</span>
-                    <span aria-hidden="true">Welcome to CipherLab</span>
+                <h1 class="main-title centered-heading hero-welcome-text visible">
+                    Welcome to CipherLab
                 </h1>
             </div>
             <div class="hero-content">
@@ -132,48 +130,28 @@ title: CipherLab - Cryptography Educational Platform
         padding-bottom: 0 !important;
     }
     
-    /* Wrap content in a new container to ensure visual separation */
-    .hero-content {
-        margin-top: 3rem !important;
-        position: relative !important;
-        display: block !important;
-        width: 100% !important;
-    }
-    
-    /* Fix for hero text centering with more specific rules */
-    .hero .glitch, 
-    .typing-container h1 {
-        position: relative !important;
-        text-align: center !important;
-        margin: 0 auto !important;
-        font-size: 4.5rem !important;
+    /* Improved main title styling without glitch effect */
+    .main-title {
+        color: var(--primary) !important;
+        font-size: 5rem !important;
         font-weight: 800 !important;
         letter-spacing: -1px !important;
-        background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
-        background-size: 200% auto;
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent !important;
-        animation: shine 3s linear infinite;
-        will-change: background-position;
         line-height: 1.2 !important;
-        display: block !important;
+        margin: 0 auto !important;
+        padding-bottom: 0.5rem !important;
+        position: relative !important;
+        text-align: center !important;
+        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
         width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
         z-index: 1 !important;
     }
     
-    /* New class for making the welcome text larger with proper spacing */
-    .hero-welcome-text {
-        font-size: 5rem !important; /* Slightly reduced from 5.5rem */
-        line-height: 1.2 !important;
-        margin-bottom: 0 !important; /* Remove bottom margin from h1 itself */
-        padding-bottom: 0.5rem !important; /* Add padding instead */
-        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+    /* Wrap content in a new container to ensure visual separation */
+    .hero-content {
+        margin-top: 4rem !important; /* Increased to create more space */
         position: relative !important;
-        z-index: 1 !important;
+        display: block !important;
+        width: 100% !important;
     }
     
     /* Add extra spacing for the paragraph that follows the title */
@@ -395,7 +373,7 @@ title: CipherLab - Cryptography Educational Platform
             max-width: 450px;
         }
         
-        .hero-welcome-text {
+        .main-title {
             font-size: 4.5rem !important;
         }
     }
@@ -405,7 +383,7 @@ title: CipherLab - Cryptography Educational Platform
             padding: 2rem;
         }
         
-        .hero-welcome-text {
+        .main-title {
             font-size: 3.5rem !important;
         }
     }
@@ -415,7 +393,7 @@ title: CipherLab - Cryptography Educational Platform
             padding: 1.5rem;
         }
         
-        .hero-welcome-text {
+        .main-title {
             font-size: 3rem !important;
         }
         
