@@ -30,70 +30,37 @@ title: CipherLab - Cryptography Educational Platform
     </div>
     
     <div class="features-container">
-        <div class="cyber-grid">
-            <div class="cyber-card fade-in visible">
-                <div class="card-glow"></div>
-                <div class="card-grid-overlay"></div>
-                <div class="card-content">
-                    <div class="hex-icon">
-                        <div class="hex-icon-inner">
-                            <i class="fas fa-key feature-icon"></i>
-                        </div>
-                    </div>
-                    <h2 class="cyber-title">Classic Ciphers</h2>
-                    <div class="cyber-divider"><span></span></div>
-                    <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
-                    <div class="feature-button">
-                        <a href="/learn/#module1" class="cyber-btn">
-                            <span class="cyber-btn-border"></span>
-                            <span class="cyber-btn-glitch"></span>
-                            <span class="cyber-btn-text">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </a>
-                    </div>
+        <div class="features">
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-key feature-icon"></i>
+                </div>
+                <h2>Classic Ciphers</h2>
+                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             
-            <div class="cyber-card fade-in visible">
-                <div class="card-glow"></div>
-                <div class="card-grid-overlay"></div>
-                <div class="card-content">
-                    <div class="hex-icon">
-                        <div class="hex-icon-inner">
-                            <i class="fas fa-shield-alt feature-icon"></i>
-                        </div>
-                    </div>
-                    <h2 class="cyber-title">Modern Encryption</h2>
-                    <div class="cyber-divider"><span></span></div>
-                    <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
-                    <div class="feature-button">
-                        <a href="/learn/#module2" class="cyber-btn">
-                            <span class="cyber-btn-border"></span>
-                            <span class="cyber-btn-glitch"></span>
-                            <span class="cyber-btn-text">Discover <i class="fas fa-arrow-right"></i></span>
-                        </a>
-                    </div>
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                </div>
+                <h2>Modern Encryption</h2>
+                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             
-            <div class="cyber-card fade-in visible">
-                <div class="card-glow"></div>
-                <div class="card-grid-overlay"></div>
-                <div class="card-content">
-                    <div class="hex-icon">
-                        <div class="hex-icon-inner">
-                            <i class="fas fa-unlock feature-icon"></i>
-                        </div>
-                    </div>
-                    <h2 class="cyber-title">Cryptanalysis</h2>
-                    <div class="cyber-divider"><span></span></div>
-                    <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
-                    <div class="feature-button">
-                        <a href="/learn/#module5" class="cyber-btn">
-                            <span class="cyber-btn-border"></span>
-                            <span class="cyber-btn-glitch"></span>
-                            <span class="cyber-btn-text">Challenge Yourself <i class="fas fa-arrow-right"></i></span>
-                        </a>
-                    </div>
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-unlock feature-icon"></i>
+                </div>
+                <h2>Cryptanalysis</h2>
+                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -297,21 +264,20 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Improved features container */
     .features-container {
-        padding: 3rem 0;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
+        padding: 2rem 0;
     }
     
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        width: 100%;
+    .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        padding: 2rem 0;
     }
     
     /* Enhanced feature box styling */
     .feature-box {
+        width: 350px;
         background-color: var(--medium-dark);
         border: 1px solid var(--primary);
         border-radius: 12px;
@@ -324,7 +290,6 @@ title: CipherLab - Cryptography Educational Platform
         flex-direction: column;
         align-items: center;
         text-align: center;
-        height: 100%;
     }
     
     .feature-box::before {
@@ -404,6 +369,15 @@ title: CipherLab - Cryptography Educational Platform
         background-color: var(--secondary);
     }
     
+    .feature-box p {
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        z-index: 1;
+        position: relative;
+    }
+    
     /* Learn more button styling */
     .btn-learn-more {
         display: inline-flex;
@@ -416,23 +390,6 @@ title: CipherLab - Cryptography Educational Platform
         transition: all 0.3s ease;
         position: relative;
         z-index: 1;
-    }
-    
-    /* Add margin to push the content down from the buttons */
-    .feature-button {
-        margin-top: auto;
-        padding-top: 1.5rem;
-    }
-    
-    /* Make sure paragraphs have consistent height */
-    .feature-box p {
-        color: var(--text);
-        font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-        z-index: 1;
-        position: relative;
-        flex-grow: 1;
     }
     
     .btn-learn-more::after {
@@ -492,9 +449,18 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Responsive adjustments */
     @media (max-width: 992px) {
-        .features-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .features {
+            gap: 2rem;
+        }
+        
+        .feature-box {
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .hero-welcome-text {
+            font-size: 4.5rem !important;
+            min-height: 5rem !important;
         }
     }
     
@@ -510,13 +476,8 @@ title: CipherLab - Cryptography Educational Platform
     }
     
     @media (max-width: 576px) {
-        .features-grid {
-            grid-template-columns: 1fr;
-        }
-        
         .feature-box {
             padding: 1.5rem;
-            max-width: 100%;
         }
         
         .hero-welcome-text {
