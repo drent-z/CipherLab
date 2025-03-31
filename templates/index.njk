@@ -216,6 +216,20 @@ title: CipherLab - Cryptography Educational Platform
         display: block !important;
     }
     
+    /* Make the button more touch-friendly for mobile */
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border: 1px solid var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+    }
+    
     /* Improved features container */
     .features-container {
         padding: 3rem 0;
@@ -450,38 +464,49 @@ title: CipherLab - Cryptography Educational Platform
         width: 120px;
     }
     
-    /* Responsive adjustments */
+    /* ENHANCED MOBILE RESPONSIVENESS */
+    
+    /* Large devices (laptops/desktops) */
     @media (max-width: 992px) {
         .features-grid {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
+        
+        .section-title {
+            font-size: 2.2rem;
+        }
+        
+        .hero {
+            min-height: 80vh;
+        }
     }
     
+    /* Medium devices (tablets) */
     @media (max-width: 768px) {
         .feature-box {
             padding: 2rem;
+            margin-bottom: 1.5rem;
+            min-height: auto;
         }
         
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 48px;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .features-grid {
-            grid-template-columns: 1fr;
+            font-size: 42px; /* Slightly smaller for better display */
         }
         
-        .feature-box {
-            padding: 1.5rem;
-            max-width: 100%;
+        .hero {
+            min-height: 70vh;
+            padding: 2rem 1rem;
         }
         
-        .welcome-text-base,
-        .welcome-text-glitch {
-            font-size: 36px;
+        .hero p.mb-4 {
+            font-size: 1.3rem !important;
+            padding: 0 1rem;
+        }
+        
+        .typing-container {
+            margin-bottom: 3rem !important;
         }
         
         .feature-icon-container {
@@ -490,7 +515,179 @@ title: CipherLab - Cryptography Educational Platform
         }
         
         .feature-icon {
+            font-size: 2.2rem;
+        }
+        
+        .section-title {
             font-size: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        /* Improve tap targets for mobile */
+        .cta-button {
+            padding: 1rem 2rem;
+            min-width: 200px; /* Ensure a good tap target width */
+        }
+        
+        .btn-learn-more {
+            padding: 0.7rem 0;
+            margin-top: 0.5rem;
+            /* Make tap target larger for touch */
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        /* Add more space between feature boxes on mobile */
+        .features-grid {
+            gap: 2rem;
+        }
+    }
+    
+    /* Small devices (phones) */
+    @media (max-width: 576px) {
+        .features-grid {
+            grid-template-columns: 1fr; /* Force single column on phones */
+        }
+        
+        .feature-box {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            /* Make sure boxes are fully visible on smaller screens */
+            width: 100%;
+        }
+        
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 32px; /* Even smaller for phones */
+        }
+        
+        .hero {
+            min-height: 60vh;
+            padding: 1.5rem 1rem;
+        }
+        
+        .hero p.mb-4 {
+            font-size: 1.1rem !important;
+            padding: 0 0.5rem;
+        }
+        
+        .typing-container {
+            margin-bottom: 2rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+        }
+        
+        .feature-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-box p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            font-size: 1.7rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Better touch targets */
+        .btn-learn-more {
+            padding: 0.8rem 0;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        /* Center everything better on small screens */
+        .features-container {
+            padding: 2rem 0.5rem;
+        }
+        
+        /* Ensure no horizontal overflow */
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Hide binary stream on very small devices */
+        .binary-stream {
+            display: none;
+        }
+    }
+    
+    /* Extra small devices */
+    @media (max-width: 380px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 24px; /* Even smaller for tiny phones */
+        }
+        
+        .hero p.mb-4 {
+            font-size: 1rem !important;
+        }
+        
+        .cta-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            min-width: 180px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+        
+        /* Remove hover effect on mobile as it can cause issues */
+        .feature-box:hover {
+            transform: none;
+        }
+        
+        /* Stack buttons vertically if needed */
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+    
+    /* Better touch support by targeting mobile devices specifically */
+    @media (pointer: coarse) {
+        /* Enhance tap targets for all touch interfaces */
+        .cta-button, 
+        .btn-learn-more,
+        .feature-box,
+        .feature-icon-container {
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
+        }
+        
+        /* Disable all hover effects on touch devices for better performance */
+        .feature-box:hover {
+            transform: none;
+        }
+        
+        .feature-box:active {
+            transform: translateY(-5px);
+            transition: transform 0.2s ease;
+        }
+        
+        /* Add touch feedback */
+        .cta-button:active,
+        .btn-learn-more:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
         }
     }
 </style>
