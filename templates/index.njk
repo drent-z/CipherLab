@@ -22,46 +22,79 @@ title: CipherLab - Cryptography Educational Platform
 </section>
 
 <section class="container section">
-    <!-- Wrap heading in its own row and col for proper centering -->
-    <div class="row">
-        <div class="col-12 text-center">
-            <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
+    <!-- Section title with enhanced styling -->
+    <div class="section-header">
+        <h2 class="section-title fade-in">Explore Cryptography</h2>
+        <div class="section-divider">
+            <span class="divider-line"></span>
+            <i class="fas fa-lock-open divider-icon"></i>
+            <span class="divider-line"></span>
         </div>
+        <p class="section-subtitle">Discover the fascinating world of codes and ciphers</p>
     </div>
     
-    <div class="features-container">
-        <div class="features-grid">
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-key feature-icon"></i>
-                </div>
-                <h2>Classic Ciphers</h2>
-                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
+    <!-- New cards layout -->
+    <div class="crypto-cards">
+        <!-- Classic Ciphers Card -->
+        <div class="crypto-card fade-in">
+            <div class="card-glow"></div>
+            <div class="card-icon">
+                <i class="fas fa-key"></i>
             </div>
-            
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-shield-alt feature-icon"></i>
-                </div>
-                <h2>Modern Encryption</h2>
-                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
-                </div>
+            <div class="card-content">
+                <h3>Classic Ciphers</h3>
+                <p>Journey through history and learn the fundamental encryption techniques that laid the groundwork for modern security.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i> Caesar Cipher</li>
+                    <li><i class="fas fa-check"></i> Vigenère Cipher</li>
+                    <li><i class="fas fa-check"></i> Substitution Methods</li>
+                </ul>
+                <a href="/learn/#module1" class="card-button">
+                    <span>Explore Classic Ciphers</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            
-            <div class="feature-box fade-in visible">
-                <div class="feature-icon-container">
-                    <i class="fas fa-unlock feature-icon"></i>
-                </div>
-                <h2>Cryptanalysis</h2>
-                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
-                <div class="feature-button">
-                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
-                </div>
+        </div>
+        
+        <!-- Modern Encryption Card -->
+        <div class="crypto-card fade-in">
+            <div class="card-glow"></div>
+            <div class="card-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="card-content">
+                <h3>Modern Encryption</h3>
+                <p>Discover the powerful algorithms that secure our digital world, from banking to messaging and beyond.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i> Symmetric Encryption (AES)</li>
+                    <li><i class="fas fa-check"></i> Public Key Systems (RSA)</li>
+                    <li><i class="fas fa-check"></i> Hash Functions (SHA)</li>
+                </ul>
+                <a href="/learn/#module2" class="card-button">
+                    <span>Master Modern Encryption</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Cryptanalysis Card -->
+        <div class="crypto-card fade-in">
+            <div class="card-glow"></div>
+            <div class="card-icon">
+                <i class="fas fa-unlock"></i>
+            </div>
+            <div class="card-content">
+                <h3>Cryptanalysis</h3>
+                <p>Step into the shoes of a code breaker and learn the techniques used to analyze and defeat encryption systems.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check"></i> Frequency Analysis</li>
+                    <li><i class="fas fa-check"></i> Pattern Recognition</li>
+                    <li><i class="fas fa-check"></i> Practical Challenges</li>
+                </ul>
+                <a href="/learn/#module5" class="card-button">
+                    <span>Break Some Codes</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </div>
