@@ -8,7 +8,7 @@ title: CipherLab - Cryptography Educational Platform
             <div class="typing-container mb-4">
                 <!-- EXACT SAME STRUCTURE AS NAVBAR, JUST LARGER -->
                 <div class="welcome-container">
-                    <svg width="100%" height="120" viewBox="0 0 700 120" aria-hidden="true">
+                    <svg width="100%" height="120" viewBox="0 0 700 120" class="welcome-svg" aria-hidden="true">
                         <text x="50%" y="80" class="welcome-text-base" text-anchor="middle">Welcome to CipherLab</text>
                         <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">Welcome to CipherLab</text>
                         <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">Welcome to CipherLab</text>
@@ -76,6 +76,12 @@ title: CipherLab - Cryptography Educational Platform
 
 <!-- Additional CSS for this page -->
 <style>
+    /* Fix horizontal overflow */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
     /* Force center align all section titles */
     .section-title.centered-heading {
         text-align: center !important;
@@ -103,6 +109,8 @@ title: CipherLab - Cryptography Educational Platform
         position: relative;
         overflow: hidden;
         box-sizing: border-box;
+        width: 100%;
+        max-width: 100vw;
     }
     
     /* Force row to be full-width and block-displayed */
@@ -110,6 +118,8 @@ title: CipherLab - Cryptography Educational Platform
         width: 100%;
         display: block !important;
         margin: 0 !important;
+        max-width: 100vw;
+        overflow: hidden;
     }
     
     /* Force column to be block displayed with adequate margins */
@@ -119,6 +129,8 @@ title: CipherLab - Cryptography Educational Platform
         clear: both !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        max-width: 100vw;
+        overflow: hidden;
     }
     
     /* Fix for the typing container with more aggressive styling */
@@ -133,6 +145,8 @@ title: CipherLab - Cryptography Educational Platform
         height: auto !important;
         min-height: 0 !important;
         padding-bottom: 0 !important;
+        max-width: 100vw;
+        overflow: hidden;
     }
     
     /* WELCOME TEXT STYLES - EXACT COPY OF NAVBAR STYLES BUT LARGER */
@@ -142,6 +156,16 @@ title: CipherLab - Cryptography Educational Platform
         margin: 0 auto;
         height: auto;
         position: relative;
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
+    }
+    
+    /* SVG container for welcome text */
+    .welcome-svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
     }
     
     .welcome-text-base {
@@ -236,6 +260,7 @@ title: CipherLab - Cryptography Educational Platform
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
+        overflow: hidden;
     }
     
     .features-grid {
@@ -265,6 +290,7 @@ title: CipherLab - Cryptography Educational Platform
         border-right-width: 1px !important;
         border-right-style: solid !important;
         border-right-color: var(--primary) !important;
+        max-width: 100%;
     }
     
     /* Remove all pseudo-elements that might be causing the green border */
@@ -468,6 +494,11 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Large devices (laptops/desktops) */
     @media (max-width: 992px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 70px;
+        }
+        
         .features-grid {
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
@@ -484,15 +515,21 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Medium devices (tablets) */
     @media (max-width: 768px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 60px; /* Larger on tablets */
+        }
+        
+        /* Adjust SVG height for better proportions */
+        .welcome-svg {
+            height: auto;
+            min-height: 100px;
+        }
+        
         .feature-box {
             padding: 2rem;
             margin-bottom: 1.5rem;
             min-height: auto;
-        }
-        
-        .welcome-text-base,
-        .welcome-text-glitch {
-            font-size: 42px; /* Slightly smaller for better display */
         }
         
         .hero {
@@ -546,6 +583,23 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Small devices (phones) */
     @media (max-width: 576px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 46px; /* MUCH larger for mobile to fix tiny text issue */
+        }
+        
+        /* Adjust SVG viewBox for better mobile display */
+        .welcome-svg {
+            height: auto;
+            min-height: 80px;
+            overflow: visible;
+        }
+        
+        /* Adjust SVG position if needed */
+        .welcome-svg text {
+            dominant-baseline: middle;
+        }
+        
         .features-grid {
             grid-template-columns: 1fr; /* Force single column on phones */
         }
@@ -555,11 +609,6 @@ title: CipherLab - Cryptography Educational Platform
             margin-bottom: 1.5rem;
             /* Make sure boxes are fully visible on smaller screens */
             width: 100%;
-        }
-        
-        .welcome-text-base,
-        .welcome-text-glitch {
-            font-size: 32px; /* Even smaller for phones */
         }
         
         .hero {
@@ -631,7 +680,13 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 380px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 24px; /* Even smaller for tiny phones */
+            font-size: 38px; /* Still bigger than before */
+        }
+        
+        /* Adjust SVG height for better proportions */
+        .welcome-svg {
+            height: auto;
+            min-height: 70px;
         }
         
         .hero p.mb-4 {
