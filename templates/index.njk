@@ -105,6 +105,13 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
     }
     
+    /* Remove any unwanted borders/outlines */
+    section, .container, .row, .col-12, .features-container, .features-grid, .feature-box {
+        border-right: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
     /* Force row to be full-width and block-displayed */
     .hero-row {
         width: 100%;
@@ -265,7 +272,7 @@ title: CipherLab - Cryptography Educational Platform
         border-color: var(--secondary);
     }
     
-    /* Improved icon container */
+    /* Improved icon container with better alignment */
     .feature-icon-container {
         width: 80px;
         height: 80px;
@@ -285,6 +292,13 @@ title: CipherLab - Cryptography Educational Platform
         font-size: 2.5rem;
         color: var(--dark);
         transition: all 0.3s ease;
+        line-height: 1;
+        margin: 0; /* Remove any default margins */
+        padding: 0; /* Remove any default padding */
+        display: flex; /* Ensure the icon is properly centered */
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
     
     .feature-box:hover .feature-icon-container {
