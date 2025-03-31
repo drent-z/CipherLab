@@ -105,13 +105,6 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
     }
     
-    /* Remove any unwanted borders/outlines */
-    section, .container, .row, .col-12, .features-container, .features-grid, .feature-box {
-        border-right: none !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-    
     /* Force row to be full-width and block-displayed */
     .hero-row {
         width: 100%;
@@ -238,7 +231,7 @@ title: CipherLab - Cryptography Educational Platform
         width: 100%;
     }
     
-    /* Enhanced feature box styling */
+    /* Enhanced feature box styling with fixed border issue */
     .feature-box {
         background-color: var(--medium-dark);
         border: 1px solid var(--primary);
@@ -247,29 +240,34 @@ title: CipherLab - Cryptography Educational Platform
         position: relative;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: none !important; /* Remove any shadow */
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         height: 100%;
+        /* Fix for the green border on the right */
+        border-right: 1px solid var(--primary) !important;
+        border-right-width: 1px !important;
+        border-right-style: solid !important;
+        border-right-color: var(--primary) !important;
+    }
+    
+    /* Remove all pseudo-elements that might be causing the green border */
+    .feature-box::before, .feature-box::after {
+        content: none !important;
+        display: none !important;
     }
     
     .feature-box::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
-        z-index: 0;
+        display: none !important;
     }
     
     .feature-box:hover {
         transform: translateY(-15px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
         border-color: var(--secondary);
+        border-right-color: var(--secondary) !important;
     }
     
     /* Improved icon container with better alignment */
