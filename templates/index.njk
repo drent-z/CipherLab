@@ -69,63 +69,6 @@ title: CipherLab - Cryptography Educational Platform
     </div>
 </section>
 
-<section class="container section" id="caesar-demo">
-    <!-- Wrap heading in its own row and col for proper centering -->
-    <div class="row">
-        <div class="col-12 text-center">
-            <h2 class="section-title mb-4 fade-in centered-heading visible">Interactive Caesar Cipher</h2>
-        </div>
-    </div>
-    
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card fade-in visible">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-cog"></i> Cipher Playground</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="caesar-input">Plain Text:</label>
-                        <input type="text" id="caesar-input" class="form-control" placeholder="Enter text to encrypt" value="HELLO WORLD">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="caesar-shift">Shift Value (1-25):</label>
-                        <input type="range" id="caesar-shift" class="form-control-range" min="1" max="25" value="3">
-                        <div class="text-center mt-2">
-                            <span id="shift-value">3</span>
-                        </div>
-                    </div>
-                    
-                    <div class="output-container code-block" data-language="encrypted">
-                        <code id="caesar-output">KHOOR ZRUOG</code>
-                    </div>
-                    
-                    <div class="cipher-explanation mt-4">
-                        <h4><i class="fas fa-info-circle"></i> How It Works</h4>
-                        <p>The Caesar cipher is one of the simplest encryption techniques. It works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
-                        <pre class="code-block mt-3" data-language="example">
-A → D (shift 3)
-B → E (shift 3)
-C → F (shift 3)
-...and so on</pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="container section">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-            <h2 class="section-title mb-4 fade-in centered-heading visible">Ready to Unlock the World of Cryptography?</h2>
-            <p class="mb-5 fade-in">Join our community of cryptography enthusiasts and start your journey from basic ciphers to advanced encryption techniques.</p>
-            <a href="/learn/" class="cta-button fade-in"><i class="fas fa-rocket"></i> Get Started Now</a>
-        </div>
-    </div>
-</section>
-
 <!-- Additional CSS for this page -->
 <style>
     /* Force center align all section titles */
@@ -156,12 +99,59 @@ C → F (shift 3)
         overflow: hidden;
     }
     
-    /* Enhanced welcome text */
+    /* Fix for the typing container - changed to block display to prevent overlap */
+    .typing-container {
+        width: 100%;
+        position: relative;
+        margin-bottom: 3rem; /* Increased spacing after title */
+        text-align: center;
+        display: block; /* Changed from flex to block */
+    }
+    
+    /* Fix for hero text centering */
+    .hero .glitch, .typing-container h1 {
+        position: relative;
+        text-align: center !important;
+        margin: 0 auto !important;
+        font-size: 4.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: shine 3s linear infinite;
+        will-change: background-position;
+        line-height: 1.2;
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    /* New class for making the welcome text larger with proper spacing */
     .hero-welcome-text {
-        font-size: 5.5rem !important;
-        line-height: 1.1 !important;
-        margin-bottom: 2rem !important;
+        font-size: 5rem !important; /* Slightly reduced from 5.5rem */
+        line-height: 1.2 !important;
+        margin-bottom: 0 !important; /* Remove bottom margin from h1 itself */
+        padding-bottom: 0.5rem; /* Add padding instead */
         text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+    }
+    
+    /* Add extra spacing for the paragraph that follows the title */
+    .hero p.mb-4 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        max-width: 800px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: 1.5rem;
+        clear: both; /* Ensure nothing floats around it */
+    }
+    
+    /* Make sure the CTA buttons have proper spacing */
+    .cta-buttons {
+        margin-top: 1rem;
+        clear: both;
     }
     
     /* Improved features container */
@@ -349,99 +339,6 @@ C → F (shift 3)
         100% { transform: translateX(-100%); }
     }
     
-    .cipher-icon {
-        font-size: 2rem;
-        color: var(--primary);
-    }
-    
-    .cipher-explanation pre {
-        background-color: var(--darker);
-        color: var(--primary);
-        padding: 1rem;
-        border-radius: 4px;
-        overflow-x: auto;
-    }
-    
-    .output-container {
-        background-color: var(--darker);
-        border: 1px solid var(--primary);
-        padding: 1rem;
-        border-radius: 4px;
-        font-family: 'IBM Plex Mono', monospace;
-        margin-top: 1rem;
-        position: relative;
-    }
-    
-    .difficulty {
-        display: flex;
-        gap: 5px;
-        margin-top: 1rem;
-    }
-    
-    .difficulty-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: var(--darker);
-        border: 1px solid var(--primary);
-    }
-    
-    .difficulty-dot.active {
-        background-color: var(--primary);
-    }
-    
-    .btn-challenge {
-        display: inline-block;
-        background-color: var(--darker);
-        color: var(--primary);
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        border: 1px solid var(--primary);
-        transition: all 0.3s ease;
-    }
-    
-    .btn-challenge:hover {
-        background-color: var(--primary);
-        color: var(--dark);
-    }
-    
-    .challenge-card {
-        height: 100%;
-        transition: all 0.3s ease;
-    }
-    
-    .challenge-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 10px var(--primary);
-    }
-
-    /* For the Caesar cipher slider */
-    input[type=range] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 8px;
-        border-radius: 4px;
-        background: var(--darker);
-        outline: none;
-    }
-    
-    input[type=range]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--primary);
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    input[type=range]::-webkit-slider-thumb:hover {
-        background: var(--secondary);
-        box-shadow: 0 0 10px var(--secondary);
-    }
-    
     /* Responsive adjustments */
     @media (max-width: 992px) {
         .features {
@@ -487,52 +384,3 @@ C → F (shift 3)
         }
     }
 </style>
-
-<!-- Additional JavaScript for this page -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Update shift value display
-        const shiftSlider = document.getElementById('caesar-shift');
-        const shiftValue = document.getElementById('shift-value');
-        const caesarInput = document.getElementById('caesar-input');
-        const caesarOutput = document.getElementById('caesar-output');
-        
-        function updateCaesarOutput() {
-            if (!caesarInput || !caesarOutput || !shiftSlider) return;
-            
-            const text = caesarInput.value.toUpperCase();
-            const shift = parseInt(shiftSlider.value);
-            
-            // Update shift value display
-            if (shiftValue) {
-                shiftValue.textContent = shift;
-            }
-            
-            // Calculate Caesar cipher
-            let result = '';
-            for (let i = 0; i < text.length; i++) {
-                const char = text.charAt(i);
-                
-                if (char.match(/[A-Z]/)) {
-                    const code = text.charCodeAt(i);
-                    result += String.fromCharCode(((code - 65 + shift) % 26) + 65);
-                } else {
-                    result += char;
-                }
-            }
-            
-            caesarOutput.textContent = result;
-        }
-        
-        if (shiftSlider) {
-            shiftSlider.addEventListener('input', updateCaesarOutput);
-        }
-        
-        if (caesarInput) {
-            caesarInput.addEventListener('input', updateCaesarOutput);
-        }
-        
-        // Initialize Caesar cipher output
-        updateCaesarOutput();
-    });
-</script>
