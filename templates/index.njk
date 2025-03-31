@@ -7,10 +7,10 @@ title: CipherLab - Cryptography Educational Platform
         <div class="col-12 text-center">
             <div class="typing-container mb-4">
                 <h1 class="glitch centered-heading hero-welcome-text visible" data-text="Welcome to CipherLab">
-					<span>Welcome to CipherLab</span>
-					<span aria-hidden="true">Welcome to CipherLab</span>
-					<span aria-hidden="true">Welcome to CipherLab</span>
-<				/h1>
+                    <span>Welcome to CipherLab</span>
+                    <span aria-hidden="true">Welcome to CipherLab</span>
+                    <span aria-hidden="true">Welcome to CipherLab</span>
+                </h1>
             </div>
             <div class="hero-content">
                 <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
@@ -132,20 +132,119 @@ title: CipherLab - Cryptography Educational Platform
         padding-bottom: 0 !important;
     }
     
-    /* Improved main title styling without glitch effect */
-    .main-title {
-        color: var(--primary) !important;
-        font-size: 5rem !important;
-        font-weight: 800 !important;
-        letter-spacing: -1px !important;
-        line-height: 1.2 !important;
-        margin: 0 auto !important;
-        padding-bottom: 0.5rem !important;
+    /* Fix for hero text centering with strong glitch effect */
+    .hero .glitch, .typing-container h1 {
         position: relative !important;
         text-align: center !important;
-        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+        margin: 0 auto !important;
+        font-size: 4.5rem !important;
+        font-weight: 800 !important;
+        letter-spacing: -1px !important;
+        background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--tertiary) 60%, var(--primary) 80%);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: shine 3s linear infinite;
+        will-change: background-position;
+        line-height: 1.2 !important;
+        display: block !important;
         width: 100% !important;
-        z-index: 1 !important;
+    }
+    
+    /* New class for making the welcome text larger with proper spacing */
+    .hero-welcome-text {
+        font-size: 5rem !important; /* Slightly reduced from 5.5rem */
+        line-height: 1.2 !important;
+        margin-bottom: 0 !important; /* Remove bottom margin from h1 itself */
+        padding-bottom: 0.5rem !important; /* Add padding instead */
+        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary) !important;
+    }
+    
+    /* Enhanced glitch effect for title */
+    .glitch {
+        position: relative;
+    }
+    
+    .glitch span:first-child {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .glitch span:nth-child(2) {
+        position: absolute;
+        top: 0;
+        left: -2px;
+        width: 100%;
+        color: var(--secondary);
+        opacity: 0.5;
+        z-index: 1;
+        animation: glitch-anim 3.5s infinite alternate-reverse;
+    }
+    
+    .glitch span:nth-child(3) {
+        position: absolute;
+        top: 0;
+        left: 2px;
+        width: 100%;
+        color: var(--tertiary);
+        opacity: 0.5;
+        z-index: 1;
+        animation: glitch-anim2 2.5s infinite alternate-reverse;
+    }
+    
+    @keyframes glitch-anim {
+        0% { 
+            clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+            transform: translate(-2px);
+        }
+        20% { 
+            clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%);
+            transform: translate(2px);
+        }
+        40% { 
+            clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%);
+            transform: translate(-1px);
+        }
+        60% { 
+            clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%);
+            transform: translate(1px);
+        }
+        80% { 
+            clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%);
+            transform: translate(-1px);
+        }
+        100% { 
+            clip-path: polygon(0 95%, 100% 95%, 100% 100%, 0 100%);
+            transform: translate(2px);
+        }
+    }
+    
+    @keyframes glitch-anim2 {
+        0% { 
+            clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%);
+            transform: translate(2px);
+        }
+        20% { 
+            clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%);
+            transform: translate(-2px);
+        }
+        40% { 
+            clip-path: polygon(0 55%, 100% 55%, 100% 60%, 0 60%);
+            transform: translate(1px);
+        }
+        60% { 
+            clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%);
+            transform: translate(-1px);
+        }
+        80% { 
+            clip-path: polygon(0 95%, 100% 95%, 100% 97%, 0 97%);
+            transform: translate(2px);
+        }
+        100% { 
+            clip-path: polygon(0 40%, 100% 40%, 100% 45%, 0 45%);
+            transform: translate(-2px);
+        }
     }
     
     /* Wrap content in a new container to ensure visual separation */
@@ -375,7 +474,7 @@ title: CipherLab - Cryptography Educational Platform
             max-width: 450px;
         }
         
-        .main-title {
+        .hero-welcome-text {
             font-size: 4.5rem !important;
         }
     }
@@ -385,7 +484,7 @@ title: CipherLab - Cryptography Educational Platform
             padding: 2rem;
         }
         
-        .main-title {
+        .hero-welcome-text {
             font-size: 3.5rem !important;
         }
     }
@@ -395,7 +494,7 @@ title: CipherLab - Cryptography Educational Platform
             padding: 1.5rem;
         }
         
-        .main-title {
+        .hero-welcome-text {
             font-size: 3rem !important;
         }
         
