@@ -28,6 +28,52 @@ title: CipherLab - Cryptography Educational Platform
     <div class="binary-stream">01001100 01000101 01000001 01010010 01001110</div>
 </section>
 
+<section class="container section">
+    <!-- Wrap heading in its own row and col for proper centering -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
+        </div>
+    </div>
+    
+    <div class="features-container">
+        <div class="features-grid">
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-key feature-icon"></i>
+                </div>
+                <h2>Classic Ciphers</h2>
+                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                </div>
+                <h2>Modern Encryption</h2>
+                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-unlock feature-icon"></i>
+                </div>
+                <h2>Cryptanalysis</h2>
+                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Additional CSS for this page -->
 <style>
     /* Force center align all section titles */
@@ -132,6 +178,11 @@ title: CipherLab - Cryptography Educational Platform
         filter: drop-shadow(0 0 2px var(--primary));
         animation: hard-glitch2 1.5s infinite steps(1);
         clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    }
+    
+    /* Force center align all section titles */
+    .section-title.centered-heading {
+        text-align: center !important;
     }
     
     /* Wrap content in a new container to ensure visual separation */
@@ -358,6 +409,33 @@ title: CipherLab - Cryptography Educational Platform
     @keyframes moveLeft {
         0% { transform: translateX(100vw); }
         100% { transform: translateX(-100%); }
+    }
+    
+    /* Enhanced section title styling */
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+        margin-bottom: 3rem;
+        text-shadow: 0 0 5px var(--primary);
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+    }
+    
+    .section-title:hover::after {
+        width: 120px;
     }
     
     /* Responsive adjustments */
