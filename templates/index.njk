@@ -139,20 +139,26 @@ title: CipherLab - Cryptography Educational Platform
     }
     
     .welcome-size {
-        font-size: 72px;
+        font-size: 100px;
         font-weight: 700;
     }
     
     /* Responsive welcome text sizing */
+    @media (max-width: 992px) {
+        .welcome-size {
+            font-size: 80px;
+        }
+    }
+    
     @media (max-width: 768px) {
         .welcome-size {
-            font-size: 56px;
+            font-size: 60px;
         }
     }
     
     @media (max-width: 576px) {
         .welcome-size {
-            font-size: 42px;
+            font-size: 48px;
         }
     }
     
