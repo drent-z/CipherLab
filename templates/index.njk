@@ -30,7 +30,7 @@ title: CipherLab - Cryptography Educational Platform
     </div>
     
     <div class="features-container">
-        <div class="features">
+        <div class="features-grid">
             <div class="feature-box fade-in visible">
                 <div class="feature-icon-container">
                     <i class="fas fa-key feature-icon"></i>
@@ -130,17 +130,26 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Mega title with custom styling */
     .mega-title {
-        font-size: 5.5rem;
+        font-size: 6rem;
         font-weight: 800;
         text-align: center;
         color: var(--primary);
         margin: 0 auto;
-        text-shadow: 0 0 5px var(--primary);
+        text-shadow: 0 0 10px var(--primary);
         position: relative;
         display: inline-block;
         width: 100%;
         letter-spacing: -2px;
-        z-index: 1;
+        animation: pulse-text 3s infinite alternate;
+    }
+    
+    @keyframes pulse-text {
+        0% {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        100% {
+            text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 40px var(--primary);
+        }
     }
     
     .mega-title::before,
@@ -152,30 +161,45 @@ title: CipherLab - Cryptography Educational Platform
         width: 100%;
         height: 100%;
         color: var(--primary);
-        text-shadow: 0 0 5px var(--primary);
     }
     
     .mega-title::before {
         left: -2px;
-        animation: subtle-shift 2s infinite linear;
-        opacity: 0.7;
+        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%, 0 66%, 100% 66%, 100% 100%, 0 100%);
+        animation: glitch-effect 3s infinite;
     }
     
     .mega-title::after {
         left: 2px;
-        animation: subtle-shift 3s infinite linear reverse;
-        opacity: 0.7;
+        clip-path: polygon(0 33%, 100% 33%, 100% 66%, 0 66%);
+        animation: glitch-effect 2.5s infinite alternate-reverse;
     }
     
-    @keyframes subtle-shift {
+    @keyframes glitch-effect {
         0%, 100% {
-            transform: translate(0, 0);
+            opacity: 0.8;
+            transform: translate(0);
+            text-shadow: -1px 0 var(--primary);
         }
-        25% {
-            transform: translate(-1px, 0);
+        10% {
+            transform: translate(-2px, -2px);
+            text-shadow: 1px 0 var(--primary);
         }
-        75% {
-            transform: translate(1px, 0);
+        20% {
+            transform: translate(2px, 2px);
+            text-shadow: -1px 0 var(--primary);
+        }
+        30% {
+            transform: translate(-1px, 2px);
+            text-shadow: 1px 0 var(--primary);
+        }
+        40% {
+            transform: translate(1px, -1px);
+            text-shadow: -1px 0 var(--primary);
+        }
+        50% {
+            transform: translate(-1px, -1px);
+            text-shadow: 1px 0 var(--primary);
         }
     }
     
@@ -264,20 +288,21 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Improved features container */
     .features-container {
-        padding: 2rem 0;
+        padding: 3rem 0;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
     }
     
-    .features {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2.5rem;
-        padding: 2rem 0;
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
     }
     
     /* Enhanced feature box styling */
     .feature-box {
-        width: 350px;
         background-color: var(--medium-dark);
         border: 1px solid var(--primary);
         border-radius: 12px;
@@ -290,6 +315,7 @@ title: CipherLab - Cryptography Educational Platform
         flex-direction: column;
         align-items: center;
         text-align: center;
+        height: 100%;
     }
     
     .feature-box::before {
@@ -369,15 +395,6 @@ title: CipherLab - Cryptography Educational Platform
         background-color: var(--secondary);
     }
     
-    .feature-box p {
-        color: var(--text);
-        font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-        z-index: 1;
-        position: relative;
-    }
-    
     /* Learn more button styling */
     .btn-learn-more {
         display: inline-flex;
@@ -390,6 +407,23 @@ title: CipherLab - Cryptography Educational Platform
         transition: all 0.3s ease;
         position: relative;
         z-index: 1;
+    }
+    
+    /* Add margin to push the content down from the buttons */
+    .feature-button {
+        margin-top: auto;
+        padding-top: 1.5rem;
+    }
+    
+    /* Make sure paragraphs have consistent height */
+    .feature-box p {
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        z-index: 1;
+        position: relative;
+        flex-grow: 1;
     }
     
     .btn-learn-more::after {
@@ -449,18 +483,9 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Responsive adjustments */
     @media (max-width: 992px) {
-        .features {
-            gap: 2rem;
-        }
-        
-        .feature-box {
-            width: 100%;
-            max-width: 450px;
-        }
-        
-        .hero-welcome-text {
-            font-size: 4.5rem !important;
-            min-height: 5rem !important;
+        .features-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
     }
     
@@ -476,8 +501,13 @@ title: CipherLab - Cryptography Educational Platform
     }
     
     @media (max-width: 576px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        
         .feature-box {
             padding: 1.5rem;
+            max-width: 100%;
         }
         
         .hero-welcome-text {
