@@ -140,6 +140,19 @@ title: CipherLab - Cryptography Educational Platform
         animation: textFlicker 3s infinite alternate !important;
     }
     
+    /* Prevent hover issues */
+    .welcome-text:hover {
+        color: var(--primary) !important;
+        text-shadow: 0 0 5px var(--primary) !important;
+        transform: none !important;
+        animation: textFlicker 3s infinite alternate !important;
+    }
+    
+    .welcome-text:hover::before,
+    .welcome-text:hover::after {
+        animation-play-state: running !important;
+    }
+    
     .welcome-text::before,
     .welcome-text::after {
         content: "Welcome to CipherLab";
