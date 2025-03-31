@@ -171,7 +171,7 @@ title: CipherLab - Cryptography Educational Platform
     .welcome-text-base {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 700;
-        font-size: 80px;
+        font-size: 60px; /* REDUCED from 80px for desktop */
         fill: var(--primary);
         filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 5px var(--primary));
         transition: all 0.3s ease;
@@ -182,7 +182,7 @@ title: CipherLab - Cryptography Educational Platform
     .welcome-text-glitch {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 700;
-        font-size: 80px;
+        font-size: 60px; /* REDUCED from 80px for desktop */
         opacity: 0.65;
         position: absolute;
         top: 0;
@@ -447,6 +447,7 @@ title: CipherLab - Cryptography Educational Platform
         color: var(--dark);
     }
     
+    /* Fix for the binary stream animation */
     .binary-stream {
         position: absolute;
         bottom: 20px;
@@ -456,11 +457,32 @@ title: CipherLab - Cryptography Educational Platform
         font-size: 1rem;
         white-space: nowrap;
         animation: moveLeft 15s linear infinite;
+        /* Make sure it doesn't create scrollbars */
+        overflow: hidden;
+        width: 100%;
+        /* Extend beyond the visible screen to prevent jumps */
+        padding-right: 100vw;
     }
     
     @keyframes moveLeft {
         0% { transform: translateX(100vw); }
         100% { transform: translateX(-100%); }
+    }
+    
+    /* Fix for hero background blur */
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0; /* Make sure it covers the entire hero section */
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        z-index: -1;
+        /* Make sure it doesn't cause scrolling issues */
+        pointer-events: none;
     }
     
     /* Enhanced section title styling */
@@ -490,13 +512,22 @@ title: CipherLab - Cryptography Educational Platform
         width: 120px;
     }
     
+    /* Fix for scrolling issues */
+    .fade-in {
+        will-change: opacity, transform;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+    
     /* ENHANCED MOBILE RESPONSIVENESS */
     
     /* Large devices (laptops/desktops) */
     @media (max-width: 992px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 70px;
+            font-size: 55px; /* Slightly reduced from original 70px */
         }
         
         .features-grid {
@@ -517,7 +548,7 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 768px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 60px; /* Larger on tablets */
+            font-size: 50px; /* Adjusted from 60px */
         }
         
         /* Adjust SVG height for better proportions */
@@ -585,7 +616,7 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 576px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 46px; /* MUCH larger for mobile to fix tiny text issue */
+            font-size: 46px; /* Keep the same as before - this works well */
         }
         
         /* Adjust SVG viewBox for better mobile display */
