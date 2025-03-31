@@ -243,22 +243,30 @@ title: Contact - CipherLab
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
     
-    /* FAQ Styling */
-    .faq-section .card {
+    /* More specific and robust FAQ Styling */
+    #faqAccordion .card,
+    .faq-section .card,
+    .accordion .card {
         margin-bottom: 1rem;
         border: 1px solid var(--primary-dark);
         background-color: var(--medium-dark);
-        border-radius: 8px;
-        overflow: hidden;
+        border-radius: 8px !important;
+        overflow: hidden !important;
     }
-    
-    .faq-section .card-header {
+
+    #faqAccordion .card-header,
+    .faq-section .card-header,
+    .accordion .card-header {
         padding: 0;
         background-color: var(--darker);
         border-bottom: 1px solid var(--primary-dark);
-        border-radius: 0;
+        border-radius: 0 !important;
     }
-    
+
+    #faqAccordion .card-header button,
+    .faq-section .card-header button,
+    .accordion .card-header button,
+    .btn-link,
     .faq-button {
         color: var(--primary);
         font-weight: 600;
@@ -270,7 +278,22 @@ title: Contact - CipherLab
         display: flex;
         align-items: center;
         gap: 10px;
-        border-radius: 0;
+        border-radius: 0 !important;
+    }
+
+    /* Additional selector to override Bootstrap defaults */
+    .btn.btn-link {
+        border-radius: 0 !important;
+    }
+
+    /* Ensure the collapse content has no rounded corners */
+    #faqAccordion .collapse,
+    #faqAccordion .collapsing {
+        border-radius: 0 !important;
+    }
+
+    #faqAccordion .card-body {
+        border-radius: 0 !important;
     }
     
     .faq-button:hover, .faq-button:focus {
