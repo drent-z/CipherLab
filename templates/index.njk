@@ -3,19 +3,24 @@ layout: layout.njk
 title: CipherLab - Cryptography Educational Platform
 ---
 <section class="hero" id="home">
-    <div class="hero-content-wrapper">
-        <div class="typing-container mb-4">
-            <h1 class="glitch" data-text="Welcome to CipherLab">
-                <span>Welcome to CipherLab</span>
-                <span aria-hidden="true">Welcome to CipherLab</span>
-                <span aria-hidden="true">Welcome to CipherLab</span>
-            </h1>
-        </div>
-        
-        <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
-        
-        <div class="cta-buttons fade-in">
-            <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+    <div class="hero-gradient-container"></div>
+    <div class="row hero-row">
+        <div class="col-12 text-center">
+            <div class="typing-container mb-4">
+                <div class="welcome-container">
+                    <svg width="100%" height="100" viewBox="0 0 700 100" class="welcome-svg" preserveAspectRatio="xMidYMid meet">
+                        <text x="50%" y="60" class="welcome-text-base" text-anchor="middle">Welcome to CipherLab</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">Welcome to CipherLab</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">Welcome to CipherLab</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="hero-content">
+                <p class="mb-4 fade-in hero-subtitle">Unlock the secrets of cryptography through interactive learning and challenges.</p>
+                <div class="cta-buttons fade-in">
+                    <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -24,315 +29,775 @@ title: CipherLab - Cryptography Educational Platform
 </section>
 
 <section class="container section">
-    <h2 class="section-title text-center mb-5 fade-in">Explore Cryptography</h2>
+    <!-- Wrap heading in its own row and col for proper centering -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="section-title mb-4 fade-in centered-heading visible">Explore Cryptography</h2>
+        </div>
+    </div>
     
-    <div class="features-grid">
-        <div class="feature-box fade-in">
-            <div class="feature-icon">
-                <i class="fas fa-key"></i>
+    <div class="features-container">
+        <div class="features-grid">
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-key feature-icon"></i>
+                </div>
+                <h2>Classic Ciphers</h2>
+                <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-            <h2>Classic Ciphers</h2>
-            <p>Learn about fundamental encryption techniques such as the Caesar cipher, Vigenère cipher, and substitution ciphers that laid the groundwork for modern cryptography.</p>
-            <a href="/learn/#module1" class="btn-learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-        </div>
-        
-        <div class="feature-box fade-in">
-            <div class="feature-icon">
-                <i class="fas fa-shield-alt"></i>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                </div>
+                <h2>Modern Encryption</h2>
+                <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-            <h2>Modern Encryption</h2>
-            <p>Explore contemporary encryption algorithms like AES, RSA, and SHA that power today's secure communications, digital signatures, and blockchain technology.</p>
-            <a href="/learn/#module2" class="btn-learn-more">Discover <i class="fas fa-arrow-right"></i></a>
-        </div>
-        
-        <div class="feature-box fade-in">
-            <div class="feature-icon">
-                <i class="fas fa-unlock"></i>
+            
+            <div class="feature-box fade-in visible">
+                <div class="feature-icon-container">
+                    <i class="fas fa-unlock feature-icon"></i>
+                </div>
+                <h2>Cryptanalysis</h2>
+                <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
+                <div class="feature-button">
+                    <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
-            <h2>Cryptanalysis</h2>
-            <p>Try hands-on challenges to analyze and break different ciphers, enhancing your problem-solving skills and understanding of security vulnerabilities.</p>
-            <a href="/learn/#module5" class="btn-learn-more">Challenge Yourself <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
 </section>
 
-<!-- Additional CSS for this page with fixed scrolling -->
+<!-- Additional CSS for this page -->
 <style>
-    /* Core fixes for smooth scrolling */
-    html {
-        scroll-behavior: auto;
-        height: 100%;
-        overflow-y: scroll; /* Always show vertical scrollbar to prevent layout shifts */
-    }
-    
-    body {
-        height: 100%;
+    /* --- CORE FIXES FOR SCROLLING ISSUES --- */
+    html, body {
+        max-width: 100%;
         overflow-x: hidden;
-        position: relative;
-        margin: 0;
-        padding: 0;
-    }
-    
-    /* Remove potentially problematic scroll properties */
-    * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Critical fix: set proper overflow behavior */
+        overflow-y: auto;
         overflow-anchor: auto;
-        overscroll-behavior: auto;
-    }
-    
-    /* Hero section styling with simplified positioning */
-    .hero {
-        min-height: 85vh;
-        padding: 3rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        /* Fix: prevent browser-determined scroll behavior */
+        scroll-behavior: auto !important;
+        /* Fix: set proper default positioning */
         position: relative;
-        background-color: var(--dark);
     }
     
-    /* Add the gradient as a pseudo-element instead of a nested div */
-    .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
-        z-index: 0;
-        pointer-events: none; /* Let scrolling events pass through */
+    /* Prevent any elements from stopping scroll propagation */
+    * {
+        /* Fix: ensure no element blocks scroll events */
+        touch-action: auto;
+        /* Fix: ensure event propagation works normally */
+        pointer-events: auto;
     }
     
-    /* Ensure hero content is above the gradient */
-    .hero-content-wrapper {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 800px;
+    /* Fix: ensure absolute positioned elements don't interfere with scrolling */
+    [class*="position-absolute"],
+    [style*="position: absolute"],
+    [style*="position:absolute"] {
+        pointer-events: none;
     }
     
-    /* Simplify the glitch effect */
-    .glitch {
-        font-size: 4rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: var(--primary);
-        position: relative;
-        text-shadow: 0 0 5px var(--primary);
-        display: inline-block;
+    /* Fix: keep interactive elements interactive */
+    a, button, input, textarea, select, .cta-button, .btn-learn-more, .feature-box {
+        pointer-events: auto !important;
     }
     
-    .glitch span:first-child {
-        position: relative;
-        z-index: 2;
-    }
-    
-    .glitch span:not(:first-child) {
+    /* --- GRADIENT FIX (Separate element) --- */
+    .hero-gradient-container {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        z-index: -1;
+        pointer-events: none; /* Critical fix: don't block scroll events */
+    }
+    
+    .hero-gradient-container::after {
+        content: "";
+        position: absolute;
+        top: 0; /* Reduced from -100% to prevent overflow */
+        left: 0; /* Reduced from -100% to prevent overflow */
+        width: 100%; /* Reduced from 300% to prevent excessive width */
+        height: 100%; /* Reduced from 300% to prevent excessive height */
+        background: radial-gradient(
+            circle at center,
+            rgba(0, 255, 65, 0.15) 0%, 
+            rgba(0, 255, 65, 0.08) 30%,
+            rgba(0, 255, 65, 0.05) 40%,
+            rgba(0, 255, 65, 0.02) 60%,
+            rgba(0, 255, 65, 0.01) 70%,
+            transparent 80%
+        );
+        z-index: -1;
+        /* GPU acceleration with no transform that could affect scrolling */
+        will-change: opacity;
+        /* Critical: ensure element doesn't interfere with scrolling */
         pointer-events: none;
     }
     
-    /* Optimize animations to use GPU acceleration but reduce their intensity */
-    @keyframes glitch {
-        0%, 100% { 
-            transform: translate(0);
-            opacity: 0.8;
-        }
-        20% {
-            transform: translate(-2px, 2px);
-            opacity: 0.9;
-        }
-        40% {
-            transform: translate(2px, -2px);
-            opacity: 0.8;
-        }
-        60% {
-            transform: translate(-2px, -2px);
-            opacity: 0.9;
-        }
-        80% {
-            transform: translate(2px, 2px);
-            opacity: 0.8;
-        }
-    }
-    
-    .glitch span:nth-child(2) {
-        animation: glitch 3s infinite linear alternate-reverse;
-        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        transform: translate(-0.05em, -0.0125em);
-    }
-    
-    .glitch span:nth-child(3) {
-        animation: glitch 2.7s infinite linear alternate-reverse;
-        clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-        transform: translate(0.05em, 0.0125em);
-    }
-    
-    /* Simplified CTA button with reduced animation intensity */
-    .cta-button {
-        display: inline-block;
-        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
-        color: var(--dark);
-        font-weight: 700;
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
-        text-decoration: none;
-        border-radius: 4px;
-        border: 1px solid var(--primary);
+    /* --- HERO SECTION --- */
+    .hero {
         position: relative;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 0;
+        /* Remove overflow styles that could trap scroll events */
+        overflow: visible;
+        width: 100%;
+        max-width: 100%;
         z-index: 1;
     }
     
-    .cta-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Force row to be full-width */
+    .hero-row {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 1rem;
+        overflow: visible;
     }
     
-    /* Binary stream with simplified animation */
+    /* --- WELCOME TEXT --- */
+    .typing-container {
+        width: 100% !important;
+        position: relative !important;
+        margin-bottom: 3rem !important;
+        text-align: center !important;
+        display: block !important;
+        overflow: visible; /* Critical - don't trap scroll */
+    }
+    
+    .welcome-container {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        width: 100%;
+        max-width: 90rem;
+        padding: 0 1rem;
+        overflow: visible; /* Critical - don't trap scroll */
+    }
+    
+    /* SVG container for welcome text */
+    .welcome-svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible; /* Critical - don't trap scroll */
+        /* Fix: Ensure SVG doesn't trap scroll events */
+        pointer-events: none;
+    }
+    
+    .welcome-text-base {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 3rem; /* Size for desktop */
+        fill: var(--primary);
+        filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 5px var(--primary));
+        transition: all 0.3s ease;
+        animation: pulse-glow 3s infinite alternate;
+        letter-spacing: -0.5px;
+    }
+    
+    .welcome-text-glitch {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 3rem; /* Size for desktop */
+        opacity: 0.65;
+        position: absolute;
+        top: 0;
+        left: 0;
+        letter-spacing: -0.5px;
+    }
+    
+    .welcome-text-glitch1 {
+        fill: var(--primary);
+        filter: drop-shadow(0 0 2px var(--primary));
+        animation: hard-glitch1 2s infinite steps(1);
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+    
+    .welcome-text-glitch2 {
+        fill: var(--primary); 
+        filter: drop-shadow(0 0 2px var(--primary));
+        animation: hard-glitch2 1.5s infinite steps(1);
+        clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    }
+    
+    /* Optimize animations to reduce impact on scrolling */
+    @keyframes hard-glitch1 {
+        0%, 100% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        10% {
+            transform: translate(-2px, 1px) skew(1deg);
+            opacity: 0.4;
+        }
+        15% {
+            transform: translate(1px, -1px) skew(-1deg);
+            opacity: 0.6;
+        }
+        23% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        35% {
+            transform: translate(-1px, 1px) skew(1deg);
+            opacity: 0.4;
+        }
+        47% {
+            transform: translate(1px, 0) skew(1deg);
+            opacity: 0.6;
+        }
+        52% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        69% {
+            transform: translate(-1px, -1px) skew(-1deg);
+            opacity: 0.4;
+        }
+        82% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        91% {
+            transform: translate(1px, 1px) skew(1deg);
+            opacity: 0.6;
+        }
+    }
+
+    @keyframes hard-glitch2 {
+        0%, 100% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        15% {
+            transform: translate(1px, 1px) skew(1deg);
+            opacity: 0.6;
+        }
+        21% {
+            transform: translate(-1px, 0) skew(-0.5deg);
+            opacity: 0.4;
+        }
+        38% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        49% {
+            transform: translate(-2px, 1px) skew(1deg);
+            opacity: 0.6;
+        }
+        62% {
+            transform: translate(0, 0) skew(0deg);
+            opacity: 0.5;
+        }
+        73% {
+            transform: translate(1px, -1px) skew(-1deg);
+            opacity: 0.4;
+        }
+        89% {
+            transform: translate(0, -1px) skew(0.5deg);
+            opacity: 0.5;
+        }
+    }
+    
+    /* Optimize glow animation */
+    @keyframes pulse-glow {
+        0%, 100% {
+            filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 4px var(--primary));
+        }
+        50% {
+            filter: drop-shadow(0 0 3px var(--primary)) drop-shadow(0 0 7px var(--primary));
+        }
+    }
+    
+    /* --- HERO CONTENT --- */
+    .hero-content {
+        margin-top: 2rem !important;
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        padding: 0 1rem;
+    }
+    
+    /* Hero subtitle styling */
+    .hero-subtitle {
+        font-size: 1.5rem !important;
+        line-height: 1.6 !important;
+        color: var(--text) !important;
+        transition: all 0.3s ease !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1.5rem !important;
+        max-width: 800px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* CTA buttons styling */
+    .cta-buttons {
+        margin-top: 1rem !important;
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border: 1px solid var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+        position: relative; /* Fix: Changed from transform to avoid GPU issues */
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, var(--secondary), var(--tertiary));
+        transition: all 0.5s ease;
+        z-index: -1;
+    }
+    
+    .cta-button:hover {
+        color: var(--dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .cta-button:hover::before {
+        left: 0;
+    }
+    
+    /* Binary stream animation - optimized to avoid scrolling issues */
     .binary-stream {
         position: absolute;
         bottom: 20px;
         left: 0;
-        width: 100%;
-        text-align: center;
+        font-family: 'IBM Plex Mono', monospace;
         color: var(--primary);
         opacity: 0.5;
         font-size: 1rem;
-        pointer-events: none; /* Ensure it doesn't interfere with scrolling */
+        white-space: nowrap;
+        animation: moveLeft 15s linear infinite;
+        width: 100%;
+        text-align: center;
+        /* Critical fix: don't interfere with scrolling */
+        pointer-events: none;
+        overflow: hidden;
     }
     
-    /* Features section with simplified layout */
+    @keyframes moveLeft {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+    
+    /* --- FEATURES SECTION --- */
+    .features-container {
+        padding: 3rem 0;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: visible; /* Fix: Allow proper scrolling */
+    }
+    
     .features-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
-        margin: 0 auto;
-        max-width: 1200px;
+        width: 100%;
     }
     
     .feature-box {
         background-color: var(--medium-dark);
-        border: 1px solid var(--primary-dark);
-        border-radius: 8px;
-        padding: 2rem;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid var(--primary);
+        border-radius: 12px;
+        padding: 2.5rem;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: visible;
+        box-shadow: none !important;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
         height: 100%;
+        border-right: 1px solid var(--primary) !important;
+        max-width: 100%;
+    }
+    
+    /* Fix the before/after pseudo-elements */
+    .feature-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-width: 0 50px 50px 0;
+        border-style: solid;
+        border-color: transparent var(--primary) transparent transparent;
+        opacity: 0.3;
+        /* Fix: Don't interfere with pointer events */
+        pointer-events: none;
     }
     
     .feature-box:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-15px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
         border-color: var(--secondary);
+        border-right-color: var(--secondary) !important;
     }
     
-    .feature-icon {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        color: var(--primary);
-        transition: all 0.3s ease;
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    .feature-icon-container {
+        width: 5rem;
+        height: 5rem;
         border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        box-shadow: 0 0 15px var(--primary-dark);
+        z-index: 1;
+        transition: all 0.3s ease;
     }
     
-    .feature-icon i {
+    .feature-icon {
+        font-size: 2.5rem;
         color: var(--dark);
+        transition: all 0.3s ease;
     }
     
-    .feature-box:hover .feature-icon {
+    .feature-box:hover .feature-icon-container {
+        transform: scale(1.1) rotate(5deg);
         background: linear-gradient(135deg, var(--secondary), var(--primary));
+        box-shadow: 0 0 20px var(--secondary);
     }
     
     .feature-box h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
         color: var(--primary);
-        transition: color 0.3s ease;
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-box h2::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary);
+        transition: all 0.3s ease;
     }
     
     .feature-box:hover h2 {
         color: var(--secondary);
+        text-shadow: 0 0 5px var(--secondary);
+    }
+    
+    .feature-box:hover h2::after {
+        width: 60px;
+        background-color: var(--secondary);
     }
     
     .feature-box p {
-        color: var(--text-muted);
-        flex-grow: 1;
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.7;
         margin-bottom: 1.5rem;
+        z-index: 1;
+        position: relative;
+        flex-grow: 1;
+    }
+    
+    .feature-button {
+        margin-top: auto;
+        padding-top: 1.5rem;
     }
     
     .btn-learn-more {
-        color: var(--primary);
-        text-decoration: none;
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        transition: color 0.3s ease, transform 0.3s ease;
-        font-weight: 500;
+        gap: 8px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn-learn-more::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary);
+        transition: width 0.3s ease;
     }
     
     .btn-learn-more:hover {
         color: var(--secondary);
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
     
-    /* Fade-in animation with reduced intensity */
+    .btn-learn-more:hover::after {
+        width: 100%;
+    }
+    
+    /* Fix for scrolling issues */
     .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        opacity: 1; /* Fix: Start visible to avoid jumpy loading */
+        transform: translateY(0); /* Fix: Start in final position */
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        /* Fix: Use proper will-change property */
+        will-change: opacity, transform;
+        /* Fix: Keep GPU acceleration limited to opacity/transform */
+        backface-visibility: hidden;
     }
     
+    /* Already visible items */
     .fade-in.visible {
         opacity: 1;
         transform: translateY(0);
     }
     
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .glitch {
-            font-size: 3rem;
+    /* --- RESPONSIVE SCALING --- */
+    @media (max-width: 1400px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 2.8rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem !important;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 2.6rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem !important;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 2.4rem;
+        }
+        
+        .welcome-svg {
+            height: auto;
+            min-height: 80px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem !important;
         }
         
         .features-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+        }
+        
+        .hero {
+            min-height: 80vh;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 2.2rem; /* Fix: Reduced from 2.8rem for better display */
+        }
+        
+        .welcome-svg {
+            height: auto;
+            min-height: 70px; /* Fix: Reduced from 80px */
+        }
+        
+        .feature-box {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            min-height: auto;
         }
         
         .hero {
             min-height: 70vh;
+            padding: 2rem 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem !important;
+            padding: 0 1rem;
+        }
+        
+        .typing-container {
+            margin-bottom: 2rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .cta-button {
+            padding: 1rem 2rem;
+            min-width: 200px;
+        }
+        
+        .btn-learn-more {
+            padding: 0.7rem 0;
+            margin-top: 0.5rem;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .features-grid {
+            gap: 2rem;
         }
     }
     
     @media (max-width: 576px) {
-        .glitch {
-            font-size: 2.5rem;
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 1.8rem; /* Fix: Reduced from 3rem for better display */
         }
         
-        .cta-button {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+        .welcome-svg {
+            height: auto;
+            min-height: 60px; /* Fix: Reduced from 70px */
         }
         
+        .features-grid {
+            grid-template-columns: 1fr; /* Force single column on phones */
+        }
+        
+        .feature-box {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        
+        .hero {
+            min-height: 60vh;
+            padding: 1.5rem 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem !important;
+            padding: 0 0.5rem;
+        }
+        
+        .typing-container {
+            margin-bottom: 1.5rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+        }
+        
+        .feature-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-box p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            font-size: 1.7rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-learn-more {
+            padding: 0.8rem 0;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .features-container {
+            padding: 2rem 0.5rem;
+        }
+        
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Fix: Hide binary stream on mobile for better performance */
         .binary-stream {
-            display: none; /* Hide on small screens to improve performance */
+            display: none;
         }
     }
     
-    /* Specific fixes for iOS scrolling */
+    /* Fix for iOS scrolling issues */
     @supports (-webkit-overflow-scrolling: touch) {
         body, html {
             -webkit-overflow-scrolling: touch;
@@ -340,17 +805,36 @@ title: CipherLab - Cryptography Educational Platform
         }
         
         .hero, .section {
-            -webkit-transform: translateZ(0);
+            -webkit-transform: none; /* Fix: Avoid transform on iOS containers */
+        }
+        
+        /* Fix: Avoid fixed position on iOS as it can cause jitter */
+        .binary-stream {
+            position: absolute;
         }
     }
 </style>
 
 <script>
-    // Replace existing initialization script with optimized version
     document.addEventListener('DOMContentLoaded', function() {
-        // Add visible class to fade-in elements
-        document.querySelectorAll('.fade-in').forEach(element => {
-            // Use IntersectionObserver for better performance when available
+        // Passive scroll handling
+        const passiveSupported = () => {
+            let passive = false;
+            try {
+                const options = {
+                    get passive() { passive = true; return passive; }
+                };
+                window.addEventListener('test', null, options);
+                window.removeEventListener('test', null, options);
+            } catch (err) { passive = false; }
+            return passive;
+        };
+        
+        // Add scroll event with passive option for performance
+        const scrollOptions = passiveSupported() ? { passive: true } : false;
+        
+        // Initialize fade animations
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(element => {
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -360,8 +844,8 @@ title: CipherLab - Cryptography Educational Platform
                         }
                     });
                 }, {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
+                    rootMargin: '0px 0px -50px 0px',
+                    threshold: 0.1
                 });
                 
                 observer.observe(element);
@@ -371,20 +855,52 @@ title: CipherLab - Cryptography Educational Platform
             }
         });
         
-        // Ensure the body has loaded properly
-        document.body.classList.add('loaded');
-        
-        // Animate binary stream
+        // Optimize binary stream animation
         const binaryStream = document.querySelector('.binary-stream');
         if (binaryStream) {
-            let position = 100;
-            const animate = () => {
-                position -= 0.5;
-                if (position < -100) position = 100;
+            // Use requestAnimationFrame for smoother animation
+            let start = null;
+            const duration = 15000; // 15 seconds for one complete cycle
+            
+            function animateBinary(timestamp) {
+                if (!start) start = timestamp;
+                const progress = ((timestamp - start) % duration) / duration;
+                const position = 100 - (progress * 200); // 100 to -100
+                
                 binaryStream.style.transform = `translateX(${position}%)`;
-                requestAnimationFrame(animate);
-            };
-            requestAnimationFrame(animate);
+                requestAnimationFrame(animateBinary);
+            }
+            
+            // Use rAF instead of CSS animation for better control
+            requestAnimationFrame(animateBinary);
+        }
+        
+        // Fix for any elements with transform that might be affecting scrolling
+        document.querySelectorAll('[style*="transform"]').forEach(element => {
+            // Only modify if it's not a critical animation element
+            if (!element.classList.contains('binary-stream') && 
+                !element.classList.contains('feature-icon-container')) {
+                // Store original transform
+                const originalTransform = element.style.transform;
+                // Clear transform and set it on an inner element if possible
+                element.style.transform = 'none';
+                
+                // If element has children, move transform to first child
+                if (element.children.length > 0) {
+                    const child = element.children[0];
+                    child.style.transform = originalTransform;
+                }
+            }
+        });
+        
+        // Ensure all feature boxes are visible
+        document.querySelectorAll('.feature-box').forEach(box => {
+            box.classList.add('visible');
+        });
+        
+        // Fix for touch devices to prevent scrolling issues
+        if ('ontouchstart' in window) {
+            document.addEventListener('touchmove', function() {}, scrollOptions);
         }
     });
 </script>
