@@ -8,7 +8,7 @@ title: CipherLab - Cryptography Educational Platform
             <div class="typing-container mb-4">
                 <!-- EXACT SAME STRUCTURE AS NAVBAR, JUST LARGER -->
                 <div class="welcome-container">
-                    <svg width="100%" height="120" viewBox="0 0 700 120" class="welcome-svg" aria-hidden="true">
+                    <svg width="100%" height="120" viewBox="0 0 700 120" class="welcome-svg" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
                         <text x="50%" y="80" class="welcome-text-base" text-anchor="middle">Welcome to CipherLab</text>
                         <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">Welcome to CipherLab</text>
                         <text x="50%" y="80" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">Welcome to CipherLab</text>
@@ -16,7 +16,7 @@ title: CipherLab - Cryptography Educational Platform
                 </div>
             </div>
             <div class="hero-content">
-                <p class="mb-4 fade-in">Unlock the secrets of cryptography through interactive learning and challenges.</p>
+                <p class="mb-4 fade-in hero-subtitle">Unlock the secrets of cryptography through interactive learning and challenges.</p>
                 <div class="cta-buttons fade-in">
                     <a href="/learn/" class="cta-button"><i class="fas fa-rocket"></i> Get Started</a>
                 </div>
@@ -107,7 +107,7 @@ title: CipherLab - Cryptography Educational Platform
         text-align: center;
         padding: 3rem 1rem;
         position: relative;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
         box-sizing: border-box;
         width: 100%;
         max-width: 100vw;
@@ -119,7 +119,7 @@ title: CipherLab - Cryptography Educational Platform
         display: block !important;
         margin: 0 !important;
         max-width: 100vw;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
     }
     
     /* Force column to be block displayed with adequate margins */
@@ -130,7 +130,7 @@ title: CipherLab - Cryptography Educational Platform
         margin-left: auto !important;
         margin-right: auto !important;
         max-width: 100vw;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
     }
     
     /* Fix for the typing container with more aggressive styling */
@@ -146,7 +146,7 @@ title: CipherLab - Cryptography Educational Platform
         min-height: 0 !important;
         padding-bottom: 0 !important;
         max-width: 100vw;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
     }
     
     /* WELCOME TEXT STYLES - EXACT COPY OF NAVBAR STYLES BUT LARGER */
@@ -158,7 +158,7 @@ title: CipherLab - Cryptography Educational Platform
         position: relative;
         width: 100%;
         max-width: 100vw;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
     }
     
     /* SVG container for welcome text */
@@ -171,7 +171,7 @@ title: CipherLab - Cryptography Educational Platform
     .welcome-text-base {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 700;
-        font-size: 60px; /* REDUCED from 80px for desktop */
+        font-size: 3.75rem; /* Using rem units instead of px for better scaling */
         fill: var(--primary);
         filter: drop-shadow(0 0 2px var(--primary)) drop-shadow(0 0 5px var(--primary));
         transition: all 0.3s ease;
@@ -182,7 +182,7 @@ title: CipherLab - Cryptography Educational Platform
     .welcome-text-glitch {
         font-family: 'IBM Plex Mono', monospace;
         font-weight: 700;
-        font-size: 60px; /* REDUCED from 80px for desktop */
+        font-size: 3.75rem; /* Using rem units instead of px for better scaling */
         opacity: 0.65;
         position: absolute;
         top: 0;
@@ -224,11 +224,19 @@ title: CipherLab - Cryptography Educational Platform
         max-width: 800px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        font-size: 1.5rem !important;
         clear: both !important;
         position: relative !important;
         z-index: 2 !important;
         display: block !important;
+    }
+    
+    /* Specifically style the hero subtitle for consistent scaling */
+    .hero-subtitle {
+        font-size: 1.5rem !important; /* Using rem units for better scaling */
+        line-height: 1.6 !important;
+        color: var(--text) !important;
+        transition: all 0.3s ease !important;
+        transform: translateZ(0) !important; /* Force hardware acceleration */
     }
     
     /* Make sure the CTA buttons have proper spacing */
@@ -260,7 +268,7 @@ title: CipherLab - Cryptography Educational Platform
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
     }
     
     .features-grid {
@@ -278,7 +286,7 @@ title: CipherLab - Cryptography Educational Platform
         padding: 2.5rem;
         position: relative;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to avoid cutoff */
         box-shadow: none !important; /* Remove any shadow */
         display: flex;
         flex-direction: column;
@@ -312,8 +320,8 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Improved icon container with better alignment */
     .feature-icon-container {
-        width: 80px;
-        height: 80px;
+        width: 5rem; /* Using rem for better scaling */
+        height: 5rem; /* Using rem for better scaling */
         border-radius: 50%;
         background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         display: flex;
@@ -469,20 +477,27 @@ title: CipherLab - Cryptography Educational Platform
         100% { transform: translateX(-100%); }
     }
     
-    /* Fix for hero background blur */
+    /* Fix for hero background blur and gradient cutoff */
     .hero::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0; /* Make sure it covers the entire hero section */
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+        top: -20%; /* Extend beyond the top */
+        left: -20%; /* Extend beyond the left */
+        right: -20%; /* Extend beyond the right */
+        bottom: -20%; /* Extend beyond the bottom */
+        width: 140%; /* Make it wider than the container */
+        height: 140%; /* Make it taller than the container */
+        background: radial-gradient(
+            circle at center, 
+            rgba(0, 255, 65, 0.1) 0%, 
+            rgba(0, 255, 65, 0.05) 40%,
+            rgba(0, 255, 65, 0.01) 60%,
+            transparent 70%
+        ); /* Enhanced gradient with more color stops */
         z-index: -1;
         /* Make sure it doesn't cause scrolling issues */
         pointer-events: none;
+        transform: translateZ(0); /* Force hardware acceleration */
     }
     
     /* Enhanced section title styling */
@@ -527,7 +542,7 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 992px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 55px; /* Slightly reduced from original 70px */
+            font-size: 3.4rem; /* Sized in rem for better scaling */
         }
         
         .features-grid {
@@ -542,13 +557,17 @@ title: CipherLab - Cryptography Educational Platform
         .hero {
             min-height: 80vh;
         }
+        
+        .hero-subtitle {
+            font-size: 1.3rem !important;
+        }
     }
     
     /* Medium devices (tablets) */
     @media (max-width: 768px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 50px; /* Adjusted from 60px */
+            font-size: 3.1rem; /* Sized in rem for better scaling */
         }
         
         /* Adjust SVG height for better proportions */
@@ -568,8 +587,8 @@ title: CipherLab - Cryptography Educational Platform
             padding: 2rem 1rem;
         }
         
-        .hero p.mb-4 {
-            font-size: 1.3rem !important;
+        .hero-subtitle {
+            font-size: 1.2rem !important;
             padding: 0 1rem;
         }
         
@@ -578,8 +597,8 @@ title: CipherLab - Cryptography Educational Platform
         }
         
         .feature-icon-container {
-            width: 70px;
-            height: 70px;
+            width: 4.5rem;
+            height: 4.5rem;
         }
         
         .feature-icon {
@@ -616,7 +635,7 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 576px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 46px; /* Keep the same as before - this works well */
+            font-size: 2.8rem; /* Sized in rem for better scaling */
         }
         
         /* Adjust SVG viewBox for better mobile display */
@@ -647,7 +666,7 @@ title: CipherLab - Cryptography Educational Platform
             padding: 1.5rem 1rem;
         }
         
-        .hero p.mb-4 {
+        .hero-subtitle {
             font-size: 1.1rem !important;
             padding: 0 0.5rem;
         }
@@ -657,8 +676,8 @@ title: CipherLab - Cryptography Educational Platform
         }
         
         .feature-icon-container {
-            width: 60px;
-            height: 60px;
+            width: 4rem;
+            height: 4rem;
             margin-bottom: 1rem;
         }
         
@@ -711,7 +730,7 @@ title: CipherLab - Cryptography Educational Platform
     @media (max-width: 380px) {
         .welcome-text-base,
         .welcome-text-glitch {
-            font-size: 38px; /* Still bigger than before */
+            font-size: 2.4rem; /* Sized in rem for better scaling */
         }
         
         /* Adjust SVG height for better proportions */
@@ -720,7 +739,7 @@ title: CipherLab - Cryptography Educational Platform
             min-height: 70px;
         }
         
-        .hero p.mb-4 {
+        .hero-subtitle {
             font-size: 1rem !important;
         }
         
@@ -774,6 +793,37 @@ title: CipherLab - Cryptography Educational Platform
         .btn-learn-more:active {
             transform: scale(0.98);
             transition: transform 0.1s ease;
+        }
+    }
+    
+    /* Fix for zoom levels below 100% */
+    @media screen and (min-width: 768px) {
+        /* Handle zoom level by improving container sizing */
+        body {
+            min-width: 100vw;
+            width: 100%;
+            overflow-x: hidden !important;
+        }
+        
+        .hero {
+            width: 100vw;
+            max-width: 100vw;
+            overflow: visible;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+        
+        /* Ensure content remains centered and visible at all zoom levels */
+        .hero .container,
+        .hero .row,
+        .hero .col-12 {
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 </style>
