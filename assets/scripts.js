@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let fpsThrottle = 30; // Limit FPS for animations (higher number = less frequent updates)
     let fpsCounter = 0;
     
+    // Fix for smooth scrolling - prevent scroll lock
+    fixScrollBehavior();
+    
     // Initialize Matrix Rain Background - OPTIMIZED
     if (document.querySelector('.matrix-background')) {
         initMatrixRain();
@@ -681,4 +684,48 @@ function initCipherDemos() {
         vigenereInput.addEventListener('input', updateVigenereCipher);
         vigenereKey.addEventListener('input', updateVigenereCipher);
     }
+}
+
+// Function to fix scroll behavior issues
+function fixScrollBehavior() {
+    // Passive event listener to prevent scroll jank
+    let isScrolling;
+    
+    window.addEventListener('scroll', function() {
+        // Clear the timeout if scrolling continues
+        window.clearTimeout(isScrolling);
+        
+        // Set a timeout to detect when scrolling stops
+        isScrolling = setTimeout(function() {
+            // Fix any stuck scrolls by resetting the scroll position slightly
+            if (window.scrollY > 0) {
+                // Small adjustment to "unstick" any locked scrolling
+                window.scrollBy(0, -1);
+                window.scrollBy(0, 1);
+            }
+        }, 100);
+    }, { passive: true });
+    
+    // Prevent scroll lock by checking for scroll position changes
+    let lastScrollPosition = window.scrollY;
+    let scrollCheckInterval;
+    
+    function startScrollCheck() {
+        if (!scrollCheckInterval) {
+            scrollCheckInterval = setInterval(() => {
+                const currentScroll = window.scrollY;
+                // If scroll position is same for several checks, it might be stuck
+                if (Math.abs(currentScroll - lastScrollPosition) < 1 && 
+                    document.body.style.overflow !== 'hidden') {
+                    // Small adjustment to "unstick" any locked scrolling
+                    window.scrollBy(0, -1);
+                    window.scrollBy(0, 1);
+                }
+                lastScrollPosition = currentScroll;
+            }, 2000); // Check every 2 seconds
+        }
+    }
+    
+    // Start the check on user interaction
+    window.addEventListener('scroll', startScrollCheck, { passive: true, once: true });
 }

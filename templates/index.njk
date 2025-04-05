@@ -83,26 +83,23 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow-y: auto !important;
-        overflow-anchor: none;
-        scroll-behavior: auto;
+        /* Remove conflicting scroll settings */
+        scroll-behavior: smooth;
     }
     
     body * {
         box-sizing: border-box;
-        overscroll-behavior-y: auto;
     }
     
     /* --- GRADIENT FIX (Separate element) --- */
     .hero-gradient-container {
-        position: absolute;
+        position: fixed; /* Change to fixed to extend across entire viewport */
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100%;
-        height: 100%;
-        overflow: visible;
+        height: 100vh; /* Use viewport height */
         z-index: -1;
         pointer-events: none;
     }
@@ -113,7 +110,7 @@ title: CipherLab - Cryptography Educational Platform
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 200%; /* Extend beyond the container */
         background: radial-gradient(
             circle at center,
             rgba(0, 255, 65, 0.1) 0%, 
@@ -140,7 +137,6 @@ title: CipherLab - Cryptography Educational Platform
         align-items: center;
         text-align: center;
         padding: 3rem 0;
-        overflow: visible;
         width: 100%;
         max-width: 100%;
         pointer-events: auto;
