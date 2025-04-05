@@ -93,15 +93,15 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
     }
     
-    /* --- GRADIENT FIX (Separate element) --- */
+    /* --- GRADIENT FIX (Single massive gradient) --- */
     .hero-gradient-container {
-        position: absolute;
+        position: fixed; /* FIXED position to ensure it covers everything */
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         overflow: visible;
         z-index: -1;
         pointer-events: none;
@@ -110,15 +110,16 @@ title: CipherLab - Cryptography Educational Platform
     .hero-gradient-container::after {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 300%; /* Extend far beyond the hero section to cover everything */
+        top: -50vh; /* Extend upward */
+        left: -50vw; /* Extend leftward */
+        width: 200vw; /* Super wide */
+        height: 400vh; /* EXTREMELY tall - covers everything */
         background: radial-gradient(
             circle at center,
-            rgba(0, 255, 65, 0.1) 0%, 
-            rgba(0, 255, 65, 0.05) 20%,
-            rgba(0, 255, 65, 0.02) 50%,
+            rgba(0, 255, 65, 0.15) 0%, 
+            rgba(0, 255, 65, 0.1) 15%,
+            rgba(0, 255, 65, 0.05) 30%,
+            rgba(0, 255, 65, 0.02) 60%,
             transparent 80%
         );
         z-index: -1;

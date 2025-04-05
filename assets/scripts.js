@@ -159,9 +159,9 @@ function initParticleNetwork() {
         particle.style.top = Math.random() * 100 + '%';
         particle.style.boxShadow = `0 0 ${size * 2}px ${particle.style.backgroundColor}`;
         
-        // Store particle data for animation
-        particle.dataset.vx = (Math.random() - 0.5) * 0.5; // x velocity
-        particle.dataset.vy = (Math.random() - 0.5) * 0.5; // y velocity
+        // Store particle data for animation - MODERATELY FASTER
+        particle.dataset.vx = (Math.random() - 0.5) * 0.8; // x velocity - medium speed
+        particle.dataset.vy = (Math.random() - 0.5) * 0.8; // y velocity - medium speed
         
         particleContainer.appendChild(particle);
     }
