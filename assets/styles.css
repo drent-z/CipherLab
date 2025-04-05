@@ -278,19 +278,29 @@ body {
     text-align: center;
     padding: 3rem 1rem;
     position: relative;
+    overflow: hidden;
 }
 
-/* Add a global gradient background to the body instead */
-body::before {
+.hero::before {
     content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+
+/* Matrix background styling */
+.matrix-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, rgba(0, 255, 65, 0.03) 50%, transparent 80%);
-    z-index: -2; /* Below the grid background */
-    pointer-events: none;
+    z-index: -3;
+    opacity: 0.3;
 }
 
 /* Fix for the typing container */
