@@ -12,15 +12,16 @@
     --text: #ffffff;             /* White text */
     --text-muted: #aaaaaa;       /* Muted text */
     
-    /* Simplified shadow variables */
-    --glow-primary: 0 0 5px var(--primary);
-    --glow-secondary: 0 0 5px var(--secondary);
-    --glow-tertiary: 0 0 5px var(--tertiary);
+    /* Shadow variables from original styles */
+    --glow-primary: 0 0 5px var(--primary), 0 0 10px var(--primary);
+    --glow-secondary: 0 0 5px var(--secondary), 0 0 10px var(--secondary);
+    --glow-tertiary: 0 0 5px var(--tertiary), 0 0 10px var(--tertiary);
     --grid-color: rgba(0, 255, 65, 0.15);
     --scanline: rgba(0, 0, 0, 0.1);
     
     /* Single transition definition for performance */
     --default-transition: all 0.3s ease;
+    --transform-gpu: translateZ(0);
 }
 
 /* Apply a global box-sizing reset */
@@ -292,15 +293,16 @@ body {
     z-index: -1;
 }
 
-/* Matrix background styling */
+/* Matrix rain effect container */
 .matrix-background {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -3;
-    opacity: 0.3;
+    z-index: -1;
+    opacity: 0.05;
+    will-change: transform;
 }
 
 /* Fix for the typing container */

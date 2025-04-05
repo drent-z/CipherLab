@@ -113,12 +113,12 @@ title: CipherLab - Cryptography Educational Platform
         top: 0;
         left: 0;
         width: 100%;
-        height: 200%; /* Extend beyond the hero section */
+        height: 300%; /* Extend far beyond the hero section to cover everything */
         background: radial-gradient(
             circle at center,
             rgba(0, 255, 65, 0.1) 0%, 
-            rgba(0, 255, 65, 0.05) 30%,
-            rgba(0, 255, 65, 0.02) 60%,
+            rgba(0, 255, 65, 0.05) 20%,
+            rgba(0, 255, 65, 0.02) 50%,
             transparent 80%
         );
         z-index: -1;
@@ -252,7 +252,7 @@ title: CipherLab - Cryptography Educational Platform
         display: block !important;
     }
     
-    /* Binary stream animation */
+    /* Binary stream animation - SIMPLIFIED */
     .binary-stream {
         position: absolute;
         bottom: 20px;
@@ -261,14 +261,17 @@ title: CipherLab - Cryptography Educational Platform
         opacity: 0.3;
         font-size: 1rem;
         white-space: nowrap;
-        width: max-content;
+        width: 100%;
+        padding-right: 100vw;
         pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
         animation: binaryScroll 15s linear infinite;
     }
     
     @keyframes binaryScroll {
         from {
-            transform: translateX(100vw);
+            transform: translateX(100%);
         }
         to {
             transform: translateX(-100%);

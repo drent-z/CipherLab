@@ -229,13 +229,6 @@ function initScrollAnimations() {
         }
     });
     
-    // Special handling for contact page elements - THIS IS THE NEW CODE
-    if (window.location.pathname.includes('/contact')) {
-        document.querySelectorAll('.fade-in').forEach(element => {
-            element.classList.add('visible');
-        });
-    }
-    
     window.addEventListener('scroll', checkScroll);
     checkScroll(); // Check on initial load
 }
