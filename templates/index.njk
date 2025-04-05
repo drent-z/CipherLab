@@ -83,43 +83,19 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        /* Remove conflicting scroll settings */
-        scroll-behavior: smooth;
+        /* Simplified scroll settings to prevent conflicts */
+        scroll-behavior: auto !important; /* Disable smooth scrolling which can cause janky behavior */
+        overscroll-behavior: none; /* Prevent bounce effects that can trip up scrolling */
+        height: 100%; /* Ensure full height */
     }
     
     body * {
         box-sizing: border-box;
     }
     
-    /* --- GRADIENT FIX (Separate element) --- */
+    /* --- GRADIENT FIX (Separate element) - REMOVED in favor of global gradient in layout.njk --- */
     .hero-gradient-container {
-        position: fixed; /* Change to fixed to extend across entire viewport */
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100vh; /* Use viewport height */
-        z-index: -1;
-        pointer-events: none;
-    }
-    
-    .hero-gradient-container::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 200%; /* Extend beyond the container */
-        background: radial-gradient(
-            circle at center,
-            rgba(0, 255, 65, 0.1) 0%, 
-            rgba(0, 255, 65, 0.05) 30%,
-            rgba(0, 255, 65, 0.02) 60%,
-            transparent 80%
-        );
-        z-index: -1;
-        pointer-events: none;
+        display: none; /* Hide this since we're using the global gradient in layout.njk */
     }
     
     /* Force center align */

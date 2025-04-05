@@ -249,7 +249,7 @@ function initMatrixRain() {
     }, { passive: true });
 }
 
-// Particle network background - OPTIMIZED
+    // Particle network background - SIGNIFICANTLY SLOWED DOWN
 function initParticleNetwork() {
     const heroSection = document.querySelector('.hero');
     
@@ -275,14 +275,14 @@ function initParticleNetwork() {
     heroSection.appendChild(particleContainer);
     
     // Reduce particle count dramatically for better performance
-    const particleCount = 15; // Reduced from 40
-    const particleColors = ['#00FF41', '#00FFFF'];
+    const particleCount = 12; // Reduced further for smoother movement
+    const particleColors = ['#00FF41', '#00FFFF']; 
     
     const particles = [];
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        const size = Math.random() * 3 + 1; // Smaller size range
+        const size = Math.random() * 2.5 + 1; // Slightly smaller sizes
         
         Object.assign(particle.style, {
             position: 'absolute',
@@ -290,15 +290,16 @@ function initParticleNetwork() {
             height: size + 'px',
             borderRadius: '50%',
             backgroundColor: particleColors[Math.floor(Math.random() * particleColors.length)],
-            opacity: '0.5',
+            opacity: '0.4', // Slightly more subtle
             left: Math.random() * 100 + '%',
             top: Math.random() * 100 + '%',
-            boxShadow: `0 0 ${size}px ${particle.style.backgroundColor}`
+            boxShadow: `0 0 ${size}px ${particle.style.backgroundColor}`,
+            transition: 'left 0.5s ease-in-out, top 0.5s ease-in-out' // Add smooth transitions
         });
         
-        // Store particle data for animation
-        const vx = (Math.random() - 0.5) * 0.2; // Slower velocity
-        const vy = (Math.random() - 0.5) * 0.2;
+        // Store particle data for animation - MUCH SLOWER velocity
+        const vx = (Math.random() - 0.5) * 0.02; // 10x slower
+        const vy = (Math.random() - 0.5) * 0.02; // 10x slower
         
         particles.push({
             element: particle,
@@ -334,11 +335,11 @@ function initParticleNetwork() {
     // Variable to throttle animation frames
     let frameCounter = 0;
     
-    // Animate particles with throttling for performance
+    // Animate particles with throttling for performance and MUCH SLOWER speed
     function animateParticles() {
-        // Skip frames based on throttle setting
+        // Skip more frames - only update every 8th frame for slow dreamy movement
         frameCounter++;
-        if (frameCounter % 3 !== 0) { // Only process every 3rd frame
+        if (frameCounter % 8 !== 0) { // Much less frequent updates
             animationFrame = requestAnimationFrame(animateParticles);
             return;
         }
@@ -350,19 +351,19 @@ function initParticleNetwork() {
                 let x = particle.x;
                 let y = particle.y;
                 
-                // Update position
+                // Update position - very subtle movement
                 x += particle.vx;
                 y += particle.vy;
                 
-                // Boundary check and bounce
-                if (x <= 0 || x >= 1) {
-                    particle.vx = -particle.vx;
-                    x += particle.vx * 2;
+                // Smoother boundary bounce
+                if (x <= 0.05 || x >= 0.95) {
+                    particle.vx = -particle.vx * 0.8; // Slower after bounce with damping
+                    x += particle.vx * 1.5;
                 }
                 
-                if (y <= 0 || y >= 1) {
-                    particle.vy = -particle.vy;
-                    y += particle.vy * 2;
+                if (y <= 0.05 || y >= 0.95) {
+                    particle.vy = -particle.vy * 0.8; // Slower after bounce with damping
+                    y += particle.vy * 1.5;
                 }
                 
                 // Update stored position
@@ -370,8 +371,8 @@ function initParticleNetwork() {
                 particle.y = y;
                 
                 // Only update DOM when animation is active and visible
-                particle.element.style.left = (x * 100) + '%';
-                particle.element.style.top = (y * 100) + '%';
+                // Use transform instead of left/top for better performance
+                particle.element.style.transform = `translate(${x * 100}%, ${y * 100}%)`;
             });
         }
         
@@ -686,46 +687,98 @@ function initCipherDemos() {
     }
 }
 
-// Function to fix scroll behavior issues
+// Completely overhauled scroll behavior fix
 function fixScrollBehavior() {
-    // Passive event listener to prevent scroll jank
-    let isScrolling;
+    // 1. Make scrolling more reliable by disabling any fancy scroll behavior
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.documentElement.style.overscrollBehavior = 'none';
     
-    window.addEventListener('scroll', function() {
-        // Clear the timeout if scrolling continues
-        window.clearTimeout(isScrolling);
-        
-        // Set a timeout to detect when scrolling stops
-        isScrolling = setTimeout(function() {
-            // Fix any stuck scrolls by resetting the scroll position slightly
-            if (window.scrollY > 0) {
-                // Small adjustment to "unstick" any locked scrolling
-                window.scrollBy(0, -1);
-                window.scrollBy(0, 1);
-            }
-        }, 100);
-    }, { passive: true });
+    // 2. Disable any scroll events that might be interfering
+    const scrollEvents = ['wheel', 'mousewheel', 'DOMMouseScroll'];
     
-    // Prevent scroll lock by checking for scroll position changes
-    let lastScrollPosition = window.scrollY;
-    let scrollCheckInterval;
+    scrollEvents.forEach(eventName => {
+        window.addEventListener(eventName, function(e) {
+            // Allow default browser scrolling (passive: true)
+        }, { passive: true }); 
+    });
     
-    function startScrollCheck() {
-        if (!scrollCheckInterval) {
-            scrollCheckInterval = setInterval(() => {
-                const currentScroll = window.scrollY;
-                // If scroll position is same for several checks, it might be stuck
-                if (Math.abs(currentScroll - lastScrollPosition) < 1 && 
-                    document.body.style.overflow !== 'hidden') {
-                    // Small adjustment to "unstick" any locked scrolling
-                    window.scrollBy(0, -1);
-                    window.scrollBy(0, 1);
-                }
-                lastScrollPosition = currentScroll;
-            }, 2000); // Check every 2 seconds
-        }
+    // 3. Fix for scroll restoration issues
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
     }
     
-    // Start the check on user interaction
-    window.addEventListener('scroll', startScrollCheck, { passive: true, once: true });
+    // 4. Add a single, efficient scroll handler to detect and fix any stuck scrolling
+    let lastKnownScrollY = window.scrollY;
+    let scrollTimeout = null;
+    let stuckScrollCheckInterval = null;
+    let stuckScrollCounter = 0;
+    
+    // Clear any stuck scroll checking intervals when the user scrolls
+    window.addEventListener('scroll', function() {
+        if (stuckScrollCheckInterval) {
+            clearInterval(stuckScrollCheckInterval);
+            stuckScrollCheckInterval = null;
+            stuckScrollCounter = 0;
+        }
+        
+        lastKnownScrollY = window.scrollY;
+        
+        // Set up a new check after scrolling appears to stop
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            // Start monitoring for stuck scrolls
+            if (!stuckScrollCheckInterval) {
+                stuckScrollCheckInterval = setInterval(function() {
+                    // If we detect no scroll change for several intervals, perform unstick operation
+                    if (Math.abs(window.scrollY - lastKnownScrollY) < 1) {
+                        stuckScrollCounter++;
+                        
+                        // After 3 checks with no movement, try to unstick
+                        if (stuckScrollCounter >= 3) {
+                            // Simple force redraw
+                            document.body.style.overflow = 'hidden';
+                            setTimeout(function() {
+                                document.body.style.overflow = '';
+                            }, 10);
+                            
+                            clearInterval(stuckScrollCheckInterval);
+                            stuckScrollCheckInterval = null;
+                            stuckScrollCounter = 0;
+                        }
+                    } else {
+                        // Reset counter if scroll position changes naturally
+                        lastKnownScrollY = window.scrollY;
+                        stuckScrollCounter = 0;
+                    }
+                }, 1000); // Check every second
+            }
+        }, 200);
+    }, { passive: true });
+    
+    // 5. Monitor and fix any CSS-related scroll issues
+    document.addEventListener('DOMContentLoaded', function() {
+        // Force document to be scrollable even with little content
+        const forceScrollableStyle = document.createElement('style');
+        forceScrollableStyle.innerHTML = `
+            html, body {
+                min-height: 101vh; /* Force scrollbar to appear */
+                overscroll-behavior: none; /* Prevent scroll bounce */
+            }
+            
+            *::-webkit-scrollbar {
+                width: 12px;
+            }
+            
+            *::-webkit-scrollbar-track {
+                background: rgba(10, 10, 10, 0.2);
+            }
+            
+            *::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 255, 65, 0.3);
+                border-radius: 6px;
+                border: 3px solid #0a0a0a;
+            }
+        `;
+        document.head.appendChild(forceScrollableStyle);
+    });
 }

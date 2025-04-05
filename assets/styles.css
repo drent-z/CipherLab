@@ -65,6 +65,20 @@ body::after {
     opacity: 0.3;
 }
 
+/* Ensure content fills the viewport for proper scrolling */
+html, body {
+    min-height: 100vh;
+    scroll-padding: 0;
+    overscroll-behavior: none;
+}
+
+/* Fix for iOS momentum scrolling */
+@supports (-webkit-overflow-scrolling: touch) {
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 @keyframes scanline {
     0% {
         background-position: 0 0;
