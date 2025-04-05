@@ -225,21 +225,28 @@ title: CipherLab - Cryptography Educational Platform
         display: block !important;
     }
     
-    /* Binary stream animation - SIMPLIFIED */
+    /* Binary stream animation - RESTORED ANIMATION */
     .binary-stream {
         position: absolute;
         bottom: 20px;
         font-family: 'IBM Plex Mono', monospace;
         color: var(--primary);
-        opacity: 0.3;
+        opacity: 0.4;
         font-size: 1rem;
         white-space: nowrap;
-        width: 100%;
-        padding-right: 100vw;
+        width: max-content;
+        overflow: visible;
         pointer-events: none;
-        /* Replace animation with static positioning */
-        left: 50%;
-        transform: translateX(-50%);
+        animation: binaryScroll 20s linear infinite;
+    }
+    
+    @keyframes binaryScroll {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(-100%);
+        }
     }
     
     /* --- FEATURES SECTION --- */

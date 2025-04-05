@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fix for smooth scrolling - prevent scroll lock
     fixScrollBehavior();
     
-    // Initialize Matrix Rain Background - OPTIMIZED
-    if (document.querySelector('.matrix-background')) {
-        initMatrixRain();
-    }
+    // FORCE INITIALIZE Matrix Rain Background
+    initMatrixRain();
     
     // Initialize particle network background - OPTIMIZED
     if (document.querySelector('.hero')) {
@@ -144,14 +142,36 @@ function isMobileDevice() {
            (navigator.msMaxTouchPoints > 0);
 }
 
-// Matrix rain effect - HIGHLY OPTIMIZED
+// Matrix rain effect - FIXED AND SIMPLIFIED
 function initMatrixRain() {
+    // Remove any existing canvas
+    const existingCanvas = document.querySelector('.matrix-background');
+    if (existingCanvas) {
+        existingCanvas.remove();
+    }
+    
+    // Create a new canvas element
     const canvas = document.createElement('canvas');
     canvas.classList.add('matrix-background');
-    document.body.appendChild(canvas);
     
-    const ctx = canvas.getContext('2d', { alpha: false }); // Disable alpha for better performance
+    // Set explicit styles to ensure visibility
+    Object.assign(canvas.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '-3',
+        pointerEvents: 'none',
+        opacity: '0.3'
+    });
     
+    // Add to body as first child for z-index stacking
+    document.body.insertBefore(canvas, document.body.firstChild);
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas dimensions
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -159,105 +179,74 @@ function initMatrixRain() {
     
     resizeCanvas();
     
-    const characters = '01';
-    const fontSize = 12;
-    const columns = Math.floor(canvas.width / fontSize);
+    // Matrix settings
+    const font_size = 14;
+    const characters = "01";
+    const columns = Math.ceil(canvas.width / font_size) + 1;
     
+    // Drop positions start slightly above the top
     const drops = [];
-    for (let x = 0; x < columns; x++) {
-        drops[x] = Math.floor(Math.random() * canvas.height / fontSize) * -1;
-    }
-    
-    // Reduce number of rendered elements for mobile
-    const skipFactor = isMobileDevice() ? 2 : 1; // Only render half the columns on mobile
-    
-    // Pre-calculate character placements
-    const charPositions = [];
     for (let i = 0; i < columns; i++) {
-        charPositions[i] = i * fontSize;
+        drops[i] = Math.floor(Math.random() * -10) * font_size;
     }
     
-    let lastTime = 0;
-    const drawInterval = 35; // ms between draws
-    
-    function draw(currentTime) {
-        // Only render if enough time has passed
-        if (currentTime - lastTime < drawInterval) {
-            requestAnimationFrame(draw);
-            return;
-        }
+    // Main drawing function
+    function draw() {
+        // Translucent black to create fade effect
+        ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        lastTime = currentTime;
+        // Green text
+        ctx.fillStyle = "#00FF41";
+        ctx.font = font_size + "px monospace";
         
-        // Only continue if animation is active
-        if (!document.hidden) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < drops.length; i++) {
+            // Random character
+            const text = characters.charAt(Math.floor(Math.random() * characters.length));
             
-            ctx.fillStyle = '#00FF41';
-            ctx.font = fontSize + 'px monospace';
+            // x = i * font_size, y = drop position
+            const y = drops[i];
+            const x = i * font_size;
             
-            for (let i = 0; i < columns; i += skipFactor) {
-                // Skip rendering every other column
-                if (i % skipFactor !== 0 && isMobileDevice()) continue;
-                
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                const x = charPositions[i];
-                const y = drops[i] * fontSize;
-                
-                if (y >= 0 && y < canvas.height) { // Only draw if in canvas bounds
-                    ctx.fillText(text, x, y);
-                }
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                
-                drops[i]++;
+            // Draw the character
+            ctx.fillText(text, x, y);
+            
+            // Increment y coordinate
+            drops[i] += font_size;
+            
+            // Random reset to top with randomized delay
+            if (drops[i] > canvas.height && Math.random() > 0.98) {
+                drops[i] = Math.floor(Math.random() * -10) * font_size;
             }
         }
-        
-        requestAnimationFrame(draw);
     }
     
-    // Start the animation
-    requestAnimationFrame(draw);
+    // Run animation at 15fps (more distinctive matrix effect)
+    const matrixInterval = setInterval(draw, 66);
     
-    // Optimize resize handling with throttling
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        // Clear the timeout if it exists
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
+    // Handle resize
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Handle visibility changes
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(matrixInterval);
+        } else {
+            setInterval(draw, 66);
         }
-        
-        // Set a new timeout
-        resizeTimeout = setTimeout(() => {
-            resizeCanvas();
-            
-            // Update columns based on new width
-            const newColumns = Math.floor(canvas.width / fontSize);
-            
-            // Add new columns if needed
-            if (newColumns > columns) {
-                for (let i = columns; i < newColumns; i++) {
-                    drops[i] = Math.floor(Math.random() * canvas.height / fontSize) * -1;
-                    charPositions[i] = i * fontSize;
-                }
-            }
-        }, 250); // 250ms debounce
-    }, { passive: true });
+    });
 }
 
-    // Particle network background - FIXED SLOW MOVEMENT
+    // Particle network background - COMPLETELY REWRITTEN WITH CSS ANIMATION
 function initParticleNetwork() {
     const heroSection = document.querySelector('.hero');
     
     if (!heroSection) return;
     
-    // Don't initialize this on mobile devices
-    if (isMobileDevice()) {
-        return;
+    // Remove any existing particles
+    const existingContainer = document.querySelector('.particle-network');
+    if (existingContainer) {
+        existingContainer.remove();
     }
     
     const particleContainer = document.createElement('div');
@@ -268,45 +257,62 @@ function initParticleNetwork() {
         left: '0',
         width: '100%',
         height: '100%',
-        overflow: 'hidden',
+        overflow: 'visible',
         zIndex: '-1'
     });
     
     heroSection.appendChild(particleContainer);
     
-    // Reduce particle count dramatically for better performance
-    const particleCount = 12; // Reduced for performance
-    const particleColors = ['#00FF41', '#00FFFF']; 
+    // Use CSS animations instead of JS for better performance
+    const particleCount = 15;
+    const particleColors = ['#00FF41', '#00FFFF', '#00CC33'];
     
-    const particles = [];
+    // Add CSS for animations to ensure they work
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `
+        @keyframes float-particle {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(20px, 15px); }
+            50% { transform: translate(0, 30px); }
+            75% { transform: translate(-20px, 15px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float-particle 15s infinite ease-in-out;
+            box-shadow: 0 0 5px currentColor;
+        }
+    `;
+    document.head.appendChild(styleEl);
     
+    // Create particles with different animation delays
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        const size = Math.random() * 2.5 + 1; // Smaller sizes
+        const size = Math.random() * 4 + 2; // Larger for visibility
+        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+        
+        particle.classList.add('particle');
+        
+        // Position randomly
+        const left = Math.random() * 95 + 2.5; // Avoid edges
+        const top = Math.random() * 95 + 2.5;
+        
+        // Unique animation delay and duration for each particle
+        const delay = Math.random() * -15; // Negative to start at different points
+        const duration = 15 + Math.random() * 10; // Between 15-25s
         
         Object.assign(particle.style, {
-            position: 'absolute',
-            width: size + 'px',
-            height: size + 'px',
-            borderRadius: '50%',
-            backgroundColor: particleColors[Math.floor(Math.random() * particleColors.length)],
-            opacity: '0.4',
-            left: Math.random() * 100 + '%',
-            top: Math.random() * 100 + '%',
-            boxShadow: `0 0 ${size}px ${particle.style.backgroundColor}`
-            // Removed transition to allow animation to control movement
-        });
-        
-        // Store particle data for animation - PROPERLY SLOW velocity
-        const vx = (Math.random() - 0.5) * 0.05; // Gentle but visible movement
-        const vy = (Math.random() - 0.5) * 0.05; // Gentle but visible movement
-        
-        particles.push({
-            element: particle,
-            vx, 
-            vy,
-            x: parseFloat(particle.style.left) / 100,
-            y: parseFloat(particle.style.top) / 100
+            width: `${size}px`,
+            height: `${size}px`,
+            backgroundColor: color,
+            color: color,
+            left: `${left}%`,
+            top: `${top}%`,
+            animationDelay: `${delay}s`,
+            animationDuration: `${duration}s`
         });
         
         particleContainer.appendChild(particle);
@@ -335,50 +341,7 @@ function initParticleNetwork() {
     // Variable to throttle animation frames
     let frameCounter = 0;
     
-    // Animate particles with throttling for performance but ENSURE MOVEMENT
-    function animateParticles() {
-        // Less aggressive throttling - update every 4th frame
-        frameCounter++;
-        if (frameCounter % 4 !== 0) {
-            animationFrame = requestAnimationFrame(animateParticles);
-            return;
-        }
-        
-        // Only animate if animation is active and page is visible
-        if (!document.hidden) {
-            particles.forEach(particle => {
-                // Get current position
-                let x = particle.x;
-                let y = particle.y;
-                
-                // Update position
-                x += particle.vx;
-                y += particle.vy;
-                
-                // Boundary check and bounce
-                if (x <= 0.05 || x >= 0.95) {
-                    particle.vx = -particle.vx * 0.9; // Gentle bounce
-                    x += particle.vx;
-                }
-                
-                if (y <= 0.05 || y >= 0.95) {
-                    particle.vy = -particle.vy * 0.9; // Gentle bounce
-                    y += particle.vy;
-                }
-                
-                // Update stored position
-                particle.x = x;
-                particle.y = y;
-                
-                // Update DOM position directly for smoother movement
-                particle.element.style.left = (x * 100) + '%';
-                particle.element.style.top = (y * 100) + '%';
-            });
-        }
-        
-        // Continue animation
-        animationFrame = requestAnimationFrame(animateParticles);
-    }
+    // No JS animation function needed - using CSS animations instead
     
     // Start animation
     animationFrame = requestAnimationFrame(animateParticles);
