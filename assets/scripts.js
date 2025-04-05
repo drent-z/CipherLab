@@ -249,7 +249,7 @@ function initMatrixRain() {
     }, { passive: true });
 }
 
-    // Particle network background - SIGNIFICANTLY SLOWED DOWN
+    // Particle network background - FIXED SLOW MOVEMENT
 function initParticleNetwork() {
     const heroSection = document.querySelector('.hero');
     
@@ -275,14 +275,14 @@ function initParticleNetwork() {
     heroSection.appendChild(particleContainer);
     
     // Reduce particle count dramatically for better performance
-    const particleCount = 12; // Reduced further for smoother movement
+    const particleCount = 12; // Reduced for performance
     const particleColors = ['#00FF41', '#00FFFF']; 
     
     const particles = [];
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        const size = Math.random() * 2.5 + 1; // Slightly smaller sizes
+        const size = Math.random() * 2.5 + 1; // Smaller sizes
         
         Object.assign(particle.style, {
             position: 'absolute',
@@ -290,16 +290,16 @@ function initParticleNetwork() {
             height: size + 'px',
             borderRadius: '50%',
             backgroundColor: particleColors[Math.floor(Math.random() * particleColors.length)],
-            opacity: '0.4', // Slightly more subtle
+            opacity: '0.4',
             left: Math.random() * 100 + '%',
             top: Math.random() * 100 + '%',
-            boxShadow: `0 0 ${size}px ${particle.style.backgroundColor}`,
-            transition: 'left 0.5s ease-in-out, top 0.5s ease-in-out' // Add smooth transitions
+            boxShadow: `0 0 ${size}px ${particle.style.backgroundColor}`
+            // Removed transition to allow animation to control movement
         });
         
-        // Store particle data for animation - MUCH SLOWER velocity
-        const vx = (Math.random() - 0.5) * 0.02; // 10x slower
-        const vy = (Math.random() - 0.5) * 0.02; // 10x slower
+        // Store particle data for animation - PROPERLY SLOW velocity
+        const vx = (Math.random() - 0.5) * 0.05; // Gentle but visible movement
+        const vy = (Math.random() - 0.5) * 0.05; // Gentle but visible movement
         
         particles.push({
             element: particle,
@@ -335,11 +335,11 @@ function initParticleNetwork() {
     // Variable to throttle animation frames
     let frameCounter = 0;
     
-    // Animate particles with throttling for performance and MUCH SLOWER speed
+    // Animate particles with throttling for performance but ENSURE MOVEMENT
     function animateParticles() {
-        // Skip more frames - only update every 8th frame for slow dreamy movement
+        // Less aggressive throttling - update every 4th frame
         frameCounter++;
-        if (frameCounter % 8 !== 0) { // Much less frequent updates
+        if (frameCounter % 4 !== 0) {
             animationFrame = requestAnimationFrame(animateParticles);
             return;
         }
@@ -351,28 +351,28 @@ function initParticleNetwork() {
                 let x = particle.x;
                 let y = particle.y;
                 
-                // Update position - very subtle movement
+                // Update position
                 x += particle.vx;
                 y += particle.vy;
                 
-                // Smoother boundary bounce
+                // Boundary check and bounce
                 if (x <= 0.05 || x >= 0.95) {
-                    particle.vx = -particle.vx * 0.8; // Slower after bounce with damping
-                    x += particle.vx * 1.5;
+                    particle.vx = -particle.vx * 0.9; // Gentle bounce
+                    x += particle.vx;
                 }
                 
                 if (y <= 0.05 || y >= 0.95) {
-                    particle.vy = -particle.vy * 0.8; // Slower after bounce with damping
-                    y += particle.vy * 1.5;
+                    particle.vy = -particle.vy * 0.9; // Gentle bounce
+                    y += particle.vy;
                 }
                 
                 // Update stored position
                 particle.x = x;
                 particle.y = y;
                 
-                // Only update DOM when animation is active and visible
-                // Use transform instead of left/top for better performance
-                particle.element.style.transform = `translate(${x * 100}%, ${y * 100}%)`;
+                // Update DOM position directly for smoother movement
+                particle.element.style.left = (x * 100) + '%';
+                particle.element.style.top = (y * 100) + '%';
             });
         }
         
