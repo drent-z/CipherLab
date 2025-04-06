@@ -593,18 +593,207 @@ title: Learn Cryptography - CipherLab
         color: var(--primary);
         margin-top: 1.5rem;
         margin-bottom: 1rem;
+        font-size: 1.5rem;
     }
     
     #lesson-content p {
         margin-bottom: 1.25rem;
     }
     
-    .key-concept {
+    /* Simple Lesson Elements */
+    .simple-lesson-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .lesson-image {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .simple-concept-box {
         background-color: rgba(0, 255, 65, 0.1);
         border-left: 4px solid var(--primary);
         padding: 1.25rem;
         margin: 1.5rem 0;
         border-radius: 6px;
+    }
+    
+    .simple-section {
+        margin-bottom: 2.5rem;
+    }
+    
+    .simple-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .simple-card {
+        background-color: var(--darker);
+        padding: 1.25rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        text-align: center;
+    }
+    
+    .card-icon {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .simple-card h4 {
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
+    }
+    
+    .history-highlights {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .history-item {
+        background-color: var(--darker);
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .history-date {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    .everyday-examples {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .example-item {
+        background-color: var(--darker);
+        padding: 1.25rem;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .example-item i {
+        color: var(--primary);
+        font-size: 2rem;
+    }
+    
+    /* Simple Quiz Styling */
+    .simple-quiz {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .simple-quiz h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--primary);
+        margin-top: 0 !important;
+        font-size: 1.3rem !important;
+    }
+    
+    .quiz-container {
+        margin-top: 1.25rem;
+    }
+    
+    .quiz-question {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .simple-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .simple-option {
+        background-color: var(--medium-dark);
+        padding: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .simple-option:hover {
+        background-color: var(--light-dark);
+    }
+    
+    .option-text {
+        padding-top: 2px;
+    }
+    
+    .feedback-container {
+        background-color: var(--medium-dark);
+        padding: 1.25rem;
+        border-radius: 8px;
+        margin: 1.25rem 0;
+    }
+    
+    .correct-answer {
+        color: var(--primary);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .incorrect-answer {
+        color: #ff4d4d;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .simple-button {
+        background-color: var(--primary);
+        color: var(--dark);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    
+    .simple-button:hover {
+        transform: translateY(-2px);
+    }
+    
+    .simple-button:disabled {
+        background-color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
     }
     
     /* Media Queries */
@@ -911,26 +1100,44 @@ title: Learn Cryptography - CipherLab
             const selectedOption = document.querySelector(`input[name="quiz${questionId}"]:checked`);
             
             if (!selectedOption) {
-                alert('Please select an answer.');
+                alert('Please select an answer first.');
                 return;
             }
             
             const isCorrect = selectedOption.value === correctOption;
             const feedbackDiv = button.previousElementSibling;
             
-            // Show feedback
+            // Show feedback with animation
             feedbackDiv.style.display = 'block';
             
             if (isCorrect) {
-                feedbackDiv.querySelector('.correct-feedback').style.display = 'block';
-                feedbackDiv.querySelector('.incorrect-feedback').style.display = 'none';
+                feedbackDiv.querySelector('.correct-answer').style.display = 'flex';
+                feedbackDiv.querySelector('.incorrect-answer').style.display = 'none';
+                
+                // Show a congratulatory message
+                setTimeout(function() {
+                    alert('Correct! Great job! Keep going to learn more.');
+                }, 500);
             } else {
-                feedbackDiv.querySelector('.correct-feedback').style.display = 'none';
-                feedbackDiv.querySelector('.incorrect-feedback').style.display = 'block';
+                feedbackDiv.querySelector('.correct-answer').style.display = 'none';
+                feedbackDiv.querySelector('.incorrect-answer').style.display = 'flex';
             }
+            
+            // Highlight the correct answer
+            document.querySelectorAll(`input[name="quiz${questionId}"]`).forEach(input => {
+                const optionLabel = input.closest('.simple-option');
+                
+                if (input.value === correctOption) {
+                    optionLabel.style.borderLeft = '4px solid var(--primary)';
+                    optionLabel.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                } else if (input.checked) {
+                    optionLabel.style.borderLeft = '4px solid #ff4d4d';
+                }
+            });
             
             // Disable button
             button.disabled = true;
+            button.textContent = 'Answer Checked';
         };
         
         // Update lesson status icons for completed lessons

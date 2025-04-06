@@ -1,133 +1,155 @@
 <!-- Lesson 1-1: What is Cryptography? -->
 <div id="lesson1-1-content">
-    <p class="mb-4">Cryptography is a technique of securing information and communications through the use of codes so that only individuals for whom the information is intended can read it and process it. Derived from the Greek word "kryptos," meaning hidden, cryptography translates to "hidden writing."</p>
-    
-        <div class="key-concept mb-5 animate-glow">
-        <h4><i class="fas fa-lightbulb"></i> Key Concept</h4>
-        <p>Cryptography transforms messages into an unreadable format (known as <strong>ciphertext</strong>) that can only be decrypted into a readable format (known as <strong>plaintext</strong>) by the authorized intended recipient using a specific secret key.</p>
+    <div class="simple-lesson-intro">
+        <img src="/assets/images/cryptography-intro.png" alt="Cryptography concept illustration" class="lesson-image">
+        <p>Cryptography is a way to keep information safe by turning it into secret code. Only people with the right "key" can read it. The word comes from Greek, meaning "hidden writing."</p>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Core Principles</h3>
-        <p>Modern cryptography is built on four fundamental principles:</p>
+    <div class="simple-concept-box">
+        <h4><i class="fas fa-lightbulb"></i> Key Idea</h4>
+        <p>Cryptography changes normal messages (called "plaintext") into scrambled code (called "ciphertext"). Only people with the right key can unscramble it back to read the message.</p>
+    </div>
+    
+    <div class="simple-section">
+        <h3>The Four Main Goals of Cryptography</h3>
         
-        <div class="grid-container">
-            <div class="grid-item">
-                <div class="principle-icon"><i class="fas fa-user-secret"></i></div>
+        <div class="simple-cards">
+            <div class="simple-card">
+                <div class="card-icon"><i class="fas fa-user-secret"></i></div>
                 <h4>Confidentiality</h4>
-                <p>Information remains private and is accessible only to authorized parties</p>
+                <p>Keeping information private - only authorized people can read it</p>
             </div>
-            <div class="grid-item">
-                <div class="principle-icon"><i class="fas fa-fingerprint"></i></div>
+            
+            <div class="simple-card">
+                <div class="card-icon"><i class="fas fa-fingerprint"></i></div>
                 <h4>Integrity</h4>
-                <p>Data cannot be altered in storage or transit without detection</p>
+                <p>Making sure information hasn't been changed by someone else</p>
             </div>
-            <div class="grid-item">
-                <div class="principle-icon"><i class="fas fa-signature"></i></div>
+            
+            <div class="simple-card">
+                <div class="card-icon"><i class="fas fa-signature"></i></div>
                 <h4>Authentication</h4>
-                <p>Verification of the identity of users and the origin of data</p>
+                <p>Proving who sent the information or who you're talking to</p>
             </div>
-            <div class="grid-item">
-                <div class="principle-icon"><i class="fas fa-ban"></i></div>
+            
+            <div class="simple-card">
+                <div class="card-icon"><i class="fas fa-ban"></i></div>
                 <h4>Non-repudiation</h4>
-                <p>Sender cannot deny having sent a message</p>
+                <p>Preventing someone from denying they sent a message</p>
             </div>
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Historical Context</h3>
-        <p>Cryptography has a rich history spanning thousands of years:</p>
+    <div class="simple-section">
+        <h3>A Brief History of Secret Codes</h3>
         
-        <div class="timeline animate-fade-in">
-            <div class="timeline-item">
-                <div class="timeline-marker">1900 BCE</div>
-                <div class="timeline-content">
-                    <h4>Ancient Egypt</h4>
-                    <p>Non-standard hieroglyphics found in the tomb of Khnumhotep II represent one of the earliest known examples of cryptography</p>
-                </div>
+        <div class="history-highlights">
+            <div class="history-item">
+                <span class="history-date">Ancient Egypt (1900 BCE)</span>
+                <p>Egyptians used unusual hieroglyphics to hide secret messages in tombs</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-marker">500 BCE</div>
-                <div class="timeline-content">
-                    <h4>Sparta</h4>
-                    <p>The Spartans used a device called a scytale for secure military communications</p>
-                </div>
+            
+            <div class="history-item">
+                <span class="history-date">Ancient Sparta (500 BCE)</span>
+                <p>Spartans wrapped messages around sticks (called scytales) to send secret military orders</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-marker">50 BCE</div>
-                <div class="timeline-content">
-                    <h4>Roman Empire</h4>
-                    <p>Julius Caesar used a simple substitution cipher (now known as the Caesar cipher) to protect military messages</p>
-                </div>
+            
+            <div class="history-item">
+                <span class="history-date">Roman Empire (50 BCE)</span>
+                <p>Julius Caesar created a simple code by shifting letters - now called the Caesar cipher</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-marker">1500s</div>
-                <div class="timeline-content">
-                    <h4>Renaissance</h4>
-                    <p>Vigenère cipher developed, considered "le chiffre indéchiffrable" (the unbreakable cipher) for three centuries</p>
-                </div>
+            
+            <div class="history-item">
+                <span class="history-date">Renaissance (1500s)</span>
+                <p>The Vigenère cipher was created and thought to be unbreakable for 300 years</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-marker">1940s</div>
-                <div class="timeline-content">
-                    <h4>World War II</h4>
-                    <p>Enigma machine used by Germany for secure communications, later broken by Allied cryptanalysts led by Alan Turing</p>
-                </div>
+            
+            <div class="history-item">
+                <span class="history-date">World War II (1940s)</span>
+                <p>The Germans used the Enigma machine. Alan Turing and his team cracked the code, helping end the war</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-marker">1970s</div>
-                <div class="timeline-content">
-                    <h4>Modern Era</h4>
-                    <p>Development of DES (Data Encryption Standard) and the concept of public-key cryptography, revolutionizing the field</p>
-                </div>
+            
+            <div class="history-item">
+                <span class="history-date">Modern Era (1970s+)</span>
+                <p>Modern computer-based encryption was developed, leading to the systems we use today</p>
             </div>
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Applications in Today's World</h3>
-        <p>Cryptography ensures the security of modern-day communication channels and is ubiquitous in our digital lives:</p>
+    <div class="simple-section">
+        <h3>Where You See Cryptography Every Day</h3>
+        <p>You use cryptography all the time without even knowing it:</p>
         
-        <ul class="application-list">
-            <li><i class="fas fa-envelope"></i> Email encryption and digital signatures</li>
-            <li><i class="fas fa-shopping-cart"></i> Secure online shopping and banking (HTTPS)</li>
-            <li><i class="fas fa-lock"></i> Password protection and authentication</li>
-            <li><i class="fas fa-mobile-alt"></i> Mobile phone communications</li>
-            <li><i class="fas fa-broadcast-tower"></i> Wireless networks (WPA/WPA2)</li>
-            <li><i class="fas fa-database"></i> Secure storage of sensitive data</li>
-            <li><i class="fas fa-credit-card"></i> Credit card transactions</li>
-            <li><i class="fas fa-bitcoin"></i> Cryptocurrencies and blockchain technology</li>
-        </ul>
+        <div class="everyday-examples">
+            <div class="example-item">
+                <i class="fas fa-lock"></i>
+                <p>The lock icon in your web browser (HTTPS)</p>
+            </div>
+            
+            <div class="example-item">
+                <i class="fas fa-wifi"></i>
+                <p>Your home Wi-Fi network security</p>
+            </div>
+            
+            <div class="example-item">
+                <i class="fas fa-credit-card"></i>
+                <p>When you shop online or use your credit card</p>
+            </div>
+            
+            <div class="example-item">
+                <i class="fas fa-envelope"></i>
+                <p>Secure email and messaging apps</p>
+            </div>
+            
+            <div class="example-item">
+                <i class="fas fa-mobile-alt"></i>
+                <p>Your smartphone's security features</p>
+            </div>
+            
+            <div class="example-item">
+                <i class="fas fa-bitcoin"></i>
+                <p>Cryptocurrencies like Bitcoin</p>
+            </div>
+        </div>
     </div>
     
-    <div class="interactive-quiz">
-        <h3 class="quiz-title"><i class="fas fa-question-circle"></i> Knowledge Check</h3>
-        <div class="quiz-question">
-            <p>Who is able to read and process information secured by cryptography?</p>
-            <div class="quiz-options">
-                <label class="quiz-option">
-                    <input type="radio" name="quiz1-1" value="a"> Anyone who intercepts the message
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">Who can read a message that's been encrypted?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz1-1" value="a">
+                    <span class="option-text">Anyone who finds the message</span>
                 </label>
-                <label class="quiz-option">
-                    <input type="radio" name="quiz1-1" value="b"> Only the authorized intended recipient
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz1-1" value="b">
+                    <span class="option-text">Only the person with the right key</span>
                 </label>
-                <label class="quiz-option">
-                    <input type="radio" name="quiz1-1" value="c"> Government agencies
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz1-1" value="c">
+                    <span class="option-text">Government agencies</span>
                 </label>
-                <label class="quiz-option">
-                    <input type="radio" name="quiz1-1" value="d"> Hackers
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz1-1" value="d">
+                    <span class="option-text">Computer hackers</span>
                 </label>
             </div>
-            <div class="quiz-feedback" style="display: none;">
-                <div class="correct-feedback">
-                    <i class="fas fa-check-circle"></i> Correct! Only the authorized intended recipient with the proper decryption key should be able to read the information.
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> That's right! Only someone with the correct key can decrypt and read the message.
                 </div>
-                <div class="incorrect-feedback">
-                    <i class="fas fa-times-circle"></i> Incorrect. The whole purpose of cryptography is to ensure that only the authorized intended recipient can read the encrypted information.
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The whole point of encryption is that only someone with the correct key can read the message.
                 </div>
             </div>
-            <button class="check-answer-btn" data-correct="b" onclick="checkAnswer(this, '1-1')">Check Answer</button>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '1-1')">Check My Answer</button>
         </div>
     </div>
 </div>
