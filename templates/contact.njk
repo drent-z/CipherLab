@@ -2,14 +2,27 @@
 layout: layout.njk
 title: Contact - CipherLab
 ---
+<div class="hero" id="contact-hero">
+    <div class="hero-gradient-container"></div>
+    <div class="row hero-row">
+        <div class="col-12 text-center">
+            <h1 class="glitch" data-text="Get In Touch">
+                <span>Get In Touch</span>
+                <span aria-hidden="true">Get In Touch</span>
+                <span aria-hidden="true">Get In Touch</span>
+            </h1>
+            <p class="mb-4 fade-in hero-subtitle">Have questions, feedback, or want to contribute to CipherLab?</p>
+        </div>
+    </div>
+    
+    <!-- Animated binary code decoration -->
+    <div class="binary-stream">01000011 01001111 01001110 01010100 01000001 01000011 01010100</div>
+</div>
+
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <h1 class="section-title text-center mb-5 fade-in">Get In Touch</h1>
             
-            <div class="contact-intro text-center mb-5 fade-in">
-                <p class="lead">Have questions, feedback, or want to contribute to CipherLab? We'd love to hear from you!</p>
-            </div>
             
             <div class="row">
                 <div class="col-md-12 mb-4 fade-in">
@@ -143,6 +156,10 @@ title: Contact - CipherLab
 
 <!-- Additional CSS for this page -->
 <style>
+    #contact-hero {
+        min-height: 40vh; /* Shorter than main page hero */
+    }
+    
     .lead {
         font-size: 1.2rem;
         line-height: 1.8;

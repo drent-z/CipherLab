@@ -2,10 +2,26 @@
 layout: layout.njk
 title: About CipherLab
 ---
+<div class="hero" id="about-hero">
+    <div class="hero-gradient-container"></div>
+    <div class="row hero-row">
+        <div class="col-12 text-center">
+            <h1 class="glitch" data-text="About CipherLab">
+                <span>About CipherLab</span>
+                <span aria-hidden="true">About CipherLab</span>
+                <span aria-hidden="true">About CipherLab</span>
+            </h1>
+            <p class="mb-4 fade-in hero-subtitle">Learn about our team and mission to make cryptography accessible</p>
+        </div>
+    </div>
+    
+    <!-- Animated binary code decoration -->
+    <div class="binary-stream">01000001 01000010 01001111 01010101 01010100</div>
+</div>
+
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <h1 class="section-title text-center mb-5 fade-in">About CipherLab</h1>
             
             <div class="about-intro fade-in">
                 <p class="lead">CipherLab is an interactive educational platform designed to demystify cryptography through engaging content, interactive tools, and practical challenges.</p>
@@ -163,6 +179,10 @@ title: About CipherLab
 
 <!-- Additional CSS for this page -->
 <style>
+    #about-hero {
+        min-height: 40vh; /* Shorter than main page hero */
+    }
+    
     .about-intro {
         margin-bottom: 3rem;
     }
