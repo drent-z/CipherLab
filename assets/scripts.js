@@ -39,37 +39,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Navbar toggle functionality
+    // Navbar toggle functionality - IMPROVED FOR RELIABILITY
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('.navbar-collapse');
     
     if (navbarToggler && navbarCollapse) {
-        navbarToggler.addEventListener('click', () => {
+        // Ensure toggler has proper attributes
+        navbarToggler.setAttribute('type', 'button');
+        
+        // Add direct click event
+        navbarToggler.addEventListener('click', (event) => {
+            // Prevent any default behavior
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Toggle the expanded state
+            const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+            navbarToggler.setAttribute('aria-expanded', !isExpanded);
+            
+            // Toggle the show class
             navbarCollapse.classList.toggle('show');
             
             // Create overlay when menu is open
             if (navbarCollapse.classList.contains('show')) {
                 const overlay = document.createElement('div');
                 overlay.classList.add('navbar-overlay');
-                overlay.style.position = 'fixed';
-                overlay.style.top = '0';
-                overlay.style.left = '0';
-                overlay.style.width = '100%';
-                overlay.style.height = '100%';
-                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-                overlay.style.zIndex = '1000';
+                
+                // Set all styles at once for better performance
+                Object.assign(overlay.style, {
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    zIndex: '1000',
+                    cursor: 'pointer'
+                });
+                
                 document.body.appendChild(overlay);
                 
+                // Add click event to close menu when overlay is clicked
                 overlay.addEventListener('click', () => {
                     navbarCollapse.classList.remove('show');
+                    navbarToggler.setAttribute('aria-expanded', 'false');
                     overlay.remove();
                 });
             } else {
+                // Remove overlay if menu is closed
                 const existingOverlay = document.querySelector('.navbar-overlay');
                 if (existingOverlay) {
                     existingOverlay.remove();
                 }
             }
+            
+            console.log('Menu toggled, show state:', navbarCollapse.classList.contains('show'));
+        });
+        
+        // Ensure links in the mobile menu close the menu when clicked
+        const navLinks = navbarCollapse.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbarCollapse.classList.remove('show');
+                navbarToggler.setAttribute('aria-expanded', 'false');
+                const existingOverlay = document.querySelector('.navbar-overlay');
+                if (existingOverlay) {
+                    existingOverlay.remove();
+                }
+            });
         });
     }
     
@@ -159,9 +196,9 @@ function initParticleNetwork() {
         particle.style.top = Math.random() * 100 + '%';
         particle.style.boxShadow = `0 0 ${size * 2}px ${particle.style.backgroundColor}`;
         
-        // Store particle data for animation - BETTER SPEED
-        particle.dataset.vx = (Math.random() - 0.5) * 1.2; // x velocity - balanced speed
-        particle.dataset.vy = (Math.random() - 0.5) * 1.2; // y velocity - balanced speed
+        // Store particle data for animation - IDEAL SPEED
+        particle.dataset.vx = (Math.random() - 0.5) * 1.0; // x velocity - perfect speed
+        particle.dataset.vy = (Math.random() - 0.5) * 1.0; // y velocity - perfect speed
         
         particleContainer.appendChild(particle);
     }

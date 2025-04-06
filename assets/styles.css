@@ -758,10 +758,18 @@ footer::before {
     cursor: pointer;
 }
 
-/* Responsive tweaks */
+/* Responsive tweaks - FIXED HAMBURGER MENU */
 @media (max-width: 992px) {
     .navbar-toggler {
         display: block;
+        cursor: pointer;
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        padding: 0.5rem;
+        font-size: 1.25rem;
+        border-radius: 4px;
+        z-index: 1005;
     }
 
     .navbar-collapse {
@@ -778,10 +786,12 @@ footer::before {
         transition: left 0.3s ease;
         z-index: 1001;
         border-right: 1px solid var(--primary);
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
     }
 
     .navbar-collapse.show {
         left: 0;
+        display: flex !important;
     }
 
     .nav-links {
