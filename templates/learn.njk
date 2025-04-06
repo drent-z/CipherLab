@@ -2,44 +2,64 @@
 layout: layout.njk
 title: Learn Cryptography - CipherLab
 ---
-<div class="hero" id="learn-hero">
-    <div class="hero-gradient-container"></div>
-    <div class="row hero-row">
-        <div class="col-12 text-center">
-            <h1>Learn Cryptography</h1>
-            <p class="mb-4 hero-subtitle">Learn the basics of cryptography through simple lessons</p>
-        </div>
-    </div>
+<div class="simple-header">
+    <h1>Learn Cryptography</h1>
+    <p>Learn the basics of cryptography through simple lessons</p>
 </div>
 
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <!-- Simple Start Guide -->
-            <div class="start-guide">
-                <div class="guide-step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Choose a module below</div>
-                </div>
-                <div class="guide-step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Click on any lesson to start learning</div>
-                </div>
-                <div class="guide-step">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Take the quiz when you're ready!</div>
+            <div class="simple-card mb-4">
+                <h2 class="text-center mb-3">How to Use This Page</h2>
+                <div class="start-guide">
+                    <div class="guide-step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Choose a topic below</div>
+                    </div>
+                    <div class="guide-step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Click on any lesson to start learning</div>
+                    </div>
+                    <div class="guide-step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Mark lessons as complete as you go</div>
+                    </div>
+                    <div class="guide-step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Take the quiz when you're ready!</div>
+                    </div>
                 </div>
             </div>
             
             <!-- Module Navigation -->
-            <div class="module-selection">
-                <h2>Select a Topic</h2>
+            <div class="simple-card">
+                <div class="section-header">
+                    <i class="fas fa-book"></i>
+                    <h2>Choose a Topic</h2>
+                </div>
                 <div class="simple-tabs">
-                    <button class="simple-tab active" data-module="module1">Fundamentals</button>
-                    <button class="simple-tab" data-module="module2">Classical Ciphers</button>
-                    <button class="simple-tab" data-module="module3">Modern Cryptography</button>
-                    <button class="simple-tab" data-module="module4">Applications</button>
-                    <button class="simple-tab" data-module="module5">Advanced Topics</button>
+                    <button class="simple-tab active" data-module="module1">
+                        <i class="fas fa-key"></i>
+                        <span>Fundamentals</span>
+                    </button>
+                    <button class="simple-tab" data-module="module2">
+                        <i class="fas fa-history"></i>
+                        <span>Classical Ciphers</span>
+                    </button>
+                    <button class="simple-tab" data-module="module3">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Modern Cryptography</span>
+                    </button>
+                    <button class="simple-tab" data-module="module4">
+                        <i class="fas fa-globe"></i>
+                        <span>Applications</span>
+                    </button>
+                    <button class="simple-tab" data-module="module5">
+                        <i class="fas fa-brain"></i>
+                        <span>Advanced Topics</span>
+                    </button>
                 </div>
                 
                 <!-- Module Content -->
@@ -222,12 +242,19 @@ title: Learn Cryptography - CipherLab
             </div>
             
             <!-- Final Quiz Button -->
-            <div class="quiz-button-container">
-                <h3>Ready to Test Your Knowledge?</h3>
-                <p>Take our quiz to see what you've learned about cryptography</p>
-                <button id="start-final-quiz" class="final-quiz-button" onclick="startFinalQuiz()">
-                    <i class="fas fa-check-circle"></i> Take the Quiz
-                </button>
+            <div class="simple-card mt-4">
+                <div class="section-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Test Your Knowledge</h2>
+                </div>
+                <div class="simple-text text-center">
+                    <p>Ready to see what you've learned? Take our interactive quiz!</p>
+                    <div class="mt-4">
+                        <button id="start-final-quiz" class="final-quiz-button" onclick="startFinalQuiz()">
+                            <i class="fas fa-check-circle"></i> Take the Quiz
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -236,9 +263,9 @@ title: Learn Cryptography - CipherLab
 <section class="container section" id="lesson-content-section" style="display: none;">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="lesson-card fade-in">
+            <div class="simple-card">
                 <div class="lesson-header">
-                    <button id="back-to-modules" class="back-button"><i class="fas fa-arrow-left"></i> Back to All Lessons</button>
+                    <button id="back-to-modules" class="back-button"><i class="fas fa-arrow-left"></i> Back to Topics</button>
                     <h2 id="lesson-title" class="mb-0"></h2>
                 </div>
                 <div class="lesson-body">
@@ -247,11 +274,11 @@ title: Learn Cryptography - CipherLab
                     </div>
                     
                     <div class="lesson-navigation">
-                        <button id="prev-lesson" class="nav-button"><i class="fas fa-chevron-left"></i> Previous Lesson</button>
+                        <button id="prev-lesson" class="nav-button"><i class="fas fa-chevron-left"></i> Previous</button>
                         <button id="complete-lesson" class="complete-button">
                             <i class="fas fa-check-circle"></i> Mark as Complete
                         </button>
-                        <button id="next-lesson" class="nav-button">Next Lesson <i class="fas fa-chevron-right"></i></button>
+                        <button id="next-lesson" class="nav-button">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -267,32 +294,59 @@ title: Learn Cryptography - CipherLab
 
 <!-- CSS Styles -->
 <style>
-    /* Hero Section */
-    #learn-hero {
-        background-color: var(--darker);
+    /* Simple Header */
+    .simple-header {
+        text-align: center;
         padding: 3rem 0;
+        background-color: var(--darker);
         margin-bottom: 2rem;
         border-bottom: 1px solid var(--primary-dark);
     }
     
-    #learn-hero h1 {
+    .simple-header h1 {
         color: var(--primary);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         font-size: 2.5rem;
     }
     
-    .hero-subtitle {
+    .simple-header p {
         font-size: 1.2rem;
         color: var(--text);
     }
     
-    /* Start Guide */
-    .start-guide {
+    /* Simple Card */
+    .simple-card {
         background-color: var(--medium-dark);
         border-radius: 10px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         border: 1px solid var(--primary-dark);
+    }
+    
+    /* Section Header */
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .section-header i {
+        font-size: 1.75rem;
+        color: var(--primary);
+    }
+    
+    .section-header h2 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1.75rem;
+    }
+    
+    /* Start Guide */
+    .start-guide {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -343,8 +397,8 @@ title: Learn Cryptography - CipherLab
     .simple-tabs {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
         justify-content: center;
     }
     
@@ -352,24 +406,40 @@ title: Learn Cryptography - CipherLab
         background-color: var(--darker);
         color: var(--text);
         border: 1px solid var(--primary-dark);
-        padding: 0.75rem 1.25rem;
+        padding: 1rem;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
-        font-size: 1rem;
-        min-width: 150px;
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
         text-align: center;
     }
     
+    .simple-tab i {
+        font-size: 1.5rem;
+        color: var(--primary-dark);
+        transition: color 0.3s ease;
+    }
+    
     .simple-tab:hover {
-        background-color: var(--primary-dark);
-        color: var(--dark);
+        background-color: var(--light-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     .simple-tab.active {
-        background-color: var(--primary);
+        background-color: var(--primary-dark);
         color: var(--dark);
         font-weight: 600;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .simple-tab.active i {
+        color: var(--dark);
     }
     
     /* Module Content */
@@ -472,7 +542,7 @@ title: Learn Cryptography - CipherLab
         background-color: var(--primary);
         color: var(--dark);
         border: none;
-        padding: 0.75rem 1.75rem;
+        padding: 1rem 2rem;
         border-radius: 8px;
         font-size: 1.1rem;
         font-weight: 600;
@@ -481,50 +551,48 @@ title: Learn Cryptography - CipherLab
         gap: 0.75rem;
         cursor: pointer;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     .final-quiz-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     
     /* Lesson View */
-    .lesson-card {
-        background-color: var(--medium-dark);
-        border-radius: 10px;
-        border: 1px solid var(--primary-dark);
-        overflow: hidden;
-    }
-    
     .lesson-header {
+        margin: -2rem -2rem 2rem -2rem;
+        padding: 1.5rem 2rem;
         background-color: var(--darker);
-        padding: 1.25rem;
         border-bottom: 1px solid var(--primary-dark);
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
     
     .back-button {
         background-color: var(--medium-dark);
         color: var(--text);
         border: 1px solid var(--primary-dark);
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         transition: all 0.3s ease;
+        font-weight: 500;
     }
     
     .back-button:hover {
         background-color: var(--primary-dark);
         color: var(--dark);
+        transform: translateX(-5px);
     }
     
     .lesson-body {
-        padding: 2rem;
+        padding: 0;
     }
     
     .lesson-navigation {
