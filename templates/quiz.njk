@@ -592,7 +592,30 @@ title: Cryptography Quiz - CipherLab
 
 <!-- Additional JavaScript for quiz functionality -->
 <script>
+    // Load quiz progress from localStorage
+    function loadQuizProgress() {
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        if (progressData) {
+            const progress = JSON.parse(progressData);
+            return {
+                completedLessons: progress.completedLessons || [],
+                totalLessons: progress.totalLessons || 0
+            };
+        }
+        return { completedLessons: [], totalLessons: 0 };
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
+        // Check if the user has completed all lessons
+        const progress = loadQuizProgress();
+        const progressPercentage = progress.totalLessons > 0 ? 
+            Math.round((progress.completedLessons.length / progress.totalLessons) * 100) : 0;
+        
+        // If the user hasn't completed all lessons, show a message
+        if (progressPercentage < 100) {
+            alert('You need to complete all lessons before taking the final quiz. Redirecting to the learn page...');
+            window.location.href = '/learn';
+        }
         // Quiz data
         const quizData = {
             beginner: [

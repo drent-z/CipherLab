@@ -1,3 +1,22 @@
+// Store quiz data in localStorage 
+function saveQuizProgress(completedLessons, totalLessons) {
+    const progress = {
+        completedLessons: completedLessons,
+        totalLessons: totalLessons
+    };
+    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+}
+
+// Load quiz progress from localStorage
+function loadQuizProgress() {
+    const progressData = localStorage.getItem('cipherLabQuizProgress');
+    if (progressData) {
+        const progress = JSON.parse(progressData);
+        return progress.completedLessons || [];
+    }
+    return [];
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Matrix Rain Background
     initMatrixRain();
@@ -308,6 +327,34 @@ function initCipherDemos() {
     const caesarInput = document.getElementById('caesar-input');
     const caesarOutput = document.getElementById('caesar-output');
     const caesarShift = document.getElementById('caesar-shift');
+    const shiftDisplay = document.getElementById('shift-display');
+    const alphabetShifted = document.querySelector('.alphabet-row.shifted');
+    
+    // Function to update the shifted alphabet visualization
+    function updateShiftedAlphabet(shift) {
+        if (alphabetShifted) {
+            // Create a shifted alphabet
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let shiftedContent = '';
+            
+            for (let i = 0; i < 26; i++) {
+                const shiftedIndex = (i + shift) % 26;
+                shiftedContent += `<div class="alphabet-letter">${alphabet[shiftedIndex]}</div>`;
+            }
+            
+            alphabetShifted.innerHTML = shiftedContent;
+        }
+    }
+    
+    // Function to update the shift display
+    window.updateShiftDisplay = function() {
+        if (caesarShift && shiftDisplay) {
+            const shift = parseInt(caesarShift.value);
+            shiftDisplay.textContent = shift;
+            updateShiftedAlphabet(shift);
+            updateCaesarCipher();
+        }
+    };
     
     if (caesarInput && caesarOutput && caesarShift) {
         function updateCaesarCipher() {
@@ -338,8 +385,14 @@ function initCipherDemos() {
             caesarOutput.textContent = result;
         }
         
+        // Initialize shifted alphabet visualization
+        updateShiftedAlphabet(caesarShift ? parseInt(caesarShift.value) : 3);
+        
         caesarInput.addEventListener('input', updateCaesarCipher);
-        caesarShift.addEventListener('input', updateCaesarCipher);
+        caesarShift.addEventListener('input', function() {
+            updateShiftDisplay();
+            updateCaesarCipher();
+        });
     }
     
     // Vigenère Cipher Demo

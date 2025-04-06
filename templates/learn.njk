@@ -356,7 +356,7 @@ title: Learn Cryptography - CipherLab
         }
     }
     
-    @media (max-width: 576px) {
+@media (max-width: 576px) {
         .application-list {
             grid-template-columns: 1fr;
         }
@@ -379,10 +379,433 @@ title: Learn Cryptography - CipherLab
             flex-direction: column;
         }
     }
+    
+    /* Binary stream decoration */
+    .binary-stream {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        font-family: 'IBM Plex Mono', monospace;
+        color: var(--primary);
+        opacity: 0.7;
+        font-size: 1.2rem;
+        text-align: center;
+        letter-spacing: 5px;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+    
+    /* Enhanced Lesson Card */
+    .lesson-card {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .lesson-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Enhanced Complete Button */
+    .complete-button {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .complete-button::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(45deg);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .complete-button:hover::after {
+        opacity: 1;
+        animation: shine 1.5s ease;
+    }
+    
+    @keyframes shine {
+        0% { left: -50%; opacity: 0; }
+        50% { opacity: 0.5; }
+        100% { left: 150%; opacity: 0; }
+    }
+    
+    /* Final Quiz Section Styling */
+    .final-quiz-container {
+        margin-top: 3rem;
+    }
+    
+    .final-quiz-card {
+        background-color: var(--medium-dark);
+        border-radius: 8px;
+        border: 1px solid var(--primary-dark);
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+    
+    .final-quiz-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .final-quiz-header {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .quiz-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: var(--dark);
+    }
+    
+    .quiz-info {
+        flex-grow: 1;
+    }
+    
+    .quiz-info h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+    }
+    
+    .quiz-info p {
+        margin: 0;
+        color: var(--text-muted);
+    }
+    
+    .quiz-status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .final-quiz-footer {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .requirements {
+        flex-grow: 1;
+    }
+    
+    .requirements p {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-muted);
+    }
+    
+    .quiz-progress {
+        height: 6px;
+        background-color: var(--darker);
+        border-radius: 3px;
+        overflow: hidden;
+        width: 200px;
+    }
+    
+    .final-quiz-button {
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+        color: var(--dark);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .final-quiz-button:hover:not([disabled]) {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .final-quiz-button:disabled {
+        background: linear-gradient(135deg, var(--darker), var(--medium-dark));
+        color: var(--text-muted);
+        cursor: not-allowed;
+    }
+    
+    /* Grid Layout Fixes */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .application-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 1.5rem;
+    }
+    
+    .implementation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-gap: 1.5rem;
+    }
+    
+    .trends-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 1.5rem;
+    }
+    
+    /* Interactive Elements Styling */
+    .interactive-cipher-demo {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .demo-form {
+        margin-bottom: 1.5rem;
+    }
+    
+    .cipher-input {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--dark);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        font-family: 'IBM Plex Mono', monospace;
+        border-radius: 4px;
+    }
+    
+    .shift-control {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .slider {
+        flex-grow: 1;
+        -webkit-appearance: none;
+        height: 8px;
+        background: var(--dark);
+        border-radius: 4px;
+        outline: none;
+    }
+    
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+    }
+    
+    .cipher-output {
+        padding: 0.75rem;
+        background-color: var(--dark);
+        border: 1px solid var(--primary-dark);
+        color: var(--primary);
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-radius: 4px;
+    }
+    
+    .alphabet-visualization {
+        background-color: var(--dark);
+        border-radius: 4px;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+    
+    .alphabet-row {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+    
+    .alphabet-row.shifted {
+        position: relative;
+    }
+    
+    .alphabet-row.shifted::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--primary-dark);
+        opacity: 0.5;
+    }
+    
+    .alphabet-letter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        margin-right: 5px;
+        background-color: var(--medium-dark);
+        font-family: 'IBM Plex Mono', monospace;
+    }
+    
+    /* Additional animations and effects */
+    .animate-glow {
+        animation: glow-pulse 3s infinite alternate;
+    }
+    
+    @keyframes glow-pulse {
+        0% {
+            box-shadow: 0 0 5px rgba(0, 255, 65, 0.1);
+        }
+        100% {
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+    }
+    
+    .animate-fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+    
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .key-concept {
+        position: relative;
+        padding: 1.5rem;
+        background-color: var(--darker);
+        border-left: 4px solid var(--primary);
+        border-radius: 4px;
+    }
+    
+    .key-concept h4 {
+        color: var(--primary);
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .key-concept p {
+        margin-bottom: 0;
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-left: 2rem;
+        padding-bottom: 2rem;
+        border-left: 2px solid var(--primary-dark);
+    }
+    
+    .timeline-item:last-child {
+        border-left: none;
+    }
+    
+    .timeline-marker {
+        position: absolute;
+        left: -10px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .timeline-content {
+        padding: 1rem 0 0 1.5rem;
+    }
+    
+    .timeline-content h4 {
+        margin-top: 0;
+        color: var(--primary);
+    }
 </style>
 
 <!-- JavaScript for Interactive Functionality -->
 <script>
+    // Store quiz data in localStorage to maintain state between pages
+    function saveQuizProgress() {
+        const progress = {
+            completedLessons: completedLessons,
+            totalLessons: totalLessons
+        };
+        localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+    }
+    
+    // Load quiz progress from localStorage
+    function loadQuizProgress() {
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        if (progressData) {
+            const progress = JSON.parse(progressData);
+            return progress.completedLessons || [];
+        }
+        return [];
+    }
+    
+    // Initialize the final quiz
+    function startFinalQuiz() {
+        // Save current progress
+        saveQuizProgress();
+        // Redirect to the quiz page
+        window.location.href = '/quiz';
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
         // Get elements
         const moduleContents = document.querySelectorAll('.module-content');
@@ -404,8 +827,8 @@ title: Learn Cryptography - CipherLab
         // Lesson templates
         const lessonTemplates = document.getElementById('lesson-templates');
         
-        // Store completed lessons
-        let completedLessons = [];
+        // Store completed lessons - load from localStorage if available
+        let completedLessons = loadQuizProgress();
         let currentLesson = null;
         
         // Module and lesson data
@@ -606,6 +1029,9 @@ title: Learn Cryptography - CipherLab
             // Add to completed lessons
             completedLessons.push(lessonId);
             
+            // Save progress to localStorage
+            saveQuizProgress();
+            
             // Update UI
             completeBtn.disabled = true;
             completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
@@ -675,6 +1101,9 @@ title: Learn Cryptography - CipherLab
                 quizLockIcon.classList.add('fa-unlock');
                 quizLockIcon.style.color = 'var(--primary)';
                 startFinalQuizBtn.disabled = false;
+                
+                // Show a congratulatory message
+                alert('Congratulations! You\'ve completed all lessons and unlocked the Final Certification Quiz.');
             }
         }
         

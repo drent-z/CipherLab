@@ -11,7 +11,7 @@
             </div>
             <div class="quiz-status">
                 <span id="quiz-status-text">Locked</span>
-                <i class="fas fa-lock" id="quiz-lock-icon"></i>
+                <i class="fas fa-lock" id="quiz-lock-icon" style="color: var(--text-muted);"></i>
             </div>
         </div>
         <div class="final-quiz-footer">
@@ -21,7 +21,7 @@
                     <div class="progress-value" id="quiz-progress-value" style="width: 0%;"></div>
                 </div>
             </div>
-            <button id="start-final-quiz" class="final-quiz-button" disabled>
+            <button id="start-final-quiz" class="final-quiz-button" onclick="startFinalQuiz()" disabled>
                 <i class="fas fa-play"></i> Start Final Quiz
             </button>
         </div>

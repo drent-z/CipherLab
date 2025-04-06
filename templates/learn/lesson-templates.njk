@@ -2,7 +2,7 @@
 <div id="lesson1-1-content">
     <p class="mb-4">Cryptography is a technique of securing information and communications through the use of codes so that only individuals for whom the information is intended can read it and process it. Derived from the Greek word "kryptos," meaning hidden, cryptography translates to "hidden writing."</p>
     
-    <div class="key-concept mb-5">
+        <div class="key-concept mb-5 animate-glow">
         <h4><i class="fas fa-lightbulb"></i> Key Concept</h4>
         <p>Cryptography transforms messages into an unreadable format (known as <strong>ciphertext</strong>) that can only be decrypted into a readable format (known as <strong>plaintext</strong>) by the authorized intended recipient using a specific secret key.</p>
     </div>
@@ -39,7 +39,7 @@
         <h3 class="section-title">Historical Context</h3>
         <p>Cryptography has a rich history spanning thousands of years:</p>
         
-        <div class="timeline">
+        <div class="timeline animate-fade-in">
             <div class="timeline-item">
                 <div class="timeline-marker">1900 BCE</div>
                 <div class="timeline-content">
@@ -676,7 +676,7 @@
                 <div class="form-group">
                     <label for="caesar-shift">Shift Value:</label>
                     <div class="shift-control">
-                        <input type="range" id="caesar-shift" min="1" max="25" value="3" class="slider">
+                        <input type="range" id="caesar-shift" min="1" max="25" value="3" class="slider" oninput="updateShiftDisplay()">
                         <span id="shift-display">3</span>
                     </div>
                 </div>
