@@ -668,6 +668,114 @@ title: Learn Cryptography - CipherLab
         margin-bottom: 1.25rem;
     }
     
+    /* Quiz styles for lessons */
+    .simple-quiz {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .simple-quiz h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--primary);
+        margin-top: 0 !important;
+        margin-bottom: 1rem !important;
+        font-size: 1.3rem !important;
+    }
+    
+    .quiz-container {
+        margin-top: 1rem;
+    }
+    
+    .quiz-question {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .simple-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .simple-option {
+        background-color: var(--medium-dark);
+        padding: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        border: 1px solid var(--medium-dark);
+    }
+    
+    .simple-option:hover {
+        background-color: var(--light-dark);
+    }
+    
+    .simple-option.selected {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border-color: var(--primary);
+    }
+    
+    .option-text {
+        padding-top: 2px;
+    }
+    
+    .feedback-container {
+        background-color: var(--medium-dark);
+        padding: 1.25rem;
+        border-radius: 8px;
+        margin: 1.25rem 0;
+    }
+    
+    .correct-answer {
+        color: var(--primary);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .incorrect-answer {
+        color: #ff4d4d;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .simple-button {
+        background-color: var(--primary);
+        color: var(--dark);
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .simple-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .simple-button:disabled {
+        background-color: var(--text-muted);
+        cursor: not-allowed;
+        transform: none;
+    }
+    
     /* Simple Lesson Elements */
     .simple-lesson-intro {
         display: flex;
@@ -1175,23 +1283,18 @@ title: Learn Cryptography - CipherLab
             const isCorrect = selectedOption.value === correctOption;
             const feedbackDiv = button.previousElementSibling;
             
-            // Show feedback with animation
+            // Show feedback
             feedbackDiv.style.display = 'block';
             
             if (isCorrect) {
                 feedbackDiv.querySelector('.correct-answer').style.display = 'flex';
                 feedbackDiv.querySelector('.incorrect-answer').style.display = 'none';
-                
-                // Show a congratulatory message
-                setTimeout(function() {
-                    alert('Correct! Great job! Keep going to learn more.');
-                }, 500);
             } else {
                 feedbackDiv.querySelector('.correct-answer').style.display = 'none';
                 feedbackDiv.querySelector('.incorrect-answer').style.display = 'flex';
             }
             
-            // Highlight the correct answer
+            // Highlight options
             document.querySelectorAll(`input[name="quiz${questionId}"]`).forEach(input => {
                 const optionLabel = input.closest('.simple-option');
                 
@@ -1203,9 +1306,9 @@ title: Learn Cryptography - CipherLab
                 }
             });
             
-            // Disable button
+            // Disable button and update text
             button.disabled = true;
-            button.textContent = 'Answer Checked';
+            button.innerHTML = '<i class="fas fa-check"></i> Answer Checked';
         };
         
         // Update lesson status icons for completed lessons

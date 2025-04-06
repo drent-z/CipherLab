@@ -2,209 +2,380 @@
 layout: layout.njk
 title: Cryptography Quiz - CipherLab
 ---
-<div class="quiz-hero">
-    <h1 class="glitch" data-text="Cryptography Challenge">
-        <span>Cryptography Challenge</span>
-        <span aria-hidden="true">Cryptography Challenge</span>
-        <span aria-hidden="true">Cryptography Challenge</span>
-    </h1>
-    <p class="mb-4 fade-in">Test your knowledge of encryption, ciphers, and cryptographic techniques</p>
+<div class="simple-header">
+    <h1>Cryptography Challenge</h1>
+    <p>Test your knowledge of cryptography concepts</p>
 </div>
 
-<section class="container section">
-    <div class="quiz-container fade-in">
-        <div class="quiz-header">
-            <div class="quiz-progress">
-                <div class="progress-stats">
-                    <span class="current-question">1</span>/<span class="total-questions">10</span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Quiz Start Screen -->
+            <div class="simple-card" id="quiz-start-screen">
+                <div class="section-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Take the Quiz</h2>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-value" style="width: 10%;"></div>
-                </div>
-            </div>
-            
-            <div class="quiz-timer">
-                <i class="fas fa-clock"></i>
-                <span id="timer">00:00</span>
-            </div>
-            
-            <div class="quiz-score">
-                <i class="fas fa-star"></i>
-                <span id="score">0</span> pts
-            </div>
-        </div>
-        
-        <div class="quiz-body">
-            <div id="quiz-start-screen" class="quiz-start-screen">
-                <h2>Ready to test your cryptography knowledge?</h2>
-                <div class="quiz-info">
-                    <div class="quiz-info-item">
-                        <i class="fas fa-question-circle"></i>
-                        <span>10 Questions</span>
-                    </div>
-                    <div class="quiz-info-item">
-                        <i class="fas fa-clock"></i>
-                        <span>15 Minutes</span>
-                    </div>
-                    <div class="quiz-info-item">
-                        <i class="fas fa-star"></i>
-                        <span>100 Points</span>
-                    </div>
-                </div>
-                <p>This quiz will test your knowledge of both classical and modern cryptographic concepts. Are you up for the challenge?</p>
-                <div class="quiz-levels">
-                    <button class="quiz-level" data-level="beginner">
-                        <i class="fas fa-star"></i>
-                        <span>Beginner</span>
-                    </button>
-                    <button class="quiz-level" data-level="intermediate">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>Intermediate</span>
-                    </button>
-                    <button class="quiz-level" data-level="advanced">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>Advanced</span>
-                    </button>
-                </div>
-                <button id="start-quiz" class="cta-button">
-                    <i class="fas fa-play"></i> Start Quiz
-                </button>
-            </div>
-            
-            <div id="quiz-questions" class="quiz-questions" style="display: none;">
-                <!-- Questions will be dynamically inserted here -->
-            </div>
-            
-            <div id="quiz-results" class="quiz-results" style="display: none;">
-                <h2>Quiz Complete!</h2>
-                <div class="results-score">
-                    <div class="score-circle">
-                        <span id="final-score">0</span>
-                        <span class="score-label">pts</span>
-                    </div>
-                </div>
-                <div class="results-details">
-                    <div class="result-item">
-                        <div class="result-label">Correct Answers:</div>
-                        <div class="result-value"><span id="correct-answers">0</span>/<span id="total-answered">0</span></div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Accuracy:</div>
-                        <div class="result-value"><span id="accuracy">0</span>%</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Time Taken:</div>
-                        <div class="result-value"><span id="time-taken">00:00</span></div>
+                
+                <div class="simple-text">
+                    <p>Ready to test what you've learned? This quiz will check your understanding of cryptography in a fun, interactive way.</p>
+                    
+                    <div class="quiz-features">
+                        <div class="feature-item">
+                            <i class="fas fa-question-circle"></i>
+                            <div class="feature-text">
+                                <h3>10 Questions</h3>
+                                <p>Multiple choice format with helpful explanations</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-star"></i>
+                            <div class="feature-text">
+                                <h3>Earn Points</h3>
+                                <p>Get 10 points for each correct answer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <i class="fas fa-certificate"></i>
+                            <div class="feature-text">
+                                <h3>Get a Badge</h3>
+                                <p>Earn recognition for your cryptography knowledge</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="results-feedback">
-                    <h3>Performance Analysis:</h3>
+                <div class="difficulty-section">
+                    <h3>Choose Your Level:</h3>
+                    <div class="difficulty-options">
+                        <button class="difficulty-option selected" data-level="beginner">
+                            <i class="fas fa-star"></i>
+                            <span>Beginner</span>
+                        </button>
+                        <button class="difficulty-option" data-level="intermediate">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>Intermediate</span>
+                        </button>
+                        <button class="difficulty-option" data-level="advanced">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span>Advanced</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="start-quiz-button" class="primary-button">
+                        <i class="fas fa-play"></i> Start Quiz
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quiz Questions -->
+            <div class="simple-card" id="quiz-questions-screen" style="display: none;">
+                <div class="quiz-progress-header">
+                    <div class="progress-info">
+                        <span>Question <span id="current-question-num">1</span> of <span id="total-questions">10</span></span>
+                        <span class="score-display"><i class="fas fa-star"></i> <span id="current-score">0</span> points</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 10%;"></div>
+                    </div>
+                </div>
+                
+                <div id="question-container">
+                    <!-- Questions will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="simple-card" id="quiz-results-screen" style="display: none;">
+                <div class="section-header">
+                    <i class="fas fa-award"></i>
+                    <h2>Quiz Complete!</h2>
+                </div>
+                
+                <div class="results-summary">
+                    <div class="score-circle">
+                        <span id="final-score">0</span>
+                        <span class="score-label">points</span>
+                    </div>
+                    
+                    <div class="results-details">
+                        <div class="result-stat">
+                            <div class="stat-label">Correct Answers:</div>
+                            <div class="stat-value"><span id="correct-count">0</span>/<span id="total-count">0</span></div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-label">Your Accuracy:</div>
+                            <div class="stat-value"><span id="accuracy-percent">0</span>%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feedback-box">
+                    <h3>Your Results</h3>
                     <p id="feedback-message">Great job! You have a solid understanding of cryptography basics.</p>
                 </div>
                 
-                <div class="results-badges">
+                <div class="badge-container">
                     <div class="badge">
-                        <div class="badge-icon">
+                        <div class="badge-icon" id="badge-icon">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <div class="badge-title">Crypto Scholar</div>
+                        <div class="badge-name" id="badge-name">Crypto Scholar</div>
                     </div>
                 </div>
                 
-                <div class="results-actions">
-                    <button id="review-answers" class="cta-button">
+                <div class="action-buttons">
+                    <button id="review-answers-button" class="primary-button">
                         <i class="fas fa-search"></i> Review Answers
                     </button>
-                    <button id="retake-quiz" class="cta-button cta-button-alt">
-                        <i class="fas fa-redo"></i> Retake Quiz
+                    <button id="retry-quiz-button" class="secondary-button">
+                        <i class="fas fa-redo"></i> Try Again
                     </button>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<section class="container section" id="leaderboard-section" style="display: none;">
-    <h2 class="section-title text-center mb-5 fade-in">Leaderboard</h2>
-    
-    <div class="leaderboard-container fade-in">
-        <div class="leaderboard-header">
-            <div class="rank-column">Rank</div>
-            <div class="name-column">Name</div>
-            <div class="score-column">Score</div>
-            <div class="time-column">Time</div>
-            <div class="date-column">Date</div>
-        </div>
-        
-        <div class="leaderboard-body">
-            <!-- Leaderboard entries will be dynamically inserted here -->
-        </div>
-    </div>
-</section>
-
-<!-- Additional CSS for this page -->
 <style>
-    .quiz-hero {
-        min-height: 40vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    /* Simple Header */
+    .simple-header {
         text-align: center;
-        padding: 3rem 1rem;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .quiz-hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
-        z-index: -1;
-    }
-    
-    .quiz-container {
-        background-color: var(--medium-dark);
-        border-radius: 8px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        overflow: hidden;
-        margin-bottom: 4rem;
-    }
-    
-    .quiz-header {
+        padding: 3rem 0;
         background-color: var(--darker);
-        padding: 1rem 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        margin-bottom: 2rem;
         border-bottom: 1px solid var(--primary-dark);
     }
     
-    .quiz-progress {
-        display: flex;
-        flex-direction: column;
-        width: 40%;
+    .simple-header h1 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
     }
     
-    .progress-stats {
+    .simple-header p {
+        font-size: 1.2rem;
+        color: var(--text);
+    }
+    
+    /* Simple Card */
+    .simple-card {
+        background-color: var(--medium-dark);
+        border-radius: 10px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--primary-dark);
+    }
+    
+    /* Section Header */
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .section-header i {
+        font-size: 1.75rem;
+        color: var(--primary);
+    }
+    
+    .section-header h2 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1.75rem;
+    }
+    
+    /* Simple Text */
+    .simple-text {
+        margin-bottom: 2rem;
+    }
+    
+    .simple-text p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Quiz Features */
+    .quiz-features {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: var(--darker);
+        padding: 1.25rem;
+        border-radius: 8px;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .feature-item i {
+        font-size: 2rem;
+        color: var(--primary);
+        flex-shrink: 0;
+    }
+    
+    .feature-text {
+        flex-grow: 1;
+    }
+    
+    .feature-text h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.2rem;
+        color: var(--text);
+    }
+    
+    .feature-text p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+    }
+    
+    /* Difficulty Section */
+    .difficulty-section {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid var(--primary-dark);
+    }
+    
+    .difficulty-section h3 {
+        margin-bottom: 1rem;
+        color: var(--text);
+        font-size: 1.2rem;
+    }
+    
+    .difficulty-options {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .difficulty-option {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 120px;
+    }
+    
+    .difficulty-option i {
+        color: var(--primary);
+    }
+    
+    .difficulty-option:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .difficulty-option.selected {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .difficulty-option.selected i {
+        color: var(--dark);
+    }
+    
+    /* Buttons */
+    .primary-button {
+        background-color: var(--primary);
+        color: var(--dark);
+        border: none;
+        padding: 0.9rem 1.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 180px;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .primary-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .secondary-button {
+        background-color: var(--darker);
+        color: var(--text);
+        border: 1px solid var(--primary-dark);
+        padding: 0.9rem 1.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 180px;
+        justify-content: center;
+    }
+    
+    .secondary-button:hover {
+        background-color: var(--light-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Quiz Questions UI */
+    .quiz-progress-header {
+        margin: -2rem -2rem 2rem -2rem;
+        padding: 1.25rem 2rem;
+        background-color: var(--darker);
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .progress-info {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+    }
+    
+    .score-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .score-display i {
+        color: var(--primary);
     }
     
     .progress-bar {
-        height: 6px;
+        height: 10px;
         background-color: var(--dark);
-        border-radius: 3px;
+        border-radius: 5px;
         overflow: hidden;
     }
     
@@ -214,179 +385,94 @@ title: Cryptography Quiz - CipherLab
         transition: width 0.5s ease;
     }
     
-    .quiz-timer, .quiz-score {
-        background-color: var(--dark);
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 1rem;
-    }
-    
-    .quiz-timer i, .quiz-score i {
-        color: var(--primary);
-    }
-    
-    .quiz-body {
-        padding: 2rem;
-    }
-    
-    .quiz-start-screen {
-        text-align: center;
-    }
-    
-    .quiz-start-screen h2 {
-        margin-bottom: 2rem;
-    }
-    
-    .quiz-info {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-    
-    .quiz-info-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .quiz-info-item i {
-        font-size: 2rem;
-        color: var(--primary);
-    }
-    
-    .quiz-levels {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin: 2rem 0;
-    }
-    
-    .quiz-level {
-        background-color: var(--darker);
-        border: 1px solid var(--primary-dark);
-        color: var(--text);
-        padding: 1rem 1.5rem;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .quiz-level i {
-        color: var(--primary);
-    }
-    
-    .quiz-level:hover {
-        transform: translateY(-5px);
-        border-color: var(--primary);
-    }
-    
-    .quiz-level.selected {
-        background-color: var(--primary-dark);
-        border-color: var(--primary);
-        color: var(--dark);
-    }
-    
-    .quiz-level.selected i {
-        color: var(--dark);
-    }
-    
-    .quiz-question {
-        margin-bottom: 2rem;
-    }
-    
-    .question-header {
-        background-color: var(--darker);
-        padding: 1rem;
-        border-radius: 4px 4px 0 0;
-        border: 1px solid var(--primary-dark);
-        border-bottom: none;
+    .question-container {
+        padding: 0 1rem;
     }
     
     .question-category {
         display: inline-block;
         background-color: var(--primary-dark);
         color: var(--dark);
-        padding: 0.3rem 0.8rem;
-        border-radius: 3px;
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .question-text {
-        font-size: 1.2rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
         font-weight: 500;
     }
     
-    .question-options {
-        background-color: var(--dark);
-        padding: 1rem;
-        border-radius: 0 0 4px 4px;
-        border: 1px solid var(--primary-dark);
+    .question-text {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        color: var(--text);
     }
     
-    .option {
-        background-color: var(--medium-dark);
-        padding: 1rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
+    .simple-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .simple-option {
+        background-color: var(--darker);
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        border: 1px solid var(--dark);
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid var(--darker);
     }
     
-    .option:last-child {
-        margin-bottom: 0;
-    }
-    
-    .option:hover {
+    .simple-option:hover {
         background-color: var(--light-dark);
-        border-color: var(--primary-dark);
     }
     
-    .option.selected {
+    .simple-option.selected {
         background-color: var(--primary-dark);
         color: var(--dark);
         border-color: var(--primary);
     }
     
-    .option.correct {
-        background-color: rgba(39, 201, 63, 0.2);
-        border-color: #27c93f;
+    .simple-option.correct {
+        background-color: rgba(0, 255, 65, 0.1);
+        border-color: var(--primary);
     }
     
-    .option.incorrect {
-        background-color: rgba(255, 62, 62, 0.2);
-        border-color: #ff3e3e;
+    .simple-option.incorrect {
+        background-color: rgba(255, 77, 77, 0.1);
+        border-color: #ff4d4d;
     }
     
-    .question-explanation {
-        margin-top: 1.5rem;
-        padding: 1rem;
+    .feedback-box {
         background-color: var(--darker);
-        border-radius: 4px;
-        border-left: 3px solid var(--primary);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--primary);
     }
     
+    .feedback-box h3 {
+        color: var(--primary);
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        font-size: 1.3rem;
+    }
+    
+    /* Navigation */
     .question-navigation {
         display: flex;
         justify-content: space-between;
         margin-top: 2rem;
     }
     
-    .quiz-results {
-        text-align: center;
-    }
-    
-    .results-score {
+    /* Results UI */
+    .results-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
         margin: 2rem 0;
     }
     
@@ -394,60 +480,51 @@ title: Cryptography Quiz - CipherLab
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 0 auto;
         box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
     }
     
     #final-score {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: bold;
         color: var(--dark);
     }
     
     .score-label {
         color: var(--dark);
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .results-details {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 2rem;
-        margin-bottom: 2rem;
     }
     
-    .result-item {
+    .result-stat {
         text-align: center;
     }
     
-    .result-label {
-        font-size: 0.9rem;
+    .stat-label {
+        font-size: 1rem;
         color: var(--text-muted);
         margin-bottom: 0.5rem;
     }
     
-    .result-value {
+    .stat-value {
         font-size: 1.5rem;
         font-weight: bold;
     }
     
-    .results-feedback {
-        background-color: var(--darker);
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 2rem;
-    }
-    
-    .results-badges {
+    .badge-container {
         display: flex;
         justify-content: center;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
+        margin: 2rem 0;
     }
     
     .badge {
@@ -456,398 +533,300 @@ title: Cryptography Quiz - CipherLab
         border-radius: 8px;
         text-align: center;
         border: 1px solid var(--primary-dark);
+        width: 200px;
     }
     
     .badge-icon {
-        font-size: 2.5rem;
+        font-size: 3rem;
         color: var(--primary);
         margin-bottom: 1rem;
     }
     
-    .badge-title {
+    .badge-name {
         font-weight: 600;
+        font-size: 1.2rem;
     }
     
-    .results-actions {
+    .action-buttons {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 1rem;
+        margin-top: 2rem;
     }
     
-    .leaderboard-container {
-        background-color: var(--medium-dark);
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .leaderboard-header {
-        background-color: var(--darker);
-        padding: 1rem 1.5rem;
-        display: flex;
-        font-weight: 600;
-        border-bottom: 1px solid var(--primary-dark);
-    }
-    
-    .leaderboard-body {
-        padding: 0.5rem 0;
-    }
-    
-    .leaderboard-row {
-        display: flex;
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid var(--primary-dark);
-        transition: all 0.3s ease;
-    }
-    
-    .leaderboard-row:hover {
-        background-color: var(--light-dark);
-    }
-    
-    .leaderboard-row:last-child {
-        border-bottom: none;
-    }
-    
-    .leaderboard-row.current-user {
-        background-color: rgba(0, 255, 65, 0.1);
-        border-left: 3px solid var(--primary);
-    }
-    
-    .rank-column {
-        width: 10%;
-    }
-    
-    .name-column {
-        width: 40%;
-    }
-    
-    .score-column {
-        width: 15%;
-    }
-    
-    .time-column {
-        width: 15%;
-    }
-    
-    .date-column {
-        width: 20%;
+    /* Responsive Design */
+    @media (min-width: 768px) {
+        .quiz-features {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        
+        .feature-item {
+            flex: 1;
+            min-width: 220px;
+        }
+        
+        .results-summary {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
     }
     
     @media (max-width: 768px) {
-        .quiz-header {
+        .difficulty-options {
             flex-direction: column;
-            gap: 1rem;
-            align-items: flex-start;
+            align-items: center;
         }
         
-        .quiz-progress {
+        .difficulty-option {
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .primary-button, .secondary-button {
             width: 100%;
         }
         
-        .quiz-info {
+        .question-navigation {
             flex-direction: column;
             gap: 1rem;
-        }
-        
-        .quiz-levels {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .results-details {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .results-actions {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .leaderboard-header, .leaderboard-row {
-            font-size: 0.8rem;
-        }
-        
-        .rank-column {
-            width: 15%;
-        }
-        
-        .name-column {
-            width: 30%;
-        }
-        
-        .score-column {
-            width: 15%;
-        }
-        
-        .time-column {
-            width: 15%;
-        }
-        
-        .date-column {
-            width: 25%;
         }
     }
 </style>
 
-<!-- Additional JavaScript for quiz functionality -->
 <script>
-    // Load quiz progress from localStorage
-    function loadQuizProgress() {
-        const progressData = localStorage.getItem('cipherLabQuizProgress');
-        if (progressData) {
-            const progress = JSON.parse(progressData);
-            return {
-                completedLessons: progress.completedLessons || [],
-                totalLessons: progress.totalLessons || 0
-            };
-        }
-        return { completedLessons: [], totalLessons: 0 };
-    }
-    
+    // Quiz data - Now outside DOMContentLoaded for better organization
+    const quizData = {
+        beginner: [
+            {
+                category: "Classical Ciphers",
+                question: "Which of these is NOT a classical cipher?",
+                options: [
+                    "Caesar Cipher",
+                    "Vigenère Cipher",
+                    "AES Cipher",
+                    "Substitution Cipher"
+                ],
+                correctAnswer: 2,
+                explanation: "AES (Advanced Encryption Standard) is a modern symmetric encryption algorithm, not a classical cipher. Classical ciphers include Caesar, Vigenère, and substitution ciphers."
+            },
+            {
+                category: "Encryption Basics",
+                question: "What is the key characteristic of symmetric encryption?",
+                options: [
+                    "It uses two different keys for encryption and decryption",
+                    "It uses the same key for encryption and decryption",
+                    "It doesn't require any keys",
+                    "It can only encrypt text, not binary data"
+                ],
+                correctAnswer: 1,
+                explanation: "Symmetric encryption uses the same key for both encryption and decryption. This means both the sender and recipient must have access to the same secret key."
+            },
+            {
+                category: "Historical Context",
+                question: "Which ancient civilization is credited with inventing the first known cipher device?",
+                options: [
+                    "Ancient Egypt",
+                    "Ancient Greece",
+                    "Sparta",
+                    "Ancient Rome"
+                ],
+                correctAnswer: 2,
+                explanation: "The Spartans invented the scytale, a cylinder-shaped device used to decrypt messages written on parchment that was wrapped around it. This is considered one of the first cipher devices."
+            },
+            {
+                category: "Caesar Cipher",
+                question: "In a Caesar cipher with a shift of 3, how would the letter 'Z' be encrypted?",
+                options: [
+                    "C",
+                    "W",
+                    "A",
+                    "X"
+                ],
+                correctAnswer: 2,
+                explanation: "In a Caesar cipher, each letter is shifted a certain number of positions in the alphabet. With a shift of 3, 'Z' wraps around to become 'C' (Z→A→B→C)."
+            },
+            {
+                category: "Cryptography Basics",
+                question: "What is the primary purpose of cryptography?",
+                options: [
+                    "Making data faster to transmit",
+                    "Compressing data to save space",
+                    "Securing communication by making it unreadable to unauthorized parties",
+                    "Creating artistic patterns from data"
+                ],
+                correctAnswer: 2,
+                explanation: "The primary purpose of cryptography is to secure communication from unauthorized access by converting readable information into an unreadable format."
+            }
+        ],
+        intermediate: [
+            {
+                category: "Hash Functions",
+                question: "Which of the following is NOT a property of a secure cryptographic hash function?",
+                options: [
+                    "Deterministic output",
+                    "Reversibility",
+                    "Avalanche effect",
+                    "Collision resistance"
+                ],
+                correctAnswer: 1,
+                explanation: "Secure hash functions are one-way functions that cannot be reversed. The other options are all important properties of secure hash functions."
+            },
+            {
+                category: "Public Key Cryptography",
+                question: "In RSA encryption, which of these keys is used to encrypt a message?",
+                options: [
+                    "Private key of the sender",
+                    "Private key of the recipient",
+                    "Public key of the sender",
+                    "Public key of the recipient"
+                ],
+                correctAnswer: 3,
+                explanation: "In RSA, messages are encrypted using the recipient's public key, and can only be decrypted using the recipient's private key."
+            },
+            {
+                category: "Digital Signatures",
+                question: "What is the main purpose of a digital signature?",
+                options: [
+                    "To encrypt the message content",
+                    "To compress the message for faster transmission",
+                    "To verify the identity of the sender and ensure message integrity",
+                    "To timestamp when a message was sent"
+                ],
+                correctAnswer: 2,
+                explanation: "Digital signatures are primarily used to verify the identity of the sender (authentication) and ensure that the message has not been altered (integrity)."
+            },
+            {
+                category: "Vigenère Cipher",
+                question: "What is the key weakness of the Vigenère cipher that led to its eventual break?",
+                options: [
+                    "The small key space",
+                    "The repeating nature of the key",
+                    "The vulnerability to brute force attacks",
+                    "The requirement for a shared secret"
+                ],
+                correctAnswer: 1,
+                explanation: "The Vigenère cipher's weakness is the repeating nature of its key. This repetition creates patterns that can be analyzed using techniques like the Kasiski examination to determine the key length."
+            },
+            {
+                category: "Modern Cryptography",
+                question: "Which encryption algorithm is currently recommended by NIST for sensitive government information?",
+                options: [
+                    "DES (Data Encryption Standard)",
+                    "3DES (Triple DES)",
+                    "AES (Advanced Encryption Standard)",
+                    "RC4"
+                ],
+                correctAnswer: 2,
+                explanation: "AES (Advanced Encryption Standard) was selected by NIST in 2001 as the standard for encrypting sensitive government information, replacing the older DES algorithm."
+            }
+        ],
+        advanced: [
+            {
+                category: "Quantum Cryptography",
+                question: "Which of the following encryption algorithms is considered quantum-resistant?",
+                options: [
+                    "RSA",
+                    "ECC (Elliptic Curve Cryptography)",
+                    "Lattice-based cryptography",
+                    "Diffie-Hellman key exchange"
+                ],
+                correctAnswer: 2,
+                explanation: "Lattice-based cryptography is considered quantum-resistant because it relies on mathematical problems that quantum computers cannot easily solve, unlike RSA and ECC which are vulnerable to Shor's algorithm."
+            },
+            {
+                category: "Zero-Knowledge Proofs",
+                question: "What is the main principle of a zero-knowledge proof?",
+                options: [
+                    "Proving knowledge of a secret without revealing any information about the secret itself",
+                    "Encrypting data so that it can be verified without being decrypted",
+                    "Using quantum entanglement to transmit encryption keys",
+                    "Creating mathematical functions that can only be computed in one direction"
+                ],
+                correctAnswer: 0,
+                explanation: "Zero-knowledge proofs allow one party to prove to another that they know a value or secret without revealing any information about the secret itself."
+            },
+            {
+                category: "Blockchain Cryptography",
+                question: "Which cryptographic algorithm does Bitcoin use for its digital signatures?",
+                options: [
+                    "RSA",
+                    "ECDSA (Elliptic Curve Digital Signature Algorithm)",
+                    "DSA (Digital Signature Algorithm)",
+                    "Ed25519"
+                ],
+                correctAnswer: 1,
+                explanation: "Bitcoin uses ECDSA (Elliptic Curve Digital Signature Algorithm) with the secp256k1 curve for its digital signatures in transactions."
+            },
+            {
+                category: "Homomorphic Encryption",
+                question: "What makes homomorphic encryption special compared to traditional encryption?",
+                options: [
+                    "It's faster than traditional encryption",
+                    "It uses quantum mechanics principles",
+                    "It allows computations on encrypted data without decryption",
+                    "It can encrypt larger amounts of data"
+                ],
+                correctAnswer: 2,
+                explanation: "Homomorphic encryption allows computations to be performed on encrypted data without decrypting it first, which enables secure processing of sensitive data in untrusted environments."
+            },
+            {
+                category: "Secure Multi-party Computation",
+                question: "In secure multi-party computation, what is the main goal?",
+                options: [
+                    "To encrypt data so only authorized parties can access it",
+                    "To compute a function across multiple inputs while keeping each input private",
+                    "To validate digital signatures from multiple parties",
+                    "To ensure all parties have the same encryption keys"
+                ],
+                correctAnswer: 1,
+                explanation: "Secure multi-party computation allows multiple parties to jointly compute a function over their inputs while keeping those inputs private, with no party learning anything beyond what can be inferred from their own input and the result."
+            }
+        ]
+    };
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Check if the user has completed all lessons
-        const progress = loadQuizProgress();
-        const progressPercentage = progress.totalLessons > 0 ? 
-            Math.round((progress.completedLessons.length / progress.totalLessons) * 100) : 0;
-        
-        // If the user hasn't completed all lessons, show a message
-        if (progressPercentage < 100) {
-            alert('You need to complete all lessons before taking the final quiz. Redirecting to the learn page...');
-            window.location.href = '/learn';
-        }
-        // Quiz data
-        const quizData = {
-            beginner: [
-                {
-                    category: "Classical Ciphers",
-                    question: "Which of these is NOT a classical cipher?",
-                    options: [
-                        "Caesar Cipher",
-                        "Vigenère Cipher",
-                        "AES Cipher",
-                        "Substitution Cipher"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "AES (Advanced Encryption Standard) is a modern symmetric encryption algorithm, not a classical cipher. Classical ciphers include Caesar, Vigenère, and substitution ciphers."
-                },
-                {
-                    category: "Encryption Basics",
-                    question: "What is the key characteristic of symmetric encryption?",
-                    options: [
-                        "It uses two different keys for encryption and decryption",
-                        "It uses the same key for encryption and decryption",
-                        "It doesn't require any keys",
-                        "It can only encrypt text, not binary data"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Symmetric encryption uses the same key for both encryption and decryption. This means both the sender and recipient must have access to the same secret key."
-                },
-                {
-                    category: "Historical Context",
-                    question: "Which ancient civilization is credited with inventing the first known cipher device?",
-                    options: [
-                        "Ancient Egypt",
-                        "Ancient Greece",
-                        "Sparta",
-                        "Ancient Rome"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "The Spartans invented the scytale, a cylinder-shaped device used to decrypt messages written on parchment that was wrapped around it. This is considered one of the first cipher devices."
-                },
-                {
-                    category: "Caesar Cipher",
-                    question: "In a Caesar cipher with a shift of 3, how would the letter 'Z' be encrypted?",
-                    options: [
-                        "C",
-                        "W",
-                        "A",
-                        "X"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "In a Caesar cipher, each letter is shifted a certain number of positions in the alphabet. With a shift of 3, 'Z' wraps around to become 'C' (Z→A→B→C)."
-                },
-                {
-                    category: "Cryptography Basics",
-                    question: "What is the primary purpose of cryptography?",
-                    options: [
-                        "Making data faster to transmit",
-                        "Compressing data to save space",
-                        "Securing communication by making it unreadable to unauthorized parties",
-                        "Creating artistic patterns from data"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "The primary purpose of cryptography is to secure communication from unauthorized access by converting readable information into an unreadable format."
-                }
-            ],
-            intermediate: [
-                {
-                    category: "Hash Functions",
-                    question: "Which of the following is NOT a property of a secure cryptographic hash function?",
-                    options: [
-                        "Deterministic output",
-                        "Reversibility",
-                        "Avalanche effect",
-                        "Collision resistance"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Secure hash functions are one-way functions that cannot be reversed. The other options are all important properties of secure hash functions."
-                },
-                {
-                    category: "Public Key Cryptography",
-                    question: "In RSA encryption, which of these keys is used to encrypt a message?",
-                    options: [
-                        "Private key of the sender",
-                        "Private key of the recipient",
-                        "Public key of the sender",
-                        "Public key of the recipient"
-                    ],
-                    correctAnswer: 3,
-                    explanation: "In RSA, messages are encrypted using the recipient's public key, and can only be decrypted using the recipient's private key."
-                },
-                {
-                    category: "Digital Signatures",
-                    question: "What is the main purpose of a digital signature?",
-                    options: [
-                        "To encrypt the message content",
-                        "To compress the message for faster transmission",
-                        "To verify the identity of the sender and ensure message integrity",
-                        "To timestamp when a message was sent"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Digital signatures are primarily used to verify the identity of the sender (authentication) and ensure that the message has not been altered (integrity)."
-                },
-                {
-                    category: "Vigenère Cipher",
-                    question: "What is the key weakness of the Vigenère cipher that led to its eventual break?",
-                    options: [
-                        "The small key space",
-                        "The repeating nature of the key",
-                        "The vulnerability to brute force attacks",
-                        "The requirement for a shared secret"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "The Vigenère cipher's weakness is the repeating nature of its key. This repetition creates patterns that can be analyzed using techniques like the Kasiski examination to determine the key length."
-                },
-                {
-                    category: "Modern Cryptography",
-                    question: "Which encryption algorithm is currently recommended by NIST for sensitive government information?",
-                    options: [
-                        "DES (Data Encryption Standard)",
-                        "3DES (Triple DES)",
-                        "AES (Advanced Encryption Standard)",
-                        "RC4"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "AES (Advanced Encryption Standard) was selected by NIST in 2001 as the standard for encrypting sensitive government information, replacing the older DES algorithm."
-                }
-            ],
-            advanced: [
-                {
-                    category: "Quantum Cryptography",
-                    question: "Which of the following encryption algorithms is considered quantum-resistant?",
-                    options: [
-                        "RSA",
-                        "ECC (Elliptic Curve Cryptography)",
-                        "Lattice-based cryptography",
-                        "Diffie-Hellman key exchange"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Lattice-based cryptography is considered quantum-resistant because it relies on mathematical problems that quantum computers cannot easily solve, unlike RSA and ECC which are vulnerable to Shor's algorithm."
-                },
-                {
-                    category: "Zero-Knowledge Proofs",
-                    question: "What is the main principle of a zero-knowledge proof?",
-                    options: [
-                        "Proving knowledge of a secret without revealing any information about the secret itself",
-                        "Encrypting data so that it can be verified without being decrypted",
-                        "Using quantum entanglement to transmit encryption keys",
-                        "Creating mathematical functions that can only be computed in one direction"
-                    ],
-                    correctAnswer: 0,
-                    explanation: "Zero-knowledge proofs allow one party to prove to another that they know a value or secret without revealing any information about the secret itself."
-                },
-                {
-                    category: "Blockchain Cryptography",
-                    question: "Which cryptographic algorithm does Bitcoin use for its digital signatures?",
-                    options: [
-                        "RSA",
-                        "ECDSA (Elliptic Curve Digital Signature Algorithm)",
-                        "DSA (Digital Signature Algorithm)",
-                        "Ed25519"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Bitcoin uses ECDSA (Elliptic Curve Digital Signature Algorithm) with the secp256k1 curve for its digital signatures in transactions."
-                },
-                {
-                    category: "Homomorphic Encryption",
-                    question: "What makes homomorphic encryption special compared to traditional encryption?",
-                    options: [
-                        "It's faster than traditional encryption",
-                        "It uses quantum mechanics principles",
-                        "It allows computations on encrypted data without decryption",
-                        "It can encrypt larger amounts of data"
-                    ],
-                    correctAnswer: 2,
-                    explanation: "Homomorphic encryption allows computations to be performed on encrypted data without decrypting it first, which enables secure processing of sensitive data in untrusted environments."
-                },
-                {
-                    category: "Secure Multi-party Computation",
-                    question: "In secure multi-party computation, what is the main goal?",
-                    options: [
-                        "To encrypt data so only authorized parties can access it",
-                        "To compute a function across multiple inputs while keeping each input private",
-                        "To validate digital signatures from multiple parties",
-                        "To ensure all parties have the same encryption keys"
-                    ],
-                    correctAnswer: 1,
-                    explanation: "Secure multi-party computation allows multiple parties to jointly compute a function over their inputs while keeping those inputs private, with no party learning anything beyond what can be inferred from their own input and the result."
-                }
-            ]
-        };
+        // DOM elements
+        const startScreen = document.getElementById('quiz-start-screen');
+        const questionsScreen = document.getElementById('quiz-questions-screen');
+        const resultsScreen = document.getElementById('quiz-results-screen');
+        const difficultyButtons = document.querySelectorAll('.difficulty-option');
+        const startQuizButton = document.getElementById('start-quiz-button');
+        const questionContainer = document.getElementById('question-container');
+        const currentQuestionElement = document.getElementById('current-question-num');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const progressValueElement = document.querySelector('.progress-value');
+        const scoreElement = document.getElementById('current-score');
         
         // Quiz variables
         let currentLevel = 'beginner';
         let currentQuestion = 0;
         let score = 0;
         let correctAnswers = 0;
-        let quizStarted = false;
-        let quizCompleted = false;
-        let timer;
-        let seconds = 0;
         let selectedAnswers = [];
         let questions = [];
         
-        // DOM elements
-        const startScreen = document.getElementById('quiz-start-screen');
-        const questionsScreen = document.getElementById('quiz-questions');
-        const resultsScreen = document.getElementById('quiz-results');
-        const leaderboardSection = document.getElementById('leaderboard-section');
-        const levelButtons = document.querySelectorAll('.quiz-level');
-        const startQuizButton = document.getElementById('start-quiz');
-        const timerElement = document.getElementById('timer');
-        const scoreElement = document.getElementById('score');
-        const currentQuestionElement = document.querySelector('.current-question');
-        const totalQuestionsElement = document.querySelector('.total-questions');
-        const progressValueElement = document.querySelector('.progress-value');
-        
-        // Results elements
-        const finalScoreElement = document.getElementById('final-score');
-        const correctAnswersElement = document.getElementById('correct-answers');
-        const totalAnsweredElement = document.getElementById('total-answered');
-        const accuracyElement = document.getElementById('accuracy');
-        const timeTakenElement = document.getElementById('time-taken');
-        const feedbackMessageElement = document.getElementById('feedback-message');
-        const reviewAnswersButton = document.getElementById('review-answers');
-        const retakeQuizButton = document.getElementById('retake-quiz');
-        
         // Level selection
-        levelButtons.forEach(button => {
+        difficultyButtons.forEach(button => {
             button.addEventListener('click', function() {
-                levelButtons.forEach(btn => btn.classList.remove('selected'));
+                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
                 this.classList.add('selected');
                 currentLevel = this.getAttribute('data-level');
             });
+        });
+        
+        // Start quiz
+        startQuizButton.addEventListener('click', function() {
+            startScreen.style.display = 'none';
+            questionsScreen.style.display = 'block';
+            initQuiz();
         });
         
         // Initialize quiz
@@ -859,7 +838,6 @@ title: Cryptography Quiz - CipherLab
             currentQuestion = 0;
             score = 0;
             correctAnswers = 0;
-            seconds = 0;
             selectedAnswers = Array(questions.length).fill(-1);
             
             // Update UI elements
@@ -868,64 +846,47 @@ title: Cryptography Quiz - CipherLab
             scoreElement.textContent = score;
             progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
             
-            // Start timer
-            startTimer();
-            
             // Show first question
             showQuestion();
-        }
-        
-        // Timer function
-        function startTimer() {
-            timer = setInterval(function() {
-                seconds++;
-                updateTimerDisplay();
-            }, 1000);
-        }
-        
-        function updateTimerDisplay() {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
         }
         
         // Show question
         function showQuestion() {
             if (currentQuestion >= questions.length) {
-                endQuiz();
+                showResults();
                 return;
             }
             
             const questionData = questions[currentQuestion];
             
             // Create question element
-            questionsScreen.innerHTML = `
+            questionContainer.innerHTML = `
                 <div class="quiz-question" id="question-${currentQuestion}">
-                    <div class="question-header">
-                        <div class="question-category">${questionData.category}</div>
-                        <div class="question-text">${questionData.question}</div>
-                    </div>
-                    <div class="question-options">
+                    <div class="question-category">${questionData.category}</div>
+                    <div class="question-text">${questionData.question}</div>
+                    <div class="simple-options">
                         ${questionData.options.map((option, index) => `
-                            <div class="option ${selectedAnswers[currentQuestion] === index ? 'selected' : ''}" data-index="${index}">
-                                ${option}
+                            <div class="simple-option ${selectedAnswers[currentQuestion] === index ? 'selected' : ''}" data-index="${index}">
+                                <input type="radio" name="question${currentQuestion}" ${selectedAnswers[currentQuestion] === index ? 'checked' : ''}>
+                                <span class="option-text">${option}</span>
                             </div>
                         `).join('')}
                     </div>
                     ${selectedAnswers[currentQuestion] !== -1 ? `
-                        <div class="question-explanation">
-                            <strong>${selectedAnswers[currentQuestion] === questionData.correctAnswer ? 'Correct!' : 'Incorrect!'}</strong> ${questionData.explanation}
+                        <div class="feedback-box">
+                            <h3>${selectedAnswers[currentQuestion] === questionData.correctAnswer ? 'Correct!' : 'Incorrect!'}</h3>
+                            <p>${questionData.explanation}</p>
                         </div>
                     ` : ''}
                 </div>
                 <div class="question-navigation">
                     ${currentQuestion > 0 ? `
-                        <button class="cta-button cta-button-alt" id="prev-question">
+                        <button class="secondary-button" id="prev-question">
                             <i class="fas fa-arrow-left"></i> Previous
                         </button>
                     ` : `<div></div>`}
                     ${selectedAnswers[currentQuestion] !== -1 ? `
-                        <button class="cta-button" id="next-question">
+                        <button class="primary-button" id="next-question">
                             ${currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'} <i class="fas fa-arrow-right"></i>
                         </button>
                     ` : ''}
@@ -933,7 +894,7 @@ title: Cryptography Quiz - CipherLab
             `;
             
             // Add event listeners to options
-            const options = document.querySelectorAll('.option');
+            const options = document.querySelectorAll('.simple-option');
             options.forEach(option => {
                 option.addEventListener('click', function() {
                     if (selectedAnswers[currentQuestion] !== -1) return; // Already answered
@@ -959,7 +920,7 @@ title: Cryptography Quiz - CipherLab
             if (nextButton) {
                 nextButton.addEventListener('click', function() {
                     if (currentQuestion === questions.length - 1) {
-                        endQuiz();
+                        showResults();
                     } else {
                         currentQuestion++;
                         currentQuestionElement.textContent = currentQuestion + 1;
@@ -986,9 +947,9 @@ title: Cryptography Quiz - CipherLab
             }
             
             // Update UI
-            const options = document.querySelectorAll('.option');
+            const options = document.querySelectorAll('.simple-option');
             options.forEach((option, index) => {
-                option.classList.remove('selected');
+                option.classList.remove('selected', 'correct', 'incorrect');
                 if (index === selectedIndex) {
                     option.classList.add('selected');
                     option.classList.add(isCorrect ? 'correct' : 'incorrect');
@@ -996,29 +957,36 @@ title: Cryptography Quiz - CipherLab
                 if (index === questionData.correctAnswer && !isCorrect) {
                     option.classList.add('correct');
                 }
+                
+                // Update radio buttons
+                const radio = option.querySelector('input[type="radio"]');
+                radio.checked = (index === selectedIndex);
             });
             
             // Add explanation
             const questionElement = document.getElementById(`question-${currentQuestion}`);
             const explanationDiv = document.createElement('div');
-            explanationDiv.classList.add('question-explanation');
-            explanationDiv.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Incorrect!'}</strong> ${questionData.explanation}`;
+            explanationDiv.classList.add('feedback-box');
+            explanationDiv.innerHTML = `
+                <h3>${isCorrect ? 'Correct!' : 'Incorrect!'}</h3>
+                <p>${questionData.explanation}</p>
+            `;
             
-            if (!questionElement.querySelector('.question-explanation')) {
-                questionElement.querySelector('.question-options').after(explanationDiv);
+            if (!questionElement.querySelector('.feedback-box')) {
+                questionElement.querySelector('.simple-options').after(explanationDiv);
             }
             
             // Add next button if not already present
             if (!document.getElementById('next-question')) {
                 const navigationDiv = document.querySelector('.question-navigation');
                 const nextButton = document.createElement('button');
-                nextButton.classList.add('cta-button');
+                nextButton.classList.add('primary-button');
                 nextButton.id = 'next-question';
                 nextButton.innerHTML = `${currentQuestion === questions.length - 1 ? 'Finish Quiz' : 'Next Question'} <i class="fas fa-arrow-right"></i>`;
                 
                 nextButton.addEventListener('click', function() {
                     if (currentQuestion === questions.length - 1) {
-                        endQuiz();
+                        showResults();
                     } else {
                         currentQuestion++;
                         currentQuestionElement.textContent = currentQuestion + 1;
@@ -1031,109 +999,54 @@ title: Cryptography Quiz - CipherLab
             }
         }
         
-        // End quiz
-        function endQuiz() {
-            clearInterval(timer);
-            quizCompleted = true;
+        // Show results
+        function showResults() {
+            questionsScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
             
             // Calculate results
             const totalAnswered = selectedAnswers.filter(answer => answer !== -1).length;
             const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
             
             // Update results screen
-            finalScoreElement.textContent = score;
-            correctAnswersElement.textContent = correctAnswers;
-            totalAnsweredElement.textContent = totalAnswered;
-            accuracyElement.textContent = accuracy;
-            timeTakenElement.textContent = timerElement.textContent;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('total-count').textContent = totalAnswered;
+            document.getElementById('accuracy-percent').textContent = accuracy;
             
-            // Set feedback message based on score
+            // Set feedback message and badge based on score
+            const feedbackMessage = document.getElementById('feedback-message');
+            const badgeIcon = document.getElementById('badge-icon');
+            const badgeName = document.getElementById('badge-name');
+            
             if (score >= 40) {
-                feedbackMessageElement.textContent = 'Outstanding! You have an excellent grasp of cryptographic concepts.';
+                feedbackMessage.textContent = 'Excellent work! You have a strong understanding of cryptography concepts.';
+                badgeIcon.innerHTML = '<i class="fas fa-crown"></i>';
+                badgeName.textContent = 'Crypto Master';
             } else if (score >= 30) {
-                feedbackMessageElement.textContent = 'Great job! You have a solid understanding of cryptography fundamentals.';
+                feedbackMessage.textContent = 'Great job! You have a solid grasp of cryptography fundamentals.';
+                badgeIcon.innerHTML = '<i class="fas fa-brain"></i>';
+                badgeName.textContent = 'Crypto Scholar';
             } else if (score >= 20) {
-                feedbackMessageElement.textContent = 'Good effort! You're on your way to understanding cryptography.';
+                feedbackMessage.textContent = 'Good effort! You're making progress in understanding cryptography.';
+                badgeIcon.innerHTML = '<i class="fas fa-user-graduate"></i>';
+                badgeName.textContent = 'Crypto Apprentice';
             } else {
-                feedbackMessageElement.textContent = 'Keep studying! Cryptography can be challenging, but you'll improve with practice.';
+                feedbackMessage.textContent = 'Keep learning! Cryptography can be challenging, but you'll improve with practice.';
+                badgeIcon.innerHTML = '<i class="fas fa-seedling"></i>';
+                badgeName.textContent = 'Crypto Novice';
             }
             
-            // Show results screen and leaderboard
-            questionsScreen.style.display = 'none';
-            resultsScreen.style.display = 'block';
-            leaderboardSection.style.display = 'block';
-            
-            // Simulate leaderboard entries
-            populateLeaderboard();
-        }
-        
-        // Populate leaderboard with simulated data
-        function populateLeaderboard() {
-            const leaderboardBody = document.querySelector('.leaderboard-body');
-            
-            // Generate some fake entries plus the current user
-            const entries = [
-                { rank: 1, name: 'CryptoMaster', score: 50, time: '04:32', date: '2025-03-25' },
-                { rank: 2, name: 'AliceSecure', score: 45, time: '06:15', date: '2025-03-24' },
-                { rank: 3, name: 'BobPrivate', score: 40, time: '05:40', date: '2025-03-22' },
-                { rank: 4, name: 'Enigma2025', score: 35, time: '07:12', date: '2025-03-20' },
-                // Current user will be inserted based on score
-            ];
-            
-            // Add current user
-            let userRank = entries.findIndex(entry => entry.score < score) + 1;
-            if (userRank === 0) userRank = entries.length + 1;
-            
-            entries.splice(userRank - 1, 0, {
-                rank: userRank,
-                name: 'You',
-                score: score,
-                time: timerElement.textContent,
-                date: '2025-03-29' // Current date
+            // Add event listeners to buttons
+            document.getElementById('review-answers-button').addEventListener('click', function() {
+                // This would typically show a review of all answers
+                alert('This feature will show a detailed review of all your answers.');
             });
             
-            // Rerank entries
-            entries.forEach((entry, index) => {
-                entry.rank = index + 1;
+            document.getElementById('retry-quiz-button').addEventListener('click', function() {
+                resultsScreen.style.display = 'none';
+                startScreen.style.display = 'block';
             });
-            
-            // Generate HTML
-            leaderboardBody.innerHTML = entries.map(entry => `
-                <div class="leaderboard-row ${entry.name === 'You' ? 'current-user' : ''}">
-                    <div class="rank-column">${entry.rank}</div>
-                    <div class="name-column">${entry.name}</div>
-                    <div class="score-column">${entry.score}</div>
-                    <div class="time-column">${entry.time}</div>
-                    <div class="date-column">${entry.date}</div>
-                </div>
-            `).join('');
         }
-        
-        // Event listeners
-        startQuizButton.addEventListener('click', function() {
-            startScreen.style.display = 'none';
-            questionsScreen.style.display = 'block';
-            quizStarted = true;
-            initQuiz();
-        });
-        
-        retakeQuizButton.addEventListener('click', function() {
-            resultsScreen.style.display = 'none';
-            startScreen.style.display = 'block';
-            leaderboardSection.style.display = 'none';
-            quizCompleted = false;
-        });
-        
-        reviewAnswersButton.addEventListener('click', function() {
-            resultsScreen.style.display = 'none';
-            questionsScreen.style.display = 'block';
-            currentQuestion = 0;
-            currentQuestionElement.textContent = currentQuestion + 1;
-            progressValueElement.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
-            showQuestion();
-        });
-        
-        // Initialize with beginner level selected
-        levelButtons[0].classList.add('selected');
     });
 </script>
