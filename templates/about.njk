@@ -185,6 +185,7 @@ title: About CipherLab
 
 <!-- Additional CSS for this page -->
 <style>
+    /* Hero styling */
     #about-hero {
         position: relative;
         min-height: 40vh; /* Shorter than main page hero */
@@ -207,6 +208,37 @@ title: About CipherLab
         margin: 0 !important;
         padding: 0 1rem;
         overflow: visible;
+    }
+    
+    /* Feature icons container - match index page */
+    .team-member-avatar {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary);
+        border-radius: 50%;
+    }
+    
+    .team-member-avatar i {
+        font-size: 2.5rem;
+        color: var(--dark);
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Enhance team grid to match feature grid on index */
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        width: 100%;
     }
     
     .about-intro {

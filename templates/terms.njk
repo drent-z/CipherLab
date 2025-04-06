@@ -188,6 +188,52 @@ title: Terms of Service - CipherLab
         overflow: visible;
     }
     
+    /* Binary stream animation - matching index page */
+    .binary-stream {
+        position: absolute;
+        bottom: 20px;
+        font-family: 'IBM Plex Mono', monospace;
+        color: var(--primary);
+        opacity: 0.3;
+        font-size: 1rem;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 100vw;
+        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: binaryScroll 15s linear infinite;
+    }
+    
+    /* Match summary points with feature boxes */
+    .summary-point {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .summary-point:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border-color: var(--primary);
+    }
+    
+    /* Match navigation buttons to feature button style */
+    .nav-button {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary-dark);
+        border-radius: 12px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .nav-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border-color: var(--primary);
+    }
+    
     .simple-card {
         background-color: var(--medium-dark);
         border-radius: 10px;

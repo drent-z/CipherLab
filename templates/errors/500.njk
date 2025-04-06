@@ -88,6 +88,7 @@ title: 500 - Server Error
         </div>
     </div>
 </div>
+</div>
 
 <style>
     /* Hero Styling */
@@ -104,6 +105,7 @@ title: 500 - Server Error
         max-width: 100%;
         pointer-events: auto;
         z-index: 1;
+        margin-bottom: 2rem;
     }
     
     /* Force row to be full-width */
@@ -115,14 +117,26 @@ title: 500 - Server Error
         overflow: visible;
     }
     
-    .error-container {
-        min-height: 40vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 2rem;
+    /* Binary stream animation - matching index page */
+    .binary-stream {
+        position: absolute;
+        bottom: 20px;
+        font-family: 'IBM Plex Mono', monospace;
+        color: var(--primary);
+        opacity: 0.3;
+        font-size: 1rem;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 100vw;
+        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: binaryScroll 15s linear infinite;
+    }
+    
+    .error-content {
+        max-width: 700px;
+        margin: 0 auto;
     }
     
     .glitch-wrapper {

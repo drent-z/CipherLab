@@ -2,7 +2,7 @@
 layout: layout.njk
 title: Ciphers & Learning - CipherLab
 ---
-<section class="hero cipher-hero">
+<section class="hero" id="cipher-hero">
     <div class="hero-gradient-container"></div>
     <div class="row hero-row">
         <div class="col-12 text-center">
@@ -466,7 +466,7 @@ A → X    B → P    C → M    ...
 
 <!-- Additional CSS for this page -->
 <style>
-    .cipher-hero {
+    #cipher-hero {
         position: relative;
         min-height: 40vh;
         display: flex;
@@ -482,7 +482,7 @@ A → X    B → P    C → M    ...
     }
     
     /* Force row to be full-width */
-    .cipher-hero .hero-row {
+    #cipher-hero .hero-row {
         width: 100%;
         max-width: 100%;
         margin: 0 !important;

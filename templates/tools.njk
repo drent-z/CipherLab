@@ -442,6 +442,7 @@ title: Interactive Crypto Tools - CipherLab
 
 <!-- Additional CSS for this page -->
 <style>
+    /* Hero styling */
     #tools-hero {
         position: relative;
         min-height: 40vh; /* Shorter than main page hero */
@@ -464,6 +465,18 @@ title: Interactive Crypto Tools - CipherLab
         margin: 0 !important;
         padding: 0 1rem;
         overflow: visible;
+    }
+    
+    /* Make tool tabs have feature icon container style */
+    .tool-tab i {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        transition: color 0.3s ease;
+    }
+    
+    .tool-tab.active i {
+        color: var(--dark);
     }
     
     .tool-selector {
