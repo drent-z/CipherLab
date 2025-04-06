@@ -80,9 +80,7 @@ title: CipherLab - Cryptography Educational Platform
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        /* Simplified scroll settings to prevent conflicts */
-        scroll-behavior: auto !important; /* Disable smooth scrolling which can cause janky behavior */
-        overscroll-behavior: none; /* Prevent bounce effects that can trip up scrolling */
+        /* Ensure we're not creating duplicate scrollbars */
         height: 100%; /* Ensure full height */
     }
     
@@ -603,6 +601,11 @@ title: CipherLab - Cryptography Educational Platform
     
     /* Fix for touch devices and mobile Safari */
     @media (pointer: coarse) {
+        /* Fix scrollbar issue */
+        html, body {
+            overflow-y: visible !important;
+            overflow-x: hidden !important;
+        }
         .cta-button, 
         .btn-learn-more,
         .feature-box,
@@ -625,11 +628,8 @@ title: CipherLab - Cryptography Educational Platform
         }
         
         /* Enable bounce scrolling on iOS */
-        html, body {
-            position: relative;
-            height: 100%;
+        html {
             -webkit-overflow-scrolling: touch;
-            overflow-y: auto;
             overscroll-behavior-y: auto;
         }
     }
@@ -640,6 +640,17 @@ title: CipherLab - Cryptography Educational Platform
         .section:last-of-type {
             padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0));
             margin-bottom: env(safe-area-inset-bottom, 0);
+        }
+        
+        /* Fix for double scrollbar issue */
+        html {
+            overflow-y: auto;
+            height: -webkit-fill-available;
+        }
+        
+        body {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
         }
     }
     
