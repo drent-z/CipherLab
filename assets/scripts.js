@@ -39,84 +39,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Navbar toggle functionality - IMPROVED FOR RELIABILITY
+    // COMPLETELY REBUILT HAMBURGER MENU - ULTRA SIMPLE VERSION
     const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
     
-    if (navbarToggler && navbarCollapse) {
-        // Ensure toggler has proper attributes
-        navbarToggler.setAttribute('type', 'button');
-        
-        // Add direct click event
-        navbarToggler.addEventListener('click', (event) => {
-            // Prevent any default behavior
-            event.preventDefault();
-            event.stopPropagation();
+    // We'll use Bootstrap's native events since we're using Bootstrap
+    if (navbarToggler) {
+        // Just initialize the basic click handler - no preventDefault, no stopPropagation
+        navbarToggler.addEventListener('click', function() {
+            // Find the target element explicitly
+            const targetId = navbarToggler.getAttribute('data-target') || '#main-nav';
+            const navbarCollapse = document.querySelector(targetId) || document.querySelector('.navbar-collapse');
             
-            // Toggle the expanded state
-            const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
-            navbarToggler.setAttribute('aria-expanded', !isExpanded);
-            
-            // Toggle the show class
-            navbarCollapse.classList.toggle('show');
-            
-            // Create overlay when menu is open
-            if (navbarCollapse.classList.contains('show')) {
-                const overlay = document.createElement('div');
-                overlay.classList.add('navbar-overlay');
+            if (navbarCollapse) {
+                // Toggle aria-expanded
+                const expanded = navbarToggler.getAttribute('aria-expanded') === 'true' || false;
+                navbarToggler.setAttribute('aria-expanded', !expanded);
                 
-                // Set all styles at once for better performance
-                Object.assign(overlay.style, {
-                    position: 'fixed',
-                    top: '0',
-                    left: '0',
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    zIndex: '1000',
-                    cursor: 'pointer'
-                });
-                
-                document.body.appendChild(overlay);
-                
-                // Add click event to close menu when overlay is clicked
-                overlay.addEventListener('click', () => {
+                // Toggle the collapse
+                if (!expanded) {
+                    navbarCollapse.classList.add('show'); 
+                } else {
                     navbarCollapse.classList.remove('show');
-                    navbarToggler.setAttribute('aria-expanded', 'false');
-                    overlay.remove();
-                });
-            } else {
-                // Remove overlay if menu is closed
-                const existingOverlay = document.querySelector('.navbar-overlay');
-                if (existingOverlay) {
-                    existingOverlay.remove();
                 }
             }
-            
-            console.log('Menu toggled, show state:', navbarCollapse.classList.contains('show'));
-        });
-        
-        // Fix links in the mobile menu to ensure they work and close the menu when clicked
-        const navLinks = navbarCollapse.querySelectorAll('a');
-        navLinks.forEach(link => {
-            // Remove any existing event listeners
-            const newLink = link.cloneNode(true);
-            link.parentNode.replaceChild(newLink, link);
-            
-            // Add new event listener
-            newLink.addEventListener('click', (event) => {
-                // Don't prevent default for links to work
-                setTimeout(() => {
-                    navbarCollapse.classList.remove('show');
-                    navbarToggler.setAttribute('aria-expanded', 'false');
-                    const existingOverlay = document.querySelector('.navbar-overlay');
-                    if (existingOverlay) {
-                        existingOverlay.remove();
-                    }
-                }, 100); // Small delay to allow the click to register
-            });
         });
     }
+    
+    // Let the links work as normal without any event handlers that might interfere
     
     // Initialize interactive cipher demos if they exist
     initCipherDemos();

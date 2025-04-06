@@ -765,7 +765,7 @@ footer::before {
         z-index: 1005;
     }
 
-.navbar-collapse {
+.navbar-collapse, .collapse.navbar-collapse {
         position: fixed;
         top: 0;
         left: -100%;
@@ -782,7 +782,7 @@ footer::before {
         box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
     }
 
-    .navbar-collapse.show {
+    .navbar-collapse.show, .collapse.navbar-collapse.show {
         left: 0;
         display: flex !important;
     }
