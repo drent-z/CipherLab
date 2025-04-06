@@ -58,12 +58,10 @@
       --text: #ffffff;
     }
     
-    /* Prevent scroll jank */
+    /* Prevent scroll jank - updated for better iOS compatibility */
     html {
-      overflow-y: scroll; /* Always show scrollbar to prevent layout shifts */
-      scroll-behavior: auto !important; /* Disable smooth scroll to avoid stuck scrolling */
-      overscroll-behavior: none; /* Prevent bounce effects */
       height: 100%;
+      scroll-behavior: auto !important; /* Disable smooth scroll to avoid stuck scrolling */
     }
     
     body {
@@ -75,9 +73,7 @@
       line-height: 1.6;
       opacity: 0;
       transition: opacity 0.3s ease;
-      height: 100%;
       position: relative; /* For absolute positioning context */
-      overflow-x: hidden; /* Prevent horizontal scrolling */
     }
     
     body.loaded {

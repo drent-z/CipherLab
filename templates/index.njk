@@ -76,12 +76,9 @@ title: CipherLab - Cryptography Educational Platform
     /* --- CORE FIXES --- */
     html, body {
         max-width: 100%;
-        overflow-x: hidden;
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        /* Ensure we're not creating duplicate scrollbars */
-        height: 100%; /* Ensure full height */
     }
     
     body * {
@@ -599,13 +596,8 @@ title: CipherLab - Cryptography Educational Platform
         }
     }
     
-    /* Fix for touch devices and mobile Safari */
+    /* Fix for touch devices */
     @media (pointer: coarse) {
-        /* Fix scrollbar issue */
-        html, body {
-            overflow-y: visible !important;
-            overflow-x: hidden !important;
-        }
         .cta-button, 
         .btn-learn-more,
         .feature-box,
@@ -619,38 +611,6 @@ title: CipherLab - Cryptography Educational Platform
         .btn-learn-more:hover,
         .cta-button:hover {
             transform: none !important;
-        }
-        
-        /* Fix for iOS Safari bottom tab cutting off content */
-        .features-container {
-            padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0));
-            margin-bottom: env(safe-area-inset-bottom, 0);
-        }
-        
-        /* Enable bounce scrolling on iOS */
-        html {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: auto;
-        }
-    }
-    
-    /* iOS Safari viewport fix */
-    @supports (-webkit-touch-callout: none) {
-        /* Adds bottom padding for iOS to prevent content from being hidden behind the navigation bar */
-        .section:last-of-type {
-            padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0));
-            margin-bottom: env(safe-area-inset-bottom, 0);
-        }
-        
-        /* Fix for double scrollbar issue */
-        html {
-            overflow-y: auto;
-            height: -webkit-fill-available;
-        }
-        
-        body {
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
         }
     }
     

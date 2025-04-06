@@ -70,13 +70,43 @@ body::after {
 html, body {
     min-height: 100vh;
     scroll-padding: 0;
-    overscroll-behavior: none;
+    overflow-x: hidden;
 }
 
-/* Fix for iOS momentum scrolling */
+/* Fix for iOS momentum scrolling and double scrollbar */
 @supports (-webkit-overflow-scrolling: touch) {
-    body {
+    html {
+        height: -webkit-fill-available;
         -webkit-overflow-scrolling: touch;
+        overflow-y: auto !important;
+        overscroll-behavior-y: auto;
+    }
+    
+    body {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        height: auto;
+        overflow-y: visible !important;
+    }
+    
+    /* Adds bottom padding for iOS to prevent content from being hidden behind the navigation bar */
+    .section:last-of-type {
+        padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0));
+        margin-bottom: env(safe-area-inset-bottom, 0);
+    }
+}
+
+/* Fix for touch devices to ensure proper scrolling */
+@media (pointer: coarse) {
+    html, body {
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Fix for iOS Safari bottom tab cutting off content */
+    .features-container {
+        padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0));
+        margin-bottom: env(safe-area-inset-bottom, 0);
     }
 }
 
