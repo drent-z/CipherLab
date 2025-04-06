@@ -38,18 +38,177 @@ title: Learn Cryptography - CipherLab
                 </div>
             </div>
             
-            <!-- Learning Path -->
-            <div class="learning-modules fade-in">
-                <!-- Include the module files -->
-                {% include "learn/module1.njk" %}
-                {% include "learn/module2.njk" %}
-                {% include "learn/module3.njk" %}
-                {% include "learn/module4.njk" %}
-                {% include "learn/module5.njk" %}
+            <!-- Module Navigation Tabs -->
+            <div class="module-tabs-container fade-in">
+                <div class="module-tabs">
+                    <button class="module-tab active" data-module="module1">
+                        <i class="fas fa-key"></i>
+                        <span>Fundamentals</span>
+                    </button>
+                    <button class="module-tab" data-module="module2">
+                        <i class="fas fa-history"></i>
+                        <span>Classical</span>
+                    </button>
+                    <button class="module-tab" data-module="module3">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Modern</span>
+                    </button>
+                    <button class="module-tab" data-module="module4">
+                        <i class="fas fa-globe"></i>
+                        <span>Applications</span>
+                    </button>
+                    <button class="module-tab" data-module="module5">
+                        <i class="fas fa-brain"></i>
+                        <span>Advanced</span>
+                    </button>
+                </div>
                 
-                <!-- Final Quiz Section -->
-                {% include "learn/final-quiz.njk" %}
+                <!-- Module Content Panels -->
+                <div class="module-content-panels">
+                    <!-- Module 1 Panel -->
+                    <div class="module-panel active" id="module1-panel">
+                        <div class="module-panel-header">
+                            <h3>Module 1: Fundamentals of Cryptography</h3>
+                            <p>Learn the basic concepts and terminology of cryptography</p>
+                        </div>
+                        <div class="lessons-grid">
+                            <div class="lesson-card" onclick="showLesson('lesson1-1')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">What is Cryptography?</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson1-1"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson1-2')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Types of Cryptography</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson1-2"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson1-3')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">The Use of Cryptography in the Real World</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson1-3"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module 2 Panel -->
+                    <div class="module-panel" id="module2-panel">
+                        <div class="module-panel-header">
+                            <h3>Module 2: Classical Ciphers</h3>
+                            <p>Explore historical encryption techniques and their implementations</p>
+                        </div>
+                        <div class="lessons-grid">
+                            <div class="lesson-card" onclick="showLesson('lesson2-1')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Caesar Cipher</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson2-1"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson2-2')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Vigenère Cipher</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson2-2"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson2-3')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Substitution Cipher</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson2-3"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module 3 Panel -->
+                    <div class="module-panel" id="module3-panel">
+                        <div class="module-panel-header">
+                            <h3>Module 3: Modern Cryptography</h3>
+                            <p>Understand contemporary encryption algorithms and techniques</p>
+                        </div>
+                        <div class="lessons-grid">
+                            <div class="lesson-card" onclick="showLesson('lesson3-1')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Symmetric Encryption</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson3-1"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson3-2')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Asymmetric Encryption</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson3-2"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson3-3')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Hash Functions</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson3-3"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module 4 Panel -->
+                    <div class="module-panel" id="module4-panel">
+                        <div class="module-panel-header">
+                            <h3>Module 4: Practical Applications</h3>
+                            <p>Apply cryptographic principles to real-world security challenges</p>
+                        </div>
+                        <div class="lessons-grid">
+                            <div class="lesson-card" onclick="showLesson('lesson4-1')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Secure Communications</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-1"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson4-2')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Digital Signatures & PKI</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-2"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson4-3')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Blockchain & Cryptocurrencies</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-3"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module 5 Panel -->
+                    <div class="module-panel" id="module5-panel">
+                        <div class="module-panel-header">
+                            <h3>Module 5: Advanced Topics</h3>
+                            <p>Discover cutting-edge cryptographic concepts and future directions</p>
+                        </div>
+                        <div class="lessons-grid">
+                            <div class="lesson-card" onclick="showLesson('lesson5-1')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Quantum Cryptography</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson5-1"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson5-2')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Zero-Knowledge Proofs</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson5-2"></i></div>
+                                </div>
+                            </div>
+                            <div class="lesson-card" onclick="showLesson('lesson5-3')">
+                                <div class="lesson-card-inner">
+                                    <div class="lesson-title">Homomorphic Encryption</div>
+                                    <div class="lesson-status"><i class="far fa-circle" id="status-lesson5-3"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Final Quiz Section -->
+            {% include "learn/final-quiz.njk" %}
         </div>
     </div>
 </section>
@@ -182,146 +341,152 @@ title: Learn Cryptography - CipherLab
         transition: width 0.5s ease;
     }
     
-    /* Learning Modules */
-    .learning-modules {
+    /* Module Tabs */
+    .module-tabs-container {
+        margin-bottom: 2rem;
+    }
+    
+    .module-tabs {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        scroll-behavior: smooth;
+    }
+    
+    .module-tab {
+        background: var(--darker);
+        border: 1px solid var(--primary-dark);
+        color: var(--text);
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 110px;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     
-    .learning-module {
+    .module-tab i {
+        font-size: 1.5rem;
+        color: var(--primary-dark);
+        transition: color 0.3s ease;
+    }
+    
+    .module-tab span {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .module-tab:hover {
+        transform: translateY(-3px);
+        background: var(--medium-dark);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .module-tab.active {
+        background: linear-gradient(to bottom, var(--primary-dark), var(--medium-dark));
+        border: 1px solid var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .module-tab.active i {
+        color: var(--primary);
+    }
+    
+    /* Module Panels */
+    .module-content-panels {
         background-color: var(--medium-dark);
         border-radius: 10px;
-        overflow: hidden;
         border: 1px solid var(--primary-dark);
-        transition: all 0.3s ease;
+        overflow: hidden;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        position: relative;
+        min-height: 350px;
     }
     
-    .learning-module:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    .module-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
     }
     
-    .module-header {
-        display: flex;
-        align-items: center;
-        padding: 1.5rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+    .module-panel.active {
+        opacity: 1;
+        visibility: visible;
         position: relative;
     }
     
-    .module-header:hover {
-        background-color: var(--light-dark);
+    .module-panel-header {
+        background-color: var(--darker);
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--primary-dark);
     }
     
-    .module-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    .module-header:hover::after {
-        opacity: 1;
-    }
-    
-    .module-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1.5rem;
-        font-size: 1.8rem;
-        color: var(--dark);
-        flex-shrink: 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    .module-title {
-        flex-grow: 1;
-    }
-    
-    .module-title h3 {
+    .module-panel-header h3 {
         margin: 0;
         font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text);
-    }
-    
-    .module-title p {
-        color: var(--text-muted);
-        margin: 0.5rem 0 0 0;
-        font-size: 0.95rem;
-    }
-    
-    .module-progress {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-        gap: 1rem;
-    }
-    
-    .module-percentage {
-        font-weight: 600;
         color: var(--primary);
-        background-color: var(--darker);
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
     }
     
-    .module-toggle-icon {
+    .module-panel-header p {
+        margin: 0.5rem 0 0 0;
         color: var(--text-muted);
-        font-size: 1.2rem;
-        transition: transform 0.3s ease;
     }
     
-    .module-header[aria-expanded="true"] .module-toggle-icon {
-        transform: rotate(180deg);
-    }
-    
-    .module-content {
-        padding: 0 1.5rem 1.5rem;
-        display: none;
-    }
-    
-    .lessons-list {
+    .lessons-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.25rem;
+        padding: 1.5rem;
     }
     
-    .lesson-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1.25rem;
+    .lesson-card {
         background-color: var(--darker);
-        border-left: 3px solid var(--primary-dark);
-        border-radius: 6px;
+        border-radius: 8px;
+        overflow: hidden;
         cursor: pointer;
         transition: all 0.3s ease;
+        border: 1px solid var(--primary-dark);
+        height: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
     
-    .lesson-item:hover {
-        background-color: var(--light-dark);
-        transform: translateX(5px);
-        border-left-color: var(--primary);
+    .lesson-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-color: var(--primary);
+    }
+    
+    .lesson-card-inner {
+        padding: 1.25rem;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
     
     .lesson-title {
         font-weight: 500;
-        padding-right: 1rem;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .lesson-status {
+        text-align: right;
     }
     
     .lesson-status i {
@@ -651,10 +816,6 @@ title: Learn Cryptography - CipherLab
     
     /* Media Queries */
     @media (max-width: 992px) {
-        .lessons-list {
-            grid-template-columns: 1fr;
-        }
-        
         .final-quiz-header {
             flex-direction: column;
             text-align: center;
@@ -668,6 +829,10 @@ title: Learn Cryptography - CipherLab
         .quiz-info {
             text-align: center;
         }
+        
+        .lessons-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
     }
     
     @media (max-width: 768px) {
@@ -676,14 +841,27 @@ title: Learn Cryptography - CipherLab
             align-items: flex-start;
         }
         
-        .module-header {
-            flex-wrap: wrap;
+        .module-tabs {
+            justify-content: flex-start;
+            padding-bottom: 10px;
         }
         
-        .module-progress {
-            width: 100%;
-            margin-top: 1rem;
-            justify-content: flex-end;
+        .module-tab {
+            min-width: 90px;
+            padding: 0.6rem 1rem;
+        }
+        
+        .module-tab i {
+            font-size: 1.3rem;
+        }
+        
+        .module-tab span {
+            font-size: 0.8rem;
+        }
+        
+        .lessons-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
         
         .lesson-navigation {
@@ -710,20 +888,31 @@ title: Learn Cryptography - CipherLab
     }
     
     @media (max-width: 576px) {
-        .module-icon {
-            width: 45px;
-            height: 45px;
-            font-size: 1.4rem;
+        .module-tabs {
+            gap: 0.25rem;
         }
         
-        .module-title h3 {
+        .module-tab {
+            min-width: 70px;
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .module-tab i {
             font-size: 1.2rem;
+        }
+        
+        .module-tab span {
+            font-size: 0.75rem;
         }
         
         .quiz-icon {
             width: 45px;
             height: 45px;
             font-size: 1.4rem;
+        }
+        
+        .module-panel-header h3 {
+            font-size: 1.3rem;
         }
     }
 </style>
@@ -759,8 +948,8 @@ title: Learn Cryptography - CipherLab
     
     document.addEventListener('DOMContentLoaded', function() {
         // Get elements
-        const moduleHeaders = document.querySelectorAll('.module-header');
-        const moduleContents = document.querySelectorAll('.module-content');
+        const moduleTabs = document.querySelectorAll('.module-tab');
+        const modulePanels = document.querySelectorAll('.module-panel');
         const completedCount = document.getElementById('completed-count');
         const totalCount = document.getElementById('total-count');
         const percentage = document.getElementById('percentage');
@@ -773,17 +962,6 @@ title: Learn Cryptography - CipherLab
         const prevLessonBottomBtn = document.getElementById('prev-lesson-bottom');
         const nextLessonBottomBtn = document.getElementById('next-lesson-bottom');
         const completeBtn = document.getElementById('complete-lesson');
-        const quizStatusText = document.getElementById('quiz-status-text');
-        const quizLockIcon = document.getElementById('quiz-lock-icon');
-        const quizProgressValue = document.getElementById('quiz-progress-value');
-        const startFinalQuizBtn = document.getElementById('start-final-quiz');
-        
-        // Initialize module headers with ARIA attributes
-        moduleHeaders.forEach(header => {
-            const contentId = header.getAttribute('data-target');
-            header.setAttribute('aria-expanded', 'false');
-            header.setAttribute('aria-controls', contentId);
-        });
         
         // Lesson templates
         const lessonTemplates = document.getElementById('lesson-templates');
@@ -845,26 +1023,23 @@ title: Learn Cryptography - CipherLab
         const totalLessons = modules.reduce((sum, module) => sum + module.lessons.length, 0);
         totalCount.textContent = totalLessons;
         
-        // Toggle module content visibility
-        window.toggleModule = function(moduleContentId) {
-            const moduleContent = document.getElementById(moduleContentId);
-            const moduleHeader = document.querySelector(`[data-target="${moduleContentId}"]`);
-            
-            if (moduleContent.style.display === 'block') {
-                moduleContent.style.display = 'none';
-                moduleHeader.setAttribute('aria-expanded', 'false');
-            } else {
-                // Optional: Hide all other module contents
-                moduleContents.forEach(content => {
-                    content.style.display = 'none';
-                    document.querySelector(`[data-target="${content.id}"]`).setAttribute('aria-expanded', 'false');
-                });
+        // Handle module tab switching
+        moduleTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const moduleId = this.getAttribute('data-module');
                 
-                // Show the selected module content
-                moduleContent.style.display = 'block';
-                moduleHeader.setAttribute('aria-expanded', 'true');
-            }
-        };
+                // Remove active class from all tabs and panels
+                moduleTabs.forEach(t => t.classList.remove('active'));
+                modulePanels.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to selected tab and panel
+                this.classList.add('active');
+                document.getElementById(`${moduleId}-panel`).classList.add('active');
+                
+                // Smooth scroll to the module content
+                document.getElementById(`${moduleId}-panel`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
         
         // Show lesson content
         window.showLesson = function(lessonId) {
@@ -1069,26 +1244,16 @@ title: Learn Cryptography - CipherLab
                 const moduleCompleted = module.lessons.filter(lesson => completedLessons.includes(lesson.id)).length;
                 const modulePercentage = Math.round((moduleCompleted / module.lessons.length) * 100);
                 
-                document.getElementById(`${module.id}-percentage`).textContent = `${modulePercentage}%`;
+                // Update module percentage display if it exists
+                const modulePercentageElement = document.getElementById(`${module.id}-percentage`);
+                if (modulePercentageElement) {
+                    modulePercentageElement.textContent = `${modulePercentage}%`;
+                }
             });
             
-            // Update final quiz status
+            // Update final quiz status - always stays unlocked now
             if (quizProgressValue) {
-                quizProgressValue.style.width = `${percentageValue}%`;
-            }
-            
-            if (percentageValue === 100 && quizStatusText && quizLockIcon && startFinalQuizBtn) {
-                quizStatusText.textContent = 'Unlocked';
-                quizLockIcon.classList.remove('fa-lock');
-                quizLockIcon.classList.add('fa-unlock');
-                quizLockIcon.style.color = 'var(--primary)';
-                startFinalQuizBtn.disabled = false;
-                
-                // Show a congratulatory message
-                if (!localStorage.getItem('quizUnlockedNotified')) {
-                    alert('Congratulations! You\'ve completed all lessons and unlocked the Final Certification Quiz.');
-                    localStorage.setItem('quizUnlockedNotified', 'true');
-                }
+                quizProgressValue.style.width = `100%`;
             }
         }
         
