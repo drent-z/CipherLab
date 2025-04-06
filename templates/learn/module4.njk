@@ -1,6 +1,6 @@
 <!-- Module 4 -->
 <div class="learning-module" id="module4">
-    <div class="module-header" onclick="toggleModule('module4-content')">
+    <div class="module-header" data-target="module4-content" onclick="toggleModule('module4-content')">
         <div class="module-icon">
             <i class="fas fa-globe"></i>
         </div>
@@ -10,22 +10,22 @@
         </div>
         <div class="module-progress">
             <span class="module-percentage" id="module4-percentage">0%</span>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-chevron-down module-toggle-icon"></i>
         </div>
     </div>
     <div class="module-content" id="module4-content">
         <div class="lessons-list">
             <div class="lesson-item" onclick="showLesson('lesson4-1')">
                 <div class="lesson-title">Secure Communications</div>
-                <div class="lesson-status"><i class="far fa-circle" id="status-4-1"></i></div>
+                <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-1"></i></div>
             </div>
             <div class="lesson-item" onclick="showLesson('lesson4-2')">
                 <div class="lesson-title">Digital Signatures & PKI</div>
-                <div class="lesson-status"><i class="far fa-circle" id="status-4-2"></i></div>
+                <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-2"></i></div>
             </div>
             <div class="lesson-item" onclick="showLesson('lesson4-3')">
                 <div class="lesson-title">Blockchain & Cryptocurrencies</div>
-                <div class="lesson-status"><i class="far fa-circle" id="status-4-3"></i></div>
+                <div class="lesson-status"><i class="far fa-circle" id="status-lesson4-3"></i></div>
             </div>
         </div>
     </div>
