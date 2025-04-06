@@ -1,4 +1,4 @@
-<!-- Final Quiz Section -->
+<!-- Final Quiz Section - Improved Styling to Match Index -->
 <div class="final-quiz-container" id="final-quiz-section">
     <div class="final-quiz-card">
         <div class="final-quiz-header">
@@ -21,9 +21,33 @@
                     <div class="quiz-progress-value" id="quiz-progress-value" style="width: 100%;"></div>
                 </div>
             </div>
-            <button id="start-final-quiz" class="final-quiz-button" onclick="startFinalQuiz()">
+            <button id="start-final-quiz" class="cta-button final-quiz-button" onclick="startFinalQuiz()">
                 <i class="fas fa-play"></i> Start Final Quiz
             </button>
         </div>
     </div>
 </div>
+
+<style>
+    /* Updated styling to match index page */
+    .final-quiz-button {
+        display: inline-block;
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        font-weight: 700;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        text-decoration: none;
+        border-radius: 4px;
+        position: relative;
+        z-index: 1;
+        border: 1px solid var(--primary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .final-quiz-button:hover {
+        color: var(--dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+</style>

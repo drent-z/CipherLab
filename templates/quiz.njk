@@ -2,10 +2,28 @@
 layout: layout.njk
 title: Cryptography Quiz - CipherLab
 ---
-<div class="simple-header">
-    <h1>Cryptography Challenge</h1>
-    <p>Test your knowledge of cryptography concepts</p>
-</div>
+<section class="hero" id="quiz-hero">
+    <div class="hero-gradient-container"></div>
+    <div class="row hero-row">
+        <div class="col-12 text-center">
+            <div class="typing-container mb-4">
+                <div class="welcome-container">
+                    <svg width="100%" height="100" viewBox="0 0 700 100" class="welcome-svg" preserveAspectRatio="xMidYMid meet">
+                        <text x="50%" y="60" class="welcome-text-base" text-anchor="middle">Cryptography Challenge</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">Cryptography Challenge</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">Cryptography Challenge</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="hero-content">
+                <p class="mb-4 fade-in hero-subtitle">Test your knowledge of cryptography concepts</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Animated binary code decoration -->
+    <div class="binary-stream">01010001 01010101 01001001 01011010</div>
+</section>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -142,24 +160,30 @@ title: Cryptography Quiz - CipherLab
 </div>
 
 <style>
-    /* Simple Header */
-    .simple-header {
+    /* Hero Styling */
+    #quiz-hero {
+        position: relative;
+        min-height: 40vh; /* Shorter than main page hero */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         padding: 3rem 0;
-        background-color: var(--darker);
+        width: 100%;
+        max-width: 100%;
+        pointer-events: auto;
+        z-index: 1;
         margin-bottom: 2rem;
-        border-bottom: 1px solid var(--primary-dark);
     }
     
-    .simple-header h1 {
-        color: var(--primary);
-        margin-bottom: 0.5rem;
-        font-size: 2.5rem;
-    }
-    
-    .simple-header p {
-        font-size: 1.2rem;
-        color: var(--text);
+    /* Force row to be full-width */
+    #quiz-hero .hero-row {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 1rem;
+        overflow: visible;
     }
     
     /* Simple Card */

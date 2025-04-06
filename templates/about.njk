@@ -2,22 +2,28 @@
 layout: layout.njk
 title: About CipherLab
 ---
-<div class="hero" id="about-hero">
+<section class="hero" id="about-hero">
     <div class="hero-gradient-container"></div>
     <div class="row hero-row">
         <div class="col-12 text-center">
-            <h1 class="glitch" data-text="About CipherLab">
-                <span>About CipherLab</span>
-                <span aria-hidden="true">About CipherLab</span>
-                <span aria-hidden="true">About CipherLab</span>
-            </h1>
-            <p class="mb-4 fade-in hero-subtitle">Learn about our team and mission to make cryptography accessible</p>
+            <div class="typing-container mb-4">
+                <div class="welcome-container">
+                    <svg width="100%" height="100" viewBox="0 0 700 100" class="welcome-svg" preserveAspectRatio="xMidYMid meet">
+                        <text x="50%" y="60" class="welcome-text-base" text-anchor="middle">About CipherLab</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch1" text-anchor="middle">About CipherLab</text>
+                        <text x="50%" y="60" class="welcome-text-glitch welcome-text-glitch2" text-anchor="middle">About CipherLab</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="hero-content">
+                <p class="mb-4 fade-in hero-subtitle">Learn about our team and mission to make cryptography accessible</p>
+            </div>
         </div>
     </div>
     
     <!-- Animated binary code decoration -->
     <div class="binary-stream">01000001 01000010 01001111 01010101 01010100</div>
-</div>
+</section>
 
 <section class="container section">
     <div class="row justify-content-center">
@@ -180,7 +186,27 @@ title: About CipherLab
 <!-- Additional CSS for this page -->
 <style>
     #about-hero {
+        position: relative;
         min-height: 40vh; /* Shorter than main page hero */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 0;
+        width: 100%;
+        max-width: 100%;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    
+    /* Force row to be full-width */
+    #about-hero .hero-row {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 1rem;
+        overflow: visible;
     }
     
     .about-intro {
