@@ -705,7 +705,7 @@ footer::before {
 }
 
 .card-body {
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 2.5rem;
 }
 
 /* Flash messages - SIMPLIFIED animations */
