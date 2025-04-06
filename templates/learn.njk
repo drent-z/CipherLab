@@ -22,33 +22,33 @@ title: Learn Cryptography - CipherLab
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="learning-path-card fade-in">
-                <div class="card-header">
-                    <h2 class="mb-0"><i class="fas fa-graduation-cap"></i> Your Learning Journey</h2>
-                </div>
-                <div class="card-body">
-                    <div class="progress-tracker mb-4">
-                        <div class="progress-stats">
-                            <span>Progress: <span id="completed-count">0</span>/<span id="total-count">15</span> lessons</span>
-                            <span id="percentage">0%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-value" id="progress-value" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="learning-path">
-                        <!-- Include the module files -->
-                        {% include "learn/module1.njk" %}
-                        {% include "learn/module2.njk" %}
-                        {% include "learn/module3.njk" %}
-                        {% include "learn/module4.njk" %}
-                        {% include "learn/module5.njk" %}
-                        
-                        <!-- Final Quiz Section -->
-                        {% include "learn/final-quiz.njk" %}
+            <!-- Progress Overview Card -->
+            <div class="progress-overview-card fade-in mb-4">
+                <div class="progress-header">
+                    <h2><i class="fas fa-chart-line"></i> Your Progress</h2>
+                    <div class="progress-stats">
+                        <span>Completed: <span id="completed-count">0</span>/<span id="total-count">15</span></span>
+                        <span id="percentage">0%</span>
                     </div>
                 </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-value" id="progress-value" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Path -->
+            <div class="learning-modules fade-in">
+                <!-- Include the module files -->
+                {% include "learn/module1.njk" %}
+                {% include "learn/module2.njk" %}
+                {% include "learn/module3.njk" %}
+                {% include "learn/module4.njk" %}
+                {% include "learn/module5.njk" %}
+                
+                <!-- Final Quiz Section -->
+                {% include "learn/final-quiz.njk" %}
             </div>
         </div>
     </div>
@@ -70,10 +70,12 @@ title: Learn Cryptography - CipherLab
                         <!-- Lesson content will be loaded here -->
                     </div>
                     
-                    <div class="lesson-complete-section">
+                    <div class="lesson-navigation">
+                        <button id="prev-lesson-bottom" class="nav-button"><i class="fas fa-chevron-left"></i> Previous</button>
                         <button id="complete-lesson" class="complete-button">
                             <i class="fas fa-check-circle"></i> Mark as Complete
                         </button>
+                        <button id="next-lesson-bottom" class="nav-button">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -91,293 +93,13 @@ title: Learn Cryptography - CipherLab
 <style>
     /* Hero Section */
     #learn-hero {
-        min-height: 40vh; /* Shorter than main page hero */
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        min-height: 35vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="monospace" font-size="10" fill="rgba(0, 255, 65, 0.1)" text-anchor="middle" dominant-baseline="middle">01001001</text></svg>');
         background-size: 100px 100px;
-    }
-    
-    /* Progress Tracker */
-    .progress-tracker {
+        display: flex;
+        align-items: center;
         margin-bottom: 2rem;
-    }
-    
-    .progress-stats {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
-        color: var(--text-muted);
-    }
-    
-    .progress-bar {
-        height: 8px;
-        background-color: var(--darker);
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    
-    .progress-value {
-        height: 100%;
-        background: linear-gradient(90deg, var(--primary-dark), var(--primary));
-        transition: width 0.5s ease;
-    }
-    
-    /* Module Styling */
-    .learning-module {
-        background-color: var(--medium-dark);
-        border-radius: 8px;
-        overflow: hidden;
-        margin-bottom: 1.5rem;
-        border: 1px solid var(--primary-dark);
-        transition: all 0.3s ease;
-    }
-    
-    .learning-module:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .module-header {
-        display: flex;
-        align-items: center;
-        padding: 1.5rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    
-    .module-header:hover {
-        background-color: var(--light-dark);
-    }
-    
-    .module-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1.5rem;
-        font-size: 1.5rem;
-        color: var(--dark);
-        flex-shrink: 0;
-    }
-    
-    .module-title {
-        flex-grow: 1;
-    }
-    
-    .module-title h3 {
-        margin: 0;
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-    
-    .module-title p {
-        color: var(--text-muted);
-        margin: 0.5rem 0 0 0;
-    }
-    
-    .module-progress {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-    }
-    
-    .module-percentage {
-        margin-right: 1rem;
-        font-weight: 600;
-        color: var(--primary);
-    }
-    
-    .module-content {
-        display: none;
-        padding: 0 1.5rem 1.5rem;
-        border-top: 1px solid var(--primary-dark);
-    }
-    
-    .lessons-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .lesson-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
-        background-color: var(--darker);
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .lesson-item:hover {
-        background-color: var(--light-dark);
-        transform: translateX(5px);
-    }
-    
-    .lesson-status i {
-        color: var(--text-muted);
-        font-size: 1.25rem;
-        transition: all 0.3s ease;
-    }
-    
-    .lesson-status i.fa-check-circle {
-        color: var(--primary);
-    }
-    
-    /* Lesson Content Styling */
-    .lesson-card {
-        background-color: var(--medium-dark);
-        border-radius: 8px;
-        overflow: hidden;
-        margin-bottom: 3rem;
-        border: 1px solid var(--primary-dark);
-    }
-    
-    .lesson-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1.5rem;
-    }
-    
-    .nav-button {
-        background-color: var(--darker);
-        color: var(--text);
-        border: 1px solid var(--primary-dark);
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .nav-button:hover {
-        background-color: var(--light-dark);
-        color: var(--primary);
-    }
-    
-    .nav-button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    
-    .lesson-complete-section {
-        display: flex;
-        justify-content: center;
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--primary-dark);
-    }
-    
-    .complete-button {
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        color: var(--dark);
-        border: none;
-        padding: 1rem 2rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        transition: all 0.3s ease;
-    }
-    
-    .complete-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .complete-button:disabled {
-        background: linear-gradient(135deg, var(--text-muted), var(--light-dark));
-        cursor: not-allowed;
-    }
-    
-    .complete-button i {
-        font-size: 1.25rem;
-    }
-    
-    /* Media Queries */
-    @media (max-width: 992px) {
-        .two-column {
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .final-quiz-header {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .final-quiz-footer {
-            flex-direction: column;
-            align-items: stretch;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .grid-container,
-        .industry-grid,
-        .trends-container,
-        .application-grid,
-        .attributes-container,
-        .result-details {
-            grid-template-columns: 1fr;
-        }
-        
-        .historical-info {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .alphabet-visualization {
-            overflow-x: scroll;
-        }
-        
-        .certificate {
-            padding: 1.5rem;
-        }
-        
-        .certificate-footer {
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-        
-        .quiz-actions {
-            flex-direction: column;
-        }
-    }
-    
-@media (max-width: 576px) {
-        .application-list {
-            grid-template-columns: 1fr;
-        }
-        
-        .app-items {
-            grid-template-columns: 1fr;
-        }
-        
-        .implementation-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .quiz-progress-indicator {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-        
-        .certificate-actions {
-            flex-direction: column;
-        }
     }
     
     /* Binary stream decoration */
@@ -401,63 +123,309 @@ title: Learn Cryptography - CipherLab
         100% { transform: translateY(0); }
     }
     
-    /* Enhanced Lesson Card */
-    .lesson-card {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Progress Overview Card */
+    .progress-overview-card {
+        background-color: var(--medium-dark);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--primary-dark);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
-    .lesson-card:hover {
+    .progress-overview-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     
-    /* Enhanced Complete Button */
-    .complete-button {
-        position: relative;
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .progress-header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .progress-stats {
+        display: flex;
+        gap: 1.5rem;
+        color: var(--text);
+        font-weight: 500;
+    }
+    
+    .progress-bar-container {
+        padding: 0.5rem 0;
+    }
+    
+    .progress-bar {
+        height: 10px;
+        background-color: var(--darker);
+        border-radius: 5px;
         overflow: hidden;
     }
     
-    .complete-button::after {
+    .progress-value {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+        border-radius: 5px;
+        transition: width 0.5s ease;
+    }
+    
+    /* Learning Modules */
+    .learning-modules {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .learning-module {
+        background-color: var(--medium-dark);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--primary-dark);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .learning-module:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .module-header {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+    }
+    
+    .module-header:hover {
+        background-color: var(--light-dark);
+    }
+    
+    .module-header::after {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            rgba(255, 255, 255, 0) 100%
-        );
-        transform: rotate(45deg);
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary), transparent);
         opacity: 0;
         transition: opacity 0.3s ease;
     }
     
-    .complete-button:hover::after {
+    .module-header:hover::after {
         opacity: 1;
-        animation: shine 1.5s ease;
     }
     
-    @keyframes shine {
-        0% { left: -50%; opacity: 0; }
-        50% { opacity: 0.5; }
-        100% { left: 150%; opacity: 0; }
+    .module-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 1.8rem;
+        color: var(--dark);
+        flex-shrink: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
-    /* Final Quiz Section Styling */
-    .final-quiz-container {
+    .module-title {
+        flex-grow: 1;
+    }
+    
+    .module-title h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text);
+    }
+    
+    .module-title p {
+        color: var(--text-muted);
+        margin: 0.5rem 0 0 0;
+        font-size: 0.95rem;
+    }
+    
+    .module-progress {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 1rem;
+    }
+    
+    .module-percentage {
+        font-weight: 600;
+        color: var(--primary);
+        background-color: var(--darker);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .module-toggle-icon {
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .module-header[aria-expanded="true"] .module-toggle-icon {
+        transform: rotate(180deg);
+    }
+    
+    .module-content {
+        padding: 0 1.5rem 1.5rem;
+        display: none;
+    }
+    
+    .lessons-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+    }
+    
+    .lesson-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        background-color: var(--darker);
+        border-left: 3px solid var(--primary-dark);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .lesson-item:hover {
+        background-color: var(--light-dark);
+        transform: translateX(5px);
+        border-left-color: var(--primary);
+    }
+    
+    .lesson-title {
+        font-weight: 500;
+        padding-right: 1rem;
+    }
+    
+    .lesson-status i {
+        color: var(--text-muted);
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+    }
+    
+    .lesson-status i.fa-check-circle {
+        color: var(--primary);
+    }
+    
+    /* Lesson Content Styling */
+    .lesson-card {
+        background-color: var(--medium-dark);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        border: 1px solid var(--primary-dark);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        background-color: var(--darker);
+        border-bottom: 1px solid var(--primary-dark);
+    }
+    
+    .nav-button {
+        background-color: var(--medium-dark);
+        color: var(--text);
+        border: 1px solid var(--primary-dark);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .nav-button:hover:not(:disabled) {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+    }
+    
+    .nav-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    .lesson-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--primary-dark);
+    }
+    
+    .complete-button {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        color: var(--dark);
+        border: none;
+        padding: 0.8rem 1.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .complete-button:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    
+    .complete-button:disabled {
+        background: linear-gradient(135deg, var(--text-muted), var(--light-dark));
+        cursor: not-allowed;
+    }
+    
+    .complete-button i {
+        font-size: 1.25rem;
+    }
+    
+    /* Final Quiz Card */
+    .final-quiz-container {
+        margin-top: 1.5rem;
     }
     
     .final-quiz-card {
         background-color: var(--medium-dark);
-        border-radius: 8px;
+        border-radius: 10px;
         border: 1px solid var(--primary-dark);
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s ease;
     }
     
@@ -477,13 +445,14 @@ title: Learn Cryptography - CipherLab
     .quiz-icon {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.8rem;
         color: var(--dark);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     .quiz-info {
@@ -493,6 +462,7 @@ title: Learn Cryptography - CipherLab
     .quiz-info h3 {
         margin: 0 0 0.5rem 0;
         font-size: 1.5rem;
+        color: var(--primary);
     }
     
     .quiz-info p {
@@ -505,6 +475,10 @@ title: Learn Cryptography - CipherLab
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
+    }
+    
+    .quiz-status-text {
+        font-weight: 600;
     }
     
     .final-quiz-footer {
@@ -524,11 +498,18 @@ title: Learn Cryptography - CipherLab
     }
     
     .quiz-progress {
-        height: 6px;
+        height: 8px;
         background-color: var(--darker);
-        border-radius: 3px;
+        border-radius: 4px;
         overflow: hidden;
-        width: 200px;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    
+    .quiz-progress-value {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+        transition: width 0.5s ease;
     }
     
     .final-quiz-button {
@@ -536,18 +517,19 @@ title: Learn Cryptography - CipherLab
         color: var(--dark);
         border: none;
         padding: 0.75rem 1.5rem;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
         font-weight: 600;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     
     .final-quiz-button:hover:not([disabled]) {
         transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     }
     
     .final-quiz-button:disabled {
@@ -556,224 +538,193 @@ title: Learn Cryptography - CipherLab
         cursor: not-allowed;
     }
     
-    /* Grid Layout Fixes */
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        grid-gap: 1.5rem;
-        margin: 2rem 0;
-    }
-    
-    .industry-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        grid-gap: 1.5rem;
-        margin: 2rem 0;
-    }
-    
-    .application-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        grid-gap: 1.5rem;
-    }
-    
-    .implementation-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        grid-gap: 1.5rem;
-    }
-    
-    .trends-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 1.5rem;
-    }
-    
-    /* Interactive Elements Styling */
-    .interactive-cipher-demo {
-        background-color: var(--darker);
-        border-radius: 8px;
+    /* Lesson Content Styling */
+    #lesson-content {
         padding: 1.5rem;
-        margin-bottom: 2rem;
-        border: 1px solid var(--primary-dark);
     }
     
-    .demo-form {
-        margin-bottom: 1.5rem;
-    }
-    
-    .cipher-input {
-        width: 100%;
-        padding: 0.75rem;
-        background-color: var(--dark);
-        border: 1px solid var(--primary-dark);
-        color: var(--text);
-        font-family: 'IBM Plex Mono', monospace;
-        border-radius: 4px;
-    }
-    
-    .shift-control {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .slider {
-        flex-grow: 1;
-        -webkit-appearance: none;
-        height: 8px;
-        background: var(--dark);
-        border-radius: 4px;
-        outline: none;
-    }
-    
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--primary);
-        cursor: pointer;
-    }
-    
-    .slider::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--primary);
-        cursor: pointer;
-    }
-    
-    .cipher-output {
-        padding: 0.75rem;
-        background-color: var(--dark);
-        border: 1px solid var(--primary-dark);
+    #lesson-content h3 {
         color: var(--primary);
-        font-family: 'IBM Plex Mono', monospace;
-        font-weight: 600;
-        letter-spacing: 1px;
-        border-radius: 4px;
-    }
-    
-    .alphabet-visualization {
-        background-color: var(--dark);
-        border-radius: 4px;
-        padding: 1rem;
-        overflow-x: auto;
-    }
-    
-    .alphabet-row {
-        display: flex;
+        margin-top: 2rem;
         margin-bottom: 1rem;
+        font-size: 1.5rem;
     }
     
-    .alphabet-row.shifted {
-        position: relative;
+    #lesson-content h4 {
+        color: var(--text);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
     }
     
-    .alphabet-row.shifted::before {
-        content: '';
-        position: absolute;
-        top: -10px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: var(--primary-dark);
-        opacity: 0.5;
-    }
-    
-    .alphabet-letter {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 4px;
-        margin-right: 5px;
-        background-color: var(--medium-dark);
-        font-family: 'IBM Plex Mono', monospace;
-    }
-    
-    /* Additional animations and effects */
-    .animate-glow {
-        animation: glow-pulse 3s infinite alternate;
-    }
-    
-    @keyframes glow-pulse {
-        0% {
-            box-shadow: 0 0 5px rgba(0, 255, 65, 0.1);
-        }
-        100% {
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-        }
-    }
-    
-    .animate-fade-in {
-        opacity: 0;
-        animation: fadeIn 1s forwards;
-    }
-    
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    #lesson-content p {
+        margin-bottom: 1.25rem;
+        line-height: 1.6;
     }
     
     .key-concept {
-        position: relative;
-        padding: 1.5rem;
-        background-color: var(--darker);
+        background-color: rgba(0, 255, 65, 0.1);
         border-left: 4px solid var(--primary);
-        border-radius: 4px;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 6px;
     }
     
     .key-concept h4 {
-        color: var(--primary);
-        margin-top: 0;
+        color: var(--primary) !important;
+        margin-top: 0 !important;
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
     
-    .key-concept p {
-        margin-bottom: 0;
+    .interactive-quiz {
+        background-color: var(--darker);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 2rem 0;
     }
     
-    .timeline-item {
-        position: relative;
-        padding-left: 2rem;
-        padding-bottom: 2rem;
-        border-left: 2px solid var(--primary-dark);
-    }
-    
-    .timeline-item:last-child {
-        border-left: none;
-    }
-    
-    .timeline-marker {
-        position: absolute;
-        left: -10px;
-        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        color: var(--dark);
-        padding: 0.3rem 0.8rem;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-    
-    .timeline-content {
-        padding: 1rem 0 0 1.5rem;
-    }
-    
-    .timeline-content h4 {
-        margin-top: 0;
+    .quiz-title {
         color: var(--primary);
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin: 1rem 0;
+    }
+    
+    .quiz-option {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        background-color: var(--medium-dark);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .quiz-option:hover {
+        background-color: var(--light-dark);
+    }
+    
+    .quiz-option input {
+        margin-right: 0.75rem;
+    }
+    
+    .quiz-feedback {
+        background-color: var(--medium-dark);
+        padding: 1rem;
+        border-radius: 6px;
+        margin: 1rem 0;
+    }
+    
+    .correct-feedback {
+        color: var(--primary);
+    }
+    
+    .incorrect-feedback {
+        color: #ff4d4d;
+    }
+    
+    .check-answer-btn {
+        background-color: var(--primary-dark);
+        color: var(--dark);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    
+    .check-answer-btn:hover {
+        background-color: var(--primary);
+    }
+    
+    /* Media Queries */
+    @media (max-width: 992px) {
+        .lessons-list {
+            grid-template-columns: 1fr;
+        }
+        
+        .final-quiz-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .final-quiz-footer {
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .quiz-info {
+            text-align: center;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .progress-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .module-header {
+            flex-wrap: wrap;
+        }
+        
+        .module-progress {
+            width: 100%;
+            margin-top: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .lesson-navigation {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .lesson-nav {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        #lesson-title {
+            width: 100%;
+            text-align: center;
+            order: -1;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-button {
+            flex: 1;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .module-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.4rem;
+        }
+        
+        .module-title h3 {
+            font-size: 1.2rem;
+        }
+        
+        .quiz-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.4rem;
+        }
     }
 </style>
 
@@ -808,6 +759,7 @@ title: Learn Cryptography - CipherLab
     
     document.addEventListener('DOMContentLoaded', function() {
         // Get elements
+        const moduleHeaders = document.querySelectorAll('.module-header');
         const moduleContents = document.querySelectorAll('.module-content');
         const completedCount = document.getElementById('completed-count');
         const totalCount = document.getElementById('total-count');
@@ -818,11 +770,20 @@ title: Learn Cryptography - CipherLab
         const lessonContent = document.getElementById('lesson-content');
         const prevLessonBtn = document.getElementById('prev-lesson');
         const nextLessonBtn = document.getElementById('next-lesson');
+        const prevLessonBottomBtn = document.getElementById('prev-lesson-bottom');
+        const nextLessonBottomBtn = document.getElementById('next-lesson-bottom');
         const completeBtn = document.getElementById('complete-lesson');
         const quizStatusText = document.getElementById('quiz-status-text');
         const quizLockIcon = document.getElementById('quiz-lock-icon');
         const quizProgressValue = document.getElementById('quiz-progress-value');
         const startFinalQuizBtn = document.getElementById('start-final-quiz');
+        
+        // Initialize module headers with ARIA attributes
+        moduleHeaders.forEach(header => {
+            const contentId = header.getAttribute('data-target');
+            header.setAttribute('aria-expanded', 'false');
+            header.setAttribute('aria-controls', contentId);
+        });
         
         // Lesson templates
         const lessonTemplates = document.getElementById('lesson-templates');
@@ -887,17 +848,21 @@ title: Learn Cryptography - CipherLab
         // Toggle module content visibility
         window.toggleModule = function(moduleContentId) {
             const moduleContent = document.getElementById(moduleContentId);
+            const moduleHeader = document.querySelector(`[data-target="${moduleContentId}"]`);
             
             if (moduleContent.style.display === 'block') {
                 moduleContent.style.display = 'none';
+                moduleHeader.setAttribute('aria-expanded', 'false');
             } else {
-                // Hide all other module contents
+                // Optional: Hide all other module contents
                 moduleContents.forEach(content => {
                     content.style.display = 'none';
+                    document.querySelector(`[data-target="${content.id}"]`).setAttribute('aria-expanded', 'false');
                 });
                 
                 // Show the selected module content
                 moduleContent.style.display = 'block';
+                moduleHeader.setAttribute('aria-expanded', 'true');
             }
         };
         
@@ -973,22 +938,26 @@ title: Learn Cryptography - CipherLab
             if (moduleIndex === 0 && lessonIndex === 0) {
                 // First lesson in first module
                 prevLessonBtn.disabled = true;
+                prevLessonBottomBtn.disabled = true;
             } else {
                 prevLessonBtn.disabled = false;
+                prevLessonBottomBtn.disabled = false;
             }
             
             // Next button
             if (moduleIndex === modules.length - 1 && lessonIndex === modules[moduleIndex].lessons.length - 1) {
                 // Last lesson in last module
                 nextLessonBtn.disabled = true;
+                nextLessonBottomBtn.disabled = true;
             } else {
                 nextLessonBtn.disabled = false;
+                nextLessonBottomBtn.disabled = false;
             }
         }
         
-        // Go to previous lesson
-        prevLessonBtn.addEventListener('click', function() {
-            if (!currentLesson) return;
+        // Go to previous lesson function
+        function goToPrevLesson() {
+            if (!currentLesson || prevLessonBtn.disabled) return;
             
             const { moduleIndex, lessonIndex } = currentLesson;
             
@@ -1000,11 +969,11 @@ title: Learn Cryptography - CipherLab
                 const prevModule = modules[moduleIndex - 1];
                 showLesson(prevModule.lessons[prevModule.lessons.length - 1].id);
             }
-        });
+        }
         
-        // Go to next lesson
-        nextLessonBtn.addEventListener('click', function() {
-            if (!currentLesson) return;
+        // Go to next lesson function
+        function goToNextLesson() {
+            if (!currentLesson || nextLessonBtn.disabled) return;
             
             const { moduleIndex, lessonIndex } = currentLesson;
             
@@ -1015,7 +984,13 @@ title: Learn Cryptography - CipherLab
                 // First lesson in next module
                 showLesson(modules[moduleIndex + 1].lessons[0].id);
             }
-        });
+        }
+        
+        // Attach navigation event listeners
+        prevLessonBtn.addEventListener('click', goToPrevLesson);
+        nextLessonBtn.addEventListener('click', goToNextLesson);
+        prevLessonBottomBtn.addEventListener('click', goToPrevLesson);
+        nextLessonBottomBtn.addEventListener('click', goToNextLesson);
         
         // Mark lesson as complete
         completeBtn.addEventListener('click', function() {
@@ -1037,7 +1012,7 @@ title: Learn Cryptography - CipherLab
             completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
             
             // Update lesson status icon
-            const statusIcon = document.getElementById(`status-${lessonId.split('-')[1]}`);
+            const statusIcon = document.getElementById(`status-${lessonId}`);
             if (statusIcon) {
                 statusIcon.classList.remove('far', 'fa-circle');
                 statusIcon.classList.add('fas', 'fa-check-circle');
@@ -1045,6 +1020,11 @@ title: Learn Cryptography - CipherLab
             
             // Update progress
             updateProgress();
+            
+            // Auto-advance to next lesson if not the last one
+            if (!nextLessonBtn.disabled) {
+                setTimeout(goToNextLesson, 1000);
+            }
         });
         
         // Check quiz answer
@@ -1093,9 +1073,11 @@ title: Learn Cryptography - CipherLab
             });
             
             // Update final quiz status
-            quizProgressValue.style.width = `${percentageValue}%`;
+            if (quizProgressValue) {
+                quizProgressValue.style.width = `${percentageValue}%`;
+            }
             
-            if (percentageValue === 100) {
+            if (percentageValue === 100 && quizStatusText && quizLockIcon && startFinalQuizBtn) {
                 quizStatusText.textContent = 'Unlocked';
                 quizLockIcon.classList.remove('fa-lock');
                 quizLockIcon.classList.add('fa-unlock');
@@ -1103,11 +1085,41 @@ title: Learn Cryptography - CipherLab
                 startFinalQuizBtn.disabled = false;
                 
                 // Show a congratulatory message
-                alert('Congratulations! You\'ve completed all lessons and unlocked the Final Certification Quiz.');
+                if (!localStorage.getItem('quizUnlockedNotified')) {
+                    alert('Congratulations! You\'ve completed all lessons and unlocked the Final Certification Quiz.');
+                    localStorage.setItem('quizUnlockedNotified', 'true');
+                }
             }
         }
         
+        // Update status icons for completed lessons
+        function updateLessonStatusIcons() {
+            completedLessons.forEach(lessonId => {
+                const statusId = `status-${lessonId}`;
+                const statusIcon = document.getElementById(statusId);
+                if (statusIcon) {
+                    statusIcon.classList.remove('far', 'fa-circle');
+                    statusIcon.classList.add('fas', 'fa-check-circle');
+                }
+            });
+        }
+        
+        // Add keyboard navigation for lesson content
+        document.addEventListener('keydown', function(e) {
+            if (lessonContentSection.style.display === 'block') {
+                // Left arrow for previous lesson
+                if (e.key === 'ArrowLeft' && !prevLessonBtn.disabled) {
+                    goToPrevLesson();
+                }
+                // Right arrow for next lesson
+                else if (e.key === 'ArrowRight' && !nextLessonBtn.disabled) {
+                    goToNextLesson();
+                }
+            }
+        });
+        
         // Initialize
         updateProgress();
+        updateLessonStatusIcons();
     });
 </script>
