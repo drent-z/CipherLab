@@ -96,16 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Menu toggled, show state:', navbarCollapse.classList.contains('show'));
         });
         
-        // Ensure links in the mobile menu close the menu when clicked
+        // Fix links in the mobile menu to ensure they work and close the menu when clicked
         const navLinks = navbarCollapse.querySelectorAll('a');
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navbarCollapse.classList.remove('show');
-                navbarToggler.setAttribute('aria-expanded', 'false');
-                const existingOverlay = document.querySelector('.navbar-overlay');
-                if (existingOverlay) {
-                    existingOverlay.remove();
-                }
+            // Remove any existing event listeners
+            const newLink = link.cloneNode(true);
+            link.parentNode.replaceChild(newLink, link);
+            
+            // Add new event listener
+            newLink.addEventListener('click', (event) => {
+                // Don't prevent default for links to work
+                setTimeout(() => {
+                    navbarCollapse.classList.remove('show');
+                    navbarToggler.setAttribute('aria-expanded', 'false');
+                    const existingOverlay = document.querySelector('.navbar-overlay');
+                    if (existingOverlay) {
+                        existingOverlay.remove();
+                    }
+                }, 100); // Small delay to allow the click to register
             });
         });
     }
@@ -196,9 +204,9 @@ function initParticleNetwork() {
         particle.style.top = Math.random() * 100 + '%';
         particle.style.boxShadow = `0 0 ${size * 2}px ${particle.style.backgroundColor}`;
         
-        // Store particle data for animation - IDEAL SPEED
-        particle.dataset.vx = (Math.random() - 0.5) * 1.0; // x velocity - perfect speed
-        particle.dataset.vy = (Math.random() - 0.5) * 1.0; // y velocity - perfect speed
+        // Store particle data for animation - SLOWER SPEED
+        particle.dataset.vx = (Math.random() - 0.5) * 0.7; // x velocity - slower speed
+        particle.dataset.vy = (Math.random() - 0.5) * 0.7; // y velocity - slower speed
         
         particleContainer.appendChild(particle);
     }
