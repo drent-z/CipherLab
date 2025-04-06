@@ -39,33 +39,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // COMPLETELY REBUILT HAMBURGER MENU - ULTRA SIMPLE VERSION
+    // DIRECT TOGGLE WITH NO DELAY
     const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('#main-nav');
     
-    // We'll use Bootstrap's native events since we're using Bootstrap
-    if (navbarToggler) {
-        // Just initialize the basic click handler - no preventDefault, no stopPropagation
-        navbarToggler.addEventListener('click', function() {
-            // Find the target element explicitly
-            const targetId = navbarToggler.getAttribute('data-target') || '#main-nav';
-            const navbarCollapse = document.querySelector(targetId) || document.querySelector('.navbar-collapse');
+    // Remove any possible existing event handlers
+    if (navbarToggler && navbarCollapse) {
+        const newToggler = navbarToggler.cloneNode(true);
+        navbarToggler.parentNode.replaceChild(newToggler, navbarToggler);
+        
+        // Add a direct, simple click handler
+        newToggler.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent any default behavior
+            e.stopPropagation(); // Stop event propagation
             
-            if (navbarCollapse) {
-                // Toggle aria-expanded
-                const expanded = navbarToggler.getAttribute('aria-expanded') === 'true' || false;
-                navbarToggler.setAttribute('aria-expanded', !expanded);
-                
-                // Toggle the collapse
-                if (!expanded) {
-                    navbarCollapse.classList.add('show'); 
-                } else {
-                    navbarCollapse.classList.remove('show');
-                }
-            }
+            // Directly toggle the show class
+            navbarCollapse.classList.toggle('show');
+            
+            // Update aria-expanded
+            const isExpanded = navbarCollapse.classList.contains('show');
+            newToggler.setAttribute('aria-expanded', isExpanded);
+            
+            // Force a reflow to ensure CSS transitions work properly
+            void navbarCollapse.offsetWidth;
         });
     }
     
-    // Let the links work as normal without any event handlers that might interfere
+    // Make all nav links work properly
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            // Close menu when a link is clicked
+            if (navbarCollapse) {
+                navbarCollapse.classList.remove('show');
+                if (newToggler) {
+                    newToggler.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    });
     
     // Initialize interactive cipher demos if they exist
     initCipherDemos();
