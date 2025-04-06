@@ -615,16 +615,131 @@ title: CipherLab - Cryptography Educational Platform
     }
     
     /* IMPORTANT - Detect low-power mode */
-    @media (prefers-reduced-motion: reduce) {
-        .welcome-text-glitch,
-        .binary-stream {
-            display: none !important;
-        }
-        
-        .feature-box,
-        .cta-button,
-        .btn-learn-more {
-            transition: none !important;
-        }
+@media (prefers-reduced-motion: reduce) {
+    .welcome-text-glitch,
+    .binary-stream {
+        display: none !important;
     }
+    
+    .feature-box,
+    .cta-button,
+    .btn-learn-more {
+        transition: none !important;
+    }
+}
+
+/* Page heading styling */
+.page-heading {
+    color: var(--primary);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+/* Keep the glitch effect */
+.glitch-heading {
+    position: relative;
+}
+
+.glitch-heading::before,
+.glitch-heading::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch-heading::before {
+    /* glitch effect - slight offset and color variations */
+    left: 2px;
+    text-shadow: -1px 0 var(--secondary);
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch-heading::after {
+    /* glitch effect - slight offset and color variations */
+    left: -2px;
+    text-shadow: 1px 0 var(--tertiary);
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch-anim2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(76px, 9999px, 31px, 0);
+    }
+    10% {
+        clip: rect(29px, 9999px, 85px, 0);
+    }
+    20% {
+        clip: rect(54px, 9999px, 25px, 0);
+    }
+    30% {
+        clip: rect(86px, 9999px, 15px, 0);
+    }
+    40% {
+        clip: rect(35px, 9999px, 68px, 0);
+    }
+    50% {
+        clip: rect(82px, 9999px, 31px, 0);
+    }
+    60% {
+        clip: rect(42px, 9999px, 92px, 0);
+    }
+    70% {
+        clip: rect(28px, 9999px, 64px, 0);
+    }
+    80% {
+        clip: rect(76px, 9999px, 42px, 0);
+    }
+    90% {
+        clip: rect(57px, 9999px, 81px, 0);
+    }
+    100% {
+        clip: rect(15px, 9999px, 37px, 0);
+    }
+}
+
+@keyframes glitch-anim2 {
+    0% {
+        clip: rect(68px, 9999px, 42px, 0);
+    }
+    10% {
+        clip: rect(32px, 9999px, 79px, 0);
+    }
+    20% {
+        clip: rect(49px, 9999px, 34px, 0);
+    }
+    30% {
+        clip: rect(92px, 9999px, 26px, 0);
+    }
+    40% {
+        clip: rect(41px, 9999px, 73px, 0);
+    }
+    50% {
+        clip: rect(76px, 9999px, 21px, 0);
+    }
+    60% {
+        clip: rect(39px, 9999px, 82px, 0);
+    }
+    70% {
+        clip: rect(31px, 9999px, 57px, 0);
+    }
+    80% {
+        clip: rect(65px, 9999px, 36px, 0);
+    }
+    90% {
+        clip: rect(51px, 9999px, 74px, 0);
+    }
+    100% {
+        clip: rect(22px, 9999px, 43px, 0);
+    }
+}
 </style>
