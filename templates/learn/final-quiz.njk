@@ -51,7 +51,7 @@
                 </div>
                 <div class="score-display">
                     <div class="score-circle">
-                        <span id="final-score">0</span>/<span id="max-score">10</span>
+                        <span id="final-score">0</span>/<span id="max-score">30</span>
                     </div>
                     <div class="score-percentage">
                         <span id="score-percentage">0%</span>
@@ -60,7 +60,10 @@
                 <div class="results-message" id="pass-message" style="display: none;">
                     <i class="fas fa-check-circle"></i>
                     <h4>Congratulations!</h4>
-                    <p>You've successfully completed the Cryptography Certification Quiz. You now have a solid understanding of cryptographic principles and applications.</p>
+                    <p>You've successfully completed the Cryptography Certification Quiz. You now have a solid understanding of cryptographic principles and applications across all modules!</p>
+                    <div class="certificate-level">
+                        <span id="cert-level">Master Cryptographer</span>
+                    </div>
                     <div class="certificate-link">
                         <a href="#" id="certificate-download">Download Certificate</a>
                     </div>
@@ -106,7 +109,9 @@
 <script>
 // Quiz data with questions, options, and correct answers
 const quizData = [
+    // Module 1: Fundamentals of Cryptography
     {
+        module: "Fundamentals",
         question: "What is the main purpose of cryptography?",
         options: [
             "To create computer games",
@@ -117,6 +122,7 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Fundamentals",
         question: "Which of these is NOT a main goal of cryptography?",
         options: [
             "Confidentiality",
@@ -127,6 +133,53 @@ const quizData = [
         correctAnswer: 3
     },
     {
+        module: "Fundamentals",
+        question: "What does the term 'non-repudiation' mean in cryptography?",
+        options: [
+            "The ability to deny sending a message",
+            "The inability to deny sending a message",
+            "The ability to decrypt any message",
+            "The ability to encrypt any message without a key"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Fundamentals",
+        question: "In what ancient civilization was the scytale, one of the first cryptographic devices, used?",
+        options: [
+            "Ancient Egypt",
+            "Roman Empire",
+            "Ancient Sparta",
+            "Mesopotamia"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Fundamentals",
+        question: "Which of these best describes plaintext?",
+        options: [
+            "Text that is formatted in a simple way",
+            "Text that has been encrypted",
+            "The original, unencrypted message",
+            "Text that can only be read by authorized users"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Fundamentals",
+        question: "What happens if cryptographic keys are stolen or compromised?",
+        options: [
+            "Nothing, since keys are just one part of security",
+            "The encrypted data becomes temporarily inaccessible",
+            "The security of the encrypted data is compromised",
+            "The data automatically self-destructs"
+        ],
+        correctAnswer: 2
+    },
+    
+    // Module 2: Classical Ciphers
+    {
+        module: "Classical Ciphers",
         question: "In the Caesar cipher, what happens when shifting the letter Z by 1?",
         options: [
             "It becomes Y",
@@ -137,6 +190,7 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Classical Ciphers",
         question: "What makes the Vigenère cipher stronger than the Caesar cipher?",
         options: [
             "It uses multiple shift values based on a keyword",
@@ -147,6 +201,53 @@ const quizData = [
         correctAnswer: 0
     },
     {
+        module: "Classical Ciphers",
+        question: "Which technique was historically used to break substitution ciphers?",
+        options: [
+            "Brute force attacks",
+            "Frequency analysis",
+            "Dictionary attacks",
+            "Differential cryptanalysis"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "Who is credited with using the Caesar cipher in military communications?",
+        options: [
+            "Alexander the Great",
+            "Julius Caesar",
+            "Genghis Khan",
+            "Napoleon Bonaparte"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "What is the main vulnerability of simple substitution ciphers?",
+        options: [
+            "They are too complex to implement correctly",
+            "They preserve the frequency patterns of the original language",
+            "They require too much computational power",
+            "They can only encrypt short messages"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "The Enigma machine used in World War II is an example of what type of cipher?",
+        options: [
+            "A simple substitution cipher",
+            "A polyalphabetic cipher with mechanical implementation",
+            "A one-time pad",
+            "A block cipher"
+        ],
+        correctAnswer: 1
+    },
+    
+    // Module 3: Modern Cryptography
+    {
+        module: "Modern Cryptography",
         question: "Which encryption type uses different keys for encryption and decryption?",
         options: [
             "Symmetric encryption",
@@ -157,6 +258,7 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Modern Cryptography",
         question: "What is a hash function primarily used for?",
         options: [
             "Encrypting data for secure transmission",
@@ -167,6 +269,53 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Modern Cryptography",
+        question: "Which of these is an example of a symmetric encryption algorithm?",
+        options: [
+            "RSA",
+            "AES",
+            "ECC",
+            "Diffie-Hellman"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What is the main advantage of asymmetric encryption over symmetric encryption?",
+        options: [
+            "It's faster",
+            "It uses smaller keys",
+            "It solves the key distribution problem",
+            "It provides stronger encryption"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What security property does a good hash function NOT have?",
+        options: [
+            "Deterministic output",
+            "Collision resistance",
+            "Reversibility",
+            "Avalanche effect"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What does AES stand for?",
+        options: [
+            "Advanced Encryption System",
+            "Advanced Encryption Standard",
+            "Automated Encryption Service",
+            "Algorithmic Encryption System"
+        ],
+        correctAnswer: 1
+    },
+    
+    // Module 4: Applications
+    {
+        module: "Applications",
         question: "Which of these is a practical application of asymmetric encryption?",
         options: [
             "Full disk encryption",
@@ -177,6 +326,7 @@ const quizData = [
         correctAnswer: 2
     },
     {
+        module: "Applications",
         question: "What technology underlies cryptocurrencies like Bitcoin?",
         options: [
             "Virtual private networks",
@@ -187,6 +337,53 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Applications",
+        question: "What does HTTPS use to secure web communications?",
+        options: [
+            "A VPN tunnel",
+            "A combination of TLS/SSL protocols with asymmetric and symmetric encryption",
+            "Only symmetric encryption",
+            "Steganography to hide data in images"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Applications",
+        question: "In the context of secure communications, what does 'end-to-end encryption' mean?",
+        options: [
+            "The encryption algorithm runs from start to finish",
+            "Only the sender and recipient can read the messages",
+            "The message is encrypted twice for extra security",
+            "The entire network path is encrypted"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Applications",
+        question: "What is the main purpose of a digital signature?",
+        options: [
+            "To encrypt a document",
+            "To compress a document for faster transmission",
+            "To verify the identity of the sender and ensure document integrity",
+            "To timestamp when a document was created"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Applications",
+        question: "How does blockchain technology ensure data integrity?",
+        options: [
+            "By using supercomputers to verify data",
+            "By requiring government approval for all transactions",
+            "By chaining blocks with cryptographic hashes and distributed validation",
+            "By limiting access to authorized users only"
+        ],
+        correctAnswer: 2
+    },
+    
+    // Module 5: Advanced Topics
+    {
+        module: "Advanced Topics",
         question: "What is quantum cryptography based on?",
         options: [
             "Faster computers",
@@ -197,6 +394,7 @@ const quizData = [
         correctAnswer: 1
     },
     {
+        module: "Advanced Topics",
         question: "What is the unique capability of homomorphic encryption?",
         options: [
             "Performing computations on encrypted data without decrypting it",
@@ -205,6 +403,50 @@ const quizData = [
             "Faster encryption and decryption"
         ],
         correctAnswer: 0
+    },
+    {
+        module: "Advanced Topics",
+        question: "Which algorithm poses a significant threat to RSA encryption if implemented on a quantum computer?",
+        options: [
+            "Shor's algorithm",
+            "Grover's algorithm",
+            "Deutsch-Jozsa algorithm",
+            "Quantum Fourier Transform"
+        ],
+        correctAnswer: 0
+    },
+    {
+        module: "Advanced Topics",
+        question: "What is a zero-knowledge proof used for?",
+        options: [
+            "Encrypting data with zero knowledge of the recipient",
+            "Proving you know something without revealing what you know",
+            "Creating encryption with zero processing overhead",
+            "Decrypting data without a key"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Advanced Topics",
+        question: "Which of these is considered 'post-quantum cryptography'?",
+        options: [
+            "RSA with larger key sizes",
+            "Elliptic curve cryptography",
+            "Lattice-based cryptography",
+            "Triple DES"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Advanced Topics",
+        question: "What is the main principle behind Quantum Key Distribution (QKD)?",
+        options: [
+            "Using quantum superposition to create unbreakable keys",
+            "Using the observer effect to detect eavesdropping",
+            "Using quantum entanglement to transmit data faster than light",
+            "Using quantum tunneling to bypass encryption"
+        ],
+        correctAnswer: 1
     }
 ];
 
@@ -354,10 +596,20 @@ function submitQuiz() {
     finalScoreEl.textContent = score;
     scorePercentageEl.textContent = `${percentage}%`;
     
-    // Show appropriate message
+    // Show appropriate message and set certificate level
     if (percentage >= 70) {
         passMessageEl.style.display = 'block';
         failMessageEl.style.display = 'none';
+        
+        // Set certificate level based on score
+        const certLevel = document.getElementById('cert-level');
+        if (percentage >= 90) {
+            certLevel.textContent = "Master Cryptographer";
+        } else if (percentage >= 80) {
+            certLevel.textContent = "Cryptography Expert";
+        } else {
+            certLevel.textContent = "Cryptography Specialist";
+        }
     } else {
         passMessageEl.style.display = 'none';
         failMessageEl.style.display = 'block';
@@ -710,6 +962,20 @@ function retakeQuiz() {
 
 #fail-message i {
     color: #ff4d4d;
+}
+
+.certificate-level {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 255, 65, 0.2);
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.certificate-level span {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary);
 }
 
 .certificate-link {
