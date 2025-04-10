@@ -1,1 +1,1355 @@
-<!-- This file is no longer used with the new simplified learning interface -->
+<!-- Module 5: Advanced Topics -->
+
+<!-- Lesson 5-1: Quantum Cryptography -->
+<div id="lesson5-1-content">
+    <p class="mb-4">Quantum cryptography represents the cutting edge of secure communications technology, leveraging the principles of quantum mechanics to achieve levels of security that are theoretically impossible with classical methods. This frontier of cryptography holds both immense promise and significant challenges.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>Quantum cryptography uses the principles of quantum mechanics to secure communications in ways that are fundamentally different from classical cryptography. While classical cryptography relies on the computational difficulty of mathematical problems, quantum cryptography relies on the fundamental laws of physics for its security.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Quantum Key Distribution (QKD)</h3>
+        
+        <p>The most developed application of quantum cryptography is Quantum Key Distribution (QKD), which allows two parties to produce a shared random secret key known only to them, which can then be used to encrypt and decrypt messages.</p>
+        
+        <div class="qkd-diagram">
+            <img src="/assets/images/qkd-diagram.png" alt="Quantum Key Distribution diagram" class="qkd-image">
+        </div>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">BB84 Protocol</h4>
+                <p>The first and most well-known QKD protocol, developed by Charles Bennett and Gilles Brassard in 1984.</p>
+                
+                <div class="protocol-steps">
+                    <h5>How it works:</h5>
+                    <ol>
+                        <li>Alice sends qubits (quantum bits) to Bob, each prepared in one of four polarization states</li>
+                        <li>For each qubit, Bob randomly chooses one of two measurement bases</li>
+                        <li>Alice and Bob publicly compare which bases they used (but not the results)</li>
+                        <li>They keep only the results where they used the same basis</li>
+                        <li>A subset of results is compared to detect eavesdropping</li>
+                        <li>If no eavesdropping is detected, the remaining bits form a secure key</li>
+                    </ol>
+                </div>
+                
+                <div class="key-principle">
+                    <i class="fas fa-lightbulb"></i>
+                    <div class="principle-content">
+                        <p><strong>Quantum Principle:</strong> The act of measuring a quantum system disturbs it in a detectable way (Heisenberg's Uncertainty Principle). Any eavesdropper would inevitably introduce errors that can be detected.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Security Advantages</h4>
+                
+                <div class="advantage-item">
+                    <div class="advantage-icon"><i class="fas fa-user-secret"></i></div>
+                    <h5>Information-Theoretic Security</h5>
+                    <p>Security based on fundamental laws of physics rather than computational difficulty</p>
+                </div>
+                
+                <div class="advantage-item">
+                    <div class="advantage-icon"><i class="fas fa-eye-slash"></i></div>
+                    <h5>Eavesdropping Detection</h5>
+                    <p>Any interception attempt changes the quantum states, revealing the presence of an eavesdropper</p>
+                </div>
+                
+                <div class="advantage-item">
+                    <div class="advantage-icon"><i class="fas fa-ban"></i></div>
+                    <h5>Future-Proof</h5>
+                    <p>Immune to attacks using quantum computers, which threaten many classical cryptographic methods</p>
+                </div>
+                
+                <div class="advantage-item">
+                    <div class="advantage-icon"><i class="fas fa-random"></i></div>
+                    <h5>True Randomness</h5>
+                    <p>Quantum processes can generate truly random numbers, unlike classical computers that use pseudo-random methods</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Practical Implementations</h3>
+        
+        <div class="implementation-cards">
+            <div class="implementation-card">
+                <div class="implementation-header">
+                    <h4>Fiber Optic QKD</h4>
+                    <div class="implementation-icon"><i class="fas fa-wifi"></i></div>
+                </div>
+                <div class="implementation-body">
+                    <p>The most mature QKD technology, using standard telecom fiber to transmit quantum signals.</p>
+                    
+                    <div class="implementation-details">
+                        <div class="detail">
+                            <h5>Current Capabilities</h5>
+                            <ul>
+                                <li>Distances up to ~100 km without quantum repeaters</li>
+                                <li>Key rates of several kilobits to megabits per second</li>
+                                <li>Several commercial systems available</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Challenges</h5>
+                            <ul>
+                                <li>Signal loss in fibers limiting distance</li>
+                                <li>No true quantum repeaters yet (though trusted nodes can extend range)</li>
+                                <li>Integration with existing networks</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Real-World Applications</h5>
+                            <ul>
+                                <li>Secure financial transactions</li>
+                                <li>Government and military communications</li>
+                                <li>Critical infrastructure protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implementation-card">
+                <div class="implementation-header">
+                    <h4>Satellite QKD</h4>
+                    <div class="implementation-icon"><i class="fas fa-satellite"></i></div>
+                </div>
+                <div class="implementation-body">
+                    <p>Using satellites to overcome distance limitations of fiber-based systems by transmitting quantum signals through space.</p>
+                    
+                    <div class="implementation-details">
+                        <div class="detail">
+                            <h5>Current Capabilities</h5>
+                            <ul>
+                                <li>China's Micius satellite demonstrated QKD over 1,200 km</li>
+                                <li>Global coverage potential</li>
+                                <li>Multiple research initiatives worldwide</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Challenges</h5>
+                            <ul>
+                                <li>Weather dependence</li>
+                                <li>Limited satellite availability</li>
+                                <li>Complex tracking systems required</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Real-World Applications</h5>
+                            <ul>
+                                <li>Intercontinental secure communications</li>
+                                <li>Connecting distant metropolitan networks</li>
+                                <li>Global quantum-secured network backbones</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implementation-card">
+                <div class="implementation-header">
+                    <h4>Chip-Based QKD</h4>
+                    <div class="implementation-icon"><i class="fas fa-microchip"></i></div>
+                </div>
+                <div class="implementation-body">
+                    <p>Miniaturizing quantum communication systems on photonic integrated circuits for wider deployment.</p>
+                    
+                    <div class="implementation-details">
+                        <div class="detail">
+                            <h5>Current Capabilities</h5>
+                            <ul>
+                                <li>Early prototype demonstrations</li>
+                                <li>Potential for mass production</li>
+                                <li>Compatibility with existing silicon photonics</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Challenges</h5>
+                            <ul>
+                                <li>Integration of all QKD components</li>
+                                <li>Maintaining quantum properties on-chip</li>
+                                <li>Balancing miniaturization with performance</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail">
+                            <h5>Potential Applications</h5>
+                            <ul>
+                                <li>Secure consumer devices</li>
+                                <li>IoT security</li>
+                                <li>Embedded systems in vehicles or infrastructure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">The Quantum Threat to Classical Cryptography</h3>
+        
+        <p>While quantum technology enables new security methods, it also poses a significant threat to many classical cryptographic systems through quantum computing.</p>
+        
+        <div class="quantum-threat">
+            <div class="threat-explanation">
+                <h4>Shor's Algorithm</h4>
+                <p>Developed by mathematician Peter Shor in 1994, this quantum algorithm can efficiently factor large integers and compute discrete logarithms, which would break:</p>
+                <ul>
+                    <li><strong>RSA Encryption:</strong> Based on the difficulty of factoring large numbers</li>
+                    <li><strong>ECC (Elliptic Curve Cryptography):</strong> Based on the discrete logarithm problem</li>
+                    <li><strong>Diffie-Hellman Key Exchange:</strong> Also based on the discrete logarithm problem</li>
+                </ul>
+                <p>A sufficiently powerful quantum computer running Shor's algorithm could break most public-key cryptography systems in use today.</p>
+            </div>
+            
+            <div class="threat-explanation">
+                <h4>Grover's Algorithm</h4>
+                <p>Developed by Lov Grover in 1996, this quantum algorithm provides a quadratic speedup for searching unsorted databases, which affects:</p>
+                <ul>
+                    <li><strong>Symmetric Encryption:</strong> Effectively halves the security strength (e.g., AES-256 would have effectively 128-bit security)</li>
+                    <li><strong>Hash Functions:</strong> Similar reduction in collision resistance</li>
+                </ul>
+                <p>The impact is less severe than Shor's algorithm, and simply doubling key lengths would restore security against Grover's algorithm.</p>
+            </div>
+            
+            <div class="timeline">
+                <h4>When Will This Threat Materialize?</h4>
+                <div class="timeline-container">
+                    <div class="timeline-event">
+                        <div class="event-year">Current</div>
+                        <div class="event-description">
+                            <p>Largest quantum computers have 100-1000 physical qubits</p>
+                            <p>Limited coherence times and high error rates</p>
+                            <p>Cannot yet run Shor's algorithm for cryptographically relevant problems</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="event-year">Near Future (5-10 years)</div>
+                        <div class="event-description">
+                            <p>Error-corrected logical qubits may become practical</p>
+                            <p>Hybrid classical-quantum algorithms advancing</p>
+                            <p>Specific cryptographic primitives may become vulnerable</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="event-year">Long Term (10+ years)</div>
+                        <div class="event-description">
+                            <p>Fault-tolerant quantum computers may reach sufficient scale</p>
+                            <p>RSA and ECC potentially broken</p>
+                            <p>Post-quantum cryptography should be widely deployed by this time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Post-Quantum Cryptography</h3>
+        
+        <p>Post-quantum cryptography (PQC) refers to cryptographic algorithms that are believed to be secure against attacks by quantum computers. Unlike quantum cryptography, PQC runs on classical computers but uses mathematical problems that quantum computers cannot efficiently solve.</p>
+        
+        <div class="pqc-approaches">
+            <div class="approach">
+                <div class="approach-header">
+                    <h4>Lattice-Based Cryptography</h4>
+                    <div class="approach-status">Most promising</div>
+                </div>
+                <div class="approach-body">
+                    <p>Based on the computational hardness of finding short vectors in high-dimensional lattices.</p>
+                    <div class="approach-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>CRYSTALS-Kyber (selected by NIST for standardization)</li>
+                            <li>NTRU</li>
+                            <li>Learning With Errors (LWE) and variants</li>
+                        </ul>
+                    </div>
+                    <div class="approach-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Well-studied mathematical foundation</li>
+                            <li>Relatively efficient implementation</li>
+                            <li>Can support advanced functionalities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="approach">
+                <div class="approach-header">
+                    <h4>Code-Based Cryptography</h4>
+                    <div class="approach-status">Well-established</div>
+                </div>
+                <div class="approach-body">
+                    <p>Based on the difficulty of decoding random linear codes.</p>
+                    <div class="approach-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>Classic McEliece (selected by NIST as an alternate)</li>
+                            <li>BIKE</li>
+                            <li>HQC</li>
+                        </ul>
+                    </div>
+                    <div class="approach-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>One of the oldest post-quantum approaches</li>
+                            <li>Conservative security estimates</li>
+                            <li>Fast encryption operations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="approach">
+                <div class="approach-header">
+                    <h4>Hash-Based Signatures</h4>
+                    <div class="approach-status">Very conservative</div>
+                </div>
+                <div class="approach-body">
+                    <p>Based on the security of cryptographic hash functions.</p>
+                    <div class="approach-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>SPHINCS+ (selected by NIST for standardization)</li>
+                            <li>LMS (Leighton-Micali Signature)</li>
+                            <li>XMSS (eXtended Merkle Signature Scheme)</li>
+                        </ul>
+                    </div>
+                    <div class="approach-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Minimal security assumptions</li>
+                            <li>Well-understood security properties</li>
+                            <li>Suitable for long-term security</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="approach">
+                <div class="approach-header">
+                    <h4>Multivariate Cryptography</h4>
+                    <div class="approach-status">Niche applications</div>
+                </div>
+                <div class="approach-body">
+                    <p>Based on the difficulty of solving systems of multivariate polynomial equations.</p>
+                    <div class="approach-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>Rainbow (broken in 2022)</li>
+                            <li>GeMSS</li>
+                            <li>HFEv-</li>
+                        </ul>
+                    </div>
+                    <div class="approach-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Very fast signature verification</li>
+                            <li>Small signature sizes possible</li>
+                            <li>Different mathematical foundation from other approaches</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="approach">
+                <div class="approach-header">
+                    <h4>Isogeny-Based Cryptography</h4>
+                    <div class="approach-status">Promising but evolving</div>
+                </div>
+                <div class="approach-body">
+                    <p>Based on the difficulty of finding isogenies between elliptic curves.</p>
+                    <div class="approach-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>SIKE (broken in 2022)</li>
+                            <li>CSIDH</li>
+                            <li>SQISign</li>
+                        </ul>
+                    </div>
+                    <div class="approach-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Smallest key sizes among PQC candidates</li>
+                            <li>Mathematical connection to current ECC</li>
+                            <li>Potential for novel protocols</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="standardization-status">
+            <h4>NIST Standardization Process</h4>
+            <p>The U.S. National Institute of Standards and Technology (NIST) has been leading a process to standardize post-quantum cryptographic algorithms since 2016.</p>
+            <div class="status-timeline">
+                <div class="status-item">
+                    <div class="status-year">2022</div>
+                    <div class="status-description">
+                        <p>First selections announced:</p>
+                        <ul>
+                            <li>CRYSTALS-Kyber (key encapsulation)</li>
+                            <li>CRYSTALS-Dilithium, FALCON, and SPHINCS+ (digital signatures)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <div class="status-year">2022-2024</div>
+                    <div class="status-description">
+                        <p>Additional candidates under consideration in next rounds</p>
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <div class="status-year">2024+</div>
+                    <div class="status-description">
+                        <p>Expected standardization and wide deployment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Future Directions and Challenges</h3>
+        
+        <div class="future-directions">
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-globe"></i></div>
+                <h4>Quantum Internet</h4>
+                <p>A future quantum internet would use quantum mechanics principles to enable fundamentally new internet applications that are provably impossible using classical technology.</p>
+                <ul>
+                    <li>Globally secure communications using QKD</li>
+                    <li>Connected quantum computers for enhanced computing power</li>
+                    <li>Distributed quantum sensing networks</li>
+                    <li>Blind quantum computing (secure delegated computation)</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-lock"></i></div>
+                <h4>Hybrid Cryptography</h4>
+                <p>The most practical approach for the next decade will likely be combining quantum and post-quantum methods with classical cryptography.</p>
+                <ul>
+                    <li>Post-quantum algorithms for digital security</li>
+                    <li>QKD for high-security applications</li>
+                    <li>Classical cryptography as a backup layer</li>
+                    <li>"Crypto-agility" to switch between methods as needed</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-cogs"></i></div>
+                <h4>Key Challenges</h4>
+                <p>Several significant challenges remain before quantum cryptography becomes mainstream:</p>
+                <ul>
+                    <li>Cost of quantum hardware and infrastructure</li>
+                    <li>Integration with existing classical networks</li>
+                    <li>Standardization of protocols and interfaces</li>
+                    <li>Addressing side-channel attacks on implementations</li>
+                    <li>Balancing security, performance, and usability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What makes quantum key distribution (QKD) secure against eavesdropping?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-1" value="a">
+                    <span class="option-text">The use of very long encryption keys</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-1" value="b">
+                    <span class="option-text">The laws of quantum mechanics, which make measuring a quantum system detectable</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-1" value="c">
+                    <span class="option-text">The speed of light making interception impossible</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-1" value="d">
+                    <span class="option-text">Government regulations preventing eavesdropping</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! According to quantum mechanics, the act of measuring a quantum system inevitably disturbs it in a detectable way. This means any eavesdropper trying to intercept quantum communications would necessarily introduce errors that the legitimate users can detect.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The security of quantum key distribution comes from a fundamental principle of quantum mechanics: the act of measuring a quantum system disturbs it in a way that can be detected. This means eavesdroppers cannot intercept the quantum communication without revealing their presence.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-1')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 5-2: Zero-Knowledge Proofs -->
+<div id="lesson5-2-content">
+    <p class="mb-4">Zero-knowledge proofs (ZKPs) are one of the most fascinating and powerful concepts in modern cryptography. They allow one party to prove to another that they know a secret or that a statement is true, without revealing any information about the secret itself or why the statement is true.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>A zero-knowledge proof is a method by which one party (the prover) can prove to another party (the verifier) that a given statement is true without conveying any additional information apart from the fact that the statement is indeed true.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">The Cave Analogy</h3>
+        
+        <p>The famous "Ali Baba's Cave" analogy, introduced by cryptographers Jean-Jacques Quisquater and Louis Guillou, helps explain the concept of zero-knowledge proofs:</p>
+        
+        <div class="cave-analogy">
+            <div class="analogy-diagram">
+                <img src="/assets/images/zkp-cave.png" alt="Zero Knowledge Proof Cave Analogy" class="analogy-image">
+            </div>
+            
+            <div class="analogy-explanation">
+                <div class="scenario">
+                    <h4>The Scenario</h4>
+                    <p>There's a cave with a circular path and a door that requires a secret password to open. Peggy (the prover) knows the password and wants to convince Victor (the verifier) that she knows it without revealing the password itself.</p>
+                </div>
+                
+                <div class="protocol">
+                    <h4>The Protocol</h4>
+                    <ol>
+                        <li>Victor waits outside while Peggy enters the cave, choosing either path A or B</li>
+                        <li>Victor then comes to the fork and calls out a random path (A or B) for Peggy to exit from</li>
+                        <li>If Peggy knows the password, she can always come out the requested path (using the door if needed)</li>
+                        <li>If Peggy doesn't know the password, she has only a 50% chance of being on the correct side</li>
+                        <li>By repeating this process multiple times, Peggy can prove knowledge of the password with high probability</li>
+                    </ol>
+                </div>
+                
+                <div class="properties">
+                    <h4>Zero-Knowledge Properties</h4>
+                    <ul>
+                        <li><strong>Completeness:</strong> If Peggy knows the password, Victor is convinced</li>
+                        <li><strong>Soundness:</strong> If Peggy doesn't know the password, she can't convince Victor except with very small probability</li>
+                        <li><strong>Zero-Knowledge:</strong> Victor learns nothing about the password itself</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Types of Zero-Knowledge Proofs</h3>
+        
+        <div class="zkp-types">
+            <div class="zkp-type">
+                <div class="type-header">
+                    <h4>Interactive ZKPs</h4>
+                    <div class="type-icon"><i class="fas fa-comments"></i></div>
+                </div>
+                <div class="type-body">
+                    <p>Require back-and-forth communication between the prover and verifier.</p>
+                    
+                    <div class="type-characteristics">
+                        <h5>Characteristics:</h5>
+                        <ul>
+                            <li>Multiple rounds of challenge and response</li>
+                            <li>Verifier sends random challenges</li>
+                            <li>Prover responds appropriately</li>
+                            <li>Convincing after sufficient rounds</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="type-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>Schnorr identification protocol</li>
+                            <li>Feige-Fiat-Shamir protocol</li>
+                            <li>Graph isomorphism proofs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="type-limitations">
+                        <h5>Limitations:</h5>
+                        <ul>
+                            <li>Requires live interaction</li>
+                            <li>Cannot be verified later or by third parties</li>
+                            <li>Not suitable for blockchain or offline verification</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zkp-type">
+                <div class="type-header">
+                    <h4>Non-Interactive ZKPs</h4>
+                    <div class="type-icon"><i class="fas fa-paper-plane"></i></div>
+                </div>
+                <div class="type-body">
+                    <p>Require only a single message from the prover to the verifier.</p>
+                    
+                    <div class="type-characteristics">
+                        <h5>Characteristics:</h5>
+                        <ul>
+                            <li>Single proof that can be verified anytime</li>
+                            <li>Uses a "common reference string" or hashing technique</li>
+                            <li>Can be publicly verified</li>
+                            <li>Suitable for asynchronous systems</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="type-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>zk-SNARKs (used in Zcash)</li>
+                            <li>zk-STARKs (transparent setup)</li>
+                            <li>Bulletproofs (used in Monero)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="type-advantages">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Can be verified by multiple parties</li>
+                            <li>Suitable for blockchain applications</li>
+                            <li>Proofs can be stored and verified later</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="zkp-comparison">
+            <h4>zk-SNARKs vs. zk-STARKs</h4>
+            <p>Two of the most important modern ZKP systems with different characteristics:</p>
+            
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="comparison-cell header-cell">Feature</div>
+                    <div class="comparison-cell header-cell">zk-SNARKs</div>
+                    <div class="comparison-cell header-cell">zk-STARKs</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Full Name</div>
+                    <div class="comparison-cell">Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge</div>
+                    <div class="comparison-cell">Zero-Knowledge Scalable Transparent Arguments of Knowledge</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Trusted Setup</div>
+                    <div class="comparison-cell">Required (potential security concern)</div>
+                    <div class="comparison-cell">Not required (more transparent)</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Proof Size</div>
+                    <div class="comparison-cell">Very compact (~200 bytes)</div>
+                    <div class="comparison-cell">Larger (~10-100 KB)</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Verification Time</div>
+                    <div class="comparison-cell">Very fast</div>
+                    <div class="comparison-cell">Fast, but slower than SNARKs</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Quantum Resistance</div>
+                    <div class="comparison-cell">Vulnerable to quantum computers</div>
+                    <div class="comparison-cell">Post-quantum secure</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div class="comparison-cell feature-cell">Notable Use</div>
+                    <div class="comparison-cell">Zcash cryptocurrency</div>
+                    <div class="comparison-cell">StarkWare, Ethereum scaling</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Applications of Zero-Knowledge Proofs</h3>
+        
+        <div class="applications-grid">
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-coins"></i></div>
+                <h4>Privacy-Preserving Cryptocurrencies</h4>
+                <p>Allowing transaction verification without revealing sensitive details like amounts, addresses, or account balances.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li><strong>Zcash:</strong> Uses zk-SNARKs to shield transaction details</li>
+                        <li><strong>Monero:</strong> Uses ring signatures and Bulletproofs</li>
+                        <li><strong>Ethereum:</strong> Privacy solutions like Aztec Protocol</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-id-card"></i></div>
+                <h4>Digital Identity Verification</h4>
+                <p>Proving attributes about yourself without revealing unnecessary details.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Proving you're over 21 without revealing your exact age</li>
+                        <li>Confirming your salary is above a threshold without showing the exact amount</li>
+                        <li>Demonstrating citizenship without sharing your passport number</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-file-contract"></i></div>
+                <h4>Smart Contract Privacy</h4>
+                <p>Executing private transactions and contracts on public blockchains.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Private token transfers on public chains</li>
+                        <li>Confidential decentralized exchange trades</li>
+                        <li>Shielded non-fungible token (NFT) ownership</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Authentication Systems</h4>
+                <p>Proving knowledge of a password without sending the password itself.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Zero-knowledge password proofs</li>
+                        <li>Secure remote authentication</li>
+                        <li>Password-authenticated key exchange</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-vote-yea"></i></div>
+                <h4>Anonymous Voting</h4>
+                <p>Proving a vote was counted correctly without revealing who cast the vote.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>E-voting systems with privacy</li>
+                        <li>Corporate governance mechanisms</li>
+                        <li>Decentralized autonomous organization (DAO) voting</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-database"></i></div>
+                <h4>Database Privacy</h4>
+                <p>Proving properties about confidential database contents without exposing the data.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Regulatory compliance checks</li>
+                        <li>Private set intersection</li>
+                        <li>Audits without data exposure</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-network-wired"></i></div>
+                <h4>Layer 2 Scaling Solutions</h4>
+                <p>Enabling efficient verification of off-chain computations on blockchains.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>ZK Rollups (e.g., zkSync, StarkNet)</li>
+                        <li>Validiums for high-throughput transactions</li>
+                        <li>Optimistic rollups with ZK-based challenges</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Private Financial Services</h4>
+                <p>Enabling compliant financial services without exposing sensitive financial data.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Demonstrating solvency without revealing assets</li>
+                        <li>Credit scoring without exposing personal data</li>
+                        <li>Proving funds origin for compliance without revealing exact sources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Technical Challenges and Future Directions</h3>
+        
+        <div class="challenges-future">
+            <div class="challenges">
+                <h4>Current Challenges</h4>
+                
+                <div class="challenge-item">
+                    <div class="challenge-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h5>Computational Overhead</h5>
+                    <p>Generating ZK proofs can be computationally expensive, requiring significant processing power and time for complex statements.</p>
+                </div>
+                
+                <div class="challenge-item">
+                    <div class="challenge-icon"><i class="fas fa-code"></i></div>
+                    <h5>Implementation Complexity</h5>
+                    <p>Implementing ZK systems requires deep cryptographic expertise, making it challenging for mainstream adoption.</p>
+                </div>
+                
+                <div class="challenge-item">
+                    <div class="challenge-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h5>Scaling and Performance</h5>
+                    <p>Balancing proof size, verification time, and security remains a complex optimization problem.</p>
+                </div>
+                
+                <div class="challenge-item">
+                    <div class="challenge-icon"><i class="fas fa-flask"></i></div>
+                    <h5>Trusted Setup Ceremonies</h5>
+                    <p>Some systems like zk-SNARKs require elaborate setup ceremonies that must be performed correctly to ensure security.</p>
+                </div>
+            </div>
+            
+            <div class="future">
+                <h4>Future Directions</h4>
+                
+                <div class="future-item">
+                    <div class="future-icon"><i class="fas fa-microchip"></i></div>
+                    <h5>Hardware Acceleration</h5>
+                    <p>Specialized hardware and ASICs for ZK proof generation could dramatically improve efficiency.</p>
+                </div>
+                
+                <div class="future-item">
+                    <div class="future-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h5>Developer-Friendly Frameworks</h5>
+                    <p>Tools like Circom, ZoKrates, and Noir are making ZK technology more accessible to mainstream developers.</p>
+                </div>
+                
+                <div class="future-item">
+                    <div class="future-icon"><i class="fas fa-globe"></i></div>
+                    <h5>Universal ZK Circuits</h5>
+                    <p>General-purpose ZK virtual machines could enable ZK proofs for any computation without custom implementation.</p>
+                </div>
+                
+                <div class="future-item">
+                    <div class="future-icon"><i class="fas fa-atom"></i></div>
+                    <h5>Post-Quantum ZKPs</h5>
+                    <p>Development of zero-knowledge proof systems that remain secure against quantum computer attacks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What information does a zero-knowledge proof reveal to the verifier?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-2" value="a">
+                    <span class="option-text">The secret information being proven</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-2" value="b">
+                    <span class="option-text">Only that the statement is true, without any additional information</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-2" value="c">
+                    <span class="option-text">Partial information about the secret</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-2" value="d">
+                    <span class="option-text">The identity of the prover</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! A zero-knowledge proof reveals nothing beyond the fact that the statement being proven is true. The verifier learns no additional information about the secret or why the statement is true - this is the "zero-knowledge" property that gives the technique its name.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The defining characteristic of a zero-knowledge proof is that it reveals nothing except the fact that the statement is true. No information about the secret itself or why the statement is true is revealed to the verifier.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-2')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 5-3: Homomorphic Encryption -->
+<div id="lesson5-3-content">
+    <p class="mb-4">Homomorphic encryption is a revolutionary form of encryption that allows computations to be performed on encrypted data without decrypting it first. The results of the computations, when decrypted, match the results of operations performed on the plaintext. This breakthrough technology enables secure processing of sensitive data in untrusted environments.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>Homomorphic encryption allows specific types of computations to be carried out on ciphertext, generating an encrypted result which, when decrypted, matches the result of operations performed on the plaintext. This enables secure data processing without exposing the underlying data.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Understanding Homomorphic Encryption</h3>
+        
+        <div class="homomorphic-diagram">
+            <img src="/assets/images/homomorphic-diagram.png" alt="Homomorphic Encryption Diagram" class="homomorphic-image">
+        </div>
+        
+        <div class="homomorphic-explanation">
+            <h4>The Concept of Homomorphism</h4>
+            <p>In mathematics, a homomorphism is a structure-preserving mapping between two algebraic structures. In the context of encryption, it means that operations performed on encrypted data preserve the relationship between the original data.</p>
+            
+            <div class="simple-example">
+                <h4>Simple Example: Multiplication</h4>
+                <p>Consider a simple encryption function where we encrypt a number by multiplying it by 5:</p>
+                
+                <div class="example-steps">
+                    <div class="example-step">
+                        <div class="step-label">Encrypt(x) = 5x</div>
+                    </div>
+                    
+                    <div class="example-step">
+                        <div class="step-label">Encrypt(3) = 15</div>
+                        <div class="step-label">Encrypt(4) = 20</div>
+                    </div>
+                    
+                    <div class="example-step">
+                        <div class="step-label">Encrypt(3) × Encrypt(4) = 15 × 20 = 300</div>
+                    </div>
+                    
+                    <div class="example-step">
+                        <div class="step-label">But Encrypt(3 × 4) = Encrypt(12) = 60</div>
+                    </div>
+                </div>
+                
+                <p>This simple encryption is not homomorphic for multiplication because 300 ≠ 60.</p>
+                
+                <div class="example-steps">
+                    <div class="example-step">
+                        <div class="step-label">However, it is homomorphic for addition:</div>
+                    </div>
+                    
+                    <div class="example-step">
+                        <div class="step-label">Encrypt(3) + Encrypt(4) = 15 + 20 = 35</div>
+                    </div>
+                    
+                    <div class="example-step">
+                        <div class="step-label">Encrypt(3 + 4) = Encrypt(7) = 35</div>
+                    </div>
+                </div>
+                
+                <p>In this case, the encryption preserves the addition operation.</p>
+            </div>
+            
+            <p>Real homomorphic encryption uses far more complex mathematical operations, but the principle remains the same: perform operations on encrypted data that yield meaningful results when decrypted.</p>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Types of Homomorphic Encryption</h3>
+        
+        <div class="types-grid">
+            <div class="type-item">
+                <div class="type-header">
+                    <h4>Partially Homomorphic Encryption (PHE)</h4>
+                    <div class="type-status">Well-established</div>
+                </div>
+                <div class="type-body">
+                    <p>Supports a single type of operation (like addition OR multiplication) an unlimited number of times.</p>
+                    <div class="type-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li><strong>RSA:</strong> Homomorphic with respect to multiplication</li>
+                            <li><strong>Paillier:</strong> Homomorphic with respect to addition</li>
+                            <li><strong>ElGamal:</strong> Homomorphic with respect to multiplication</li>
+                        </ul>
+                    </div>
+                    <div class="type-applications">
+                        <h5>Applications:</h5>
+                        <ul>
+                            <li>Electronic voting systems (tallying encrypted votes)</li>
+                            <li>Private information retrieval</li>
+                            <li>Simple statistical operations on encrypted data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="type-item">
+                <div class="type-header">
+                    <h4>Somewhat Homomorphic Encryption (SHE)</h4>
+                    <div class="type-status">Practical for specific uses</div>
+                </div>
+                <div class="type-body">
+                    <p>Supports multiple types of operations (both addition AND multiplication) but only for a limited number of operations before noise grows too large.</p>
+                    <div class="type-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li><strong>BGV (Brakerski-Gentry-Vaikuntanathan):</strong> Supports limited operations</li>
+                            <li><strong>BFV (Brakerski/Fan-Vercauteren):</strong> Lattice-based with better efficiency</li>
+                            <li><strong>CKKS (Cheon-Kim-Kim-Song):</strong> Specialized for approximate computations</li>
+                        </ul>
+                    </div>
+                    <div class="type-applications">
+                        <h5>Applications:</h5>
+                        <ul>
+                            <li>Machine learning predictions on encrypted data</li>
+                            <li>Limited depth neural networks</li>
+                            <li>Secure signal processing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="type-item">
+                <div class="type-header">
+                    <h4>Fully Homomorphic Encryption (FHE)</h4>
+                    <div class="type-status">Active research, emerging applications</div>
+                </div>
+                <div class="type-body">
+                    <p>Supports an arbitrary number of operations (both addition AND multiplication) in any sequence, enabling any computation on encrypted data.</p>
+                    <div class="type-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li><strong>Gentry's Scheme:</strong> First theoretical FHE scheme (2009)</li>
+                            <li><strong>GSW (Gentry-Sahai-Waters):</strong> More efficient approach</li>
+                            <li><strong>TFHE (Fast Fully Homomorphic Encryption over the Torus):</strong> Optimized for boolean operations</li>
+                        </ul>
+                    </div>
+                    <div class="type-applications">
+                        <h5>Applications:</h5>
+                        <ul>
+                            <li>Secure cloud computing on sensitive data</li>
+                            <li>Privacy-preserving machine learning</li>
+                            <li>Secure multi-party computation</li>
+                            <li>Confidential smart contracts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="historical-milestone">
+            <div class="milestone-icon"><i class="fas fa-history"></i></div>
+            <div class="milestone-content">
+                <h4>The FHE Breakthrough</h4>
+                <p>Fully Homomorphic Encryption was considered a "holy grail" of cryptography for decades before Craig Gentry, then a Stanford PhD student, presented the first viable construction in 2009. His groundbreaking approach used a technique called "bootstrapping" to refresh noisy ciphertexts, allowing unlimited computations. While initially too inefficient for practical use, subsequent research has improved performance by orders of magnitude.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Real-World Applications</h3>
+        
+        <div class="applications-grid">
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-hospital"></i></div>
+                <h4>Healthcare Analytics</h4>
+                <p>Analyzing sensitive medical data while preserving patient privacy.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Conducting medical research on encrypted patient records</li>
+                        <li>Securely analyzing genetic data for personalized medicine</li>
+                        <li>Remote diagnostic systems using private patient data</li>
+                        <li>Collaborative research across institutions without sharing raw data</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Financial Services</h4>
+                <p>Processing sensitive financial information while maintaining confidentiality.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Secure credit scoring without revealing personal data</li>
+                        <li>Fraud detection on encrypted transaction data</li>
+                        <li>Risk analysis across institutional boundaries</li>
+                        <li>Financial benchmarking without exposing proprietary information</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-cloud"></i></div>
+                <h4>Confidential Cloud Computing</h4>
+                <p>Processing sensitive data in the cloud while keeping it encrypted.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Outsourcing computation without revealing input data</li>
+                        <li>Encrypted database queries (searching without decryption)</li>
+                        <li>Secure machine learning as a service</li>
+                        <li>Running proprietary algorithms on encrypted client data</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-robot"></i></div>
+                <h4>Private Machine Learning</h4>
+                <p>Running ML algorithms on encrypted data or using encrypted models.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Privacy-preserving inference (predictions on encrypted inputs)</li>
+                        <li>Secure collaborative learning across organizations</li>
+                        <li>Training models on encrypted data</li>
+                        <li>Protecting proprietary ML models while allowing their use</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-users"></i></div>
+                <h4>Secure Multi-Party Computation</h4>
+                <p>Multiple parties collaborating on computations while keeping their inputs private.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Private set intersection (finding common elements)</li>
+                        <li>Secure auctions without revealing bids</li>
+                        <li>Collaborative data analysis between competitors</li>
+                        <li>Privacy-preserving benchmarking</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-lock"></i></div>
+                <h4>Privacy-Preserving IoT</h4>
+                <p>Processing sensitive data from IoT devices without revealing it.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Smart home analytics without privacy exposure</li>
+                        <li>Vehicle telemetry processing with privacy</li>
+                        <li>Industrial IoT monitoring with confidentiality</li>
+                        <li>Secure aggregation of sensor data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Challenges and Limitations</h3>
+        
+        <div class="challenges-grid">
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <h4>Performance Overhead</h4>
+                <p>Despite significant improvements, FHE operations are still orders of magnitude slower than plaintext operations:</p>
+                <ul>
+                    <li>Simple FHE operations can be 1,000-1,000,000 times slower than plaintext</li>
+                    <li>Complex computations may have prohibitive runtime</li>
+                    <li>Memory requirements can be substantial</li>
+                </ul>
+                <div class="improvement-note">
+                    <i class="fas fa-arrow-up"></i>
+                    <p>Performance has improved by ~10,000× since 2009, and continues to advance rapidly</p>
+                </div>
+            </div>
+            
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-code"></i></div>
+                <h4>Implementation Complexity</h4>
+                <p>Working with homomorphic encryption requires specialized expertise:</p>
+                <ul>
+                    <li>Different schemes have different capabilities and trade-offs</li>
+                    <li>Algorithm design must account for FHE limitations</li>
+                    <li>Parameter selection is complex and impacts security/performance</li>
+                    <li>Debugging encrypted computations is challenging</li>
+                </ul>
+                <div class="improvement-note">
+                    <i class="fas fa-arrow-up"></i>
+                    <p>Libraries like Microsoft SEAL, IBM HElib, and Google's Transpiler are making implementation more accessible</p>
+                </div>
+            </div>
+            
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                <h4>Noise Management</h4>
+                <p>FHE schemes accumulate "noise" with each operation:</p>
+                <ul>
+                    <li>Noise limits the number of operations in SHE</li>
+                    <li>Bootstrapping (noise reset) in FHE is computationally expensive</li>
+                    <li>Complex operations require careful noise budget management</li>
+                </ul>
+            </div>
+            
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-cogs"></i></div>
+                <h4>Limited Operations</h4>
+                <p>Not all operations are equally efficient in FHE:</p>
+                <ul>
+                    <li>Non-polynomial functions require approximation</li>
+                    <li>Comparisons and conditionals are challenging</li>
+                    <li>Data-dependent operations can be problematic</li>
+                    <li>Complex workflows may need redesign for FHE compatibility</li>
+                </ul>
+            </div>
+            
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-user-shield"></i></div>
+                <h4>Side-Channel Vulnerabilities</h4>
+                <p>Implementation vulnerabilities can leak information:</p>
+                <ul>
+                    <li>Timing attacks based on operation duration</li>
+                    <li>Power analysis on hardware implementations</li>
+                    <li>Access pattern leakage</li>
+                </ul>
+            </div>
+            
+            <div class="challenge-item">
+                <div class="challenge-icon"><i class="fas fa-atom"></i></div>
+                <h4>Quantum Threats</h4>
+                <p>Most current FHE schemes are based on lattice problems:</p>
+                <ul>
+                    <li>Believed to be resistant to quantum computers</li>
+                    <li>But require larger parameters for long-term security</li>
+                    <li>New quantum attacks could emerge in the future</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Future Directions</h3>
+        
+        <div class="future-directions">
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-microchip"></i></div>
+                <h4>Hardware Acceleration</h4>
+                <p>Specialized hardware for FHE operations could dramatically improve performance:</p>
+                <ul>
+                    <li>FPGA implementations showing 10-100× speedups</li>
+                    <li>ASIC designs specifically for FHE operations</li>
+                    <li>Intel, Microsoft, and DARPA investing in FHE acceleration</li>
+                    <li>Potential to bring FHE performance closer to practical levels</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-tools"></i></div>
+                <h4>Developer Tools and Frameworks</h4>
+                <p>Making FHE more accessible to non-cryptographers:</p>
+                <ul>
+                    <li>High-level programming languages for FHE</li>
+                    <li>Compilers that automatically optimize for FHE</li>
+                    <li>Libraries with pre-implemented common algorithms</li>
+                    <li>Better debugging and testing tools</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-server"></i></div>
+                <h4>Cloud Integration</h4>
+                <p>Integration into major cloud platforms:</p>
+                <ul>
+                    <li>FHE as a service offerings</li>
+                    <li>APIs for encrypted computation</li>
+                    <li>Specialized infrastructure for FHE workloads</li>
+                    <li>Hybrid systems combining FHE with other privacy technologies</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-cog"></i></div>
+                <h4>Algorithmic Improvements</h4>
+                <p>Continuing advances in FHE algorithms and techniques:</p>
+                <ul>
+                    <li>More efficient bootstrapping procedures</li>
+                    <li>Parameter optimization techniques</li>
+                    <li>Novel mathematical approaches</li>
+                    <li>Domain-specific optimizations</li>
+                </ul>
+            </div>
+            
+            <div class="direction">
+                <div class="direction-icon"><i class="fas fa-globe"></i></div>
+                <h4>Industry Standardization</h4>
+                <p>Development of standards to ensure interoperability:</p>
+                <ul>
+                    <li>NIST exploring standardization of homomorphic encryption</li>
+                    <li>Industry consortiums for best practices</li>
+                    <li>Common benchmarks and security evaluations</li>
+                    <li>Regulatory frameworks for privacy-preserving computation</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What fundamental capability does homomorphic encryption provide?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-3" value="a">
+                    <span class="option-text">Faster encryption than traditional methods</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-3" value="b">
+                    <span class="option-text">Performing computations on encrypted data without decrypting it</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-3" value="c">
+                    <span class="option-text">Storing encrypted data more efficiently</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz5-3" value="d">
+                    <span class="option-text">Encrypting data without using keys</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! The defining feature of homomorphic encryption is that it allows computations to be performed directly on encrypted data, with the result, when decrypted, matching the result of the same operations performed on the plaintext. This enables secure processing of sensitive data while keeping it encrypted.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The key innovation of homomorphic encryption is that it allows computations to be performed directly on encrypted data without needing to decrypt it first. The results, when decrypted, match the results of performing those operations on the original plaintext.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-3')">Check My Answer</button>
+        </div>
+    </div>
+</div>

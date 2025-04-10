@@ -1,1 +1,1222 @@
-<!-- This file is no longer used with the new simplified learning interface -->
+<!-- Module 3: Modern Cryptography -->
+
+<!-- Lesson 3-1: Symmetric Encryption -->
+<div id="lesson3-1-content">
+    <p class="mb-4">Symmetric encryption is a fundamental type of modern cryptography where the same key is used for both encryption and decryption. Despite being one of the oldest forms of encryption, symmetric algorithms remain essential components of today's secure communications.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>In symmetric encryption, both the sender and receiver share a secret key. The sender uses this key to encrypt the message, and the receiver uses the identical key to decrypt it. The security of the system relies entirely on keeping this shared key secret.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="process-diagram">
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="step-content">
+                    <h4>1. Original Message</h4>
+                    <p>Alice has a plaintext message she wants to send securely to Bob.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-key"></i></div>
+                <div class="step-content">
+                    <h4>2. Secret Key</h4>
+                    <p>Alice and Bob agree on a shared secret key through a secure channel.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-lock"></i></div>
+                <div class="step-content">
+                    <h4>3. Encryption</h4>
+                    <p>Alice encrypts her message using the secret key and a symmetric algorithm.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+                <div class="step-content">
+                    <h4>4. Transmission</h4>
+                    <p>Alice sends the encrypted message (ciphertext) to Bob over any channel.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                <div class="step-content">
+                    <h4>5. Decryption</h4>
+                    <p>Bob uses the same secret key to decrypt the message back to plaintext.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Key Symmetric Algorithms</h3>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>AES (Advanced Encryption Standard)</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 2001</span>
+                        <span class="algorithm-type">Type: Block Cipher</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>The current industry standard, adopted by the U.S. government and widely used worldwide. AES replaced the older DES standard and offers three key lengths:</p>
+                    <ul>
+                        <li><strong>AES-128:</strong> Uses 128-bit keys (considered secure)</li>
+                        <li><strong>AES-192:</strong> Uses 192-bit keys (enhanced security)</li>
+                        <li><strong>AES-256:</strong> Uses 256-bit keys (highest security)</li>
+                    </ul>
+                    <p>AES processes data in 128-bit blocks using substitution and permutation operations.</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">Very High</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>DES & 3DES (Data Encryption Standard)</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 1977 (DES), 1990s (3DES)</span>
+                        <span class="algorithm-type">Type: Block Cipher</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p><strong>DES:</strong> The original standard with 56-bit keys, now considered insecure due to its short key length.</p>
+                    <p><strong>3DES (Triple DES):</strong> Applies the DES algorithm three times to each data block with different keys, providing a key length of 168 bits (effective security of 112 bits).</p>
+                    <p>While 3DES is still used in some legacy systems, it's being phased out in favor of AES due to performance concerns.</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">Low (DES), Moderate (3DES)</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Poor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>ChaCha20</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 2008</span>
+                        <span class="algorithm-type">Type: Stream Cipher</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>A modern stream cipher designed by Daniel J. Bernstein, particularly well-suited for software implementations. Popular in mobile applications due to its speed and efficiency.</p>
+                    <p>Often paired with the Poly1305 authenticator to form ChaCha20-Poly1305, which provides both encryption and message authentication.</p>
+                    <p>Used in TLS 1.3, HTTPS connections, and various secure messaging platforms.</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">High</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Block Ciphers vs. Stream Ciphers</h3>
+        
+        <div class="comparison-table">
+            <div class="comparison-header">
+                <div class="comparison-cell header-cell">Characteristic</div>
+                <div class="comparison-cell header-cell">Block Ciphers</div>
+                <div class="comparison-cell header-cell">Stream Ciphers</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Processing Unit</div>
+                <div class="comparison-cell">Encrypts fixed-size blocks of data (typically 64 or 128 bits)</div>
+                <div class="comparison-cell">Encrypts individual bits or bytes one at a time</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Key Stream</div>
+                <div class="comparison-cell">Uses key to transform entire blocks at once</div>
+                <div class="comparison-cell">Generates a continuous stream of key bits (keystream)</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Operation</div>
+                <div class="comparison-cell">Multiple rounds of substitution and permutation</div>
+                <div class="comparison-cell">Simple XOR operation between plaintext and keystream</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Error Propagation</div>
+                <div class="comparison-cell">Error in one bit can affect entire block</div>
+                <div class="comparison-cell">Error in one bit affects only that bit</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Examples</div>
+                <div class="comparison-cell">AES, DES, 3DES, Blowfish</div>
+                <div class="comparison-cell">ChaCha20, RC4, Salsa20</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Ideal Use Cases</div>
+                <div class="comparison-cell">Large amounts of data, high security requirements</div>
+                <div class="comparison-cell">Real-time communications, resource-constrained environments</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Modes of Operation</h3>
+        
+        <p>Block ciphers operate on fixed-size blocks, but messages often don't align perfectly with these block sizes. Different modes of operation define how to handle multiple blocks:</p>
+        
+        <div class="modes-grid">
+            <div class="mode-item">
+                <h4>ECB (Electronic Codebook)</h4>
+                <div class="mode-diagram">
+                    <img src="/assets/images/ecb-mode.png" alt="ECB Mode Diagram">
+                </div>
+                <div class="mode-description">
+                    <p>The simplest mode, where each block is encrypted independently.</p>
+                    <div class="mode-verdict negative">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Not recommended for secure applications - patterns in data remain visible</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-item">
+                <h4>CBC (Cipher Block Chaining)</h4>
+                <div class="mode-diagram">
+                    <img src="/assets/images/cbc-mode.png" alt="CBC Mode Diagram">
+                </div>
+                <div class="mode-description">
+                    <p>Each block is XORed with the previous ciphertext block before encryption. Requires an initialization vector (IV).</p>
+                    <div class="mode-verdict positive">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Widely used, hides patterns in plaintext</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-item">
+                <h4>CTR (Counter)</h4>
+                <div class="mode-diagram">
+                    <img src="/assets/images/ctr-mode.png" alt="CTR Mode Diagram">
+                </div>
+                <div class="mode-description">
+                    <p>Converts a block cipher into a stream cipher. Encrypts sequential counter values and XORs them with plaintext.</p>
+                    <div class="mode-verdict positive">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Allows parallel encryption/decryption, high performance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mode-item">
+                <h4>GCM (Galois/Counter Mode)</h4>
+                <div class="mode-diagram">
+                    <img src="/assets/images/gcm-mode.png" alt="GCM Mode Diagram">
+                </div>
+                <div class="mode-description">
+                    <p>Combines CTR mode with authentication, providing both confidentiality and integrity.</p>
+                    <div class="mode-verdict positive">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Modern standard for authenticated encryption, highly recommended</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Advantages and Challenges</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="advantages-title"><i class="fas fa-thumbs-up"></i> Advantages</h4>
+                <ul class="advantages-list">
+                    <li><strong>Speed:</strong> Significantly faster than asymmetric encryption</li>
+                    <li><strong>Efficiency:</strong> Uses less computational resources</li>
+                    <li><strong>Security:</strong> Provides strong protection with sufficient key length</li>
+                    <li><strong>Simplicity:</strong> Straightforward mathematical operations</li>
+                    <li><strong>Ideal for Bulk Data:</strong> Efficient for encrypting large volumes of data</li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h4 class="challenges-title"><i class="fas fa-exclamation-circle"></i> Challenges</h4>
+                <ul class="challenges-list">
+                    <li><strong>Key Distribution Problem:</strong> Securely sharing the initial secret key</li>
+                    <li><strong>Key Management:</strong> As number of users increases, key management becomes complex</li>
+                    <li><strong>Scalability Issues:</strong> For n users to communicate securely with each other, n(n-1)/2 keys are needed</li>
+                    <li><strong>No Authentication:</strong> Basic symmetric encryption doesn't verify sender identity</li>
+                    <li><strong>No Non-repudiation:</strong> Sender can deny having sent a message</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Real-World Applications</h3>
+        
+        <div class="applications-grid">
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-wifi"></i></div>
+                <h4>Wi-Fi Security</h4>
+                <p>WPA2 and WPA3 protocols use AES to encrypt wireless traffic between devices and routers.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-database"></i></div>
+                <h4>Database Encryption</h4>
+                <p>Protecting sensitive data at rest in databases using symmetric algorithms.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-hdd"></i></div>
+                <h4>Disk Encryption</h4>
+                <p>Full-disk encryption solutions like BitLocker and FileVault use AES.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-lock"></i></div>
+                <h4>Password Storage</h4>
+                <p>Encrypting stored passwords (though often combined with hashing).</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-credit-card"></i></div>
+                <h4>Payment Processing</h4>
+                <p>Encrypting credit card details and transaction information.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-video"></i></div>
+                <h4>Digital Rights Management</h4>
+                <p>Protecting digital content like movies, music, and e-books from unauthorized access.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What is the main challenge of symmetric encryption?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-1" value="a">
+                    <span class="option-text">It's too slow for modern applications</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-1" value="b">
+                    <span class="option-text">The encryption is not strong enough</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-1" value="c">
+                    <span class="option-text">Securely distributing the shared key</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-1" value="d">
+                    <span class="option-text">It uses too much computing power</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! The biggest challenge with symmetric encryption is how to securely share the secret key between parties before they can communicate securely.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. Symmetric encryption is actually quite fast and strong. The main challenge is how to securely share the secret key between parties before they can begin communicating securely.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="c" onclick="checkAnswer(this, '3-1')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 3-2: Asymmetric Encryption -->
+<div id="lesson3-2-content">
+    <p class="mb-4">Asymmetric encryption, also known as public-key cryptography, revolutionized secure communications by solving one of the fundamental challenges of cryptography: how to establish secure communication without having to share a secret key through a secure channel first.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>Asymmetric encryption uses a pair of mathematically related keys: a public key that can be freely shared, and a private key that must be kept secret. Data encrypted with the public key can only be decrypted with the corresponding private key.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="process-diagram">
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-key"></i></div>
+                <div class="step-content">
+                    <h4>1. Key Generation</h4>
+                    <p>Bob generates a key pair consisting of a public key and a private key.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-share-alt"></i></div>
+                <div class="step-content">
+                    <h4>2. Key Distribution</h4>
+                    <p>Bob shares his public key with anyone, including Alice, while keeping his private key secret.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-lock"></i></div>
+                <div class="step-content">
+                    <h4>3. Encryption</h4>
+                    <p>Alice uses Bob's public key to encrypt her message to him.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+                <div class="step-content">
+                    <h4>4. Transmission</h4>
+                    <p>Alice sends the encrypted message to Bob through any channel.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                <div class="step-content">
+                    <h4>5. Decryption</h4>
+                    <p>Only Bob, with his private key, can decrypt and read the message.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="key-insight">
+            <i class="fas fa-lightbulb"></i>
+            <div class="insight-content">
+                <p>The security of asymmetric encryption relies on mathematical problems that are computationally difficult to solve, such as factoring large prime numbers or solving discrete logarithm problems.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Digital Signatures</h3>
+        
+        <p>Asymmetric encryption also enables digital signatures, which provide authentication, non-repudiation, and integrity:</p>
+        
+        <div class="process-diagram">
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="step-content">
+                    <h4>1. Document Creation</h4>
+                    <p>Alice has a document she wants to sign digitally.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-calculator"></i></div>
+                <div class="step-content">
+                    <h4>2. Hash Creation</h4>
+                    <p>A hash function creates a fixed-size "fingerprint" of the document.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-pen-fancy"></i></div>
+                <div class="step-content">
+                    <h4>3. Signing</h4>
+                    <p>Alice encrypts the hash with her private key, creating the digital signature.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+                <div class="step-content">
+                    <h4>4. Transmission</h4>
+                    <p>Alice sends the original document and the signature to Bob.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="step-content">
+                    <h4>5. Verification</h4>
+                    <p>Bob uses Alice's public key to decrypt the signature, obtaining the hash. He then hashes the document himself and compares the two hashes. If they match, the signature is valid.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="signature-benefits">
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-user-check"></i></div>
+                <h4>Authentication</h4>
+                <p>Verifies the sender's identity, as only they possess the private key</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-ban"></i></div>
+                <h4>Non-repudiation</h4>
+                <p>Sender cannot deny having sent the message later</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Integrity</h4>
+                <p>Any change to the document would change the hash, invalidating the signature</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Key Asymmetric Algorithms</h3>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>RSA (Rivest-Shamir-Adleman)</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 1977</span>
+                        <span class="algorithm-type">Type: Public-Key Cryptosystem</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>The most widely used asymmetric algorithm, based on the mathematical difficulty of factoring the product of two large prime numbers.</p>
+                    <p>Commonly used key sizes range from 2048 to 4096 bits for adequate security.</p>
+                    <p>Used for both encryption and digital signatures.</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">High (with sufficient key length)</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Moderate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>ECC (Elliptic Curve Cryptography)</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 1985</span>
+                        <span class="algorithm-type">Type: Public-Key Cryptosystem</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>Based on the algebraic structure of elliptic curves over finite fields.</p>
+                    <p>Offers the same level of security as RSA but with much smaller key sizes (e.g., 256-bit ECC ≈ 3072-bit RSA).</p>
+                    <p>More efficient for mobile and IoT devices due to lower computational requirements.</p>
+                    <p>Popular algorithms include ECDSA (for digital signatures) and ECDH (for key exchange).</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">Very High</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Good</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>Diffie-Hellman Key Exchange</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-year">Established: 1976</span>
+                        <span class="algorithm-type">Type: Key Agreement Protocol</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>Not an encryption algorithm but a method for securely exchanging cryptographic keys over a public channel.</p>
+                    <p>Allows two parties to jointly establish a shared secret key without ever having to transmit the key itself.</p>
+                    <p>Based on the difficulty of computing discrete logarithms in a finite field.</p>
+                    <p>Forms the basis for many secure communications protocols, including TLS/SSL.</p>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-stats">
+                        <div class="stat">
+                            <span class="stat-label">Security Level</span>
+                            <span class="stat-value">High</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Performance</span>
+                            <span class="stat-value">Moderate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Advantages and Limitations</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="advantages-title"><i class="fas fa-thumbs-up"></i> Advantages</h4>
+                <ul class="advantages-list">
+                    <li><strong>Key Distribution:</strong> Solves the key exchange problem of symmetric encryption</li>
+                    <li><strong>Authentication:</strong> Enables digital signatures and sender verification</li>
+                    <li><strong>Scalability:</strong> Each user needs only one key pair regardless of how many people they communicate with</li>
+                    <li><strong>Non-repudiation:</strong> Sender cannot deny having sent a message</li>
+                    <li><strong>Security:</strong> Based on mathematical problems believed to be computationally difficult</li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h4 class="limitations-title"><i class="fas fa-exclamation-circle"></i> Limitations</h4>
+                <ul class="limitations-list">
+                    <li><strong>Speed:</strong> Significantly slower than symmetric encryption (often 1000x slower)</li>
+                    <li><strong>Resource Intensive:</strong> Requires more computational power</li>
+                    <li><strong>Key Size:</strong> Requires much larger keys than symmetric encryption for equivalent security</li>
+                    <li><strong>Quantum Vulnerability:</strong> Potentially vulnerable to quantum computing attacks</li>
+                    <li><strong>Key Authentication:</strong> Requires a trust infrastructure to verify public keys belong to the right entities</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Public Key Infrastructure (PKI)</h3>
+        
+        <p>To address the issue of public key authentication, a Public Key Infrastructure (PKI) is used:</p>
+        
+        <div class="pki-components">
+            <div class="pki-component">
+                <div class="component-icon"><i class="fas fa-certificate"></i></div>
+                <h4>Certificate Authorities (CAs)</h4>
+                <p>Trusted third-party entities that issue and verify digital certificates, binding public keys to entities (individuals, organizations, websites).</p>
+            </div>
+            
+            <div class="pki-component">
+                <div class="component-icon"><i class="fas fa-id-card"></i></div>
+                <h4>Digital Certificates</h4>
+                <p>Electronic documents that include the public key and identity information of the key owner, signed by a CA to verify authenticity.</p>
+            </div>
+            
+            <div class="pki-component">
+                <div class="component-icon"><i class="fas fa-tasks"></i></div>
+                <h4>Certificate Revocation Lists (CRLs)</h4>
+                <p>Lists of certificates that have been revoked before their expiration date due to compromise or other reasons.</p>
+            </div>
+            
+            <div class="pki-component">
+                <div class="component-icon"><i class="fas fa-database"></i></div>
+                <h4>Registration Authorities (RAs)</h4>
+                <p>Entities that handle the verification of certificate applicant identities before CAs issue certificates.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Hybrid Cryptosystems</h3>
+        
+        <p>In practice, most secure systems use a hybrid approach, combining the strengths of both symmetric and asymmetric encryption:</p>
+        
+        <div class="hybrid-diagram">
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-random"></i></div>
+                <div class="step-content">
+                    <h4>1. Generate Session Key</h4>
+                    <p>Alice generates a random symmetric key (session key) for one-time use.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-lock"></i></div>
+                <div class="step-content">
+                    <h4>2. Encrypt Message</h4>
+                    <p>Alice encrypts her message with the session key using symmetric encryption (fast).</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-key"></i></div>
+                <div class="step-content">
+                    <h4>3. Encrypt Session Key</h4>
+                    <p>Alice encrypts the session key with Bob's public key using asymmetric encryption.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+                <div class="step-content">
+                    <h4>4. Send Package</h4>
+                    <p>Alice sends both the encrypted message and the encrypted session key to Bob.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                <div class="step-content">
+                    <h4>5. Decrypt Session Key</h4>
+                    <p>Bob uses his private key to decrypt the session key.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope-open"></i></div>
+                <div class="step-content">
+                    <h4>6. Decrypt Message</h4>
+                    <p>Bob uses the session key to decrypt the actual message using symmetric encryption.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hybrid-benefits">
+            <div class="benefit">
+                <i class="fas fa-bolt"></i>
+                <p>Gets the speed benefits of symmetric encryption for the bulk of the data</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-key"></i>
+                <p>Solves the key distribution problem using asymmetric encryption</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-shield-alt"></i>
+                <p>Provides the security advantages of both systems</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Real-World Applications</h3>
+        
+        <div class="applications-grid">
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-globe"></i></div>
+                <h4>HTTPS/TLS</h4>
+                <p>Securing web communications using certificates and hybrid encryption.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-envelope"></i></div>
+                <h4>Secure Email</h4>
+                <p>PGP and S/MIME protocols for encrypting and signing emails.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-signature"></i></div>
+                <h4>Digital Signatures</h4>
+                <p>Signing documents, software, and code to verify authenticity.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-bitcoin"></i></div>
+                <h4>Cryptocurrencies</h4>
+                <p>Bitcoin and other digital currencies use asymmetric cryptography for transactions.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>VPN Services</h4>
+                <p>Establishing secure connections between clients and servers.</p>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-government"></i></div>
+                <h4>Government ID Systems</h4>
+                <p>Electronic ID cards and digital signature initiatives.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">In asymmetric encryption, if Alice wants to send a secure message to Bob, which key does she use to encrypt the message?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-2" value="a">
+                    <span class="option-text">Alice's private key</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-2" value="b">
+                    <span class="option-text">Bob's public key</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-2" value="c">
+                    <span class="option-text">Bob's private key</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-2" value="d">
+                    <span class="option-text">A shared secret key</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! To send an encrypted message to Bob, Alice would use Bob's public key to encrypt the message. Only Bob's private key, which only he possesses, can decrypt it.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. In asymmetric encryption, if Alice wants to send a secure message to Bob, she would use Bob's public key to encrypt the message. Only Bob's private key can decrypt it.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '3-2')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 3-3: Hash Functions -->
+<div id="lesson3-3-content">
+    <p class="mb-4">Hash functions are fundamental cryptographic primitives that transform input data of any size into a fixed-size output called a hash value or digest. Unlike encryption, hashing is a one-way process—you cannot reverse the function to obtain the original input from the hash value.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>A cryptographic hash function takes an input (or 'message') and returns a fixed-size string of bytes, typically a digest that appears random. Hash functions are designed to be one-way: computing the hash is easy, but finding an input that produces a specific hash value is computationally infeasible.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Properties of Cryptographic Hash Functions</h3>
+        
+        <div class="properties-grid">
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-fingerprint"></i></div>
+                <h4>Deterministic</h4>
+                <p>The same input will always produce the same hash value.</p>
+            </div>
+            
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-bolt"></i></div>
+                <h4>Fast Computation</h4>
+                <p>Calculating the hash value for any input is computationally efficient.</p>
+            </div>
+            
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-random"></i></div>
+                <h4>Avalanche Effect</h4>
+                <p>A small change in the input (even a single bit) should produce a significantly different hash value.</p>
+                <div class="example-box">
+                    <div class="example-row">
+                        <div class="label">Input 1:</div>
+                        <div class="value">"hello"</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Hash 1:</div>
+                        <div class="value">2cf24dba5fb0a30e...</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Input 2:</div>
+                        <div class="value">"hellp"</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Hash 2:</div>
+                        <div class="value">9258e94c58a23bd3...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-lock"></i></div>
+                <h4>Pre-image Resistance</h4>
+                <p>Given a hash value h, it should be difficult to find any input x such that hash(x) = h.</p>
+                <p class="property-security">Prevents reverse-engineering the original input from its hash.</p>
+            </div>
+            
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Second Pre-image Resistance</h4>
+                <p>Given an input x, it should be difficult to find a different input y such that hash(x) = hash(y).</p>
+                <p class="property-security">Ensures an attacker cannot substitute one message for another.</p>
+            </div>
+            
+            <div class="property-item">
+                <div class="property-icon"><i class="fas fa-balance-scale"></i></div>
+                <h4>Collision Resistance</h4>
+                <p>It should be difficult to find any two different inputs x and y such that hash(x) = hash(y).</p>
+                <p class="property-security">Stronger than second pre-image resistance; prevents finding any collision, not just for a specific input.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Common Hash Algorithms</h3>
+        
+        <div class="algorithm-timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h4>MD5 (Message Digest 5)</h4>
+                        <div class="algorithm-meta">
+                            <span class="algorithm-year">1991</span>
+                            <span class="algorithm-size">128-bit hash</span>
+                            <span class="algorithm-status deprecated">Deprecated</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-body">
+                        <p>Designed by Ron Rivest to replace MD4. Once widely used, but now considered cryptographically broken and unsuitable for security applications.</p>
+                        <p>Vulnerabilities include collision attacks and practical pre-image attacks.</p>
+                        <p>Still sometimes used for non-security purposes like checksums and data identification.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h4>SHA-1 (Secure Hash Algorithm 1)</h4>
+                        <div class="algorithm-meta">
+                            <span class="algorithm-year">1995</span>
+                            <span class="algorithm-size">160-bit hash</span>
+                            <span class="algorithm-status deprecated">Deprecated</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-body">
+                        <p>Designed by the NSA and widely used for many years. In 2017, a practical collision attack was demonstrated.</p>
+                        <p>No longer considered secure for digital signatures or certificate validation.</p>
+                        <p>Major browsers and certificate authorities have phased out support for SHA-1 certificates.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h4>SHA-2 Family</h4>
+                        <div class="algorithm-meta">
+                            <span class="algorithm-year">2001</span>
+                            <span class="algorithm-size">224, 256, 384, or 512-bit hash</span>
+                            <span class="algorithm-status current">Current Standard</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-body">
+                        <p>Also designed by the NSA, includes SHA-224, SHA-256, SHA-384, and SHA-512.</p>
+                        <p>Widely used in security applications and protocols, including TLS/SSL, PGP, SSH, and cryptocurrencies like Bitcoin.</p>
+                        <p>SHA-256 is the most commonly used variant and is considered secure for current applications.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h4>SHA-3 (Secure Hash Algorithm 3)</h4>
+                        <div class="algorithm-meta">
+                            <span class="algorithm-year">2015</span>
+                            <span class="algorithm-size">224, 256, 384, or 512-bit hash</span>
+                            <span class="algorithm-status current">Current Standard</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-body">
+                        <p>Based on the Keccak algorithm, selected by NIST through a public competition.</p>
+                        <p>Uses a different internal structure (sponge construction) than SHA-2, providing an alternative in case SHA-2 is compromised.</p>
+                        <p>Designed to be resistant to quantum computer attacks.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="algorithm-card">
+                    <div class="algorithm-header">
+                        <h4>BLAKE2/BLAKE3</h4>
+                        <div class="algorithm-meta">
+                            <span class="algorithm-year">2012 (BLAKE2), 2020 (BLAKE3)</span>
+                            <span class="algorithm-size">Variable, typically 256-bit</span>
+                            <span class="algorithm-status current">Modern Alternative</span>
+                        </div>
+                    </div>
+                    <div class="algorithm-body">
+                        <p>High-performance hash functions that are faster than MD5 while providing security comparable to SHA-3.</p>
+                        <p>Optimized for modern hardware and particularly efficient on 64-bit platforms.</p>
+                        <p>Growing in popularity for applications requiring high throughput.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Practical Applications</h3>
+        
+        <div class="applications-grid">
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-key"></i></div>
+                <h4>Password Storage</h4>
+                <div class="application-content">
+                    <p>Systems store hashed passwords instead of plaintext:</p>
+                    <ol>
+                        <li>User creates password</li>
+                        <li>System hashes password and stores hash</li>
+                        <li>When user logs in, system hashes entered password and compares with stored hash</li>
+                        <li>Original password is never stored</li>
+                    </ol>
+                    <div class="enhancement-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Enhanced with salt (random data added to password before hashing) and key stretching (repeated hashing) for additional security.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-file-alt"></i></div>
+                <h4>Data Integrity</h4>
+                <div class="application-content">
+                    <p>Verifying that data hasn't been altered:</p>
+                    <ol>
+                        <li>Calculate hash of original file</li>
+                        <li>Distribute file along with its hash</li>
+                        <li>Recipients calculate hash of received file</li>
+                        <li>If calculated hash matches original hash, file is intact</li>
+                    </ol>
+                    <p>Common uses: software downloads, file verification, digital forensics</p>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-signature"></i></div>
+                <h4>Digital Signatures</h4>
+                <div class="application-content">
+                    <p>Hash functions form the foundation of digital signature schemes:</p>
+                    <ol>
+                        <li>Document is hashed to create a fixed-size digest</li>
+                        <li>Digest is encrypted with the sender's private key (creating the signature)</li>
+                        <li>Recipients verify by decrypting the signature with the sender's public key and comparing with their own calculated hash</li>
+                    </ol>
+                    <p>Used for: code signing, document authentication, non-repudiation</p>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-link"></i></div>
+                <h4>Blockchain & Cryptocurrencies</h4>
+                <div class="application-content">
+                    <p>Hash functions are central to blockchain technology:</p>
+                    <ul>
+                        <li>Creating unique block identifiers</li>
+                        <li>Building Merkle trees for transaction verification</li>
+                        <li>Mining through proof-of-work (finding specific hash values)</li>
+                        <li>Generating cryptocurrency addresses from public keys</li>
+                    </ul>
+                    <p>Bitcoin uses SHA-256, while Ethereum uses Keccak-256 (a variant of SHA-3)</p>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-random"></i></div>
+                <h4>Message Authentication Codes (MACs)</h4>
+                <div class="application-content">
+                    <p>HMAC (Hash-based Message Authentication Code) combines a hash function with a secret key to verify both:</p>
+                    <ul>
+                        <li>Data integrity (message hasn't been altered)</li>
+                        <li>Authentication (message comes from the expected sender)</li>
+                    </ul>
+                    <p>Used in: API authentication, secure communication protocols</p>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-database"></i></div>
+                <h4>Data Structures</h4>
+                <div class="application-content">
+                    <p>Hash functions power efficient data structures:</p>
+                    <ul>
+                        <li>Hash tables for constant-time lookups</li>
+                        <li>Bloom filters for membership testing</li>
+                        <li>Merkle trees for efficient data verification</li>
+                        <li>Content-addressable storage systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Considerations</h3>
+        
+        <div class="security-considerations">
+            <div class="consideration-item">
+                <div class="consideration-icon"><i class="fas fa-fist-raised"></i></div>
+                <h4>Brute Force Attacks</h4>
+                <p>With a fixed-size output, collisions are theoretically inevitable (pigeonhole principle). A hash function with n bits of output can be brute-forced in approximately 2^(n/2) operations (birthday paradox).</p>
+                <p>This is why increasing hash sizes is important for security (e.g., from 160 bits in SHA-1 to 256 bits in SHA-256).</p>
+            </div>
+            
+            <div class="consideration-item">
+                <div class="consideration-icon"><i class="fas fa-puzzle-piece"></i></div>
+                <h4>Rainbow Tables</h4>
+                <p>Precomputed tables of hash values for common inputs (like passwords) can be used to quickly reverse hashes.</p>
+                <p>Mitigated by using salts—random values added to the input before hashing, making each hash unique even for identical inputs.</p>
+            </div>
+            
+            <div class="consideration-item">
+                <div class="consideration-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <h4>Length Extension Attacks</h4>
+                <p>Some hash functions (including SHA-1 and SHA-2) are vulnerable to attacks where an attacker with hash(message1) can compute hash(message1 ‖ message2) without knowing message1.</p>
+                <p>Mitigated using HMACs or newer hash functions like SHA-3 that are resistant to length extension.</p>
+            </div>
+            
+            <div class="consideration-item">
+                <div class="consideration-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <h4>Key Stretching</h4>
+                <p>For password hashing, deliberately slow hash functions or repeated hashing is used to make brute force attacks more time-consuming.</p>
+                <p>Specialized password hashing functions include bcrypt, scrypt, and Argon2, which are intentionally computationally intensive.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Hash Functions vs. Encryption</h3>
+        
+        <div class="comparison-table">
+            <div class="comparison-header">
+                <div class="comparison-cell header-cell">Characteristic</div>
+                <div class="comparison-cell header-cell">Hash Functions</div>
+                <div class="comparison-cell header-cell">Encryption</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Reversibility</div>
+                <div class="comparison-cell">One-way (irreversible)</div>
+                <div class="comparison-cell">Two-way (reversible with the key)</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Output Size</div>
+                <div class="comparison-cell">Fixed-length, regardless of input size</div>
+                <div class="comparison-cell">Usually proportional to input size</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Keys</div>
+                <div class="comparison-cell">No keys required (except for HMACs)</div>
+                <div class="comparison-cell">Requires encryption/decryption keys</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Purpose</div>
+                <div class="comparison-cell">Verify integrity, create fixed-size representations</div>
+                <div class="comparison-cell">Protect confidentiality, hide content</div>
+            </div>
+            
+            <div class="comparison-row">
+                <div class="comparison-cell feature-cell">Common Uses</div>
+                <div class="comparison-cell">Password storage, checksums, digital signatures</div>
+                <div class="comparison-cell">Secure communication, data protection</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What is the main difference between hash functions and encryption?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-3" value="a">
+                    <span class="option-text">Hash functions are faster than encryption</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-3" value="b">
+                    <span class="option-text">Hash functions are one-way (irreversible), while encryption is reversible</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-3" value="c">
+                    <span class="option-text">Hash functions use keys, while encryption doesn't</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz3-3" value="d">
+                    <span class="option-text">Hash functions are more secure than encryption</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! The fundamental difference is that hash functions are one-way operations designed to be irreversible, while encryption is designed to be reversed (decrypted) with the proper key.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The key difference is that hash functions are one-way (irreversible) operations, while encryption is designed to be reversed (decrypted) with the proper key.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '3-3')">Check My Answer</button>
+        </div>
+    </div>
+</div>

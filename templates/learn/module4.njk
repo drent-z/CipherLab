@@ -1,1 +1,1316 @@
-<!-- This file is no longer used with the new simplified learning interface -->
+<!-- Module 4: Applications -->
+
+<!-- Lesson 4-1: Secure Communications -->
+<div id="lesson4-1-content">
+    <p class="mb-4">Secure communications are essential in our digital world. Every day, billions of messages, transactions, and data transfers occur online that need protection from eavesdropping and tampering. Let's explore how cryptography makes secure communications possible.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>Secure communication involves protecting both the confidentiality and integrity of messages as they travel across networks. This is achieved through a layered approach using various cryptographic protocols and techniques.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">The CIA Triad in Communications</h3>
+        
+        <p>The security of communications is often evaluated against the CIA triad—a model for information security that focuses on three key aspects:</p>
+        
+        <div class="triad-diagram">
+            <div class="triad-node">
+                <div class="triad-icon"><i class="fas fa-user-secret"></i></div>
+                <h4>Confidentiality</h4>
+                <p>Ensuring that information is accessible only to authorized individuals and kept hidden from others.</p>
+                <div class="technique-list">
+                    <span class="technique">Encryption</span>
+                    <span class="technique">Access controls</span>
+                    <span class="technique">Authentication</span>
+                </div>
+            </div>
+            
+            <div class="triad-node">
+                <div class="triad-icon"><i class="fas fa-check-circle"></i></div>
+                <h4>Integrity</h4>
+                <p>Ensuring that information remains accurate, complete, and unaltered during transit or storage.</p>
+                <div class="technique-list">
+                    <span class="technique">Hash functions</span>
+                    <span class="technique">Digital signatures</span>
+                    <span class="technique">Message authentication codes</span>
+                </div>
+            </div>
+            
+            <div class="triad-node">
+                <div class="triad-icon"><i class="fas fa-clock"></i></div>
+                <h4>Availability</h4>
+                <p>Ensuring that information and systems are available when needed by authorized users.</p>
+                <div class="technique-list">
+                    <span class="technique">Redundancy</span>
+                    <span class="technique">Backup systems</span>
+                    <span class="technique">DDoS protection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Secure Communication Protocols</h3>
+        
+        <div class="protocol-cards">
+            <div class="protocol-card">
+                <div class="protocol-header">
+                    <h4>TLS/SSL</h4>
+                    <div class="protocol-icon"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="protocol-body">
+                    <p><strong>Transport Layer Security</strong> (TLS) and its predecessor <strong>Secure Sockets Layer</strong> (SSL) are cryptographic protocols designed to provide secure communication over a computer network.</p>
+                    
+                    <div class="protocol-process">
+                        <h5>How it works:</h5>
+                        <ol>
+                            <li>Client and server perform a handshake to establish trust</li>
+                            <li>They negotiate which cipher suite (set of algorithms) to use</li>
+                            <li>They authenticate each other (usually server authenticates to client)</li>
+                            <li>They establish a shared secret key for session encryption</li>
+                            <li>All subsequent communications are encrypted with this key</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="protocol-applications">
+                        <h5>Common Uses:</h5>
+                        <ul>
+                            <li>HTTPS (Secure Websites)</li>
+                            <li>Secure Email (SMTPS, IMAPS, POP3S)</li>
+                            <li>VPN connections</li>
+                            <li>Online banking and e-commerce</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="protocol-footer">
+                    <div class="protocol-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>The padlock icon in your browser indicates TLS/SSL protection</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="protocol-card">
+                <div class="protocol-header">
+                    <h4>SSH</h4>
+                    <div class="protocol-icon"><i class="fas fa-terminal"></i></div>
+                </div>
+                <div class="protocol-body">
+                    <p><strong>Secure Shell</strong> (SSH) is a cryptographic network protocol for secure remote login and other secure network services over an unsecured network.</p>
+                    
+                    <div class="protocol-process">
+                        <h5>How it works:</h5>
+                        <ol>
+                            <li>Uses public-key cryptography for authentication</li>
+                            <li>Allows secure login to remote systems</li>
+                            <li>Establishes encrypted tunnels for secure data transfer</li>
+                            <li>Supports multiple authentication methods</li>
+                            <li>Uses symmetric encryption for session data</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="protocol-applications">
+                        <h5>Common Uses:</h5>
+                        <ul>
+                            <li>Remote server administration</li>
+                            <li>Secure file transfers (SCP, SFTP)</li>
+                            <li>Port forwarding and tunneling</li>
+                            <li>Remote command execution</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="protocol-footer">
+                    <div class="protocol-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>SSH largely replaced insecure protocols like Telnet and FTP</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="protocol-card">
+                <div class="protocol-header">
+                    <h4>End-to-End Encryption</h4>
+                    <div class="protocol-icon"><i class="fas fa-comments"></i></div>
+                </div>
+                <div class="protocol-body">
+                    <p><strong>End-to-End Encryption</strong> (E2EE) ensures that only the communicating users can read the messages. No intermediary, not even the service provider, can access the content.</p>
+                    
+                    <div class="protocol-process">
+                        <h5>How it works:</h5>
+                        <ol>
+                            <li>Encryption occurs on the sender's device</li>
+                            <li>Data remains encrypted in transit</li>
+                            <li>Data remains encrypted on service providers' servers</li>
+                            <li>Decryption occurs only on the recipient's device</li>
+                            <li>Keys never leave the end user devices</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="protocol-applications">
+                        <h5>Common Uses:</h5>
+                        <ul>
+                            <li>Messaging apps (Signal, WhatsApp)</li>
+                            <li>Secure email services (ProtonMail)</li>
+                            <li>Video conferencing (Zoom E2EE mode)</li>
+                            <li>Voice calls in secure messengers</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="protocol-footer">
+                    <div class="protocol-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>E2EE protects against service provider data breaches</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">HTTPS: Secure Web Browsing</h3>
+        
+        <div class="https-overview">
+            <div class="https-diagram">
+                <img src="/assets/images/https-diagram.png" alt="HTTPS connection diagram" class="https-image">
+            </div>
+            
+            <div class="https-explanation">
+                <p>HTTPS (HTTP Secure) is the secure version of HTTP, the protocol over which data is sent between your browser and the website you are connected to. It's secured through the use of TLS/SSL.</p>
+                
+                <div class="https-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-description">Your browser requests a secure connection with a website</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-description">The server sends its SSL certificate containing its public key</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-description">Your browser verifies the certificate with a Certificate Authority</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-description">Your browser generates a symmetric session key</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-description">This key is encrypted with the server's public key and sent to the server</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-description">The server decrypts this using its private key to get the session key</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-description">All further communication is encrypted with this shared session key</div>
+                    </div>
+                </div>
+                
+                <div class="https-benefits">
+                    <h4>Benefits of HTTPS:</h4>
+                    <ul>
+                        <li><strong>Data confidentiality:</strong> Information remains hidden from eavesdroppers</li>
+                        <li><strong>Data integrity:</strong> Information cannot be modified during transfer</li>
+                        <li><strong>Authentication:</strong> Users can trust they're communicating with the intended website</li>
+                        <li><strong>Better SEO:</strong> Search engines favor HTTPS websites in rankings</li>
+                        <li><strong>Required for modern features:</strong> Many new web features only work with HTTPS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">VPNs: Secure Network Tunneling</h3>
+        
+        <p>A Virtual Private Network (VPN) establishes a protected network connection when using public networks, extending a private network across a public one.</p>
+        
+        <div class="vpn-explanation">
+            <div class="vpn-diagram">
+                <img src="/assets/images/vpn-diagram.png" alt="VPN connection diagram" class="vpn-image">
+            </div>
+            
+            <div class="vpn-details">
+                <div class="vpn-functions">
+                    <h4>Key Functions:</h4>
+                    <ul>
+                        <li><strong>Encryption:</strong> Encrypts all network traffic between your device and the VPN server</li>
+                        <li><strong>IP Masking:</strong> Hides your IP address by routing through the VPN server</li>
+                        <li><strong>Location Shifting:</strong> Makes it appear as if you're browsing from the VPN server location</li>
+                        <li><strong>Traffic Routing:</strong> Routes all traffic through an encrypted tunnel</li>
+                    </ul>
+                </div>
+                
+                <div class="vpn-protocols">
+                    <h4>Common VPN Protocols:</h4>
+                    <div class="protocols-grid">
+                        <div class="protocol-item">
+                            <h5>OpenVPN</h5>
+                            <p>Open-source, highly secure, flexible protocol</p>
+                        </div>
+                        <div class="protocol-item">
+                            <h5>WireGuard</h5>
+                            <p>Modern, faster, simpler code for better security</p>
+                        </div>
+                        <div class="protocol-item">
+                            <h5>IKEv2/IPsec</h5>
+                            <p>Stable, secure, good for mobile connections</p>
+                        </div>
+                        <div class="protocol-item">
+                            <h5>L2TP/IPsec</h5>
+                            <p>Good security but slower than newer protocols</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vpn-uses">
+                    <h4>Common Use Cases:</h4>
+                    <ul>
+                        <li>Securing connections on public Wi-Fi</li>
+                        <li>Accessing region-restricted content</li>
+                        <li>Protecting privacy from ISP monitoring</li>
+                        <li>Secure remote access to business networks</li>
+                        <li>Bypassing network restrictions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Secure Messaging</h3>
+        
+        <p>Modern secure messaging platforms use sophisticated cryptography to protect private communications, with end-to-end encryption serving as the foundation.</p>
+        
+        <div class="messaging-platforms">
+            <div class="platform-card">
+                <div class="platform-header">
+                    <h4>Signal</h4>
+                    <div class="platform-icon"><img src="/assets/images/signal-icon.png" alt="Signal icon"></div>
+                </div>
+                <div class="platform-body">
+                    <div class="platform-features">
+                        <h5>Security Features:</h5>
+                        <ul>
+                            <li>End-to-end encryption by default</li>
+                            <li>Open-source protocol and client</li>
+                            <li>Perfect forward secrecy</li>
+                            <li>Minimal metadata collection</li>
+                            <li>Self-destructing messages</li>
+                            <li>Screen security features</li>
+                        </ul>
+                    </div>
+                    <div class="platform-technique">
+                        <h5>Technical Approach:</h5>
+                        <p>Uses the Signal Protocol, which combines the Double Ratchet Algorithm, prekeys, and a triple Elliptic-curve Diffie–Hellman (3-DH) handshake to provide strong encryption with perfect forward secrecy.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="platform-card">
+                <div class="platform-header">
+                    <h4>WhatsApp</h4>
+                    <div class="platform-icon"><img src="/assets/images/whatsapp-icon.png" alt="WhatsApp icon"></div>
+                </div>
+                <div class="platform-body">
+                    <div class="platform-features">
+                        <h5>Security Features:</h5>
+                        <ul>
+                            <li>End-to-end encryption using Signal Protocol</li>
+                            <li>Encrypted backups option</li>
+                            <li>Two-factor authentication</li>
+                            <li>Disappearing messages</li>
+                            <li>Verification codes for contacts</li>
+                        </ul>
+                    </div>
+                    <div class="platform-technique">
+                        <h5>Technical Approach:</h5>
+                        <p>Implemented the Signal Protocol in 2016, ensuring all messages, calls, photos, videos, and voice notes are end-to-end encrypted by default. Meta (formerly Facebook) cannot access message content.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="platform-card">
+                <div class="platform-header">
+                    <h4>Element (Matrix)</h4>
+                    <div class="platform-icon"><img src="/assets/images/element-icon.png" alt="Element icon"></div>
+                </div>
+                <div class="platform-body">
+                    <div class="platform-features">
+                        <h5>Security Features:</h5>
+                        <ul>
+                            <li>End-to-end encryption using Olm and Megolm</li>
+                            <li>Open-source client and server</li>
+                            <li>Decentralized architecture</li>
+                            <li>Cross-signed device verification</li>
+                            <li>Self-hosting option</li>
+                        </ul>
+                    </div>
+                    <div class="platform-technique">
+                        <h5>Technical Approach:</h5>
+                        <p>Uses the Matrix protocol with Olm (for one-to-one chats) and Megolm (for group chats) cryptographic ratchets. Allows federated servers while maintaining end-to-end encryption.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="key-security-features">
+            <h4>Essential Security Features in Modern Messaging:</h4>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h5>End-to-End Encryption</h5>
+                    <p>Only communicating parties can read messages</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-history"></i></div>
+                    <h5>Perfect Forward Secrecy</h5>
+                    <p>If a key is compromised, past messages remain secure</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-fingerprint"></i></div>
+                    <h5>Verification</h5>
+                    <p>Methods to verify the identity of contacts</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-trash"></i></div>
+                    <h5>Disappearing Messages</h5>
+                    <p>Auto-deletion after a specified time</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-database"></i></div>
+                    <h5>Minimal Metadata</h5>
+                    <p>Limited collection of user data beyond messages</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h5>Open Source</h5>
+                    <p>Transparency about security implementations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What is the main advantage of end-to-end encryption in messaging apps?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-1" value="a">
+                    <span class="option-text">It makes messages send faster</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-1" value="b">
+                    <span class="option-text">It prevents the service provider from reading your messages</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-1" value="c">
+                    <span class="option-text">It prevents users from taking screenshots</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-1" value="d">
+                    <span class="option-text">It makes the app use less data</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! The key benefit of end-to-end encryption is that only the sender and recipient can read the messages. Even the company providing the service cannot access the content, enhancing privacy and security.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. End-to-end encryption's main purpose is to ensure that only the communicating users can read the messages - even the service provider cannot decrypt and access the content.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-1')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 4-2: Digital Signatures -->
+<div id="lesson4-2-content">
+    <p class="mb-4">Digital signatures are one of the most important applications of cryptography, providing a way to verify the authenticity and integrity of digital documents, messages, or software. They serve as the electronic equivalent of handwritten signatures or stamped seals, but with far greater security.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>A digital signature is a mathematical technique used to validate the authenticity and integrity of a digital message, document, or software. It provides proof of origin, identity, and status of electronic documents, transactions, or digital messages and acknowledges informed consent by the signer.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How Digital Signatures Work</h3>
+        
+        <div class="process-diagram">
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="step-content">
+                    <h4>1. Document Creation</h4>
+                    <p>Alice creates a document that she wants to sign digitally.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-calculator"></i></div>
+                <div class="step-content">
+                    <h4>2. Hash Creation</h4>
+                    <p>A hash function creates a fixed-size "fingerprint" (digest) of the document.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-key"></i></div>
+                <div class="step-content">
+                    <h4>3. Encryption with Private Key</h4>
+                    <p>Alice encrypts the hash using her private key, creating the digital signature.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+                <div class="step-content">
+                    <h4>4. Document Transmission</h4>
+                    <p>Alice sends both the original document and the signature to Bob.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-unlock"></i></div>
+                <div class="step-content">
+                    <h4>5. Signature Verification</h4>
+                    <p>Bob uses Alice's public key to decrypt the signature, obtaining the original hash.</p>
+                </div>
+            </div>
+            
+            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            
+            <div class="process-step">
+                <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="step-content">
+                    <h4>6. Hash Comparison</h4>
+                    <p>Bob independently hashes the received document and compares it with the decrypted hash. If they match, the signature is valid.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="key-insight">
+            <i class="fas fa-lightbulb"></i>
+            <div class="insight-content">
+                <p>Digital signatures use the private key for signing (which only the signer has) and the public key for verification (which anyone can have). This is essentially the reverse of the usual encryption process, where the public key is used to encrypt and the private key to decrypt.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">What Digital Signatures Provide</h3>
+        
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-user-check"></i></div>
+                <h4>Authentication</h4>
+                <p>Digital signatures help establish the identity of the signer. Since the signature is created using the signer's private key, which only they should possess, a valid signature provides strong evidence that the document was signed by the claimed signer.</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Data Integrity</h4>
+                <p>Any change to the document after it has been signed will invalidate the signature. This provides assurance that the content has not been altered in transit or storage.</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas fa-ban"></i></div>
+                <h4>Non-repudiation</h4>
+                <p>The signer cannot later deny having signed the document, as they are the only one with access to the private key used to create the signature. This provides legal accountability.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Digital Signature Algorithms</h3>
+        
+        <div class="algorithm-grid">
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>RSA-PSS</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-type">Based on: RSA</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>RSA Probabilistic Signature Scheme (RSA-PSS) is an improvement over the older RSA signature scheme, adding a random salt to increase security.</p>
+                    <ul>
+                        <li>Based on the difficulty of factoring large numbers</li>
+                        <li>Widely supported in software and hardware</li>
+                        <li>Relatively slow for large files</li>
+                        <li>Typical key sizes: 2048 or 4096 bits</li>
+                    </ul>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-status">Widely used in many applications</div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>ECDSA</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-type">Based on: Elliptic Curve Cryptography</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>Elliptic Curve Digital Signature Algorithm offers the same level of security as RSA but with smaller key sizes.</p>
+                    <ul>
+                        <li>Based on the elliptic curve discrete logarithm problem</li>
+                        <li>More efficient than RSA (faster, less computation)</li>
+                        <li>Smaller signatures (important for space-constrained systems)</li>
+                        <li>Typical key sizes: 256 or 384 bits</li>
+                    </ul>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-status">Popular in mobile and IoT applications</div>
+                </div>
+            </div>
+            
+            <div class="algorithm-card">
+                <div class="algorithm-header">
+                    <h4>EdDSA</h4>
+                    <div class="algorithm-meta">
+                        <span class="algorithm-type">Based on: Edwards Curves</span>
+                    </div>
+                </div>
+                <div class="algorithm-body">
+                    <p>Edwards-curve Digital Signature Algorithm, with Ed25519 being the most common variant, is a modern, high-security signature algorithm.</p>
+                    <ul>
+                        <li>Better side-channel attack resistance than ECDSA</li>
+                        <li>Faster signature generation and verification</li>
+                        <li>Fixed signatures size (Ed25519: 64 bytes)</li>
+                        <li>Designed to be more resistant to implementation errors</li>
+                    </ul>
+                </div>
+                <div class="algorithm-footer">
+                    <div class="algorithm-status">Growing in popularity for new systems</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="algorithm-comparison">
+            <h4>Performance Comparison</h4>
+            <div class="comparison-chart">
+                <div class="chart-labels">
+                    <div class="label">Key Size</div>
+                    <div class="label">Signature Speed</div>
+                    <div class="label">Verification Speed</div>
+                    <div class="label">Signature Size</div>
+                </div>
+                
+                <div class="chart-bar-group">
+                    <div class="bar-label">RSA-PSS (2048-bit)</div>
+                    <div class="bar-container">
+                        <div class="chart-bar size-bar" style="width: 85%;"></div>
+                        <div class="chart-bar speed-bar" style="width: 30%;"></div>
+                        <div class="chart-bar verification-bar" style="width: 60%;"></div>
+                        <div class="chart-bar sigsize-bar" style="width: 85%;"></div>
+                    </div>
+                </div>
+                
+                <div class="chart-bar-group">
+                    <div class="bar-label">ECDSA (P-256)</div>
+                    <div class="bar-container">
+                        <div class="chart-bar size-bar" style="width: 35%;"></div>
+                        <div class="chart-bar speed-bar" style="width: 70%;"></div>
+                        <div class="chart-bar verification-bar" style="width: 45%;"></div>
+                        <div class="chart-bar sigsize-bar" style="width: 35%;"></div>
+                    </div>
+                </div>
+                
+                <div class="chart-bar-group">
+                    <div class="bar-label">EdDSA (Ed25519)</div>
+                    <div class="bar-container">
+                        <div class="chart-bar size-bar" style="width: 35%;"></div>
+                        <div class="chart-bar speed-bar" style="width: 90%;"></div>
+                        <div class="chart-bar verification-bar" style="width: 85%;"></div>
+                        <div class="chart-bar sigsize-bar" style="width: 30%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Real-World Applications</h3>
+        
+        <div class="applications-grid">
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-code"></i></div>
+                <h4>Code Signing</h4>
+                <p>Software developers sign their code to verify its origin and ensure it hasn't been tampered with. Operating systems and browsers check these signatures before installing or running software.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Microsoft Authenticode for Windows applications</li>
+                        <li>Apple Developer ID for macOS applications</li>
+                        <li>Android APK signing</li>
+                        <li>Java JAR signing</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-file-contract"></i></div>
+                <h4>Electronic Documents</h4>
+                <p>Digital signatures are used for contracts, agreements, and official documents, often with the same legal standing as handwritten signatures in many jurisdictions.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>PDF document signing</li>
+                        <li>E-contracts in business</li>
+                        <li>Government document processing</li>
+                        <li>Electronic tax filings</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-envelope"></i></div>
+                <h4>Email Security</h4>
+                <p>Digital signatures verify the sender's identity and ensure email content hasn't been altered, helping prevent phishing and spoofing attacks.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>S/MIME (Secure/Multipurpose Internet Mail Extensions)</li>
+                        <li>PGP (Pretty Good Privacy)</li>
+                        <li>DKIM (DomainKeys Identified Mail) for domain verification</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-certificate"></i></div>
+                <h4>SSL/TLS Certificates</h4>
+                <p>Digital signatures are fundamental to the web's security infrastructure, verifying the identity of websites and ensuring secure connections.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Website certificates (the padlock in browsers)</li>
+                        <li>Client certificates for mutual authentication</li>
+                        <li>Certificate Authority signatures on issued certificates</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-coins"></i></div>
+                <h4>Cryptocurrencies</h4>
+                <p>Digital signatures are essential for proving ownership and authorizing transactions in blockchain-based cryptocurrencies.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Bitcoin transaction signatures (ECDSA)</li>
+                        <li>Ethereum transaction authorization</li>
+                        <li>Wallet authentication</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-id-card"></i></div>
+                <h4>Digital Identity</h4>
+                <p>Government-issued digital identities use digital signatures for secure authentication and service access.</p>
+                <div class="application-example">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Estonia's e-Residency program</li>
+                        <li>National ID card systems</li>
+                        <li>Digital passports and travel documents</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Legal Considerations</h3>
+        
+        <div class="legal-framework">
+            <p>Many countries have enacted laws that recognize digital signatures as legally binding:</p>
+            
+            <div class="legal-examples">
+                <div class="legal-example">
+                    <h4>United States</h4>
+                    <p>The Electronic Signatures in Global and National Commerce Act (ESIGN, 2000) and the Uniform Electronic Transactions Act (UETA) establish the legal equivalence of electronic signatures to handwritten signatures.</p>
+                </div>
+                
+                <div class="legal-example">
+                    <h4>European Union</h4>
+                    <p>The eIDAS Regulation (Electronic Identification, Authentication and Trust Services) provides a legal framework for electronic signatures, electronic seals, time stamps, and website authentication.</p>
+                </div>
+                
+                <div class="legal-example">
+                    <h4>Global Adoption</h4>
+                    <p>The United Nations Commission on International Trade Law (UNCITRAL) Model Law on Electronic Signatures has influenced legislation in many countries, promoting cross-border recognition of digital signatures.</p>
+                </div>
+            </div>
+            
+            <div class="signature-types">
+                <h4>Types of Electronic Signatures in Legal Frameworks:</h4>
+                
+                <div class="signature-type">
+                    <h5>Simple Electronic Signatures (SES)</h5>
+                    <p>Basic form of electronic signature, such as a scanned handwritten signature or clicking "I agree" on a website.</p>
+                    <div class="legal-status">Low level of legal assurance</div>
+                </div>
+                
+                <div class="signature-type">
+                    <h5>Advanced Electronic Signatures (AdES)</h5>
+                    <p>Uniquely linked to and capable of identifying the signatory, created using data that the signatory can maintain under their sole control.</p>
+                    <div class="legal-status">Medium level of legal assurance</div>
+                </div>
+                
+                <div class="signature-type">
+                    <h5>Qualified Electronic Signatures (QES)</h5>
+                    <p>Advanced electronic signatures that are created by a qualified device and based on a qualified certificate issued by a trusted service provider.</p>
+                    <div class="legal-status">Highest level of legal assurance, equivalent to handwritten signatures</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What is the key difference between traditional encryption and digital signatures?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-2" value="a">
+                    <span class="option-text">Digital signatures cannot be verified by multiple parties</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-2" value="b">
+                    <span class="option-text">Digital signatures use symmetric keys instead of asymmetric keys</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-2" value="c">
+                    <span class="option-text">Digital signatures use the private key to sign and public key to verify (reverse of encryption)</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-2" value="d">
+                    <span class="option-text">Digital signatures don't involve any cryptographic operations</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! In traditional encryption, the public key is used to encrypt (so only the private key holder can decrypt). For digital signatures, this is reversed - the private key is used to sign (so anyone with the public key can verify, but only the private key holder could have created the signature).
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The key difference is that digital signatures reverse the normal asymmetric encryption process - the private key is used to sign (encrypt the hash), and the public key is used to verify (decrypt the signature).
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="c" onclick="checkAnswer(this, '4-2')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 4-3: Blockchain Technology -->
+<div id="lesson4-3-content">
+    <p class="mb-4">Blockchain technology represents one of the most significant applications of cryptography in recent years. A blockchain is a distributed, immutable ledger that records transactions across many computers. The technology combines several cryptographic principles to create a secure, transparent, and tamper-resistant system.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>A blockchain is a chain of blocks containing information that is secured using cryptography. Each block typically contains a cryptographic hash of the previous block, transaction data, and a timestamp. The decentralized nature and cryptographic security make blockchains extremely difficult to modify once recorded.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Blockchain Structure</h3>
+        
+        <div class="blockchain-diagram">
+            <div class="block block-1">
+                <div class="block-header">Genesis Block</div>
+                <div class="block-content">
+                    <div class="block-data">Transaction Data</div>
+                    <div class="timestamp">Timestamp</div>
+                    <div class="prev-hash">Previous Hash: 0000...0000</div>
+                    <div class="nonce">Nonce</div>
+                    <div class="current-hash">Current Hash</div>
+                </div>
+            </div>
+            
+            <div class="block-connector">
+                <i class="fas fa-link"></i>
+            </div>
+            
+            <div class="block block-2">
+                <div class="block-header">Block #2</div>
+                <div class="block-content">
+                    <div class="block-data">Transaction Data</div>
+                    <div class="timestamp">Timestamp</div>
+                    <div class="prev-hash">Previous Hash: [Hash of Block #1]</div>
+                    <div class="nonce">Nonce</div>
+                    <div class="current-hash">Current Hash</div>
+                </div>
+            </div>
+            
+            <div class="block-connector">
+                <i class="fas fa-link"></i>
+            </div>
+            
+            <div class="block block-3">
+                <div class="block-header">Block #3</div>
+                <div class="block-content">
+                    <div class="block-data">Transaction Data</div>
+                    <div class="timestamp">Timestamp</div>
+                    <div class="prev-hash">Previous Hash: [Hash of Block #2]</div>
+                    <div class="nonce">Nonce</div>
+                    <div class="current-hash">Current Hash</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="blockchain-components">
+            <div class="component">
+                <h4>Block</h4>
+                <p>The fundamental unit of a blockchain, containing:</p>
+                <ul>
+                    <li><strong>Header:</strong> Metadata about the block</li>
+                    <li><strong>Transaction Data:</strong> The actual information being stored</li>
+                    <li><strong>Timestamp:</strong> When the block was created</li>
+                    <li><strong>Previous Hash:</strong> Reference to the previous block</li>
+                    <li><strong>Nonce:</strong> A number used once to find a valid hash</li>
+                    <li><strong>Current Hash:</strong> The block's identifier, derived from all other fields</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h4>Cryptographic Hash</h4>
+                <p>Each block contains the hash of the previous block, creating a chain. This ensures:</p>
+                <ul>
+                    <li>Any change to a block would change its hash</li>
+                    <li>This would invalidate all subsequent blocks</li>
+                    <li>The entire chain's integrity is maintained</li>
+                </ul>
+                <p>Common hash functions used: SHA-256, Keccak-256 (Ethereum)</p>
+            </div>
+            
+            <div class="component">
+                <h4>Digital Signatures</h4>
+                <p>Used to authorize transactions on the blockchain:</p>
+                <ul>
+                    <li>Participants have public-private key pairs</li>
+                    <li>Transactions are signed with private keys</li>
+                    <li>Signatures can be verified using public keys</li>
+                    <li>Ensures non-repudiation and authentication</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Consensus Mechanisms</h3>
+        
+        <p>Consensus mechanisms are protocols that ensure all nodes in the network agree on the state of the blockchain. They solve the "Byzantine Generals Problem" - how to reach agreement in a distributed system when some participants may be unreliable or malicious.</p>
+        
+        <div class="consensus-mechanisms">
+            <div class="consensus-mechanism">
+                <div class="mechanism-header">
+                    <h4>Proof of Work (PoW)</h4>
+                    <div class="mechanism-icon"><i class="fas fa-hammer"></i></div>
+                </div>
+                <div class="mechanism-body">
+                    <p>Participants ("miners") compete to solve a computationally intensive puzzle. The first to solve it gets to add the next block to the chain and receives a reward.</p>
+                    
+                    <div class="mechanism-process">
+                        <h5>How it works:</h5>
+                        <ol>
+                            <li>Miners collect pending transactions into a block</li>
+                            <li>They compute a hash of the block header</li>
+                            <li>They must find a nonce that makes the hash meet certain criteria (e.g., starting with a specific number of zeros)</li>
+                            <li>This requires enormous computational power and trial-and-error</li>
+                            <li>Once found, other nodes can easily verify the solution</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="mechanism-examples">
+                        <h5>Used in:</h5>
+                        <ul>
+                            <li>Bitcoin</li>
+                            <li>Litecoin</li>
+                            <li>Monero</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mechanism-pros-cons">
+                        <div class="pros">
+                            <h5>Advantages:</h5>
+                            <ul>
+                                <li>Proven security track record</li>
+                                <li>Highly resistant to attacks</li>
+                                <li>Decentralized</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Disadvantages:</h5>
+                            <ul>
+                                <li>High energy consumption</li>
+                                <li>Slower transaction throughput</li>
+                                <li>Vulnerability to 51% attacks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="consensus-mechanism">
+                <div class="mechanism-header">
+                    <h4>Proof of Stake (PoS)</h4>
+                    <div class="mechanism-icon"><i class="fas fa-coins"></i></div>
+                </div>
+                <div class="mechanism-body">
+                    <p>Validators are selected to create blocks based on the amount of cryptocurrency they hold and are willing to "stake" as collateral. If they validate fraudulent transactions, they risk losing their stake.</p>
+                    
+                    <div class="mechanism-process">
+                        <h5>How it works:</h5>
+                        <ol>
+                            <li>Validators lock up some of their tokens as stake</li>
+                            <li>The algorithm selects validators based on their stake</li>
+                            <li>Selected validators verify and add blocks</li>
+                            <li>Validators earn transaction fees as rewards</li>
+                            <li>Malicious behavior results in losing part of their stake</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="mechanism-examples">
+                        <h5>Used in:</h5>
+                        <ul>
+                            <li>Ethereum 2.0</li>
+                            <li>Cardano</li>
+                            <li>Solana</li>
+                            <li>Polkadot</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mechanism-pros-cons">
+                        <div class="pros">
+                            <h5>Advantages:</h5>
+                            <ul>
+                                <li>Energy efficient</li>
+                                <li>Higher transaction throughput</li>
+                                <li>Lower entry barriers</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Disadvantages:</h5>
+                            <ul>
+                                <li>Potential for stake centralization</li>
+                                <li>"Nothing at Stake" problem</li>
+                                <li>Less tested than PoW</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="consensus-mechanism">
+                <div class="mechanism-header">
+                    <h4>Other Consensus Mechanisms</h4>
+                    <div class="mechanism-icon"><i class="fas fa-cogs"></i></div>
+                </div>
+                <div class="mechanism-body">
+                    <div class="other-mechanisms">
+                        <div class="other-mechanism">
+                            <h5>Delegated Proof of Stake (DPoS)</h5>
+                            <p>Token holders vote for a limited number of delegates who validate transactions and create blocks. Faster, but more centralized.</p>
+                            <p><strong>Examples:</strong> EOS, Tron, Cosmos</p>
+                        </div>
+                        
+                        <div class="other-mechanism">
+                            <h5>Proof of Authority (PoA)</h5>
+                            <p>Transactions are validated by approved accounts (validators), who are typically known entities with reputation at stake.</p>
+                            <p><strong>Examples:</strong> VeChain, POA Network, many private blockchains</p>
+                        </div>
+                        
+                        <div class="other-mechanism">
+                            <h5>Practical Byzantine Fault Tolerance (PBFT)</h5>
+                            <p>Nodes vote in rounds to reach consensus, requiring a two-thirds majority. Typically used in permissioned blockchains.</p>
+                            <p><strong>Examples:</strong> Hyperledger Fabric, Stellar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Cryptography in Blockchain</h3>
+        
+        <div class="crypto-blockchain-grid">
+            <div class="crypto-element">
+                <div class="element-icon"><i class="fas fa-fingerprint"></i></div>
+                <h4>Hash Functions</h4>
+                <ul>
+                    <li><strong>Block Integrity:</strong> Ensuring each block's contents cannot be altered</li>
+                    <li><strong>Chain Linking:</strong> Each block contains the previous block's hash</li>
+                    <li><strong>Merkle Trees:</strong> Efficiently summarizing all transactions in a block</li>
+                    <li><strong>Mining:</strong> Finding hash values that meet specific criteria</li>
+                    <li><strong>Address Generation:</strong> Creating addresses from public keys</li>
+                </ul>
+            </div>
+            
+            <div class="crypto-element">
+                <div class="element-icon"><i class="fas fa-key"></i></div>
+                <h4>Asymmetric Cryptography</h4>
+                <ul>
+                    <li><strong>Wallets:</strong> Public-private key pairs manage ownership of assets</li>
+                    <li><strong>Transaction Signing:</strong> Proving the right to spend assets</li>
+                    <li><strong>Authentication:</strong> Verifying identity without revealing private keys</li>
+                    <li><strong>Multi-Signature:</strong> Requiring multiple keys to authorize transactions</li>
+                </ul>
+            </div>
+            
+            <div class="crypto-element">
+                <div class="element-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Advanced Cryptographic Techniques</h4>
+                <ul>
+                    <li><strong>Zero-Knowledge Proofs:</strong> Proving possession of information without revealing it (e.g., Zcash)</li>
+                    <li><strong>Ring Signatures:</strong> Signing on behalf of a group without revealing which member signed (e.g., Monero)</li>
+                    <li><strong>Homomorphic Encryption:</strong> Performing computations on encrypted data (e.g., some privacy-focused blockchains)</li>
+                    <li><strong>Threshold Signatures:</strong> Distributing signing power among multiple parties</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Applications Beyond Cryptocurrencies</h3>
+        
+        <p>While cryptocurrencies were the first application of blockchain technology, the secure, transparent, and tamper-resistant nature of blockchains has led to many other applications:</p>
+        
+        <div class="application-grid">
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-file-contract"></i></div>
+                <h4>Smart Contracts</h4>
+                <p>Self-executing contracts with the terms directly written in code, automatically enforcing agreements when predefined conditions are met.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Automated escrow services</li>
+                        <li>Decentralized finance (DeFi) applications</li>
+                        <li>Parametric insurance policies</li>
+                        <li>Supply chain triggers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-truck"></i></div>
+                <h4>Supply Chain Tracking</h4>
+                <p>Tracking goods from origin to consumer, ensuring authenticity and providing transparency throughout the supply chain.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>IBM Food Trust for food traceability</li>
+                        <li>TradeLens for shipping logistics</li>
+                        <li>VeChain for product verification</li>
+                        <li>Diamond and luxury goods authentication</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-id-card"></i></div>
+                <h4>Identity Management</h4>
+                <p>Creating secure, self-sovereign digital identities that users control and can selectively share with service providers.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Microsoft's ION digital ID system</li>
+                        <li>Civic identity verification</li>
+                        <li>uPort decentralized identity</li>
+                        <li>Refugee identity systems</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-vote-yea"></i></div>
+                <h4>Voting Systems</h4>
+                <p>Creating tamper-resistant, transparent voting systems while maintaining voter privacy.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Voatz mobile voting platform</li>
+                        <li>Follow My Vote open-source voting</li>
+                        <li>Corporate shareholder voting</li>
+                        <li>Community governance systems</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-hospital"></i></div>
+                <h4>Healthcare Records</h4>
+                <p>Secure, patient-controlled health records that can be selectively shared with providers while maintaining a complete history.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>MedRec for patient record management</li>
+                        <li>Guardtime's KSI for health data security</li>
+                        <li>Pharmaceutical supply chain tracking</li>
+                        <li>Clinical trial data integrity</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="application-card">
+                <div class="application-icon"><i class="fas fa-copyright"></i></div>
+                <h4>Intellectual Property</h4>
+                <p>Establishing proof of creation, managing rights, and automating royalty payments for creative works.</p>
+                <div class="application-examples">
+                    <h5>Examples:</h5>
+                    <ul>
+                        <li>Mediachain for digital content attribution</li>
+                        <li>Mycelia for music rights management</li>
+                        <li>IP registry platforms</li>
+                        <li>NFTs (Non-Fungible Tokens) for digital art</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Considerations and Challenges</h3>
+        
+        <div class="security-challenges">
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>51% Attack</h4>
+                    <div class="challenge-icon"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>If an entity controls more than 50% of a network's mining power (in PoW) or stake (in PoS), they could potentially rewrite the blockchain history or prevent new transactions.</p>
+                    <p>Mitigation: Larger networks are more resistant due to the resources required. Some blockchains implement additional protection mechanisms.</p>
+                </div>
+            </div>
+            
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>Smart Contract Vulnerabilities</h4>
+                    <div class="challenge-icon"><i class="fas fa-bug"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>Code errors in smart contracts can lead to security breaches and loss of assets, as contracts are often immutable once deployed.</p>
+                    <p>Mitigation: Thorough code audits, formal verification, standardized contract libraries, and bug bounty programs.</p>
+                </div>
+            </div>
+            
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>Quantum Computing Threats</h4>
+                    <div class="challenge-icon"><i class="fas fa-atom"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>Future quantum computers might break the cryptographic algorithms currently used in blockchains, especially for public-private key pairs.</p>
+                    <p>Mitigation: Research into quantum-resistant cryptographic algorithms and planning for eventual migration.</p>
+                </div>
+            </div>
+            
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>Scalability Issues</h4>
+                    <div class="challenge-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>Many blockchains face scalability challenges, with limited transaction throughput and increasing storage requirements.</p>
+                    <p>Mitigation: Layer 2 solutions, sharding, alternative consensus mechanisms, and specialized blockchains for specific purposes.</p>
+                </div>
+            </div>
+            
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>Key Management</h4>
+                    <div class="challenge-icon"><i class="fas fa-key"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>If private keys are lost or stolen, assets can be permanently inaccessible or stolen, with no central authority to reset access.</p>
+                    <p>Mitigation: Hardware wallets, multi-signature schemes, social recovery, and improved user interfaces for key management.</p>
+                </div>
+            </div>
+            
+            <div class="challenge">
+                <div class="challenge-header">
+                    <h4>Regulatory Challenges</h4>
+                    <div class="challenge-icon"><i class="fas fa-balance-scale"></i></div>
+                </div>
+                <div class="challenge-body">
+                    <p>The borderless nature of blockchains creates challenges for regulatory compliance across different jurisdictions.</p>
+                    <p>Mitigation: Development of regulatory frameworks, compliance tools for blockchain applications, and self-regulation within the industry.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What cryptographic component makes blockchains resistant to tampering?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-3" value="a">
+                    <span class="option-text">The large number of users on the network</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-3" value="b">
+                    <span class="option-text">The chaining of blocks using cryptographic hash functions</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-3" value="c">
+                    <span class="option-text">The high monetary value of cryptocurrencies</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz4-3" value="d">
+                    <span class="option-text">Government regulations and oversight</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! Each block contains a hash of the previous block, creating a chain. If any data in a block is altered, its hash changes, which invalidates all subsequent blocks. This makes tampering evident and extremely difficult, as an attacker would need to recalculate all subsequent blocks.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The primary mechanism that makes blockchains tamper-resistant is the chaining of blocks using cryptographic hash functions. Each block includes the hash of the previous block, so changing any data would change the block's hash and break the chain.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-3')">Check My Answer</button>
+        </div>
+    </div>
+</div>

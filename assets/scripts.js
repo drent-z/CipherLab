@@ -17,6 +17,178 @@ function loadQuizProgress() {
     return [];
 }
 
+// Learn module functions
+function showLesson(lessonId) {
+    // Hide the modules section and show the lesson content section
+    document.getElementById('lesson-content-section').style.display = 'block';
+    
+    // Get current module from lessonId (e.g., lesson1-2 -> module1)
+    const moduleNum = lessonId.charAt(6);
+    const currentModule = `module${moduleNum}`;
+    
+    // Get all lesson content elements
+    const lessonElements = document.querySelectorAll('[id$="-content"]');
+    lessonElements.forEach(element => {
+        if (element.id === `${lessonId}-content`) {
+            element.style.display = 'block';
+            document.getElementById('lesson-title').textContent = element.querySelector('h4') ? 
+                element.querySelector('h4').textContent : 
+                document.querySelector(`[onclick="showLesson('${lessonId}')"] h4`).textContent;
+        } else {
+            element.style.display = 'none';
+        }
+    });
+    
+    // Handle lesson navigation
+    setupLessonNavigation(lessonId, currentModule);
+    
+    // Scroll to top of lesson
+    window.scrollTo({
+        top: document.getElementById('lesson-content-section').offsetTop - 100,
+        behavior: 'smooth'
+    });
+    
+    // Check if lesson is completed
+    const completedLessons = loadQuizProgress();
+    if (completedLessons.includes(lessonId)) {
+        document.getElementById('complete-lesson').classList.add('completed');
+        document.getElementById('complete-lesson').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+    } else {
+        document.getElementById('complete-lesson').classList.remove('completed');
+        document.getElementById('complete-lesson').innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+    }
+}
+
+// Setup lesson navigation buttons
+function setupLessonNavigation(lessonId, currentModule) {
+    const prevButton = document.getElementById('prev-lesson');
+    const nextButton = document.getElementById('next-lesson');
+    const completeButton = document.getElementById('complete-lesson');
+    const backButton = document.getElementById('back-to-modules');
+    
+    // Get all lesson boxes in the current module
+    const lessonBoxes = document.querySelectorAll(`#${currentModule}-content .lesson-box`);
+    const lessonIds = Array.from(lessonBoxes).map(box => {
+        const onclick = box.getAttribute('onclick');
+        return onclick.match(/'(.*?)'/)[1];
+    });
+    
+    const currentIndex = lessonIds.indexOf(lessonId);
+    
+    // Setup previous button
+    if (currentIndex > 0) {
+        prevButton.style.visibility = 'visible';
+        prevButton.onclick = () => showLesson(lessonIds[currentIndex - 1]);
+    } else {
+        prevButton.style.visibility = 'hidden';
+    }
+    
+    // Setup next button
+    if (currentIndex < lessonIds.length - 1) {
+        nextButton.style.visibility = 'visible';
+        nextButton.onclick = () => showLesson(lessonIds[currentIndex + 1]);
+    } else {
+        nextButton.style.visibility = 'hidden';
+    }
+    
+    // Setup complete button
+    completeButton.onclick = () => {
+        const completedLessons = loadQuizProgress();
+        if (!completedLessons.includes(lessonId)) {
+            completedLessons.push(lessonId);
+            saveQuizProgress(completedLessons, lessonIds.length);
+            
+            // Update the lesson status icon in the module view
+            const statusIcon = document.getElementById(`status-${lessonId}`);
+            if (statusIcon) {
+                statusIcon.className = 'fas fa-check-circle';
+                statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+            }
+            
+            // Update the complete button
+            completeButton.classList.add('completed');
+            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            
+            // Update the quiz progress
+            updateQuizProgress();
+        }
+    };
+    
+    // Setup back button
+    backButton.onclick = () => {
+        document.getElementById('lesson-content-section').style.display = 'none';
+        
+        // Show the active module tab
+        const moduleTab = document.querySelector(`[data-module="${currentModule}"]`);
+        if (moduleTab) {
+            moduleTab.click();
+        }
+        
+        // Scroll to the module section
+        window.scrollTo({
+            top: document.querySelector('.simple-tabs').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    };
+}
+
+// Function to check quiz answers
+function checkAnswer(button, lessonId) {
+    const correctOption = button.getAttribute('data-correct');
+    const questionContainer = button.closest('.quiz-container');
+    const options = questionContainer.querySelectorAll('.simple-option');
+    const feedbackContainer = questionContainer.querySelector('.feedback-container');
+    
+    let selectedOption = null;
+    options.forEach(option => {
+        const radio = option.querySelector('input[type="radio"]');
+        if (radio.checked) {
+            selectedOption = radio.value;
+        }
+    });
+    
+    // If no option selected, show alert
+    if (!selectedOption) {
+        alert('Please select an answer first!');
+        return;
+    }
+    
+    // Disable all inputs
+    options.forEach(option => {
+        const radio = option.querySelector('input[type="radio"]');
+        radio.disabled = true;
+        option.classList.add(radio.value === correctOption ? 'correct-option' : 'incorrect-option');
+    });
+    
+    // Show feedback
+    feedbackContainer.style.display = 'block';
+    const isCorrect = selectedOption === correctOption;
+    
+    feedbackContainer.querySelector('.correct-answer').style.display = isCorrect ? 'block' : 'none';
+    feedbackContainer.querySelector('.incorrect-answer').style.display = isCorrect ? 'none' : 'block';
+    
+    // Disable the check button
+    button.disabled = true;
+    button.textContent = isCorrect ? 'Correct!' : 'Try Again';
+}
+
+// Update the quiz progress indicator
+function updateQuizProgress() {
+    const completedLessons = loadQuizProgress();
+    const totalLessons = document.querySelectorAll('.lesson-box').length;
+    const progressValue = document.getElementById('quiz-progress-value');
+    
+    if (progressValue) {
+        const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
+        progressValue.style.width = `${percentage}%`;
+    }
+}
+
+// Start the final quiz
+function startFinalQuiz() {
+    window.location.href = '/quiz/';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Matrix Rain Background
     initMatrixRain();

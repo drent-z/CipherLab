@@ -1,1 +1,783 @@
-<!-- This file is no longer used with the new simplified learning interface -->
+<!-- Module 2: Classical Ciphers -->
+
+<!-- Lesson 2-1: Caesar Cipher -->
+<div id="lesson2-1-content">
+    <p class="mb-4">The Caesar cipher is one of the earliest and simplest encryption techniques. Named after Julius Caesar, who used it to communicate with his generals, this cipher works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>In a Caesar cipher, each letter in the plaintext is replaced by a letter a fixed number of positions further in the alphabet. This shift value acts as the encryption key.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">Encryption Process</h4>
+                <ol class="process-list">
+                    <li>Choose a shift value (key) between 1 and 25</li>
+                    <li>For each letter in the plaintext:
+                        <ul>
+                            <li>Shift it forward in the alphabet by the key amount</li>
+                            <li>If shifting passes Z, wrap around to the beginning of the alphabet</li>
+                        </ul>
+                    </li>
+                    <li>Non-alphabetic characters remain unchanged</li>
+                </ol>
+                
+                <div class="formula-box">
+                    <h5>Mathematical Representation:</h5>
+                    <p>For each plaintext letter p, the ciphertext letter c is:</p>
+                    <div class="formula">c = (p + k) % 26</div>
+                    <p>where k is the shift value and % represents modulo operation</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Example: Shift of 3</h4>
+                <div class="cipher-example">
+                    <div class="example-row">
+                        <div class="label">Plaintext:</div>
+                        <div class="value">HELLO WORLD</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Shift:</div>
+                        <div class="value">3</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Ciphertext:</div>
+                        <div class="value">KHOOR ZRUOG</div>
+                    </div>
+                    
+                    <div class="letter-mapping">
+                        <div class="mapping-item">H → K</div>
+                        <div class="mapping-item">E → H</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">O → R</div>
+                        <div class="mapping-item">(space)</div>
+                        <div class="mapping-item">W → Z</div>
+                        <div class="mapping-item">O → R</div>
+                        <div class="mapping-item">R → U</div>
+                        <div class="mapping-item">L → O</div>
+                        <div class="mapping-item">D → G</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Interactive Demo</h3>
+        
+        <div class="interactive-cipher-demo">
+            <div class="demo-form">
+                <div class="form-group">
+                    <label for="caesar-input">Plaintext:</label>
+                    <input type="text" id="caesar-input" class="cipher-input" value="HELLO WORLD">
+                </div>
+                
+                <div class="form-group">
+                    <label for="caesar-shift">Shift Value:</label>
+                    <div class="shift-control">
+                        <input type="range" id="caesar-shift" min="1" max="25" value="3" class="slider" oninput="updateShiftDisplay()">
+                        <span id="shift-display">3</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ciphertext:</label>
+                    <div id="caesar-output" class="cipher-output">KHOOR ZRUOG</div>
+                </div>
+            </div>
+            
+            <div class="alphabet-visualization">
+                <div class="alphabet-row">
+                    <div class="alphabet-letter">A</div>
+                    <div class="alphabet-letter">B</div>
+                    <div class="alphabet-letter">C</div>
+                    <div class="alphabet-letter">D</div>
+                    <div class="alphabet-letter">E</div>
+                    <div class="alphabet-letter">F</div>
+                    <div class="alphabet-letter">G</div>
+                    <div class="alphabet-letter">H</div>
+                    <div class="alphabet-letter">I</div>
+                    <div class="alphabet-letter">J</div>
+                    <div class="alphabet-letter">K</div>
+                    <div class="alphabet-letter">L</div>
+                    <div class="alphabet-letter">M</div>
+                    <div class="alphabet-letter">N</div>
+                    <div class="alphabet-letter">O</div>
+                    <div class="alphabet-letter">P</div>
+                    <div class="alphabet-letter">Q</div>
+                    <div class="alphabet-letter">R</div>
+                    <div class="alphabet-letter">S</div>
+                    <div class="alphabet-letter">T</div>
+                    <div class="alphabet-letter">U</div>
+                    <div class="alphabet-letter">V</div>
+                    <div class="alphabet-letter">W</div>
+                    <div class="alphabet-letter">X</div>
+                    <div class="alphabet-letter">Y</div>
+                    <div class="alphabet-letter">Z</div>
+                </div>
+                
+                <div class="shift-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                    <span>Shift by 3</span>
+                </div>
+                
+                <div class="alphabet-row shifted">
+                    <div class="alphabet-letter">D</div>
+                    <div class="alphabet-letter">E</div>
+                    <div class="alphabet-letter">F</div>
+                    <div class="alphabet-letter">G</div>
+                    <div class="alphabet-letter">H</div>
+                    <div class="alphabet-letter">I</div>
+                    <div class="alphabet-letter">J</div>
+                    <div class="alphabet-letter">K</div>
+                    <div class="alphabet-letter">L</div>
+                    <div class="alphabet-letter">M</div>
+                    <div class="alphabet-letter">N</div>
+                    <div class="alphabet-letter">O</div>
+                    <div class="alphabet-letter">P</div>
+                    <div class="alphabet-letter">Q</div>
+                    <div class="alphabet-letter">R</div>
+                    <div class="alphabet-letter">S</div>
+                    <div class="alphabet-letter">T</div>
+                    <div class="alphabet-letter">U</div>
+                    <div class="alphabet-letter">V</div>
+                    <div class="alphabet-letter">W</div>
+                    <div class="alphabet-letter">X</div>
+                    <div class="alphabet-letter">Y</div>
+                    <div class="alphabet-letter">Z</div>
+                    <div class="alphabet-letter">A</div>
+                    <div class="alphabet-letter">B</div>
+                    <div class="alphabet-letter">C</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Historical Context</h3>
+        
+        <div class="history-box">
+            <div class="history-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <div class="history-content">
+                <h4>Julius Caesar's Use</h4>
+                <p>Julius Caesar used this cipher with a shift of 3 to protect military communications. His officers would receive the encrypted messages and decode them using the known shift value.</p>
+                <p>According to the Roman historian Suetonius, Caesar used this method because his messengers could not be trusted with sensitive information about military operations.</p>
+            </div>
+        </div>
+        
+        <div class="quote-box">
+            <i class="fas fa-quote-left"></i>
+            <blockquote>
+                If he had anything confidential to say, he wrote it in cipher, that is, by so changing the order of the letters of the alphabet, that not a word could be made out. If anyone wishes to decipher these, and get at their meaning, he must substitute the fourth letter of the alphabet, namely D, for A, and so with the others.
+            </blockquote>
+            <p class="quote-attribution">— Suetonius, describing Caesar's method</p>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Considerations</h3>
+        
+        <div class="security-analysis">
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-unlock"></i></div>
+                <h4>Weaknesses</h4>
+                <ul>
+                    <li>Only 25 possible keys (shifts), making it easy to try all possibilities</li>
+                    <li>Vulnerable to frequency analysis (common letters like E, T, A, and O can be identified)</li>
+                    <li>Patterns in the language remain visible in the ciphertext</li>
+                </ul>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-cogs"></i></div>
+                <h4>Breaking the Cipher</h4>
+                <p>There are two primary methods to break a Caesar cipher:</p>
+                <ol>
+                    <li><strong>Brute Force Attack:</strong> Try all 25 possible shift values until readable text appears</li>
+                    <li><strong>Frequency Analysis:</strong> Analyze the frequency of letters in the ciphertext and match against known language patterns</li>
+                </ol>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-lightbulb"></i></div>
+                <h4>Modern Use</h4>
+                <p>While not secure for serious applications, the Caesar cipher is:</p>
+                <ul>
+                    <li>A building block for understanding more complex ciphers</li>
+                    <li>Used in educational settings to teach basic encryption concepts</li>
+                    <li>Sometimes used in games and puzzles (like "ROT13")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What makes the Caesar cipher easy to break?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-1" value="a">
+                    <span class="option-text">It's too complex to understand</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-1" value="b">
+                    <span class="option-text">There are only 25 possible keys to try</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-1" value="c">
+                    <span class="option-text">It requires a computer to decrypt</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-1" value="d">
+                    <span class="option-text">The encryption key is always published</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! With only 25 possible shift values, someone can easily try all possibilities until they find readable text.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The Caesar cipher is vulnerable because there are only 25 possible shift values, making it easy to try all possibilities.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '2-1')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 2-2: Vigenère Cipher -->
+<div id="lesson2-2-content">
+    <p class="mb-4">The Vigenère cipher is a method of encrypting text by using a series of different Caesar ciphers based on the letters of a keyword. It was first described by Giovan Battista Bellaso in 1553, but later misattributed to Blaise de Vigenère who published a stronger autokey cipher in 1586.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>The Vigenère cipher uses a keyword to determine multiple shift values, making it significantly stronger than the Caesar cipher. Each letter of the keyword specifies a different shift amount for each corresponding letter in the plaintext.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">Encryption Process</h4>
+                <ol class="process-list">
+                    <li>Choose a keyword (e.g., "KEY")</li>
+                    <li>Repeat the keyword to match the length of the plaintext</li>
+                    <li>For each letter in the plaintext:
+                        <ul>
+                            <li>Find the corresponding keyword letter</li>
+                            <li>Use the position of the keyword letter in the alphabet (A=0, B=1, ..., Z=25) as the shift value</li>
+                            <li>Shift the plaintext letter by this amount (using the Caesar cipher method)</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div class="formula-box">
+                    <h5>Mathematical Representation:</h5>
+                    <p>For each plaintext letter p at position i, the ciphertext letter c is:</p>
+                    <div class="formula">c<sub>i</sub> = (p<sub>i</sub> + k<sub>i mod m</sub>) % 26</div>
+                    <p>where k is the keyword converted to numbers, and m is the length of the keyword</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Example: Keyword "KEY"</h4>
+                <div class="cipher-example">
+                    <div class="example-row">
+                        <div class="label">Plaintext:</div>
+                        <div class="value">HELLO WORLD</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Keyword:</div>
+                        <div class="value">KEYKEYKEYK</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Key Values:</div>
+                        <div class="value">10, 4, 24, 10, 4, 24, 10, 4, 24, 10</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Ciphertext:</div>
+                        <div class="value">RIJVS UYVJN</div>
+                    </div>
+                    
+                    <div class="letter-mapping">
+                        <div class="mapping-item">H(+K=10) → R</div>
+                        <div class="mapping-item">E(+E=4) → I</div>
+                        <div class="mapping-item">L(+Y=24) → J</div>
+                        <div class="mapping-item">L(+K=10) → V</div>
+                        <div class="mapping-item">O(+E=4) → S</div>
+                        <div class="mapping-item">(space)</div>
+                        <div class="mapping-item">W(+Y=24) → U</div>
+                        <div class="mapping-item">O(+K=10) → Y</div>
+                        <div class="mapping-item">R(+E=4) → V</div>
+                        <div class="mapping-item">L(+Y=24) → J</div>
+                        <div class="mapping-item">D(+K=10) → N</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Interactive Demo</h3>
+        
+        <div class="interactive-cipher-demo">
+            <div class="demo-form">
+                <div class="form-group">
+                    <label for="vigenere-input">Plaintext:</label>
+                    <input type="text" id="vigenere-input" class="cipher-input" value="HELLO WORLD">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vigenere-key">Keyword:</label>
+                    <input type="text" id="vigenere-key" class="cipher-input" value="KEY">
+                </div>
+                
+                <div class="form-group">
+                    <label>Ciphertext:</label>
+                    <div id="vigenere-output" class="cipher-output">RIJVS UYVJN</div>
+                </div>
+            </div>
+            
+            <div class="vigenere-table">
+                <h4>Vigenère Table</h4>
+                <div class="table-note">The table shows how each plaintext letter (row) and key letter (column) combine to form a ciphertext letter.</div>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>...</th>
+                            <th>K</th>
+                            <th>...</th>
+                            <th>Y</th>
+                            <th>Z</th>
+                        </tr>
+                        <tr>
+                            <th>A</th>
+                            <td>A</td>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>...</td>
+                            <td>K</td>
+                            <td>...</td>
+                            <td>Y</td>
+                            <td>Z</td>
+                        </tr>
+                        <tr>
+                            <th>B</th>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>D</td>
+                            <td>...</td>
+                            <td>L</td>
+                            <td>...</td>
+                            <td>Z</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <th>E</th>
+                            <td>E</td>
+                            <td>F</td>
+                            <td>G</td>
+                            <td>...</td>
+                            <td>O</td>
+                            <td>...</td>
+                            <td>C</td>
+                            <td>D</td>
+                        </tr>
+                        <tr>
+                            <th>H</th>
+                            <td>H</td>
+                            <td>I</td>
+                            <td>J</td>
+                            <td>...</td>
+                            <td>R</td>
+                            <td>...</td>
+                            <td>F</td>
+                            <td>G</td>
+                        </tr>
+                        <tr>
+                            <th>...</th>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Historical Significance</h3>
+        
+        <div class="history-box">
+            <div class="history-icon">
+                <i class="fas fa-history"></i>
+            </div>
+            <div class="history-content">
+                <h4>The Unbreakable Cipher</h4>
+                <p>For three centuries, the Vigenère cipher was known as "le chiffre indéchiffrable" (the unbreakable cipher). Its resistance to frequency analysis made it substantially more secure than previous encryption methods.</p>
+                <p>The cipher was finally broken by Friedrich Kasiski in 1863 and Charles Babbage around the same time, though Babbage never published his work.</p>
+                
+                <h4>Usage in Wars</h4>
+                <p>The Vigenère cipher was used by the Confederate States during the American Civil War, but they made critical mistakes in implementation that allowed Union cryptanalysts to decipher their messages.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Analysis</h3>
+        
+        <div class="security-analysis">
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Strengths</h4>
+                <ul>
+                    <li>Resists simple frequency analysis (unlike the Caesar cipher)</li>
+                    <li>With a very long, truly random key (one-time pad), it can be unbreakable</li>
+                    <li>Multiple shift values make it significantly harder to crack than single-shift ciphers</li>
+                </ul>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-unlock"></i></div>
+                <h4>Weaknesses</h4>
+                <ul>
+                    <li>Repeating keywords create patterns that can be exploited</li>
+                    <li>Vulnerable to Kasiski examination and index of coincidence methods</li>
+                    <li>Once the key length is known, the cipher can be treated as multiple Caesar ciphers</li>
+                </ul>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-cogs"></i></div>
+                <h4>Breaking the Cipher</h4>
+                <p>The Kasiski examination can break the Vigenère cipher by:</p>
+                <ol>
+                    <li>Finding repeated sequences in the ciphertext to guess the key length</li>
+                    <li>Dividing the ciphertext into groups based on the key length</li>
+                    <li>Applying frequency analysis to each group separately</li>
+                    <li>Determining each letter of the keyword</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What makes the Vigenère cipher stronger than the Caesar cipher?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-2" value="a">
+                    <span class="option-text">It uses multiple shift values based on a keyword</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-2" value="b">
+                    <span class="option-text">It was invented later in history</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-2" value="c">
+                    <span class="option-text">It uses a larger shift value</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-2" value="d">
+                    <span class="option-text">It can only be decrypted by computers</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! The Vigenère cipher uses different shift values for different positions in the text, based on the letters of the keyword. This makes it much harder to break using simple frequency analysis.
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. The Vigenère cipher's strength comes from using multiple shift values determined by a keyword, which makes simple frequency analysis much less effective.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="a" onclick="checkAnswer(this, '2-2')">Check My Answer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lesson 2-3: Substitution Cipher -->
+<div id="lesson2-3-content">
+    <p class="mb-4">A substitution cipher is an encryption method where each letter in the plaintext is replaced by another letter or symbol according to a fixed system. Unlike the Caesar cipher which uses a shift pattern, a substitution cipher can use any arbitrary replacement pattern.</p>
+    
+    <div class="key-concept mb-5">
+        <h4><i class="fas fa-key"></i> Key Concept</h4>
+        <p>In a simple substitution cipher, each letter of the alphabet is mapped to a different letter or symbol. This mapping forms the encryption key. The same substitution is used throughout the entire message.</p>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">How It Works</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4 class="subsection-title">Encryption Process</h4>
+                <ol class="process-list">
+                    <li>Create a substitution key - a mapping of each letter to its replacement</li>
+                    <li>For each letter in the plaintext, replace it with its corresponding letter or symbol from the key</li>
+                    <li>Non-alphabetic characters can either remain unchanged or have their own substitutions</li>
+                </ol>
+                
+                <div class="note-box">
+                    <p><strong>Key Space:</strong> With 26 letters in the English alphabet, there are 26! (factorial) possible keys - approximately 4.03 × 10²⁶ different possible arrangements.</p>
+                </div>
+            </div>
+            
+            <div class="column">
+                <h4 class="subsection-title">Example Substitution</h4>
+                <div class="cipher-example">
+                    <div class="substitution-key">
+                        <div class="key-row">
+                            <div class="alphabet">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</div>
+                            <div class="substitution">Q W E R T Y U I O P A L M N B C D F G H J K X Z S V</div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-row">
+                        <div class="label">Plaintext:</div>
+                        <div class="value">HELLO WORLD</div>
+                    </div>
+                    <div class="example-row">
+                        <div class="label">Ciphertext:</div>
+                        <div class="value">ITLLB XBFLR</div>
+                    </div>
+                    
+                    <div class="letter-mapping">
+                        <div class="mapping-item">H → I</div>
+                        <div class="mapping-item">E → T</div>
+                        <div class="mapping-item">L → L</div>
+                        <div class="mapping-item">L → L</div>
+                        <div class="mapping-item">O → B</div>
+                        <div class="mapping-item">(space)</div>
+                        <div class="mapping-item">W → X</div>
+                        <div class="mapping-item">O → B</div>
+                        <div class="mapping-item">R → F</div>
+                        <div class="mapping-item">L → L</div>
+                        <div class="mapping-item">D → R</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Types of Substitution Ciphers</h3>
+        
+        <div class="types-grid">
+            <div class="type-item">
+                <h4>Simple Substitution</h4>
+                <p>Each letter always maps to the same substitute throughout the entire message.</p>
+                <div class="type-example">
+                    <span class="plain">MEET ME AT NOON</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="cipher">ZLLG ZL NG ABBX</span>
+                </div>
+            </div>
+            
+            <div class="type-item">
+                <h4>Homophonic Substitution</h4>
+                <p>Each letter can map to multiple possible substitutes, with frequent letters having more substitutes to flatten frequency distribution.</p>
+                <div class="type-example">
+                    <span class="plain">E can be replaced by 3, 7, or 9</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="cipher">M337 M3 AT NOON</span>
+                </div>
+            </div>
+            
+            <div class="type-item">
+                <h4>Polyalphabetic Substitution</h4>
+                <p>Uses multiple substitution alphabets (like the Vigenère cipher).</p>
+                <div class="type-example">
+                    <span class="plain">Uses changing substitution rules</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="cipher">Based on position or keyword</span>
+                </div>
+            </div>
+            
+            <div class="type-item">
+                <h4>Polygraphic Substitution</h4>
+                <p>Substitutes blocks of letters rather than single letters (like the Playfair cipher).</p>
+                <div class="type-example">
+                    <span class="plain">HELLO</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="cipher">HE + LL + O → KQ + RS + T</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Historical Examples</h3>
+        
+        <div class="example-grid">
+            <div class="historical-example">
+                <h4>Pigpen Cipher</h4>
+                <div class="example-image">
+                    <img src="/assets/images/pigpen-cipher.png" alt="Pigpen Cipher grid">
+                </div>
+                <p>Uses a grid system to represent letters with symbols based on their position in the grid. Popular with Freemasons in the 18th century.</p>
+            </div>
+            
+            <div class="historical-example">
+                <h4>Atbash Cipher</h4>
+                <div class="example-mapping">
+                    <div>A B C D ... W X Y Z</div>
+                    <div>↓ ↓ ↓ ↓ ... ↓ ↓ ↓ ↓</div>
+                    <div>Z Y X W ... D C B A</div>
+                </div>
+                <p>A Hebrew cipher that simply reverses the alphabet. One of the oldest known substitution ciphers, dating back to 500 BCE.</p>
+            </div>
+            
+            <div class="historical-example">
+                <h4>Sherlock Holmes' "Dancing Men"</h4>
+                <div class="example-image">
+                    <img src="/assets/images/dancing-men.png" alt="Dancing Men cipher">
+                </div>
+                <p>A fictional cipher from Arthur Conan Doyle's story "The Adventure of the Dancing Men," where stick figures represent letters.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Security Analysis</h3>
+        
+        <div class="security-analysis">
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Strengths</h4>
+                <ul>
+                    <li>Enormous key space (26! possible keys for English alphabet)</li>
+                    <li>More complex than simple ciphers like Caesar shift</li>
+                    <li>Can use symbols, not just letters, making it visually secure</li>
+                </ul>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-unlock"></i></div>
+                <h4>Weaknesses</h4>
+                <ul>
+                    <li>Vulnerable to frequency analysis</li>
+                    <li>Patterns in language (like common digraphs: TH, ER, ON) remain visible</li>
+                    <li>Short words (I, A, AN, THE) are easily identified</li>
+                </ul>
+            </div>
+            
+            <div class="security-item">
+                <div class="security-icon"><i class="fas fa-chart-bar"></i></div>
+                <h4>Frequency Analysis</h4>
+                <p>In English, the most common letters are E, T, A, O, I, N, S, H, R, D, L, U. By identifying the most frequent letters in the ciphertext, analysts can make educated guesses about their plaintext counterparts.</p>
+                <div class="frequency-chart">
+                    <div class="chart-bar" style="height: 90%;" title="E: 12.7%">E</div>
+                    <div class="chart-bar" style="height: 75%;" title="T: 9.1%">T</div>
+                    <div class="chart-bar" style="height: 70%;" title="A: 8.2%">A</div>
+                    <div class="chart-bar" style="height: 65%;" title="O: 7.5%">O</div>
+                    <div class="chart-bar" style="height: 60%;" title="I: 7.0%">I</div>
+                    <div class="chart-bar" style="height: 55%;" title="N: 6.7%">N</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="lesson-section mb-5">
+        <h3 class="section-title">Modern Uses</h3>
+        
+        <p>While simple substitution ciphers are not secure for sensitive data, they continue to serve various purposes:</p>
+        
+        <div class="modern-uses">
+            <div class="use-item">
+                <div class="use-icon"><i class="fas fa-gamepad"></i></div>
+                <h4>Puzzle Games</h4>
+                <p>Cryptogram puzzles in newspapers and puzzle books use substitution ciphers for entertainment.</p>
+            </div>
+            
+            <div class="use-item">
+                <div class="use-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h4>Education</h4>
+                <p>Teaching cryptographic principles and introducing students to the concepts of encryption and decryption.</p>
+            </div>
+            
+            <div class="use-item">
+                <div class="use-icon"><i class="fas fa-child"></i></div>
+                <h4>Recreational Codes</h4>
+                <p>Secret messages between friends or family members for fun, not security.</p>
+            </div>
+            
+            <div class="use-item">
+                <div class="use-icon"><i class="fas fa-book"></i></div>
+                <h4>Literature</h4>
+                <p>Plot devices in mystery novels, adventure stories, and treasure hunt narratives.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simple-quiz">
+        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+        <div class="quiz-container">
+            <p class="quiz-question">What is the main vulnerability of a simple substitution cipher?</p>
+            
+            <div class="simple-options">
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-3" value="a">
+                    <span class="option-text">The key is too short</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-3" value="b">
+                    <span class="option-text">It's vulnerable to frequency analysis</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-3" value="c">
+                    <span class="option-text">The number of possible keys is too small</span>
+                </label>
+                
+                <label class="simple-option">
+                    <input type="radio" name="quiz2-3" value="d">
+                    <span class="option-text">It's too complicated to implement correctly</span>
+                </label>
+            </div>
+            
+            <div class="feedback-container" style="display: none;">
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i> Correct! Substitution ciphers maintain the same letter frequencies as the original text, making them vulnerable to frequency analysis. For example, if "E" is the most common letter in English, the most common letter in the ciphertext likely represents "E".
+                </div>
+                <div class="incorrect-answer">
+                    <i class="fas fa-times-circle"></i> Not quite. Substitution ciphers are primarily vulnerable to frequency analysis, which takes advantage of the predictable frequency patterns of letters in language to decode the message.
+                </div>
+            </div>
+            
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '2-3')">Check My Answer</button>
+        </div>
+    </div>
+</div>

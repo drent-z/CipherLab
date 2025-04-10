@@ -1,4 +1,4 @@
-<!-- Final Quiz Section - Improved Styling to Match Index -->
+<!-- Final Quiz Section with Improved Styling -->
 <div class="final-quiz-container" id="final-quiz-section">
     <div class="final-quiz-card">
         <div class="final-quiz-header">
@@ -14,6 +14,78 @@
                 <i class="fas fa-unlock" id="quiz-lock-icon" style="color: var(--primary);"></i>
             </div>
         </div>
+        <div class="final-quiz-content">
+            <div id="final-quiz-intro" style="display: block;">
+                <p>Ready to test your knowledge of cryptography? This quiz covers all the topics from our lessons:</p>
+                <ul>
+                    <li>Fundamentals of Cryptography</li>
+                    <li>Classical Ciphers</li>
+                    <li>Modern Cryptography</li>
+                    <li>Applications</li>
+                    <li>Advanced Topics</li>
+                </ul>
+                <p>The quiz consists of 10 questions. You need to score at least 70% to pass and earn your certification.</p>
+                <p>Good luck!</p>
+            </div>
+            
+            <div id="final-quiz-questions" style="display: none;">
+                <!-- Questions will be loaded dynamically -->
+                <div class="question-container">
+                    <h4 id="question-text">Question text will appear here</h4>
+                    <div class="answer-options" id="answer-options">
+                        <!-- Options will be generated dynamically -->
+                    </div>
+                    <div class="quiz-navigation">
+                        <button id="prev-question" class="nav-button"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <div class="question-progress">
+                            <span id="current-question">1</span>/<span id="total-questions">10</span>
+                        </div>
+                        <button id="next-question" class="nav-button">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="final-quiz-results" style="display: none;">
+                <div class="results-header">
+                    <h3>Quiz Results</h3>
+                </div>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span id="final-score">0</span>/<span id="max-score">10</span>
+                    </div>
+                    <div class="score-percentage">
+                        <span id="score-percentage">0%</span>
+                    </div>
+                </div>
+                <div class="results-message" id="pass-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Congratulations!</h4>
+                    <p>You've successfully completed the Cryptography Certification Quiz. You now have a solid understanding of cryptographic principles and applications.</p>
+                    <div class="certificate-link">
+                        <a href="#" id="certificate-download">Download Certificate</a>
+                    </div>
+                </div>
+                <div class="results-message" id="fail-message" style="display: none;">
+                    <i class="fas fa-times-circle"></i>
+                    <h4>Keep Learning</h4>
+                    <p>You didn't quite reach the passing score of 70%. Review the modules and try again to strengthen your understanding of cryptography.</p>
+                </div>
+                <div class="action-buttons">
+                    <button id="review-questions" class="review-button"><i class="fas fa-search"></i> Review Answers</button>
+                    <button id="retake-quiz" class="retake-button"><i class="fas fa-redo"></i> Retake Quiz</button>
+                </div>
+            </div>
+            
+            <div id="question-review" style="display: none;">
+                <div class="review-header">
+                    <h3>Question Review</h3>
+                </div>
+                <div id="review-content">
+                    <!-- Will be populated dynamically -->
+                </div>
+                <button id="back-to-results" class="back-button"><i class="fas fa-arrow-left"></i> Back to Results</button>
+            </div>
+        </div>
         <div class="final-quiz-footer">
             <div class="requirements">
                 <p><i class="fas fa-info-circle"></i> Take the quiz anytime to test your knowledge</p>
@@ -21,33 +93,814 @@
                     <div class="quiz-progress-value" id="quiz-progress-value" style="width: 100%;"></div>
                 </div>
             </div>
-            <button id="start-final-quiz" class="cta-button final-quiz-button" onclick="startFinalQuiz()">
+            <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
                 <i class="fas fa-play"></i> Start Final Quiz
+            </button>
+            <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none;">
+                <i class="fas fa-check"></i> Submit Answers
             </button>
         </div>
     </div>
 </div>
 
-<style>
-    /* Updated styling to match index page */
-    .final-quiz-button {
-        display: inline-block;
-        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
-        color: var(--dark);
-        font-weight: 700;
-        padding: 1rem 2.5rem;
-        font-size: 1.2rem;
-        text-decoration: none;
-        border-radius: 4px;
-        position: relative;
-        z-index: 1;
-        border: 1px solid var(--primary);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+<script>
+// Quiz data with questions, options, and correct answers
+const quizData = [
+    {
+        question: "What is the main purpose of cryptography?",
+        options: [
+            "To create computer games",
+            "To secure information",
+            "To speed up computer processing",
+            "To develop new programming languages"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "Which of these is NOT a main goal of cryptography?",
+        options: [
+            "Confidentiality",
+            "Integrity",
+            "Authentication",
+            "Compression"
+        ],
+        correctAnswer: 3
+    },
+    {
+        question: "In the Caesar cipher, what happens when shifting the letter Z by 1?",
+        options: [
+            "It becomes Y",
+            "It becomes A",
+            "It remains Z",
+            "It becomes a number"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "What makes the Vigenère cipher stronger than the Caesar cipher?",
+        options: [
+            "It uses multiple shift values based on a keyword",
+            "It uses larger numbers",
+            "It was invented later in history",
+            "It can only be used by governments"
+        ],
+        correctAnswer: 0
+    },
+    {
+        question: "Which encryption type uses different keys for encryption and decryption?",
+        options: [
+            "Symmetric encryption",
+            "Asymmetric encryption",
+            "Hash functions",
+            "Substitution ciphers"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "What is a hash function primarily used for?",
+        options: [
+            "Encrypting data for secure transmission",
+            "Verifying data integrity and creating fixed-size representations",
+            "Securing email communications",
+            "Generating random numbers"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "Which of these is a practical application of asymmetric encryption?",
+        options: [
+            "Full disk encryption",
+            "Password storage",
+            "Digital signatures",
+            "Streaming video encryption"
+        ],
+        correctAnswer: 2
+    },
+    {
+        question: "What technology underlies cryptocurrencies like Bitcoin?",
+        options: [
+            "Virtual private networks",
+            "Blockchain",
+            "Quantum encryption",
+            "Steganography"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "What is quantum cryptography based on?",
+        options: [
+            "Faster computers",
+            "The laws of quantum mechanics",
+            "Historical ciphers",
+            "Advanced mathematics only"
+        ],
+        correctAnswer: 1
+    },
+    {
+        question: "What is the unique capability of homomorphic encryption?",
+        options: [
+            "Performing computations on encrypted data without decrypting it",
+            "Creating unbreakable encryption",
+            "Reducing the size of encrypted files",
+            "Faster encryption and decryption"
+        ],
+        correctAnswer: 0
+    }
+];
+
+// Initialize quiz state
+let currentQuestion = 0;
+let userAnswers = Array(quizData.length).fill(null);
+let quizStarted = false;
+
+// Element references
+const startButton = document.getElementById('start-final-quiz-btn');
+const submitButton = document.getElementById('submit-quiz');
+const introSection = document.getElementById('final-quiz-intro');
+const questionsSection = document.getElementById('final-quiz-questions');
+const resultsSection = document.getElementById('final-quiz-results');
+const reviewSection = document.getElementById('question-review');
+const prevButton = document.getElementById('prev-question');
+const nextButton = document.getElementById('next-question');
+const questionText = document.getElementById('question-text');
+const answerOptions = document.getElementById('answer-options');
+const currentQuestionEl = document.getElementById('current-question');
+const totalQuestionsEl = document.getElementById('total-questions');
+const finalScoreEl = document.getElementById('final-score');
+const maxScoreEl = document.getElementById('max-score');
+const scorePercentageEl = document.getElementById('score-percentage');
+const passMessageEl = document.getElementById('pass-message');
+const failMessageEl = document.getElementById('fail-message');
+const reviewQuestionsButton = document.getElementById('review-questions');
+const retakeQuizButton = document.getElementById('retake-quiz');
+const backToResultsButton = document.getElementById('back-to-results');
+const reviewContentEl = document.getElementById('review-content');
+
+// Set up event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Set total questions
+    totalQuestionsEl.textContent = quizData.length;
+    maxScoreEl.textContent = quizData.length;
+    
+    // Start quiz button
+    startButton.addEventListener('click', startQuiz);
+    
+    // Quiz navigation
+    prevButton.addEventListener('click', goToPreviousQuestion);
+    nextButton.addEventListener('click', goToNextQuestion);
+    
+    // Submit quiz
+    submitButton.addEventListener('click', submitQuiz);
+    
+    // Results screen buttons
+    reviewQuestionsButton.addEventListener('click', showQuestionReview);
+    retakeQuizButton.addEventListener('click', retakeQuiz);
+    backToResultsButton.addEventListener('click', backToResults);
+});
+
+// Function to start the quiz
+function startQuiz() {
+    quizStarted = true;
+    introSection.style.display = 'none';
+    questionsSection.style.display = 'block';
+    startButton.style.display = 'none';
+    submitButton.style.display = 'block';
+    
+    // Reset quiz state
+    currentQuestion = 0;
+    userAnswers = Array(quizData.length).fill(null);
+    
+    // Load the first question
+    loadQuestion(currentQuestion);
+    updateNavButtons();
+}
+
+// Function to load a question
+function loadQuestion(index) {
+    const question = quizData[index];
+    questionText.textContent = question.question;
+    currentQuestionEl.textContent = index + 1;
+    
+    // Clear previous options
+    answerOptions.innerHTML = '';
+    
+    // Add options
+    question.options.forEach((option, optionIndex) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        if (userAnswers[index] === optionIndex) {
+            optionElement.classList.add('selected');
+        }
+        
+        optionElement.innerHTML = `
+            <input type="radio" id="option-${optionIndex}" name="question-${index}" value="${optionIndex}" ${userAnswers[index] === optionIndex ? 'checked' : ''}>
+            <label for="option-${optionIndex}">${option}</label>
+        `;
+        
+        optionElement.addEventListener('click', () => {
+            selectAnswer(index, optionIndex);
+        });
+        
+        answerOptions.appendChild(optionElement);
+    });
+}
+
+// Function to select an answer
+function selectAnswer(questionIndex, optionIndex) {
+    userAnswers[questionIndex] = optionIndex;
+    
+    // Update UI to reflect selection
+    const options = answerOptions.querySelectorAll('.option');
+    options.forEach((option, idx) => {
+        if (idx === optionIndex) {
+            option.classList.add('selected');
+            option.querySelector('input').checked = true;
+        } else {
+            option.classList.remove('selected');
+            option.querySelector('input').checked = false;
+        }
+    });
+}
+
+// Navigation functions
+function goToPreviousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion(currentQuestion);
+        updateNavButtons();
+    }
+}
+
+function goToNextQuestion() {
+    if (currentQuestion < quizData.length - 1) {
+        currentQuestion++;
+        loadQuestion(currentQuestion);
+        updateNavButtons();
+    }
+}
+
+function updateNavButtons() {
+    prevButton.disabled = currentQuestion === 0;
+    nextButton.disabled = currentQuestion === quizData.length - 1;
+}
+
+// Submit quiz and show results
+function submitQuiz() {
+    // Calculate score
+    const score = calculateScore();
+    const percentage = Math.round((score / quizData.length) * 100);
+    
+    // Update results display
+    finalScoreEl.textContent = score;
+    scorePercentageEl.textContent = `${percentage}%`;
+    
+    // Show appropriate message
+    if (percentage >= 70) {
+        passMessageEl.style.display = 'block';
+        failMessageEl.style.display = 'none';
+    } else {
+        passMessageEl.style.display = 'none';
+        failMessageEl.style.display = 'block';
     }
     
-    .final-quiz-button:hover {
-        color: var(--dark);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    // Switch to results view
+    questionsSection.style.display = 'none';
+    resultsSection.style.display = 'block';
+    submitButton.style.display = 'none';
+}
+
+// Calculate quiz score
+function calculateScore() {
+    let score = 0;
+    userAnswers.forEach((answer, index) => {
+        if (answer === quizData[index].correctAnswer) {
+            score++;
+        }
+    });
+    return score;
+}
+
+// Show review of questions and answers
+function showQuestionReview() {
+    resultsSection.style.display = 'none';
+    reviewSection.style.display = 'block';
+    
+    // Clear previous content
+    reviewContentEl.innerHTML = '';
+    
+    // Generate review content
+    quizData.forEach((question, index) => {
+        const reviewItem = document.createElement('div');
+        reviewItem.className = 'review-item';
+        
+        const isCorrect = userAnswers[index] === question.correctAnswer;
+        
+        reviewItem.innerHTML = `
+            <div class="review-question">
+                <span class="question-number">${index + 1}.</span>
+                <span class="question-text">${question.question}</span>
+                <span class="question-result ${isCorrect ? 'correct' : 'incorrect'}">
+                    <i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                </span>
+            </div>
+            <div class="review-answers">
+                ${question.options.map((option, optIndex) => `
+                    <div class="review-option ${optIndex === question.correctAnswer ? 'correct-answer' : ''} ${optIndex === userAnswers[index] && optIndex !== question.correctAnswer ? 'wrong-answer' : ''}">
+                        ${option}
+                        ${optIndex === question.correctAnswer ? '<i class="fas fa-check"></i>' : ''}
+                        ${optIndex === userAnswers[index] && optIndex !== question.correctAnswer ? '<i class="fas fa-times"></i>' : ''}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        reviewContentEl.appendChild(reviewItem);
+    });
+}
+
+// Return to results from review
+function backToResults() {
+    reviewSection.style.display = 'none';
+    resultsSection.style.display = 'block';
+}
+
+// Retake the quiz
+function retakeQuiz() {
+    resultsSection.style.display = 'none';
+    startQuiz();
+}
+</script>
+
+<style>
+/* Final Quiz Styling */
+.final-quiz-container {
+    margin: 2rem 0;
+}
+
+.final-quiz-card {
+    background-color: var(--medium-dark);
+    border-radius: 10px;
+    border: 1px solid var(--primary-dark);
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.final-quiz-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--darker);
+    border-bottom: 1px solid var(--primary-dark);
+}
+
+.quiz-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 1.5rem;
+}
+
+.quiz-info h3 {
+    color: var(--primary);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.quiz-info p {
+    margin: 0.25rem 0 0 0;
+    color: var(--text-muted);
+}
+
+.quiz-status {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quiz-status i {
+    font-size: 1.25rem;
+}
+
+.final-quiz-content {
+    padding: 2rem;
+}
+
+.final-quiz-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.requirements {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.requirements p {
+    margin: 0;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quiz-progress {
+    width: 200px;
+    height: 8px;
+    background-color: var(--darker);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quiz-progress-value {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.final-quiz-button {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    color: var(--dark);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.final-quiz-button:hover {
+    color: var(--dark);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Question Styling */
+.question-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.question-container h4 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option {
+    background-color: var(--darker);
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--darker);
+    display: flex;
+    align-items: center;
+}
+
+.option:hover {
+    background-color: var(--light-dark);
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    background-color: var(--primary-dark);
+    border-color: var(--primary);
+}
+
+.option input[type="radio"] {
+    margin-right: 1rem;
+}
+
+.option label {
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex: 1;
+}
+
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--primary-dark);
+}
+
+.nav-button {
+    background-color: var(--darker);
+    color: var(--text);
+    border: 1px solid var(--primary-dark);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+    color: var(--dark);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.question-progress {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+/* Results Styling */
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-header h3 {
+    color: var(--primary);
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 6px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.score-percentage {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.results-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.results-message i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.results-message h4 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.results-message p {
+    font-size: 1.1rem;
+    margin: 0 0 1.5rem 0;
+}
+
+#pass-message {
+    background-color: rgba(0, 255, 65, 0.1);
+    border: 1px solid var(--primary);
+}
+
+#pass-message i {
+    color: var(--primary);
+}
+
+#fail-message {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff4d4d;
+}
+
+#fail-message i {
+    color: #ff4d4d;
+}
+
+.certificate-link {
+    margin-top: 1.5rem;
+}
+
+.certificate-link a {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.certificate-link a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.review-button, .retake-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.review-button {
+    background-color: var(--darker);
+    color: var(--text);
+    border: 1px solid var(--primary-dark);
+}
+
+.review-button:hover {
+    background-color: var(--light-dark);
+}
+
+.retake-button {
+    background-color: var(--primary-dark);
+    color: var(--dark);
+}
+
+.retake-button:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Question Review Styling */
+.review-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.review-header h3 {
+    color: var(--primary);
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.review-item {
+    background-color: var(--darker);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-question {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.question-number {
+    font-weight: 700;
+    margin-right: 0.5rem;
+    min-width: 24px;
+}
+
+.question-text {
+    flex: 1;
+    font-size: 1.1rem;
+}
+
+.question-result {
+    margin-left: 1rem;
+}
+
+.question-result.correct {
+    color: var(--primary);
+}
+
+.question-result.incorrect {
+    color: #ff4d4d;
+}
+
+.review-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-left: 24px;
+}
+
+.review-option {
+    background-color: var(--medium-dark);
+    padding: 0.75rem;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-option.correct-answer {
+    background-color: rgba(0, 255, 65, 0.1);
+    border: 1px solid var(--primary);
+}
+
+.review-option.wrong-answer {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff4d4d;
+}
+
+.review-option i {
+    font-size: 1rem;
+}
+
+.review-option.correct-answer i {
+    color: var(--primary);
+}
+
+.review-option.wrong-answer i {
+    color: #ff4d4d;
+}
+
+.back-button {
+    background-color: var(--darker);
+    color: var(--text);
+    border: 1px solid var(--primary-dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin-top: 2rem;
+}
+
+.back-button:hover {
+    background-color: var(--primary-dark);
+    color: var(--dark);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .final-quiz-header, .final-quiz-footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
     }
+    
+    .quiz-status, .quiz-icon {
+        margin: 0;
+    }
+    
+    .quiz-progress {
+        width: 100%;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .review-button, .retake-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
 </style>
