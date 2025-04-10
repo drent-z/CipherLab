@@ -64,7 +64,16 @@
                     <div class="certificate-level">
                         <span id="cert-level">Master Cryptographer</span>
                     </div>
-                    <div class="certificate-link">
+                    
+                    <div class="certificate-form">
+                        <p>Enter your name to generate your personalized certificate:</p>
+                        <div class="name-input-container">
+                            <input type="text" id="certificate-name" placeholder="Enter your full name" class="name-input">
+                            <button id="generate-certificate" class="primary-button">Generate Certificate</button>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-link" style="display: none;">
                         <a href="#" id="certificate-download">Download Certificate</a>
                     </div>
                 </div>
@@ -106,8 +115,11 @@
     </div>
 </div>
 
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
-// Quiz data with questions, options, and correct answers
+// Add certificate generation functionality
 const quizData = [
     // Module 1: Fundamentals of Cryptography
     {
@@ -477,6 +489,10 @@ const reviewQuestionsButton = document.getElementById('review-questions');
 const retakeQuizButton = document.getElementById('retake-quiz');
 const backToResultsButton = document.getElementById('back-to-results');
 const reviewContentEl = document.getElementById('review-content');
+const generateCertButton = document.getElementById('generate-certificate');
+const certificateNameInput = document.getElementById('certificate-name');
+const certificateDownloadLink = document.getElementById('certificate-download');
+const certificateLinkContainer = document.querySelector('.certificate-link');
 
 // Set up event listeners
 document.addEventListener('DOMContentLoaded', function() {
@@ -498,7 +514,225 @@ document.addEventListener('DOMContentLoaded', function() {
     reviewQuestionsButton.addEventListener('click', showQuestionReview);
     retakeQuizButton.addEventListener('click', retakeQuiz);
     backToResultsButton.addEventListener('click', backToResults);
+    
+    // Certificate generation
+    if (generateCertButton) {
+        generateCertButton.addEventListener('click', generateCertificate);
+    }
 });
+
+// Certificate generation function
+function generateCertificate() {
+    const userName = certificateNameInput.value.trim();
+    if (!userName) {
+        alert('Please enter your name to generate the certificate.');
+        return;
+    }
+    
+    // Get certificate details
+    const certLevel = document.getElementById('cert-level').textContent;
+    const score = finalScoreEl.textContent;
+    const percentage = scorePercentageEl.textContent;
+    const currentDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    // Generate certificate ID
+    const certID = 'CL-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+    
+    try {
+        // Create PDF using jsPDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'landscape',
+            unit: 'mm',
+            format: 'a4'
+        });
+        
+        // Certificate design
+        // Fancy gradient background
+        for (let i = 0; i < 210; i += 2) {
+            const shade = 230 + Math.floor((i / 210) * 25);
+            doc.setFillColor(shade, shade, shade);
+            doc.rect(0, i, 297, 2, 'F');
+        }
+        
+        // Decorative border
+        // Outer border
+        doc.setDrawColor(0, 120, 50);
+        doc.setLineWidth(3);
+        doc.rect(10, 10, 277, 190);
+        
+        // Inner border
+        doc.setDrawColor(0, 160, 65);
+        doc.setLineWidth(1);
+        doc.rect(15, 15, 267, 180);
+        
+        // Corner decorations
+        function drawCornerDecoration(x, y, rotation) {
+            doc.saveGraphicsState();
+            doc.translate(x, y);
+            doc.rotate(rotation);
+            
+            // Draw decorative corner element
+            doc.setDrawColor(0, 180, 70);
+            doc.setLineWidth(1);
+            
+            // Curved lines
+            for (let i = 0; i < 20; i += 4) {
+                doc.setDrawColor(0, 180 - i * 3, 70);
+                doc.moveTo(0, i);
+                doc.curveTo(10, i, 20, i, 30, 0);
+                doc.stroke();
+            }
+            
+            doc.restoreGraphicsState();
+        }
+        
+        // Draw corner decorations
+        drawCornerDecoration(15, 15, 0);
+        drawCornerDecoration(282, 15, 90);
+        drawCornerDecoration(282, 195, 180);
+        drawCornerDecoration(15, 195, 270);
+        
+        // Header ribbon
+        doc.setFillColor(0, 140, 60);
+        doc.roundedRect(50, 30, 197, 20, 5, 5, 'F');
+        
+        // Cryptographic pattern - binary/hex pattern along top and bottom
+        doc.setFontSize(6);
+        doc.setTextColor(180, 180, 180);
+        let binaryPattern = '';
+        for (let i = 0; i < 90; i++) {
+            binaryPattern += Math.round(Math.random()) ? '1' : '0';
+        }
+        doc.text(binaryPattern, 148.5, 25, { align: 'center' });
+        
+        let hexPattern = '';
+        for (let i = 0; i < 40; i++) {
+            hexPattern += '0123456789ABCDEF'[Math.floor(Math.random() * 16)];
+        }
+        doc.text(hexPattern, 148.5, 200, { align: 'center' });
+        
+        // Header text
+        doc.setFontSize(26);
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.text('CERTIFICATE OF ACHIEVEMENT', 148.5, 45, { align: 'center' });
+        
+        // Subtitle
+        doc.setFontSize(12);
+        doc.setTextColor(0, 60, 30);
+        doc.setFont('helvetica', 'italic');
+        doc.text('CIPHERLAB CRYPTOGRAPHY MASTERY PROGRAM', 148.5, 60, { align: 'center' });
+        
+        // Seal/Emblem
+        const centerX = 148.5;
+        const centerY = 80;
+        const radius = 20;
+        
+        // Outer circle
+        doc.setDrawColor(0, 120, 50);
+        doc.setLineWidth(1.5);
+        doc.circle(centerX, centerY, radius);
+        
+        // Inner circle
+        doc.setFillColor(0, 160, 65);
+        doc.circle(centerX, centerY, radius - 2, 'F');
+        
+        // Center circle
+        doc.setFillColor(255, 255, 255);
+        doc.circle(centerX, centerY, radius - 6, 'F');
+        
+        // Draw lock icon in center
+        doc.setDrawColor(0, 120, 50);
+        doc.setFillColor(0, 120, 50);
+        
+        // Lock body
+        doc.roundedRect(centerX - 4, centerY - 2, 8, 10, 2, 2, 'F');
+        
+        // Lock shackle
+        doc.setLineWidth(1.5);
+        doc.arc(centerX, centerY - 5, 5, 0, Math.PI, 'S');
+        
+        // Binary circle around seal
+        doc.setFontSize(4);
+        for (let i = 0; i < 360; i += 15) {
+            const x = centerX + (radius + 3) * Math.cos(i * Math.PI / 180);
+            const y = centerY + (radius + 3) * Math.sin(i * Math.PI / 180);
+            doc.text(Math.round(Math.random()) ? '1' : '0', x, y);
+        }
+        
+        // Main text
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'normal');
+        doc.text('This is to certify that', 148.5, 115, { align: 'center' });
+        
+        // Name
+        doc.setFontSize(28);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(0, 100, 40);
+        doc.text(userName, 148.5, 130, { align: 'center' });
+        
+        // Decorative line under name
+        doc.setDrawColor(0, 160, 65);
+        doc.setLineWidth(1);
+        const nameWidth = doc.getTextWidth(userName);
+        doc.line(148.5 - nameWidth/2 - 10, 133, 148.5 + nameWidth/2 + 10, 133);
+        
+        // Certificate text
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'normal');
+        doc.text('has successfully completed the CipherLab Cryptography Course', 148.5, 145, { align: 'center' });
+        
+        // Achievement level
+        doc.setFont('helvetica', 'bolditalic');
+        doc.setTextColor(0, 100, 40);
+        doc.text(`and earned the title of ${certLevel}`, 148.5, 155, { align: 'center' });
+        
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0, 0, 0);
+        doc.text(`with a score of ${score} (${percentage})`, 148.5, 165, { align: 'center' });
+        
+        // Date and certificate ID
+        doc.setFontSize(10);
+        doc.text(`Issued on ${currentDate}`, 60, 180);
+        doc.text(`Certificate ID: ${certID}`, 230, 180);
+        
+        // Signature line
+        doc.setDrawColor(0, 100, 40);
+        doc.setLineWidth(0.8);
+        doc.line(60, 185, 120, 185);
+        
+        // Signature
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'italic');
+        doc.text('Dr. Cipher Master', 90, 183);
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.text('CipherLab Director', 90, 190);
+        
+        // Create blob and download link
+        const pdfBlob = doc.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        
+        certificateDownloadLink.href = pdfUrl;
+        certificateDownloadLink.download = `${userName.replace(/\s+/g, '_')}_CipherLab_Certificate.pdf`;
+        
+        // Show download link
+        certificateLinkContainer.style.display = 'block';
+        
+        // Optional: Scroll to download button
+        certificateLinkContainer.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+        console.error('Error generating certificate:', error);
+        alert('There was an error generating your certificate. Please try again.');
+    }
+}
 
 // Function to start the quiz
 function startQuiz() {
@@ -978,6 +1212,41 @@ function retakeQuiz() {
     color: var(--primary);
 }
 
+.certificate-form {
+    margin-top: 2rem;
+    background-color: var(--darker);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--primary-dark);
+}
+
+.certificate-form p {
+    margin-bottom: 1rem;
+}
+
+.name-input-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.name-input {
+    flex: 1;
+    min-width: 250px;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--primary-dark);
+    background-color: var(--medium-dark);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.name-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.2);
+}
+
 .certificate-link {
     margin-top: 1.5rem;
 }
@@ -996,6 +1265,15 @@ function retakeQuiz() {
 .certificate-link a:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.certificate-preview {
+    display: none;
+    margin: 2rem 0;
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
 }
 
 .action-buttons {
