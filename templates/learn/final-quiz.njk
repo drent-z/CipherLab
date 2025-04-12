@@ -10,7 +10,7 @@
                 <p>Test your knowledge and earn your cryptography certification</p>
             </div>
             <div class="quiz-status">
-                <span id="quiz-status-text">Unl<span id="secret-pass-trigger" style="cursor: pointer; position: relative;">o</span>cked</span>
+                <span id="quiz-status-text">Unl<button id="secret-pass-trigger" style="background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0 2px;" title="Click 3 times to auto-pass quiz">o</button>cked</span>
                 <i class="fas fa-unlock" id="quiz-lock-icon" style="color: var(--primary);"></i>
             </div>
         </div>
@@ -125,256 +125,205 @@
     </div>
 </div>
 
-<!-- Include StorageManager script -->
+<!-- Simple browser storage script -->
 <script>
-// Include StorageManager here to ensure it's available before we need it
-const StorageManager = {
-    // Available storage methods
-    drivers: ['localStorage', 'sessionStorage', 'cookie', 'memory'],
+// Ultra-reliable browser storage module - works in all browsers
+const BrowserStorage = {
+    prefix: 'cipherLab_',
     
-    // In-memory fallback 
-    memoryStorage: {},
-    
-    // Default settings
-    settings: {
-        prefix: 'cipherLab_',
-        defaultDriver: 'localStorage',
-        expiry: 365 * 24 * 60 * 60 * 1000 // 1 year
-    },
-    
-    // Test if storage method is available
-    isAvailable: function(driver) {
+    // Test if storage is available
+    isAvailable: function() {
         try {
-            switch(driver) {
-                case 'localStorage':
-                case 'sessionStorage':
-                    const storage = window[driver];
-                    const testKey = '__storage_test__';
-                    storage.setItem(testKey, testKey);
-                    storage.removeItem(testKey);
-                    return true;
-                case 'cookie':
-                    // Test cookie support
-                    document.cookie = "testcookie=1";
-                    const hasCookie = document.cookie.indexOf("testcookie=") !== -1;
-                    document.cookie = "testcookie=1; expires=Thu, 01 Jan 1970 00:00:00 GMT"; // Delete test cookie
-                    return hasCookie;
-                case 'memory':
-                    return true;
-                default:
-                    return false;
-            }
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            return true;
         } catch(e) {
             return false;
         }
     },
     
-    // Get the best available storage method
-    getDriver: function() {
-        for (let driver of this.drivers) {
-            if (this.isAvailable(driver)) {
-                console.log(`Using ${driver} for data storage`);
-                return driver;
-            }
-        }
-        return 'memory'; // Fallback to memory
-    },
-    
-    // Set an item in storage
-    setItem: function(key, value, useDriver = null) {
-        const driver = useDriver || this.getDriver();
-        const prefixedKey = this.settings.prefix + key;
-        
-        // Prepare data with metadata
-        const data = {
-            value: value,
-            timestamp: new Date().getTime(),
-            driver: driver
-        };
-        
+    // Storage methods with multiple fallbacks
+    save: function(key, data) {
         try {
-            const serialized = JSON.stringify(data);
+            // Stringify with error handling
+            const json = JSON.stringify(data);
             
-            switch(driver) {
-                case 'localStorage':
-                    localStorage.setItem(prefixedKey, serialized);
-                    break;
-                case 'sessionStorage':
-                    sessionStorage.setItem(prefixedKey, serialized);
-                    break;
-                case 'cookie':
-                    const expires = new Date();
-                    expires.setTime(expires.getTime() + this.settings.expiry);
-                    document.cookie = `${prefixedKey}=${encodeURIComponent(serialized)}; expires=${expires.toUTCString()}; path=/`;
-                    break;
-                case 'memory':
-                    this.memoryStorage[prefixedKey] = serialized;
-                    break;
+            // Try localStorage first
+            try {
+                localStorage.setItem(this.prefix + key, json);
+                console.log('Saved to localStorage:', key);
+                return true;
+            } catch(e) {
+                console.warn('localStorage save failed, trying cookie');
+                
+                // Fall back to cookie storage
+                try {
+                    const d = new Date();
+                    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000)); // 1 year
+                    const expires = "expires=" + d.toUTCString();
+                    document.cookie = this.prefix + key + "=" + encodeURIComponent(json) + ";" + expires + ";path=/";
+                    console.log('Saved to cookie:', key);
+                    return true;
+                } catch(e2) {
+                    console.error('All storage methods failed');
+                    return false;
+                }
             }
-            
-            console.log(`Saved data for key: ${key} using ${driver}`);
-            return true;
-        } catch (e) {
-            console.error(`Error saving data for key: ${key}`, e);
-            
-            // Try next available driver
-            const driverIndex = this.drivers.indexOf(driver);
-            if (driverIndex >= 0 && driverIndex < this.drivers.length - 1) {
-                const nextDriver = this.drivers[driverIndex + 1];
-                console.log(`Trying next driver: ${nextDriver}`);
-                return this.setItem(key, value, nextDriver);
-            }
-            
+        } catch(e) {
+            console.error('Error stringifying data', e);
             return false;
         }
     },
     
-    // Get an item from storage
-    getItem: function(key) {
-        const prefixedKey = this.settings.prefix + key;
-        
-        // Try all available drivers
-        for (let driver of this.drivers) {
-            if (!this.isAvailable(driver)) continue;
-            
-            try {
-                let serialized = null;
-                
-                switch(driver) {
-                    case 'localStorage':
-                        serialized = localStorage.getItem(prefixedKey);
-                        break;
-                    case 'sessionStorage':
-                        serialized = sessionStorage.getItem(prefixedKey);
-                        break;
-                    case 'cookie':
-                        const cookies = document.cookie.split(';');
-                        for (let cookie of cookies) {
-                            const [cookieName, cookieValue] = cookie.trim().split('=');
-                            if (cookieName === prefixedKey) {
-                                serialized = decodeURIComponent(cookieValue);
-                                break;
-                            }
-                        }
-                        break;
-                    case 'memory':
-                        serialized = this.memoryStorage[prefixedKey];
-                        break;
-                }
-                
-                if (serialized) {
-                    const data = JSON.parse(serialized);
-                    
-                    // Check if data has expired (if expiry is set)
-                    if (this.settings.expiry && (new Date().getTime() - data.timestamp > this.settings.expiry)) {
-                        this.removeItem(key);
-                        return null;
-                    }
-                    
-                    // If found in a different driver than the preferred one, 
-                    // migrate it to the preferred driver
-                    if (driver !== this.getDriver()) {
-                        this.setItem(key, data.value);
-                    }
-                    
-                    return data.value;
-                }
-            } catch (e) {
-                console.warn(`Error retrieving data for key: ${key} from ${driver}`, e);
+    // Load data with multiple fallbacks
+    load: function(key) {
+        // Try localStorage first
+        try {
+            const json = localStorage.getItem(this.prefix + key);
+            if (json) {
+                console.log('Loaded from localStorage:', key);
+                return JSON.parse(json);
             }
+        } catch(e) {
+            console.warn('localStorage load failed');
         }
         
+        // Try cookie storage
+        try {
+            const name = this.prefix + key + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    const json = c.substring(name.length, c.length);
+                    console.log('Loaded from cookie:', key);
+                    return JSON.parse(json);
+                }
+            }
+        } catch(e) {
+            console.warn('Cookie load failed');
+        }
+        
+        console.log('No saved data found for:', key);
         return null;
     },
     
-    // Remove an item from storage
-    removeItem: function(key) {
-        const prefixedKey = this.settings.prefix + key;
-        
-        // Try to remove from all available drivers
-        for (let driver of this.drivers) {
-            if (!this.isAvailable(driver)) continue;
-            
-            try {
-                switch(driver) {
-                    case 'localStorage':
-                        localStorage.removeItem(prefixedKey);
-                        break;
-                    case 'sessionStorage':
-                        sessionStorage.removeItem(prefixedKey);
-                        break;
-                    case 'cookie':
-                        document.cookie = `${prefixedKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-                        break;
-                    case 'memory':
-                        delete this.memoryStorage[prefixedKey];
-                        break;
-                }
-            } catch (e) {
-                console.warn(`Error removing data for key: ${key} from ${driver}`, e);
-            }
-        }
-    },
-    
-    // Clear all storage
-    clear: function() {
+    // Remove data from all storage types
+    remove: function(key) {
         try {
-            // Find all keys with our prefix
-            const keys = [];
-            
-            // Check localStorage
-            if (this.isAvailable('localStorage')) {
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.startsWith(this.settings.prefix)) {
-                        keys.push(key.replace(this.settings.prefix, ''));
-                    }
-                }
-            }
-            
-            // Check sessionStorage
-            if (this.isAvailable('sessionStorage')) {
-                for (let i = 0; i < sessionStorage.length; i++) {
-                    const key = sessionStorage.key(i);
-                    if (key.startsWith(this.settings.prefix)) {
-                        keys.push(key.replace(this.settings.prefix, ''));
-                    }
-                }
-            }
-            
-            // Check cookies
-            if (this.isAvailable('cookie')) {
-                const cookies = document.cookie.split(';');
-                for (let cookie of cookies) {
-                    const key = cookie.trim().split('=')[0];
-                    if (key.startsWith(this.settings.prefix)) {
-                        keys.push(key.replace(this.settings.prefix, ''));
-                    }
-                }
-            }
-            
-            // Remove all found keys
-            for (let key of keys) {
-                this.removeItem(key);
-            }
-            
-            // Clear memory storage
-            this.memoryStorage = {};
-            
-            return true;
-        } catch (e) {
-            console.error('Error clearing storage', e);
-            return false;
-        }
+            localStorage.removeItem(this.prefix + key);
+        } catch(e) { /* ignore errors */ }
+        
+        try {
+            document.cookie = this.prefix + key + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        } catch(e) { /* ignore errors */ }
+        
+        console.log('Removed data for:', key);
+        return true;
     }
 };
 
-// Run test when document loads
+// Test storage immediately to make sure it's working
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Testing StorageManager...");
-    StorageManager.setItem('test', 'It works!');
-    console.log("Test retrieved:", StorageManager.getItem('test'));
+    console.log('Testing storage...');
+    const testObj = {test: 'Storage test ' + new Date().toISOString()};
+    BrowserStorage.save('storage_test', testObj);
+    const loadedTest = BrowserStorage.load('storage_test');
+    console.log('Storage test result:', loadedTest && loadedTest.test ? 'SUCCESS' : 'FAILED');
+    
+    // Add "o" trigger to auto-complete quiz immediately on page load
+    setupSecretTrigger();
 });
+
+// Immediately set up the secret trigger for auto-passing the quiz
+function setupSecretTrigger() {
+    console.log('Setting up secret trigger...');
+    const trigger = document.getElementById('secret-pass-trigger');
+    if (trigger) {
+        let clicks = 0;
+        
+        // Remove any existing listeners
+        const newTrigger = trigger.cloneNode(true);
+        if (trigger.parentNode) {
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+        }
+        
+        // Add click handler with immediate feedback
+        newTrigger.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            clicks++;
+            console.log('Secret trigger clicked', clicks, 'times');
+            
+            // Immediate visual feedback
+            newTrigger.style.color = 'var(--primary)';
+            setTimeout(() => newTrigger.style.color = '', 300);
+            
+            if (clicks >= 3) {
+                console.log('AUTO-PASS ACTIVATED!');
+                autoPassQuiz();
+            }
+        };
+        
+        console.log('Secret trigger configured successfully');
+    } else {
+        console.warn('Secret trigger element not found!');
+        // Try again in 1 second
+        setTimeout(setupSecretTrigger, 1000);
+    }
+}
+
+// Function to automatically pass the quiz
+function autoPassQuiz() {
+    if (!window.quizData || !Array.isArray(window.quizData)) {
+        console.error('Quiz data not available!');
+        alert('Quiz data not loaded yet. Please try again in a few seconds.');
+        return;
+    }
+    
+    // Create a visual notification
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.backgroundColor = 'var(--primary)';
+    notification.style.color = 'var(--dark)';
+    notification.style.padding = '15px 30px';
+    notification.style.borderRadius = '8px';
+    notification.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+    notification.style.zIndex = '9999';
+    notification.style.fontWeight = 'bold';
+    notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Auto-Passed!';
+    document.body.appendChild(notification);
+    
+    // Set all answers to correct
+    window.userAnswers = window.quizData.map(q => q.correctAnswer);
+    window.quizStarted = true;
+    
+    // Submit the quiz with perfect score
+    if (typeof window.submitQuiz === 'function') {
+        window.submitQuiz();
+    } else {
+        console.error('submitQuiz function not found!');
+        alert('Error: Could not find quiz submission function. Please try refreshing the page.');
+    }
+    
+    // Scroll to the results
+    const resultsSection = document.getElementById('final-quiz-results');
+    if (resultsSection) {
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        document.body.removeChild(notification);
+    }, 3000);
+}
 </script>
 
 <!-- Include jsPDF library and html2canvas for improved certificate generation -->
@@ -1421,54 +1370,51 @@ function isLocalStorageAvailable() {
     }
 }
 
-// Functions to save and load quiz progress from local storage with StorageManager
+// Simple quiz progress save/load functions
 function saveFinalQuizStatus(completed, score, percentage, certLevel) {
+    console.log("Saving quiz status:", { completed, score, percentage, certLevel });
+    
+    // Create status object with all necessary data
+    const quizStatus = {
+        completed: completed,
+        score: score,
+        percentage: percentage,
+        certLevel: certLevel,
+        timestamp: new Date().toISOString(),
+        userAnswers: userAnswers
+    };
+    
+    // Save quiz status
+    const saved = BrowserStorage.save('finalQuizStatus', quizStatus);
+    
+    // Also update overall progress
     try {
-        console.log("Saving final quiz status:", completed, score, percentage, certLevel);
-        
-        const quizStatus = {
-            completed: completed,
-            score: score,
-            percentage: percentage,
-            certLevel: certLevel,
-            completionDate: new Date().toISOString(),
-            userAnswers: userAnswers
+        // Get existing progress or create new
+        let progress = BrowserStorage.load('quizProgress') || { 
+            completedLessons: [], 
+            totalLessons: quizData.length,
+            lastUpdated: new Date().toISOString()
         };
         
-        // Save using the enhanced storage manager
-        StorageManager.setItem('finalQuizStatus', quizStatus);
-        
-        // Also update the overall module progress
-        try {
-            let progress = StorageManager.getItem('quizProgress') || { completedLessons: [], totalLessons: 0 };
-            
-            // Mark final quiz as completed in the overall progress
-            if (completed && !progress.finalQuizCompleted) {
-                progress.finalQuizCompleted = true;
-                progress.finalQuizScore = percentage;
-                StorageManager.setItem('quizProgress', progress);
-                console.log("Updated overall progress with final quiz completion");
-            }
-        } catch (progressError) {
-            console.error('Error updating overall progress:', progressError);
+        // Mark quiz as completed
+        if (completed && !progress.finalQuizCompleted) {
+            progress.finalQuizCompleted = true;
+            progress.finalQuizScore = percentage;
+            BrowserStorage.save('quizProgress', progress);
+            console.log("Updated overall progress with final quiz completion");
         }
-        
-        return true;
-    } catch (error) {
-        console.error('Error saving quiz status:', error);
-        return false;
+    } catch (e) {
+        console.error("Error updating overall progress:", e);
     }
+    
+    return saved;
 }
 
 function loadFinalQuizStatus() {
-    try {
-        const quizStatus = StorageManager.getItem('finalQuizStatus');
-        console.log("Loaded final quiz status:", quizStatus ? "Found" : "Not found");
-        return quizStatus;
-    } catch (error) {
-        console.error('Error loading quiz status:', error);
-        return null;
-    }
+    // Simple direct loading with console output for debugging
+    const status = BrowserStorage.load('finalQuizStatus');
+    console.log("Loaded quiz status:", status ? "Found" : "Not found");
+    return status;
 }
 
 // Submit quiz and show results
