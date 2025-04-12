@@ -235,8 +235,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadedTest = BrowserStorage.load('storage_test');
     console.log('Storage test result:', loadedTest && loadedTest.test ? 'SUCCESS' : 'FAILED');
     
-    // Add "o" trigger to auto-complete quiz immediately on page load
+// Add "o" trigger to auto-complete quiz immediately on page load
     setupSecretTrigger();
+    
+    // Expose quiz functions globally for improved reliability
+    window.quizData = quizData;
+    window.userAnswers = userAnswers;
+    window.submitQuiz = submitQuiz;
+    window.startQuiz = startQuiz;
 });
 
 // Immediately set up the secret trigger for auto-passing the quiz
@@ -246,14 +252,14 @@ function setupSecretTrigger() {
     if (trigger) {
         let clicks = 0;
         
-        // Remove any existing listeners
+        // Remove any existing listeners for clean setup
         const newTrigger = trigger.cloneNode(true);
         if (trigger.parentNode) {
             trigger.parentNode.replaceChild(newTrigger, trigger);
         }
         
-        // Add click handler with immediate feedback
-        newTrigger.onclick = function(e) {
+        // Add click handler with improved feedback
+        newTrigger.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             clicks++;
@@ -267,62 +273,158 @@ function setupSecretTrigger() {
                 console.log('AUTO-PASS ACTIVATED!');
                 autoPassQuiz();
             }
-        };
+        });
         
         console.log('Secret trigger configured successfully');
     } else {
         console.warn('Secret trigger element not found!');
-        // Try again in 1 second
-        setTimeout(setupSecretTrigger, 1000);
+        // Try again in 1 second with a limit on retries
+        if (!window.secretTriggerRetries) window.secretTriggerRetries = 0;
+        window.secretTriggerRetries++;
+        
+        if (window.secretTriggerRetries < 5) {
+            setTimeout(setupSecretTrigger, 1000);
+        }
     }
 }
 
-// Function to automatically pass the quiz
+// Function to automatically pass the quiz with improved reliability
 function autoPassQuiz() {
-    if (!window.quizData || !Array.isArray(window.quizData)) {
-        console.error('Quiz data not available!');
-        alert('Quiz data not loaded yet. Please try again in a few seconds.');
-        return;
+    try {
+        console.log('Preparing auto-pass quiz');
+        
+        // Make sure quiz data is available
+        if (!window.quizData || !Array.isArray(window.quizData)) {
+            window.quizData = quizData; // Try to use local variable
+            
+            if (!window.quizData || !Array.isArray(window.quizData)) {
+                console.error('Quiz data not available!');
+                alert('Quiz data not loaded yet. Please try again in a few seconds.');
+                return;
+            }
+        }
+        
+        // Create a visual notification
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'var(--primary)';
+        notification.style.color = 'var(--dark)';
+        notification.style.padding = '15px 30px';
+        notification.style.borderRadius = '8px';
+        notification.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+        notification.style.zIndex = '9999';
+        notification.style.fontWeight = 'bold';
+        notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Auto-Passed!';
+        document.body.appendChild(notification);
+        
+        // Set all answers to correct
+        window.userAnswers = window.quizData.map(q => q.correctAnswer);
+        window.quizStarted = true;
+        
+        // Update local variables too
+        userAnswers = window.userAnswers;
+        quizStarted = true;
+        
+        // Get UI elements
+        const introSection = document.getElementById('final-quiz-intro');
+        const questionsSection = document.getElementById('final-quiz-questions');
+        const resultsSection = document.getElementById('final-quiz-results');
+        const startButton = document.getElementById('start-final-quiz-btn');
+        const submitButton = document.getElementById('submit-quiz');
+        
+        // Update UI to show results directly
+        if (introSection) introSection.style.display = 'none';
+        if (questionsSection) questionsSection.style.display = 'none';
+        if (resultsSection) resultsSection.style.display = 'block';
+        if (startButton) startButton.style.display = 'none';
+        if (submitButton) submitButton.style.display = 'none';
+        
+        // Submit the quiz with perfect score
+        if (typeof window.submitQuiz === 'function') {
+            console.log('Using window.submitQuiz');
+            window.submitQuiz();
+        } else if (typeof submitQuiz === 'function') {
+            console.log('Using local submitQuiz');
+            submitQuiz();
+        } else {
+            console.error('submitQuiz function not found!');
+            // Fall back to manual score display
+            console.log('Falling back to manual score display');
+            manuallyDisplayResults();
+        }
+        
+        // Scroll to the results
+        if (resultsSection) {
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            try {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            } catch (e) {
+                console.error('Error removing notification:', e);
+            }
+        }, 3000);
+        
+        console.log('Auto-pass completed successfully');
+    } catch (error) {
+        console.error('Error in autoPassQuiz:', error);
+        alert('There was an error auto-passing the quiz. Please try again.');
     }
+}
+
+// Fallback function for manually displaying results
+function manuallyDisplayResults() {
+    // Calculate a perfect score
+    const score = quizData.length;
+    const percentage = 100;
     
-    // Create a visual notification
-    const notification = document.createElement('div');
-    notification.style.position = 'fixed';
-    notification.style.top = '20px';
-    notification.style.left = '50%';
-    notification.style.transform = 'translateX(-50%)';
-    notification.style.backgroundColor = 'var(--primary)';
-    notification.style.color = 'var(--dark)';
-    notification.style.padding = '15px 30px';
-    notification.style.borderRadius = '8px';
-    notification.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
-    notification.style.zIndex = '9999';
-    notification.style.fontWeight = 'bold';
-    notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Auto-Passed!';
-    document.body.appendChild(notification);
+    // Update results elements
+    const finalScoreEl = document.getElementById('final-score');
+    const scorePercentageEl = document.getElementById('score-percentage');
+    const passMessageEl = document.getElementById('pass-message');
+    const failMessageEl = document.getElementById('fail-message');
+    const certLevelEl = document.getElementById('cert-level');
     
-    // Set all answers to correct
-    window.userAnswers = window.quizData.map(q => q.correctAnswer);
-    window.quizStarted = true;
+    if (finalScoreEl) finalScoreEl.textContent = score;
+    if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
     
-    // Submit the quiz with perfect score
-    if (typeof window.submitQuiz === 'function') {
-        window.submitQuiz();
-    } else {
-        console.error('submitQuiz function not found!');
-        alert('Error: Could not find quiz submission function. Please try refreshing the page.');
+    if (passMessageEl) passMessageEl.style.display = 'block';
+    if (failMessageEl) failMessageEl.style.display = 'none';
+    
+    if (certLevelEl) certLevelEl.textContent = 'Master Cryptographer';
+    
+    // Save to localStorage
+    try {
+        const status = {
+            completed: true,
+            score: score,
+            totalQuestions: quizData.length,
+            percentage: percentage,
+            certLevel: 'Master Cryptographer',
+            userAnswers: userAnswers,
+            completedDate: new Date().toISOString()
+        };
+        
+        localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(status));
+        
+        // Also update progress tracking
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        if (progressData) {
+            const progress = JSON.parse(progressData);
+            progress.finalQuizCompleted = true;
+            progress.finalQuizScore = percentage;
+            localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+        }
+    } catch (e) {
+        console.error('Error saving quiz results:', e);
     }
-    
-    // Scroll to the results
-    const resultsSection = document.getElementById('final-quiz-results');
-    if (resultsSection) {
-        resultsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    // Remove notification after 3 seconds
-    setTimeout(() => {
-        document.body.removeChild(notification);
-    }, 3000);
 }
 </script>
 
@@ -770,30 +872,71 @@ const certificateNameInput = document.getElementById('certificate-name');
 const certificateDownloadLink = document.getElementById('certificate-download');
 const certificateLinkContainer = document.querySelector('.certificate-link');
 
-// Set up event listeners
+// Set up event listeners with improved error handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Set total questions
-    totalQuestionsEl.textContent = quizData.length;
-    maxScoreEl.textContent = quizData.length;
+    console.log('Setting up quiz event listeners...');
     
-    // Start quiz button
-    startButton.addEventListener('click', startQuiz);
-    
-    // Quiz navigation
-    prevButton.addEventListener('click', goToPreviousQuestion);
-    nextButton.addEventListener('click', goToNextQuestion);
-    
-    // Submit quiz
-    submitButton.addEventListener('click', submitQuiz);
-    
-    // Results screen buttons
-    reviewQuestionsButton.addEventListener('click', showQuestionReview);
-    retakeQuizButton.addEventListener('click', retakeQuiz);
-    backToResultsButton.addEventListener('click', backToResults);
-    
-    // Certificate generation
-    if (generateCertButton) {
-        generateCertButton.addEventListener('click', generateCertificate);
+    try {
+        // Make quiz data and functions globally available for the auto-pass feature
+        window.quizData = quizData;
+        window.userAnswers = userAnswers;
+        window.quizStarted = quizStarted;
+        window.submitQuiz = submitQuiz;
+        window.startQuiz = startQuiz;
+        
+        // Set total questions if elements exist
+        if (totalQuestionsEl) totalQuestionsEl.textContent = quizData.length;
+        if (maxScoreEl) maxScoreEl.textContent = quizData.length;
+        
+        // Start quiz button
+        if (startButton) {
+            // Remove any existing listeners
+            const newStartButton = startButton.cloneNode(true);
+            if (startButton.parentNode) {
+                startButton.parentNode.replaceChild(newStartButton, startButton);
+            }
+            
+            newStartButton.addEventListener('click', function(e) {
+                console.log('Start quiz button clicked');
+                startQuiz();
+            });
+        } else {
+            console.warn('Start quiz button not found');
+        }
+        
+        // Quiz navigation
+        if (prevButton) prevButton.addEventListener('click', goToPreviousQuestion);
+        if (nextButton) nextButton.addEventListener('click', goToNextQuestion);
+        
+        // Submit quiz
+        if (submitButton) {
+            // Remove any existing listeners
+            const newSubmitButton = submitButton.cloneNode(true);
+            if (submitButton.parentNode) {
+                submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
+            }
+            
+            newSubmitButton.addEventListener('click', function(e) {
+                console.log('Submit quiz button clicked');
+                submitQuiz();
+            });
+        } else {
+            console.warn('Submit button not found');
+        }
+        
+        // Results screen buttons
+        if (reviewQuestionsButton) reviewQuestionsButton.addEventListener('click', showQuestionReview);
+        if (retakeQuizButton) retakeQuizButton.addEventListener('click', retakeQuiz);
+        if (backToResultsButton) backToResultsButton.addEventListener('click', backToResults);
+        
+        // Certificate generation
+        if (generateCertButton) {
+            generateCertButton.addEventListener('click', generateCertificate);
+        }
+        
+        console.log('Quiz event listeners set up successfully');
+    } catch (error) {
+        console.error('Error setting up quiz event listeners:', error);
     }
     
     // Add secret test feature
@@ -1273,49 +1416,125 @@ function generateCertificate() {
 
 // Function to start the quiz
 function startQuiz() {
-    quizStarted = true;
-    introSection.style.display = 'none';
-    questionsSection.style.display = 'block';
-    startButton.style.display = 'none';
-    submitButton.style.display = 'block';
+    console.log('Starting quiz...');
     
-    // Reset quiz state
-    currentQuestion = 0;
-    userAnswers = Array(quizData.length).fill(null);
-    
-    // Load the first question
-    loadQuestion(currentQuestion);
-    updateNavButtons();
-}
-
-// Function to load a question
-function loadQuestion(index) {
-    const question = quizData[index];
-    questionText.textContent = question.question;
-    currentQuestionEl.textContent = index + 1;
-    
-    // Clear previous options
-    answerOptions.innerHTML = '';
-    
-    // Add options
-    question.options.forEach((option, optionIndex) => {
-        const optionElement = document.createElement('div');
-        optionElement.className = 'option';
-        if (userAnswers[index] === optionIndex) {
-            optionElement.classList.add('selected');
+    try {
+        quizStarted = true;
+        window.quizStarted = true;
+        
+        // Update UI if elements exist
+        if (introSection) introSection.style.display = 'none';
+        if (questionsSection) questionsSection.style.display = 'block';
+        if (startButton) startButton.style.display = 'none';
+        if (submitButton) submitButton.style.display = 'block';
+        
+        // Reset quiz state
+        currentQuestion = 0;
+        userAnswers = Array(quizData.length).fill(null);
+        window.userAnswers = userAnswers; // Update global copy
+        
+        // Load the first question
+        loadQuestion(currentQuestion);
+        
+        // Update navigation if function exists
+        if (typeof updateNavButtons === 'function') {
+            updateNavButtons();
+        } else {
+            // Fallback navigation update
+            if (prevButton) prevButton.disabled = currentQuestion === 0;
+            if (nextButton) nextButton.disabled = currentQuestion === quizData.length - 1;
         }
         
-        optionElement.innerHTML = `
-            <input type="radio" id="option-${optionIndex}" name="question-${index}" value="${optionIndex}" ${userAnswers[index] === optionIndex ? 'checked' : ''}>
-            <label for="option-${optionIndex}">${option}</label>
-        `;
+        // Scroll to questions section
+        if (questionsSection) {
+            questionsSection.scrollIntoView({ behavior: 'smooth' });
+        }
         
-        optionElement.addEventListener('click', () => {
-            selectAnswer(index, optionIndex);
+        console.log('Quiz started successfully');
+    } catch (error) {
+        console.error('Error starting quiz:', error);
+        alert('There was an error starting the quiz. Please refresh the page and try again.');
+    }
+}
+
+// Function to load a question with improved error handling
+function loadQuestion(index) {
+    console.log(`Loading question ${index + 1} of ${quizData.length}`);
+    
+    try {
+        // Validate index
+        if (index < 0 || index >= quizData.length) {
+            console.error('Invalid question index:', index);
+            return;
+        }
+        
+        const question = quizData[index];
+        
+        // Check if elements exist before manipulating
+        if (!questionText || !answerOptions || !currentQuestionEl) {
+            console.error('Required quiz elements not found');
+            return;
+        }
+        
+        questionText.textContent = question.question;
+        currentQuestionEl.textContent = index + 1;
+        
+        // Add module info if available
+        if (question.module) {
+            // Remove any existing module info
+            const existingModule = document.querySelector('.question-module');
+            if (existingModule) existingModule.remove();
+            
+            // Add new module info
+            const moduleInfo = document.createElement('div');
+            moduleInfo.className = 'question-module';
+            moduleInfo.innerHTML = `<span class="module-name">${question.module}</span>`;
+            moduleInfo.style.fontSize = '0.85rem';
+            moduleInfo.style.opacity = '0.8';
+            moduleInfo.style.marginBottom = '0.5rem';
+            
+            questionText.insertAdjacentElement('beforebegin', moduleInfo);
+        }
+        
+        // Clear previous options
+        answerOptions.innerHTML = '';
+        
+        // Add options
+        question.options.forEach((option, optionIndex) => {
+            const optionElement = document.createElement('div');
+            optionElement.className = 'option';
+            if (userAnswers[index] === optionIndex) {
+                optionElement.classList.add('selected');
+            }
+            
+            optionElement.innerHTML = `
+                <input type="radio" id="option-${optionIndex}" name="question-${index}" value="${optionIndex}" ${userAnswers[index] === optionIndex ? 'checked' : ''}>
+                <label for="option-${optionIndex}">${option}</label>
+            `;
+            
+            // Add event listener with error handling
+            optionElement.addEventListener('click', () => {
+                try {
+                    selectAnswer(index, optionIndex);
+                    
+                    // Update global userAnswers for auto-pass feature
+                    if (window.userAnswers) {
+                        window.userAnswers[index] = optionIndex;
+                    }
+                    
+                    console.log(`Selected answer ${optionIndex} for question ${index + 1}`);
+                } catch (e) {
+                    console.error('Error selecting answer:', e);
+                }
+            });
+            
+            answerOptions.appendChild(optionElement);
         });
         
-        answerOptions.appendChild(optionElement);
-    });
+        console.log('Question loaded successfully');
+    } catch (error) {
+        console.error('Error loading question:', error);
+    }
 }
 
 // Function to select an answer
@@ -1335,26 +1554,49 @@ function selectAnswer(questionIndex, optionIndex) {
     });
 }
 
-// Navigation functions
+// Navigation functions with improved error handling
 function goToPreviousQuestion() {
-    if (currentQuestion > 0) {
-        currentQuestion--;
-        loadQuestion(currentQuestion);
-        updateNavButtons();
+    console.log('Navigating to previous question');
+    
+    try {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            loadQuestion(currentQuestion);
+            updateNavButtons();
+        } else {
+            console.warn('Already at first question');
+        }
+    } catch (error) {
+        console.error('Error navigating to previous question:', error);
     }
 }
 
 function goToNextQuestion() {
-    if (currentQuestion < quizData.length - 1) {
-        currentQuestion++;
-        loadQuestion(currentQuestion);
-        updateNavButtons();
+    console.log('Navigating to next question');
+    
+    try {
+        if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            loadQuestion(currentQuestion);
+            updateNavButtons();
+        } else {
+            console.warn('Already at last question');
+        }
+    } catch (error) {
+        console.error('Error navigating to next question:', error);
     }
 }
 
 function updateNavButtons() {
-    prevButton.disabled = currentQuestion === 0;
-    nextButton.disabled = currentQuestion === quizData.length - 1;
+    try {
+        if (prevButton) prevButton.disabled = currentQuestion === 0;
+        if (nextButton) nextButton.disabled = currentQuestion === quizData.length - 1;
+        
+        // Update question counter if it exists
+        if (currentQuestionEl) currentQuestionEl.textContent = currentQuestion + 1;
+    } catch (error) {
+        console.error('Error updating navigation buttons:', error);
+    }
 }
 
 // Check if localStorage is available
@@ -1417,51 +1659,171 @@ function loadFinalQuizStatus() {
     return status;
 }
 
-// Submit quiz and show results
+// Submit quiz and show results with improved error handling
 function submitQuiz() {
-    // Calculate score
-    const score = calculateScore();
-    const percentage = Math.round((score / quizData.length) * 100);
+    console.log('Submitting quiz...');
     
-    // Update results display
-    finalScoreEl.textContent = score;
-    scorePercentageEl.textContent = `${percentage}%`;
-    
-    // Determine cert level
-    let certLevel = "";
-    
-    // Show appropriate message and set certificate level
-    if (percentage >= 70) {
-        passMessageEl.style.display = 'block';
-        failMessageEl.style.display = 'none';
-        
-        // Set certificate level based on score
-        const certLevelEl = document.getElementById('cert-level');
-        if (percentage >= 90) {
-            certLevel = "Master Cryptographer";
-            certLevelEl.textContent = certLevel;
-        } else if (percentage >= 80) {
-            certLevel = "Cryptography Expert";
-            certLevelEl.textContent = certLevel;
-        } else {
-            certLevel = "Cryptography Specialist";
-            certLevelEl.textContent = certLevel;
+    try {
+        // Check if quiz was started
+        if (!quizStarted) {
+            console.warn('Attempted to submit quiz that wasn\'t started');
+            alert('Please start the quiz first.');
+            return;
         }
         
-        // Save to localStorage that the quiz was passed
-        saveFinalQuizStatus(true, score, percentage, certLevel);
-    } else {
-        passMessageEl.style.display = 'none';
-        failMessageEl.style.display = 'block';
+        // Check for unanswered questions
+        const unansweredCount = userAnswers.filter(answer => answer === null).length;
+        if (unansweredCount > 0) {
+            const confirmSubmit = confirm(`You have ${unansweredCount} unanswered questions. Are you sure you want to submit?`);
+            if (!confirmSubmit) {
+                return;
+            }
+        }
         
-        // Save to localStorage that the quiz was attempted but not passed
-        saveFinalQuizStatus(false, score, percentage, "");
+        // Calculate score
+        let score = 0;
+        if (typeof calculateScore === 'function') {
+            score = calculateScore();
+        } else {
+            // Fallback calculation if function not available
+            for (let i = 0; i < quizData.length; i++) {
+                if (userAnswers[i] === quizData[i].correctAnswer) {
+                    score++;
+                }
+            }
+        }
+        
+        const percentage = Math.round((score / quizData.length) * 100);
+        console.log(`Quiz score: ${score}/${quizData.length} (${percentage}%)`);
+        
+        // Update results display if elements exist
+        if (finalScoreEl) finalScoreEl.textContent = score;
+        if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
+        
+        // Determine cert level
+        let certLevel = "";
+        
+        // Show appropriate message and set certificate level
+        if (percentage >= 70) {
+            if (passMessageEl) passMessageEl.style.display = 'block';
+            if (failMessageEl) failMessageEl.style.display = 'none';
+            
+            // Set certificate level based on score
+            const certLevelEl = document.getElementById('cert-level');
+            if (certLevelEl) {
+                if (percentage >= 90) {
+                    certLevel = "Master Cryptographer";
+                    certLevelEl.textContent = certLevel;
+                } else if (percentage >= 80) {
+                    certLevel = "Cryptography Expert";
+                    certLevelEl.textContent = certLevel;
+                } else {
+                    certLevel = "Cryptography Specialist";
+                    certLevelEl.textContent = certLevel;
+                }
+            }
+            
+            // Save to localStorage that the quiz was passed
+            if (typeof saveFinalQuizStatus === 'function') {
+                saveFinalQuizStatus(true, score, percentage, certLevel);
+            } else {
+                // Fallback if saveFinalQuizStatus not available
+                saveQuizResultsFallback(true, score, percentage, certLevel);
+            }
+            
+            // Show congratulations notification
+            const passNotification = document.createElement('div');
+            passNotification.style.position = 'fixed';
+            passNotification.style.top = '20px';
+            passNotification.style.left = '50%';
+            passNotification.style.transform = 'translateX(-50%)';
+            passNotification.style.backgroundColor = 'var(--primary)';
+            passNotification.style.color = 'var(--dark)';
+            passNotification.style.padding = '15px 30px';
+            passNotification.style.borderRadius = '8px';
+            passNotification.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+            passNotification.style.zIndex = '9999';
+            passNotification.style.fontWeight = 'bold';
+            passNotification.innerHTML = '<i class="fas fa-trophy"></i> Congratulations! Quiz Passed!';
+            document.body.appendChild(passNotification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                if (document.body.contains(passNotification)) {
+                    document.body.removeChild(passNotification);
+                }
+            }, 3000);
+        } else {
+            if (passMessageEl) passMessageEl.style.display = 'none';
+            if (failMessageEl) failMessageEl.style.display = 'block';
+            
+            // Save to localStorage that the quiz was attempted but not passed
+            if (typeof saveFinalQuizStatus === 'function') {
+                saveFinalQuizStatus(false, score, percentage, "");
+            } else {
+                // Fallback if saveFinalQuizStatus not available
+                saveQuizResultsFallback(false, score, percentage, "");
+            }
+        }
+        
+        // Switch to results view if elements exist
+        if (questionsSection) questionsSection.style.display = 'none';
+        if (resultsSection) resultsSection.style.display = 'block';
+        if (submitButton) submitButton.style.display = 'none';
+        
+        // Scroll to results
+        if (resultsSection) {
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        console.log('Quiz submitted successfully');
+    } catch (error) {
+        console.error('Error submitting quiz:', error);
+        alert('There was an error submitting your quiz. Please try again.');
     }
+}
+
+// Fallback function for saving quiz results if saveFinalQuizStatus is not available
+function saveQuizResultsFallback(passed, score, percentage, certLevel) {
+    console.log('Using fallback method to save quiz results');
     
-    // Switch to results view
-    questionsSection.style.display = 'none';
-    resultsSection.style.display = 'block';
-    submitButton.style.display = 'none';
+    try {
+        const status = {
+            completed: true,
+            passed: passed,
+            score: score,
+            totalQuestions: quizData.length,
+            percentage: percentage,
+            certLevel: certLevel,
+            userAnswers: userAnswers,
+            completedDate: new Date().toISOString()
+        };
+        
+        // Try BrowserStorage first
+        if (typeof BrowserStorage !== 'undefined') {
+            BrowserStorage.save('finalQuizStatus', status);
+        } else {
+            // Fallback to direct localStorage
+            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(status));
+        }
+        
+        // Also update quiz progress tracking
+        try {
+            const progressData = localStorage.getItem('cipherLabQuizProgress');
+            if (progressData) {
+                const progress = JSON.parse(progressData);
+                progress.finalQuizCompleted = true;
+                progress.finalQuizScore = percentage;
+                localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+            }
+        } catch (e) {
+            console.error('Error updating progress tracking:', e);
+        }
+        
+        console.log('Quiz results saved successfully using fallback method');
+    } catch (e) {
+        console.error('Error in fallback save method:', e);
+    }
 }
 
 // Calculate quiz score

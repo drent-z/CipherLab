@@ -371,7 +371,7 @@ function setupLessonNavigation(lessonId, currentModule) {
         nextButton.style.visibility = 'hidden';
     }
     
-    // Setup complete button with cross-browser compatibility
+// Setup complete button with cross-browser compatibility
     if (completeButton) {
         // Remove any existing event listeners to prevent duplicates
         const newCompleteButton = completeButton.cloneNode(true);
@@ -379,41 +379,76 @@ function setupLessonNavigation(lessonId, currentModule) {
             completeButton.parentNode.replaceChild(newCompleteButton, completeButton);
         }
         
-        // Add new event listener
-        newCompleteButton.addEventListener('click', function() {
-            const completedLessons = loadQuizProgress();
+        // Add new event listener with improved error handling
+        newCompleteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Check if this lesson is already completed
-            if (!completedLessons.includes(lessonId)) {
-                // Add to completed lessons
-                completedLessons.push(lessonId);
+            try {
+                console.log('Mark as complete button clicked for lesson:', lessonId);
                 
-                // Save to localStorage
-                saveQuizProgress(completedLessons, lessonIds.length);
+                // Get current progress with fallback for empty array
+                const completedLessons = loadQuizProgress() || [];
                 
-                // Update the lesson status icon in the module view
-                const statusIcon = document.getElementById(`status-${lessonId}`);
-                if (statusIcon) {
-                    statusIcon.className = 'fas fa-check-circle';
-                    if (statusIcon.parentElement) {
-                        statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+                // Check if this lesson is already completed
+                if (!completedLessons.includes(lessonId)) {
+                    // Add to completed lessons
+                    completedLessons.push(lessonId);
+                    
+                    // Save to localStorage
+                    const saveResult = saveQuizProgress(completedLessons, lessonIds.length);
+                    console.log('Save result:', saveResult ? 'SUCCESS' : 'FAILED');
+                    
+                    // Update the lesson status icon in the module view
+                    const statusIcon = document.getElementById(`status-${lessonId}`);
+                    if (statusIcon) {
+                        statusIcon.className = 'fas fa-check-circle';
+                        if (statusIcon.parentElement) {
+                            statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+                        }
                     }
+                    
+                    // Update the complete button
+                    newCompleteButton.classList.add('completed');
+                    newCompleteButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    
+                    // Add completed class to lesson
+                    const lessonContent = document.getElementById(`${lessonId}-content`);
+                    if (lessonContent) {
+                        lessonContent.classList.add('completed-lesson');
+                    }
+                    
+                    // Show a visual confirmation for feedback
+                    const confirmationMsg = document.createElement('div');
+                    confirmationMsg.className = 'completion-confirmation';
+                    confirmationMsg.innerHTML = '<i class="fas fa-check-circle"></i> Lesson marked as complete!';
+                    confirmationMsg.style.position = 'fixed';
+                    confirmationMsg.style.top = '20px';
+                    confirmationMsg.style.left = '50%';
+                    confirmationMsg.style.transform = 'translateX(-50%)';
+                    confirmationMsg.style.backgroundColor = 'var(--primary)';
+                    confirmationMsg.style.color = 'var(--dark)';
+                    confirmationMsg.style.padding = '10px 20px';
+                    confirmationMsg.style.borderRadius = '5px';
+                    confirmationMsg.style.boxShadow = '0 3px 10px rgba(0,0,0,0.3)';
+                    confirmationMsg.style.zIndex = '9999';
+                    document.body.appendChild(confirmationMsg);
+                    
+                    // Remove confirmation after 2 seconds
+                    setTimeout(() => {
+                        document.body.removeChild(confirmationMsg);
+                    }, 2000);
+                    
+                    // Update the quiz progress
+                    updateQuizProgress();
+                    
+                    console.log(`Lesson ${lessonId} marked as complete and saved successfully`);
+                } else {
+                    console.log(`Lesson ${lessonId} is already marked as complete`);
                 }
-                
-                // Update the complete button
-                newCompleteButton.classList.add('completed');
-                newCompleteButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                
-                // Add completed class to lesson
-                const lessonContent = document.getElementById(`${lessonId}-content`);
-                if (lessonContent) {
-                    lessonContent.classList.add('completed-lesson');
-                }
-                
-                // Update the quiz progress
-                updateQuizProgress();
-                
-                console.log(`Lesson ${lessonId} marked as complete and saved to localStorage`);
+            } catch (error) {
+                console.error('Error in mark as complete handler:', error);
+                alert('There was an error saving your progress. Please try again.');
             }
         });
     }
@@ -736,81 +771,111 @@ function initParticleNetwork() {
     
     if (!heroSection) return;
     
-    const particleContainer = document.createElement('div');
-    particleContainer.classList.add('particle-network');
-    particleContainer.style.position = 'absolute';
-    particleContainer.style.top = '0';
-    particleContainer.style.left = '0';
-    particleContainer.style.width = '100%';
-    particleContainer.style.height = '100%';
-    particleContainer.style.overflow = 'hidden';
-    particleContainer.style.zIndex = '-1';
+    // Check if particle container already exists
+    let particleContainer = heroSection.querySelector('.particle-network');
+    if (!particleContainer) {
+        particleContainer = document.createElement('div');
+        particleContainer.classList.add('particle-network');
+        particleContainer.style.position = 'absolute';
+        particleContainer.style.top = '0';
+        particleContainer.style.left = '0';
+        particleContainer.style.width = '100%';
+        particleContainer.style.height = '100%';
+        particleContainer.style.overflow = 'hidden';
+        particleContainer.style.zIndex = '0'; // Changed from -1 to 0 to ensure visibility
+        
+        heroSection.appendChild(particleContainer);
+    } else {
+        // Clear existing particles if any
+        particleContainer.innerHTML = '';
+    }
     
-    heroSection.appendChild(particleContainer);
-    
-    const particleCount = 40;
+    const particleCount = 60; // Increased from 40
     const particleColors = ['#00FF41', '#FF00FF', '#00FFFF'];
     
+    // Create particles
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        const size = Math.random() * 5 + 1;
+        const size = Math.random() * 5 + 2; // Slightly larger minimum size
         
+        particle.className = 'particle';
         particle.style.position = 'absolute';
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
         particle.style.borderRadius = '50%';
         particle.style.backgroundColor = particleColors[Math.floor(Math.random() * particleColors.length)];
-        particle.style.opacity = '0.7';
+        particle.style.opacity = Math.random() * 0.5 + 0.5; // Higher minimum opacity
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
         particle.style.boxShadow = `0 0 ${size * 2}px ${particle.style.backgroundColor}`;
+        particle.style.transition = 'none'; // Ensure no transition is applied
         
-        // Store particle data for animation - SLOWER SPEED
-        particle.dataset.vx = (Math.random() - 0.5) * 0.7; // x velocity - slower speed
-        particle.dataset.vy = (Math.random() - 0.5) * 0.7; // y velocity - slower speed
+        // Store particle data for animation with slightly faster speed
+        particle.dataset.vx = (Math.random() - 0.5) * 1.0; // x velocity - increased speed
+        particle.dataset.vy = (Math.random() - 0.5) * 1.0; // y velocity - increased speed
         
         particleContainer.appendChild(particle);
     }
     
-    // Animate particles
+    // Function to animate particles
     function animateParticles() {
-        const particles = particleContainer.querySelectorAll('div');
+        const particles = particleContainer.querySelectorAll('.particle');
         const containerWidth = particleContainer.offsetWidth;
         const containerHeight = particleContainer.offsetHeight;
         
         particles.forEach(particle => {
-            // Get current position
-            let x = parseFloat(particle.style.left);
-            let y = parseFloat(particle.style.top);
-            
-            // Convert percentage to pixels
-            x = (x / 100) * containerWidth;
-            y = (y / 100) * containerHeight;
-            
-            // Update position
-            x += parseFloat(particle.dataset.vx);
-            y += parseFloat(particle.dataset.vy);
-            
-            // Boundary check and bounce
-            if (x <= 0 || x >= containerWidth) {
-                particle.dataset.vx = -parseFloat(particle.dataset.vx);
-                x += parseFloat(particle.dataset.vx) * 2;
+            try {
+                // Get current position
+                let x = parseFloat(particle.style.left);
+                let y = parseFloat(particle.style.top);
+                
+                // Convert percentage to pixels
+                x = (x / 100) * containerWidth;
+                y = (y / 100) * containerHeight;
+                
+                // Update position
+                x += parseFloat(particle.dataset.vx);
+                y += parseFloat(particle.dataset.vy);
+                
+                // Boundary check and bounce
+                if (x <= 0 || x >= containerWidth) {
+                    particle.dataset.vx = -parseFloat(particle.dataset.vx);
+                    x += parseFloat(particle.dataset.vx) * 2;
+                }
+                
+                if (y <= 0 || y >= containerHeight) {
+                    particle.dataset.vy = -parseFloat(particle.dataset.vy);
+                    y += parseFloat(particle.dataset.vy) * 2;
+                }
+                
+                // Convert back to percentage
+                particle.style.left = (x / containerWidth * 100) + '%';
+                particle.style.top = (y / containerHeight * 100) + '%';
+            } catch (e) {
+                console.error('Error animating particle:', e);
             }
-            
-            if (y <= 0 || y >= containerHeight) {
-                particle.dataset.vy = -parseFloat(particle.dataset.vy);
-                y += parseFloat(particle.dataset.vy) * 2;
-            }
-            
-            // Convert back to percentage
-            particle.style.left = (x / containerWidth * 100) + '%';
-            particle.style.top = (y / containerHeight * 100) + '%';
         });
         
-        requestAnimationFrame(animateParticles);
+        // Continue animation loop
+        window.particleAnimationFrame = requestAnimationFrame(animateParticles);
     }
     
-    animateParticles();
+    // Clean up any existing animation frame
+    if (window.particleAnimationFrame) {
+        cancelAnimationFrame(window.particleAnimationFrame);
+    }
+    
+    // Start animation
+    window.particleAnimationFrame = requestAnimationFrame(animateParticles);
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        // Restart particle animation with new dimensions
+        if (window.particleAnimationFrame) {
+            cancelAnimationFrame(window.particleAnimationFrame);
+        }
+        window.particleAnimationFrame = requestAnimationFrame(animateParticles);
+    });
 }
 
 // Scroll animations - UPDATED WITH FIX
