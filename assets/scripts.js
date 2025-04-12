@@ -1,45 +1,87 @@
-// Store quiz data in localStorage with enhanced module tracking
-function saveQuizProgress(completedLessons, totalLessons) {
-    // Get existing progress data or create new object
-    const progressData = localStorage.getItem('cipherLabQuizProgress');
-    let progress = progressData ? JSON.parse(progressData) : {};
-    
-    // Update with new data
-    progress.completedLessons = completedLessons;
-    progress.totalLessons = totalLessons;
-    progress.lastUpdated = new Date().toISOString();
-    
-    // Track module completion
-    const moduleProgress = {};
-    
-    // Group completed lessons by module
-    completedLessons.forEach(lessonId => {
-        const moduleMatch = lessonId.match(/lesson(\d+)-/);
-        if (moduleMatch) {
-            const moduleNum = moduleMatch[1];
-            if (!moduleProgress[moduleNum]) {
-                moduleProgress[moduleNum] = 0;
-            }
-            moduleProgress[moduleNum]++;
-        }
-    });
-    
-    // Save module progress
-    progress.moduleProgress = moduleProgress;
-    
-    // Persist to localStorage
-    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
-    
-    // Also update last activity timestamp
-    localStorage.setItem('cipherLabLastActivity', new Date().toISOString());
+// Check if localStorage is available
+function isLocalStorageAvailable() {
+    try {
+        const test = 'test';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        console.warn('localStorage is not available. Progress will not be saved.');
+        return false;
+    }
 }
 
-// Load quiz progress from localStorage
+// Store quiz data in localStorage with enhanced module tracking and browser compatibility
+function saveQuizProgress(completedLessons, totalLessons) {
+    // Check if localStorage is available
+    if (!isLocalStorageAvailable()) {
+        console.warn('Cannot save progress - localStorage is not available');
+        return false;
+    }
+    
+    try {
+        // Get existing progress data or create new object
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        let progress = progressData ? JSON.parse(progressData) : {};
+        
+        // Update with new data
+        progress.completedLessons = completedLessons;
+        progress.totalLessons = totalLessons;
+        progress.lastUpdated = new Date().toISOString();
+        
+        // Track module completion
+        const moduleProgress = {};
+        
+        // Group completed lessons by module
+        completedLessons.forEach(lessonId => {
+            const moduleMatch = lessonId.match(/lesson(\d+)-/);
+            if (moduleMatch) {
+                const moduleNum = moduleMatch[1];
+                if (!moduleProgress[moduleNum]) {
+                    moduleProgress[moduleNum] = 0;
+                }
+                moduleProgress[moduleNum]++;
+            }
+        });
+        
+        // Save module progress
+        progress.moduleProgress = moduleProgress;
+        
+        // Persist to localStorage
+        localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+        
+        // Also update last activity timestamp
+        localStorage.setItem('cipherLabLastActivity', new Date().toISOString());
+        
+        return true;
+    } catch (error) {
+        console.error('Error saving progress:', error);
+        return false;
+    }
+}
+
+// Load quiz progress from localStorage with error handling for cross-browser compatibility
 function loadQuizProgress() {
-    const progressData = localStorage.getItem('cipherLabQuizProgress');
-    if (progressData) {
-        const progress = JSON.parse(progressData);
-        return progress.completedLessons || [];
+    // Check if localStorage is available
+    if (!isLocalStorageAvailable()) {
+        console.warn('Cannot load progress - localStorage is not available');
+        return [];
+    }
+    
+    try {
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        if (progressData) {
+            const progress = JSON.parse(progressData);
+            return Array.isArray(progress.completedLessons) ? progress.completedLessons : [];
+        }
+    } catch (error) {
+        console.error('Error loading progress:', error);
+        // If there's an error parsing the JSON, try to recover by clearing localStorage
+        try {
+            localStorage.removeItem('cipherLabQuizProgress');
+        } catch (e) {
+            // Ignore errors when trying to remove item
+        }
     }
     return [];
 }
@@ -169,28 +211,52 @@ function setupLessonNavigation(lessonId, currentModule) {
         nextButton.style.visibility = 'hidden';
     }
     
-    // Setup complete button
-    completeButton.onclick = () => {
-        const completedLessons = loadQuizProgress();
-        if (!completedLessons.includes(lessonId)) {
-            completedLessons.push(lessonId);
-            saveQuizProgress(completedLessons, lessonIds.length);
-            
-            // Update the lesson status icon in the module view
-            const statusIcon = document.getElementById(`status-${lessonId}`);
-            if (statusIcon) {
-                statusIcon.className = 'fas fa-check-circle';
-                statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
-            }
-            
-            // Update the complete button
-            completeButton.classList.add('completed');
-            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-            
-            // Update the quiz progress
-            updateQuizProgress();
+    // Setup complete button with cross-browser compatibility
+    if (completeButton) {
+        // Remove any existing event listeners to prevent duplicates
+        const newCompleteButton = completeButton.cloneNode(true);
+        if (completeButton.parentNode) {
+            completeButton.parentNode.replaceChild(newCompleteButton, completeButton);
         }
-    };
+        
+        // Add new event listener
+        newCompleteButton.addEventListener('click', function() {
+            const completedLessons = loadQuizProgress();
+            
+            // Check if this lesson is already completed
+            if (!completedLessons.includes(lessonId)) {
+                // Add to completed lessons
+                completedLessons.push(lessonId);
+                
+                // Save to localStorage
+                saveQuizProgress(completedLessons, lessonIds.length);
+                
+                // Update the lesson status icon in the module view
+                const statusIcon = document.getElementById(`status-${lessonId}`);
+                if (statusIcon) {
+                    statusIcon.className = 'fas fa-check-circle';
+                    if (statusIcon.parentElement) {
+                        statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+                    }
+                }
+                
+                // Update the complete button
+                newCompleteButton.classList.add('completed');
+                newCompleteButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                
+                // Add completed class to lesson
+                const lessonContent = document.getElementById(`${lessonId}-content`);
+                if (lessonContent) {
+                    lessonContent.classList.add('completed-lesson');
+                }
+                
+                // Update the quiz progress
+                updateQuizProgress();
+                
+                console.log(`Lesson ${lessonId} marked as complete and saved to localStorage`);
+            }
+        });
+    }
     
     // Setup back button
     backButton.onclick = () => {
