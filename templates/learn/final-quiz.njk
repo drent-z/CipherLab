@@ -792,7 +792,16 @@ function generateCertificate() {
     ensureLibraryLoaded()
         .then(jsPDF => {
             try {
-            
+                // Check if we have access to jsPDF's advanced features
+                let hasAdvancedFeatures = false;
+                try {
+                    // Test for advanced features
+                    const tempDoc = new jsPDF();
+                    hasAdvancedFeatures = typeof tempDoc.saveGraphicsState === 'function';
+                } catch (e) {
+                    console.log('Using basic jsPDF features only');
+                }
+                
                 // Create PDF using jsPDF
                 const doc = new jsPDF({
                 orientation: 'landscape',
@@ -819,32 +828,45 @@ function generateCertificate() {
             doc.setLineWidth(1);
             doc.rect(15, 15, 267, 180);
             
-            // Corner decorations
-            function drawCornerDecoration(x, y, rotation) {
-                doc.saveGraphicsState();
-                doc.translate(x, y);
-                doc.rotate(rotation);
-                
-                // Draw decorative corner element
+            // Simplified corner decorations that don't use transform methods
+            function drawCornerDecoration(x, y, angle) {
+                // Use simpler drawing methods compatible with all jsPDF versions
                 doc.setDrawColor(0, 180, 70);
                 doc.setLineWidth(1);
                 
-                // Curved lines
-                for (let i = 0; i < 20; i += 4) {
-                    doc.setDrawColor(0, 180 - i * 3, 70);
-                    doc.moveTo(0, i);
-                    doc.curveTo(10, i, 20, i, 30, 0);
-                    doc.stroke();
+                // Draw decorative lines based on the angle
+                if (angle === 0) { // Top left
+                    // Horizontal lines
+                    for (let i = 0; i < 20; i += 4) {
+                        doc.setDrawColor(0, 180 - i * 3, 70);
+                        doc.line(x, y + i, x + 30, y + i);
+                    }
+                } else if (angle === 90) { // Top right
+                    // Vertical lines
+                    for (let i = 0; i < 20; i += 4) {
+                        doc.setDrawColor(0, 180 - i * 3, 70);
+                        doc.line(x - i, y, x - i, y + 30);
+                    }
+                } else if (angle === 180) { // Bottom right
+                    // Horizontal lines
+                    for (let i = 0; i < 20; i += 4) {
+                        doc.setDrawColor(0, 180 - i * 3, 70);
+                        doc.line(x, y - i, x - 30, y - i);
+                    }
+                } else if (angle === 270) { // Bottom left
+                    // Vertical lines
+                    for (let i = 0; i < 20; i += 4) {
+                        doc.setDrawColor(0, 180 - i * 3, 70);
+                        doc.line(x + i, y, x + i, y - 30);
+                    }
                 }
-                
-                doc.restoreGraphicsState();
             }
             
-            // Draw corner decorations
-            drawCornerDecoration(15, 15, 0);
-            drawCornerDecoration(282, 15, 90);
-            drawCornerDecoration(282, 195, 180);
-            drawCornerDecoration(15, 195, 270);
+            // Draw corner decorations with simplified approach
+            drawCornerDecoration(15, 15, 0); // Top left
+            drawCornerDecoration(282, 15, 90); // Top right
+            drawCornerDecoration(282, 195, 180); // Bottom right
+            drawCornerDecoration(15, 195, 270); // Bottom left
             
             // Header ribbon
             doc.setFillColor(0, 140, 60);
@@ -1696,6 +1718,7 @@ function retakeQuiz() {
     font-size: 1.2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
@@ -1703,6 +1726,7 @@ function retakeQuiz() {
     overflow: hidden;
     min-width: 240px;
     animation: pulse 2.5s infinite;
+    text-align: center;
 }
 
 .fancy-generate-button::before {
@@ -1753,6 +1777,17 @@ function retakeQuiz() {
     border-radius: 50%;
     box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.button-icon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: var(--dark);
 }
 
 .fancy-generate-button:hover .button-icon {
@@ -1802,14 +1837,13 @@ function retakeQuiz() {
     animation: pulse 1s infinite alternate;
 }
 
+#generate-certificate.generating .button-icon {
+    animation: none; /* Remove rotation from container */
+}
+
 #generate-certificate.generating .button-icon i {
     animation: spin 1.5s linear infinite;
     display: inline-block;
-    transform-origin: center center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 #generate-certificate.success {
@@ -1818,8 +1852,8 @@ function retakeQuiz() {
 }
 
 @keyframes spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* Enhanced certificate link styling */
