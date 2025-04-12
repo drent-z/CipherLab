@@ -643,8 +643,8 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.innerHTML = `
             <i class="fas fa-check-circle"></i>
             <div class="notification-content">
-                <h4>Quiz Already Completed!</h4>
-                <p>You already passed this quiz with a score of ${quizStatus.percentage} (${quizStatus.score}/${quizData.length}).</p>
+                <h4>Quiz Completed</h4>
+                <p>You passed this quiz with a score of ${quizStatus.percentage} (${quizStatus.score}/${quizData.length}).</p>
                 <p>Your certification level: <strong>${quizStatus.certLevel}</strong></p>
                 <div class="notification-actions">
                     <button id="view-results-btn" class="cta-button">View Results</button>
@@ -924,9 +924,23 @@ function generateCertificate() {
             // Lock body
             doc.roundedRect(centerX - 4, centerY - 2, 8, 10, 2, 2, 'F');
             
-            // Lock shackle
+            // Lock shackle - using straight lines instead of arc for better compatibility
             doc.setLineWidth(1.5);
-            doc.arc(centerX, centerY - 5, 5, 0, Math.PI, 'S');
+            
+            // Draw a semicircle using small line segments instead of arc
+            const segments = 8;
+            const radius = 5;
+            for (let i = 0; i <= segments; i++) {
+                const angle1 = Math.PI * i / segments;
+                const angle2 = Math.PI * (i + 1) / segments;
+                
+                const x1 = centerX + radius * Math.cos(angle1);
+                const y1 = (centerY - 5) + radius * Math.sin(angle1);
+                const x2 = centerX + radius * Math.cos(angle2);
+                const y2 = (centerY - 5) + radius * Math.sin(angle2);
+                
+                doc.line(x1, y1, x2, y2);
+            }
             
             // Binary circle around seal
             doc.setFontSize(4);

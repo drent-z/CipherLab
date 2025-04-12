@@ -316,51 +316,115 @@ function checkAnswer(button, lessonId) {
     button.textContent = isCorrect ? 'Correct!' : 'Try Again';
 }
 
-// Update the quiz progress indicator with enhanced UI feedback
+// Update the quiz progress indicator with enhanced UI feedback and module tracking
 function updateQuizProgress() {
-    const completedLessons = loadQuizProgress();
-    const totalLessons = document.querySelectorAll('.lesson-box').length;
-    const progressValue = document.getElementById('quiz-progress-value');
-    
-    if (progressValue) {
-        const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
-        progressValue.style.width = `${percentage}%`;
-        
-        // Update progress text if it exists
-        const progressText = document.getElementById('progress-percentage');
-        if (progressText) {
-            progressText.textContent = `${percentage}%`;
+    try {
+        if (!isLocalStorageAvailable()) {
+            console.warn('Cannot update progress - localStorage not available');
+            return;
         }
-    }
-    
-    // Update status icons for each lesson
-    const moduleProgress = getModuleCompletionStatus();
-    
-    // Update module status indicators if they exist
-    Object.keys(moduleProgress).forEach(moduleNum => {
-        const moduleStatusElement = document.getElementById(`module${moduleNum}-status`);
-        if (moduleStatusElement) {
-            const completedCount = moduleProgress[moduleNum];
-            const totalCount = document.querySelectorAll(`#module${moduleNum}-content .lesson-box`).length;
+        
+        const completedLessons = loadQuizProgress();
+        const totalLessons = document.querySelectorAll('.lesson-box').length;
+        const progressValue = document.getElementById('quiz-progress-value');
+        
+        if (progressValue) {
+            const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
+            progressValue.style.width = `${percentage}%`;
             
-            // Update status text and add completed class if all lessons are done
-            if (completedCount >= totalCount) {
-                moduleStatusElement.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                moduleStatusElement.classList.add('module-completed');
-            } else {
-                moduleStatusElement.innerHTML = `<i class="fas fa-spinner"></i> ${completedCount}/${totalCount} Completed`;
+            // Update progress text if it exists
+            const progressText = document.getElementById('progress-percentage');
+            if (progressText) {
+                progressText.textContent = `${percentage}%`;
             }
         }
-    });
-    
-    // Show last activity if available
-    const lastActivity = localStorage.getItem('cipherLabLastActivity');
-    if (lastActivity) {
-        const lastActivityDate = new Date(lastActivity);
-        const activityElement = document.getElementById('last-activity');
-        if (activityElement) {
-            activityElement.textContent = `Last activity: ${lastActivityDate.toLocaleDateString()}`;
+        
+        // Get module lesson counts
+        const moduleLessonCounts = {};
+        const moduleCompletedCounts = {};
+        
+        // First count total lessons per module
+        document.querySelectorAll('.lesson-box').forEach(box => {
+            const onclick = box.getAttribute('onclick');
+            if (onclick) {
+                const match = onclick.match(/showLesson\('lesson(\d+)-/);
+                if (match) {
+                    const moduleNum = match[1];
+                    if (!moduleLessonCounts[moduleNum]) {
+                        moduleLessonCounts[moduleNum] = 0;
+                    }
+                    moduleLessonCounts[moduleNum]++;
+                }
+            }
+        });
+        
+        // Count completed lessons per module
+        completedLessons.forEach(lessonId => {
+            const match = lessonId.match(/lesson(\d+)-/);
+            if (match) {
+                const moduleNum = match[1];
+                if (!moduleCompletedCounts[moduleNum]) {
+                    moduleCompletedCounts[moduleNum] = 0;
+                }
+                moduleCompletedCounts[moduleNum]++;
+            }
+        });
+        
+        // Update module status indicators
+        Object.keys(moduleLessonCounts).forEach(moduleNum => {
+            const moduleStatusElement = document.getElementById(`module${moduleNum}-status`);
+            const completedCount = moduleCompletedCounts[moduleNum] || 0;
+            const totalCount = moduleLessonCounts[moduleNum];
+            
+            if (moduleStatusElement) {
+                // Update status text and add completed class if all lessons are done
+                if (completedCount >= totalCount && totalCount > 0) {
+                    moduleStatusElement.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    moduleStatusElement.classList.add('module-completed');
+                    
+                    // Also update module tab if it exists
+                    const moduleTab = document.querySelector(`[data-module="module${moduleNum}"]`);
+                    if (moduleTab) {
+                        moduleTab.classList.add('completed-module');
+                    }
+                } else {
+                    moduleStatusElement.innerHTML = `<i class="fas fa-spinner"></i> ${completedCount}/${totalCount} Completed`;
+                }
+            }
+            
+            // Update all lesson status indicators in this module
+            completedLessons.forEach(lessonId => {
+                if (lessonId.startsWith(`lesson${moduleNum}-`)) {
+                    // Update status icon
+                    const statusIcon = document.getElementById(`status-${lessonId}`);
+                    if (statusIcon && statusIcon.parentElement) {
+                        statusIcon.className = 'fas fa-check-circle';
+                        statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+                    }
+                    
+                    // Add completed class to lesson box
+                    const lessonBox = document.querySelector(`[onclick="showLesson('${lessonId}')"]`);
+                    if (lessonBox) {
+                        lessonBox.classList.add('completed-lesson');
+                    }
+                }
+            });
+        });
+        
+        // Show last activity if available
+        const lastActivity = localStorage.getItem('cipherLabLastActivity');
+        if (lastActivity) {
+            const lastActivityDate = new Date(lastActivity);
+            const activityElement = document.getElementById('last-activity');
+            if (activityElement) {
+                activityElement.textContent = `Last activity: ${lastActivityDate.toLocaleDateString()}`;
+            }
         }
+        
+        // Save this progress to localStorage to ensure consistent state
+        saveQuizProgress(completedLessons, totalLessons);
+    } catch (error) {
+        console.error('Error updating quiz progress:', error);
     }
 }
 
@@ -679,31 +743,101 @@ function createBinaryDecorations() {
     }
 }
 
-// Initialize saved progress from localStorage
+// Add a function to directly get moduleId from lessonId
+function getModuleFromLessonId(lessonId) {
+    const moduleMatch = lessonId.match(/lesson(\d+)-/);
+    return moduleMatch ? moduleMatch[1] : null;
+}
+
+// Initialize saved progress from localStorage with enhanced module tracking
 function initSavedProgress() {
-    // Get module progress
-    const progressData = localStorage.getItem('cipherLabQuizProgress');
-    if (!progressData) return;
+    // Check if localStorage is available
+    if (!isLocalStorageAvailable()) {
+        console.warn('Cannot load progress - localStorage not available');
+        return;
+    }
     
-    const progress = JSON.parse(progressData);
-    
-    // Update UI elements with completion status
-    if (progress.completedLessons) {
-        // Mark completed lessons
-        progress.completedLessons.forEach(lessonId => {
-            // Update status icon if it exists
-            const statusIcon = document.getElementById(`status-${lessonId}`);
-            if (statusIcon) {
-                statusIcon.className = 'fas fa-check-circle';
-                statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
-            }
-            
-            // Add completed class to lesson box
-            const lessonBox = document.querySelector(`[onclick="showLesson('${lessonId}')"]`);
-            if (lessonBox) {
-                lessonBox.classList.add('completed-lesson');
+    try {
+        // Get module progress
+        const progressData = localStorage.getItem('cipherLabQuizProgress');
+        if (!progressData) return;
+        
+        const progress = JSON.parse(progressData);
+        
+        // Create a map to track module completion
+        const moduleCompletionCount = {};
+        const moduleTotalLessons = {};
+        
+        // First, count how many lessons are in each module
+        document.querySelectorAll('[id^="lesson"]').forEach(element => {
+            const lessonId = element.id.replace('-content', '');
+            const moduleId = getModuleFromLessonId(lessonId);
+            if (moduleId) {
+                if (!moduleTotalLessons[moduleId]) {
+                    moduleTotalLessons[moduleId] = 0;
+                }
+                moduleTotalLessons[moduleId]++;
             }
         });
+        
+        // Update UI elements with completion status
+        if (progress.completedLessons && Array.isArray(progress.completedLessons)) {
+            // Mark completed lessons and count by module
+            progress.completedLessons.forEach(lessonId => {
+                // Track module completion
+                const moduleId = getModuleFromLessonId(lessonId);
+                if (moduleId) {
+                    if (!moduleCompletionCount[moduleId]) {
+                        moduleCompletionCount[moduleId] = 0;
+                    }
+                    moduleCompletionCount[moduleId]++;
+                }
+                
+                // Update status icon if it exists
+                const statusIcon = document.getElementById(`status-${lessonId}`);
+                if (statusIcon) {
+                    statusIcon.className = 'fas fa-check-circle';
+                    if (statusIcon.parentElement) {
+                        statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+                    }
+                }
+                
+                // Add completed class to lesson box
+                const lessonBox = document.querySelector(`[onclick="showLesson('${lessonId}')"]`);
+                if (lessonBox) {
+                    lessonBox.classList.add('completed-lesson');
+                }
+                
+                // Mark lesson content as completed if it exists
+                const lessonContent = document.getElementById(`${lessonId}-content`);
+                if (lessonContent) {
+                    lessonContent.classList.add('completed-lesson');
+                }
+            });
+            
+            // Update module status based on lesson completion
+            Object.keys(moduleCompletionCount).forEach(moduleId => {
+                const completedCount = moduleCompletionCount[moduleId];
+                const totalCount = moduleTotalLessons[moduleId] || 0;
+                
+                // Update module status UI if it exists
+                const moduleElement = document.getElementById(`module${moduleId}`);
+                if (moduleElement) {
+                    // If all lessons in module are complete, mark module as completed
+                    if (completedCount >= totalCount && totalCount > 0) {
+                        moduleElement.classList.add('module-completed');
+                        
+                        // Update module title if available
+                        const moduleTitle = document.querySelector(`[data-module="module${moduleId}"]`);
+                        if (moduleTitle) {
+                            moduleTitle.classList.add('completed-module');
+                        }
+                    }
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error initializing saved progress:', error);
     }
     
     // Check if final quiz was completed
