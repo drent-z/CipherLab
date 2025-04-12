@@ -1,28 +1,252 @@
-// Check if localStorage is available
-function isLocalStorageAvailable() {
-    try {
-        const test = 'test';
-        localStorage.setItem(test, test);
-        localStorage.removeItem(test);
-        return true;
-    } catch(e) {
-        console.warn('localStorage is not available. Progress will not be saved.');
-        return false;
-    }
-}
-
-// Store quiz data in localStorage with enhanced module tracking and browser compatibility
-function saveQuizProgress(completedLessons, totalLessons) {
-    // Check if localStorage is available
-    if (!isLocalStorageAvailable()) {
-        console.warn('Cannot save progress - localStorage is not available');
-        return false;
-    }
+/**
+ * Enhanced Storage Manager - More reliable cross-browser storage solution
+ */
+const StorageManager = {
+    // Available storage methods
+    drivers: ['localStorage', 'sessionStorage', 'cookie', 'memory'],
     
+    // In-memory fallback 
+    memoryStorage: {},
+    
+    // Default settings
+    settings: {
+        prefix: 'cipherLab_',
+        defaultDriver: 'localStorage',
+        expiry: 365 * 24 * 60 * 60 * 1000 // 1 year
+    },
+    
+    // Test if storage method is available
+    isAvailable: function(driver) {
+        try {
+            switch(driver) {
+                case 'localStorage':
+                case 'sessionStorage':
+                    const storage = window[driver];
+                    const testKey = '__storage_test__';
+                    storage.setItem(testKey, testKey);
+                    storage.removeItem(testKey);
+                    return true;
+                case 'cookie':
+                    // Test cookie support
+                    document.cookie = "testcookie=1";
+                    const hasCookie = document.cookie.indexOf("testcookie=") !== -1;
+                    document.cookie = "testcookie=1; expires=Thu, 01 Jan 1970 00:00:00 GMT"; // Delete test cookie
+                    return hasCookie;
+                case 'memory':
+                    return true;
+                default:
+                    return false;
+            }
+        } catch(e) {
+            return false;
+        }
+    },
+    
+    // Get the best available storage method
+    getDriver: function() {
+        for (let driver of this.drivers) {
+            if (this.isAvailable(driver)) {
+                console.log(`Using ${driver} for data storage`);
+                return driver;
+            }
+        }
+        return 'memory'; // Fallback to memory
+    },
+    
+    // Set an item in storage
+    setItem: function(key, value, useDriver = null) {
+        const driver = useDriver || this.getDriver();
+        const prefixedKey = this.settings.prefix + key;
+        
+        // Prepare data with metadata
+        const data = {
+            value: value,
+            timestamp: new Date().getTime(),
+            driver: driver
+        };
+        
+        try {
+            const serialized = JSON.stringify(data);
+            
+            switch(driver) {
+                case 'localStorage':
+                    localStorage.setItem(prefixedKey, serialized);
+                    break;
+                case 'sessionStorage':
+                    sessionStorage.setItem(prefixedKey, serialized);
+                    break;
+                case 'cookie':
+                    const expires = new Date();
+                    expires.setTime(expires.getTime() + this.settings.expiry);
+                    document.cookie = `${prefixedKey}=${encodeURIComponent(serialized)}; expires=${expires.toUTCString()}; path=/`;
+                    break;
+                case 'memory':
+                    this.memoryStorage[prefixedKey] = serialized;
+                    break;
+            }
+            
+            console.log(`Saved data for key: ${key} using ${driver}`);
+            return true;
+        } catch (e) {
+            console.error(`Error saving data for key: ${key}`, e);
+            
+            // Try next available driver
+            const driverIndex = this.drivers.indexOf(driver);
+            if (driverIndex >= 0 && driverIndex < this.drivers.length - 1) {
+                const nextDriver = this.drivers[driverIndex + 1];
+                console.log(`Trying next driver: ${nextDriver}`);
+                return this.setItem(key, value, nextDriver);
+            }
+            
+            return false;
+        }
+    },
+    
+    // Get an item from storage
+    getItem: function(key) {
+        const prefixedKey = this.settings.prefix + key;
+        
+        // Try all available drivers
+        for (let driver of this.drivers) {
+            if (!this.isAvailable(driver)) continue;
+            
+            try {
+                let serialized = null;
+                
+                switch(driver) {
+                    case 'localStorage':
+                        serialized = localStorage.getItem(prefixedKey);
+                        break;
+                    case 'sessionStorage':
+                        serialized = sessionStorage.getItem(prefixedKey);
+                        break;
+                    case 'cookie':
+                        const cookies = document.cookie.split(';');
+                        for (let cookie of cookies) {
+                            const [cookieName, cookieValue] = cookie.trim().split('=');
+                            if (cookieName === prefixedKey) {
+                                serialized = decodeURIComponent(cookieValue);
+                                break;
+                            }
+                        }
+                        break;
+                    case 'memory':
+                        serialized = this.memoryStorage[prefixedKey];
+                        break;
+                }
+                
+                if (serialized) {
+                    const data = JSON.parse(serialized);
+                    
+                    // Check if data has expired (if expiry is set)
+                    if (this.settings.expiry && (new Date().getTime() - data.timestamp > this.settings.expiry)) {
+                        this.removeItem(key);
+                        return null;
+                    }
+                    
+                    // If found in a different driver than the preferred one, 
+                    // migrate it to the preferred driver
+                    if (driver !== this.getDriver()) {
+                        this.setItem(key, data.value);
+                    }
+                    
+                    return data.value;
+                }
+            } catch (e) {
+                console.warn(`Error retrieving data for key: ${key} from ${driver}`, e);
+            }
+        }
+        
+        return null;
+    },
+    
+    // Remove an item from storage
+    removeItem: function(key) {
+        const prefixedKey = this.settings.prefix + key;
+        
+        // Try to remove from all available drivers
+        for (let driver of this.drivers) {
+            if (!this.isAvailable(driver)) continue;
+            
+            try {
+                switch(driver) {
+                    case 'localStorage':
+                        localStorage.removeItem(prefixedKey);
+                        break;
+                    case 'sessionStorage':
+                        sessionStorage.removeItem(prefixedKey);
+                        break;
+                    case 'cookie':
+                        document.cookie = `${prefixedKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+                        break;
+                    case 'memory':
+                        delete this.memoryStorage[prefixedKey];
+                        break;
+                }
+            } catch (e) {
+                console.warn(`Error removing data for key: ${key} from ${driver}`, e);
+            }
+        }
+    },
+    
+    // Clear all storage
+    clear: function() {
+        try {
+            // Find all keys with our prefix
+            const keys = [];
+            
+            // Check localStorage
+            if (this.isAvailable('localStorage')) {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith(this.settings.prefix)) {
+                        keys.push(key.replace(this.settings.prefix, ''));
+                    }
+                }
+            }
+            
+            // Check sessionStorage
+            if (this.isAvailable('sessionStorage')) {
+                for (let i = 0; i < sessionStorage.length; i++) {
+                    const key = sessionStorage.key(i);
+                    if (key.startsWith(this.settings.prefix)) {
+                        keys.push(key.replace(this.settings.prefix, ''));
+                    }
+                }
+            }
+            
+            // Check cookies
+            if (this.isAvailable('cookie')) {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    const key = cookie.trim().split('=')[0];
+                    if (key.startsWith(this.settings.prefix)) {
+                        keys.push(key.replace(this.settings.prefix, ''));
+                    }
+                }
+            }
+            
+            // Remove all found keys
+            for (let key of keys) {
+                this.removeItem(key);
+            }
+            
+            // Clear memory storage
+            this.memoryStorage = {};
+            
+            return true;
+        } catch (e) {
+            console.error('Error clearing storage', e);
+            return false;
+        }
+    }
+};
+
+// Functions using the enhanced storage manager
+function saveQuizProgress(completedLessons, totalLessons) {
     try {
         // Get existing progress data or create new object
-        const progressData = localStorage.getItem('cipherLabQuizProgress');
-        let progress = progressData ? JSON.parse(progressData) : {};
+        let progress = StorageManager.getItem('quizProgress') || {};
         
         // Update with new data
         progress.completedLessons = completedLessons;
@@ -47,59 +271,57 @@ function saveQuizProgress(completedLessons, totalLessons) {
         // Save module progress
         progress.moduleProgress = moduleProgress;
         
-        // Persist to localStorage
-        localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+        // Save using the storage manager
+        StorageManager.setItem('quizProgress', progress);
+        StorageManager.setItem('lastActivity', new Date().toISOString());
         
-        // Also update last activity timestamp
-        localStorage.setItem('cipherLabLastActivity', new Date().toISOString());
+        // Log success for debugging
+        console.log('Quiz progress saved successfully. Completed lessons:', completedLessons.length);
         
         return true;
     } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error('Error saving quiz progress:', error);
         return false;
     }
 }
 
-// Load quiz progress from localStorage with error handling for cross-browser compatibility
+// Load quiz progress with enhanced reliability
 function loadQuizProgress() {
-    // Check if localStorage is available
-    if (!isLocalStorageAvailable()) {
-        console.warn('Cannot load progress - localStorage is not available');
-        return [];
-    }
-    
     try {
-        const progressData = localStorage.getItem('cipherLabQuizProgress');
-        if (progressData) {
-            const progress = JSON.parse(progressData);
-            return Array.isArray(progress.completedLessons) ? progress.completedLessons : [];
+        const progress = StorageManager.getItem('quizProgress');
+        if (progress && Array.isArray(progress.completedLessons)) {
+            console.log('Loaded quiz progress. Completed lessons:', progress.completedLessons.length);
+            return progress.completedLessons;
         }
     } catch (error) {
-        console.error('Error loading progress:', error);
-        // If there's an error parsing the JSON, try to recover by clearing localStorage
-        try {
-            localStorage.removeItem('cipherLabQuizProgress');
-        } catch (e) {
-            // Ignore errors when trying to remove item
-        }
+        console.error('Error loading quiz progress:', error);
     }
+    
     return [];
 }
 
-// Get module completion status
+// Get module completion status using the enhanced storage system
 function getModuleCompletionStatus() {
-    const progressData = localStorage.getItem('cipherLabQuizProgress');
-    if (progressData) {
-        const progress = JSON.parse(progressData);
-        return progress.moduleProgress || {};
+    try {
+        const progress = StorageManager.getItem('quizProgress');
+        if (progress) {
+            return progress.moduleProgress || {};
+        }
+    } catch (error) {
+        console.error('Error getting module completion status:', error);
     }
     return {};
 }
 
-// Check if a specific module is complete
+// Check if a specific module is complete with enhanced reliability
 function isModuleComplete(moduleNum, requiredLessons) {
-    const moduleProgress = getModuleCompletionStatus();
-    return moduleProgress[moduleNum] >= requiredLessons;
+    try {
+        const moduleProgress = getModuleCompletionStatus();
+        return moduleProgress[moduleNum] >= requiredLessons;
+    } catch (error) {
+        console.error('Error checking module completion:', error);
+        return false;
+    }
 }
 
 // Learn module functions with enhanced progress tracking
