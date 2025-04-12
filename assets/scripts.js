@@ -479,7 +479,7 @@ function checkAnswer(button, lessonId) {
 // Update the quiz progress indicator with enhanced UI feedback and module tracking
 function updateQuizProgress() {
     try {
-        if (!isLocalStorageAvailable()) {
+        if (!BrowserStorage.isAvailable()) {
             console.warn('Cannot update progress - localStorage not available');
             return;
         }
