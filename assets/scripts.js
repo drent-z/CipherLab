@@ -1,10 +1,37 @@
-// Store quiz data in localStorage 
+// Store quiz data in localStorage with enhanced module tracking
 function saveQuizProgress(completedLessons, totalLessons) {
-    const progress = {
-        completedLessons: completedLessons,
-        totalLessons: totalLessons
-    };
+    // Get existing progress data or create new object
+    const progressData = localStorage.getItem('cipherLabQuizProgress');
+    let progress = progressData ? JSON.parse(progressData) : {};
+    
+    // Update with new data
+    progress.completedLessons = completedLessons;
+    progress.totalLessons = totalLessons;
+    progress.lastUpdated = new Date().toISOString();
+    
+    // Track module completion
+    const moduleProgress = {};
+    
+    // Group completed lessons by module
+    completedLessons.forEach(lessonId => {
+        const moduleMatch = lessonId.match(/lesson(\d+)-/);
+        if (moduleMatch) {
+            const moduleNum = moduleMatch[1];
+            if (!moduleProgress[moduleNum]) {
+                moduleProgress[moduleNum] = 0;
+            }
+            moduleProgress[moduleNum]++;
+        }
+    });
+    
+    // Save module progress
+    progress.moduleProgress = moduleProgress;
+    
+    // Persist to localStorage
     localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+    
+    // Also update last activity timestamp
+    localStorage.setItem('cipherLabLastActivity', new Date().toISOString());
 }
 
 // Load quiz progress from localStorage
@@ -17,7 +44,23 @@ function loadQuizProgress() {
     return [];
 }
 
-// Learn module functions
+// Get module completion status
+function getModuleCompletionStatus() {
+    const progressData = localStorage.getItem('cipherLabQuizProgress');
+    if (progressData) {
+        const progress = JSON.parse(progressData);
+        return progress.moduleProgress || {};
+    }
+    return {};
+}
+
+// Check if a specific module is complete
+function isModuleComplete(moduleNum, requiredLessons) {
+    const moduleProgress = getModuleCompletionStatus();
+    return moduleProgress[moduleNum] >= requiredLessons;
+}
+
+// Learn module functions with enhanced progress tracking
 function showLesson(lessonId) {
     // Hide the modules section and show the lesson content section
     document.getElementById('lesson-content-section').style.display = 'block';
@@ -25,6 +68,9 @@ function showLesson(lessonId) {
     // Get current module from lessonId (e.g., lesson1-2 -> module1)
     const moduleNum = lessonId.charAt(6);
     const currentModule = `module${moduleNum}`;
+    
+    // Record lesson view in localStorage for tracking
+    recordLessonView(lessonId);
     
     // Get all lesson content elements
     const lessonElements = document.querySelectorAll('[id$="-content"]');
@@ -53,10 +99,42 @@ function showLesson(lessonId) {
     if (completedLessons.includes(lessonId)) {
         document.getElementById('complete-lesson').classList.add('completed');
         document.getElementById('complete-lesson').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+        
+        // Add completed class to the lesson content section
+        const lessonContent = document.getElementById(`${lessonId}-content`);
+        if (lessonContent) {
+            lessonContent.classList.add('completed-lesson');
+        }
     } else {
         document.getElementById('complete-lesson').classList.remove('completed');
         document.getElementById('complete-lesson').innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
     }
+    
+    // Update progress status
+    updateQuizProgress();
+}
+
+// Record lesson view
+function recordLessonView(lessonId) {
+    // Get or create lesson views from localStorage
+    const viewsData = localStorage.getItem('cipherLabLessonViews');
+    let views = viewsData ? JSON.parse(viewsData) : {};
+    
+    // Update view count for this lesson
+    if (!views[lessonId]) {
+        views[lessonId] = 0;
+    }
+    views[lessonId]++;
+    
+    // Update last viewed timestamp
+    views.lastViewed = {
+        lessonId: lessonId,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Save to localStorage
+    localStorage.setItem('cipherLabLessonViews', JSON.stringify(views));
+    localStorage.setItem('cipherLabLastActivity', new Date().toISOString());
 }
 
 // Setup lesson navigation buttons
@@ -172,7 +250,7 @@ function checkAnswer(button, lessonId) {
     button.textContent = isCorrect ? 'Correct!' : 'Try Again';
 }
 
-// Update the quiz progress indicator
+// Update the quiz progress indicator with enhanced UI feedback
 function updateQuizProgress() {
     const completedLessons = loadQuizProgress();
     const totalLessons = document.querySelectorAll('.lesson-box').length;
@@ -181,6 +259,42 @@ function updateQuizProgress() {
     if (progressValue) {
         const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
         progressValue.style.width = `${percentage}%`;
+        
+        // Update progress text if it exists
+        const progressText = document.getElementById('progress-percentage');
+        if (progressText) {
+            progressText.textContent = `${percentage}%`;
+        }
+    }
+    
+    // Update status icons for each lesson
+    const moduleProgress = getModuleCompletionStatus();
+    
+    // Update module status indicators if they exist
+    Object.keys(moduleProgress).forEach(moduleNum => {
+        const moduleStatusElement = document.getElementById(`module${moduleNum}-status`);
+        if (moduleStatusElement) {
+            const completedCount = moduleProgress[moduleNum];
+            const totalCount = document.querySelectorAll(`#module${moduleNum}-content .lesson-box`).length;
+            
+            // Update status text and add completed class if all lessons are done
+            if (completedCount >= totalCount) {
+                moduleStatusElement.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                moduleStatusElement.classList.add('module-completed');
+            } else {
+                moduleStatusElement.innerHTML = `<i class="fas fa-spinner"></i> ${completedCount}/${totalCount} Completed`;
+            }
+        }
+    });
+    
+    // Show last activity if available
+    const lastActivity = localStorage.getItem('cipherLabLastActivity');
+    if (lastActivity) {
+        const lastActivityDate = new Date(lastActivity);
+        const activityElement = document.getElementById('last-activity');
+        if (activityElement) {
+            activityElement.textContent = `Last activity: ${lastActivityDate.toLocaleDateString()}`;
+        }
     }
 }
 
@@ -190,6 +304,9 @@ function startFinalQuiz() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Load and initialize saved progress
+    initSavedProgress();
+    
     // Initialize Matrix Rain Background
     initMatrixRain();
     
@@ -207,6 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Binary decoration elements
     createBinaryDecorations();
+    
+    // Update quiz progress display
+    updateQuizProgress();
     
     // Auto fade out flash messages after 3 seconds
     setTimeout(() => {
@@ -490,6 +610,82 @@ function createBinaryDecorations() {
         binary.style.transform = `rotate(${Math.random() * 90 - 45}deg)`;
         
         document.body.appendChild(binary);
+    }
+}
+
+// Initialize saved progress from localStorage
+function initSavedProgress() {
+    // Get module progress
+    const progressData = localStorage.getItem('cipherLabQuizProgress');
+    if (!progressData) return;
+    
+    const progress = JSON.parse(progressData);
+    
+    // Update UI elements with completion status
+    if (progress.completedLessons) {
+        // Mark completed lessons
+        progress.completedLessons.forEach(lessonId => {
+            // Update status icon if it exists
+            const statusIcon = document.getElementById(`status-${lessonId}`);
+            if (statusIcon) {
+                statusIcon.className = 'fas fa-check-circle';
+                statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
+            }
+            
+            // Add completed class to lesson box
+            const lessonBox = document.querySelector(`[onclick="showLesson('${lessonId}')"]`);
+            if (lessonBox) {
+                lessonBox.classList.add('completed-lesson');
+            }
+        });
+    }
+    
+    // Check if final quiz was completed
+    if (progress.finalQuizCompleted) {
+        const finalQuizCard = document.querySelector('.final-quiz-card');
+        if (finalQuizCard) {
+            finalQuizCard.classList.add('completed-quiz');
+            
+            // Maybe add a badge or icon
+            const quizStatus = document.getElementById('quiz-status-text');
+            if (quizStatus) {
+                quizStatus.textContent = 'Completed';
+                quizStatus.style.color = 'var(--primary)';
+            }
+            
+            const quizIcon = document.getElementById('quiz-lock-icon');
+            if (quizIcon) {
+                quizIcon.className = 'fas fa-check-circle';
+                quizIcon.style.color = 'var(--primary)';
+            }
+        }
+    }
+    
+    // If we have a last viewed lesson, maybe offer to resume
+    const viewsData = localStorage.getItem('cipherLabLessonViews');
+    if (viewsData) {
+        const views = JSON.parse(viewsData);
+        if (views.lastViewed && views.lastViewed.lessonId) {
+            // Create a "resume" button if we're on the learn page
+            const resumeContainer = document.querySelector('.resume-container');
+            if (resumeContainer) {
+                const lastViewedTimestamp = new Date(views.lastViewed.timestamp);
+                const now = new Date();
+                const daysSinceLastView = Math.floor((now - lastViewedTimestamp) / (1000 * 60 * 60 * 24));
+                
+                // Only show resume button if viewed in the last 7 days
+                if (daysSinceLastView < 7) {
+                    const resumeButton = document.createElement('button');
+                    resumeButton.className = 'resume-button';
+                    resumeButton.innerHTML = `<i class="fas fa-play-circle"></i> Resume Learning`;
+                    resumeButton.onclick = function() {
+                        showLesson(views.lastViewed.lessonId);
+                    };
+                    
+                    resumeContainer.appendChild(resumeButton);
+                }
+            }
+        }
     }
 }
 
