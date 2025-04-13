@@ -186,12 +186,12 @@
                     
                     <div class="step">
                         <div class="step-number">2</div>
-                        <div class="step-description">The server sends its SSL certificate containing its public key</div>
+                        <div class="step-description">The server sends its SSL verification containing its public key</div>
                     </div>
                     
                     <div class="step">
                         <div class="step-number">3</div>
-                        <div class="step-description">Your browser verifies the certificate with a Certificate Authority</div>
+                        <div class="step-description">Your browser verifies the credentials with a Trust Authority</div>
                     </div>
                     
                     <div class="step">
@@ -441,7 +441,9 @@
             </div>
             
             <!-- Action Button -->
-            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-1')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-1')">
+                <i class="fas fa-check"></i> Check My Answer
+            </button>
         </div>
     </div>
 </div>
@@ -710,15 +712,15 @@
             </div>
             
             <div class="application-item">
-                <div class="application-icon"><i class="fas fa-certificate"></i></div>
-                <h4>SSL/TLS Certificates</h4>
+                <div class="application-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>SSL/TLS Security</h4>
                 <p>Digital signatures are fundamental to the web's security infrastructure, verifying the identity of websites and ensuring secure connections.</p>
                 <div class="application-example">
                     <h5>Examples:</h5>
                     <ul>
-                        <li>Website certificates (the padlock in browsers)</li>
-                        <li>Client certificates for mutual authentication</li>
-                        <li>Certificate Authority signatures on issued certificates</li>
+                        <li>Website security verification (the padlock in browsers)</li>
+                        <li>Client verification for mutual authentication</li>
+                        <li>Trust Authority signatures on issued credentials</li>
                     </ul>
                 </div>
             </div>
@@ -793,7 +795,7 @@
                 
                 <div class="signature-type">
                     <h5>Qualified Electronic Signatures (QES)</h5>
-                    <p>Advanced electronic signatures that are created by a qualified device and based on a qualified certificate issued by a trusted service provider.</p>
+                    <p>Advanced electronic signatures that are created by a qualified device and based on qualified verification issued by a trusted service provider.</p>
                     <div class="legal-status">Highest level of legal assurance, equivalent to handwritten signatures</div>
                 </div>
             </div>
@@ -841,7 +843,9 @@
             </div>
             
             <!-- Action Button -->
-            <button class="simple-button" data-correct="c" onclick="checkAnswer(this, '4-2')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
+            <button class="simple-button" data-correct="c" onclick="checkAnswer(this, '4-2')">
+                <i class="fas fa-check"></i> Check My Answer
+            </button>
         </div>
     </div>
 </div>
@@ -1325,7 +1329,9 @@
             </div>
             
             <!-- Action Button -->
-            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-3')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '4-3')">
+                <i class="fas fa-check"></i> Check My Answer
+            </button>
         </div>
     </div>
 </div>
