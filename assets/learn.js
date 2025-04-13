@@ -559,32 +559,35 @@ window.showLesson = function(lessonId) {
     const currentIndex = lessons.indexOf(lessonId);
     const totalLessons = lessons.length;
     
-    // Update lesson number display
-    const lessonNumber = document.getElementById('lesson-number');
-    const lessonTotal = document.getElementById('lesson-total');
-    if (lessonNumber) lessonNumber.textContent = currentIndex + 1;
-    if (lessonTotal) lessonTotal.textContent = totalLessons;
+    // Hide the module content and show the lesson viewer
+    document.querySelectorAll('.module-content').forEach(content => {
+        content.classList.remove('active');
+    });
     
-    // Update current module name in breadcrumbs
-    const currentModuleName = document.getElementById('current-module-name');
-    if (currentModuleName) {
-        currentModuleName.textContent = moduleNames[moduleId] || moduleId;
+    const lessonViewer = document.getElementById('lesson-viewer');
+    if (lessonViewer) {
+        lessonViewer.style.display = 'block';
     }
     
+    // Update lesson number display
+    const currentLessonNumber = document.getElementById('current-lesson-number');
+    const totalModuleLessons = document.getElementById('total-module-lessons');
+    if (currentLessonNumber) currentLessonNumber.textContent = currentIndex + 1;
+    if (totalModuleLessons) totalModuleLessons.textContent = totalLessons;
+    
     // Set lesson title
-    const lessonElement = document.querySelector(`.lesson-box[onclick*="${lessonId}"]`);
-    if (lessonElement) {
-        const lessonTitle = document.getElementById('lesson-title');
-        if (lessonTitle) {
-            lessonTitle.textContent = lessonElement.querySelector('h4').textContent;
+    const lessonCard = document.querySelector(`#${lessonId}-card`);
+    if (lessonCard) {
+        const currentLessonTitle = document.getElementById('current-lesson-title');
+        if (currentLessonTitle) {
+            currentLessonTitle.textContent = lessonCard.querySelector('h4').textContent;
         }
     }
     
-    // Hide all lesson content, then show the current one
-    const lessonContents = document.querySelectorAll('[id$="-content"]');
-    lessonContents.forEach(content => {
-        if (content.id.includes('module')) return; // Skip module contents
-        content.style.display = 'none';
+    // Hide all lesson containers, then show the current one
+    const lessonContainers = document.querySelectorAll('.lesson-container');
+    lessonContainers.forEach(container => {
+        container.style.display = 'none';
     });
     
     // Show the selected lesson
@@ -593,24 +596,15 @@ window.showLesson = function(lessonId) {
         currentLesson.style.display = 'block';
     }
     
-    // Show the lesson content section with animation
-    const lessonSection = document.getElementById('lesson-content-section');
-    lessonSection.style.display = 'block';
-    lessonSection.classList.add('animate__animated', 'animate__fadeIn');
-    
-    setTimeout(() => {
-        lessonSection.classList.remove('animate__animated', 'animate__fadeIn');
-    }, 500);
-    
     // Update navigation buttons
     updateNavigation(lessonId, moduleId);
     
     // Update complete button status
     updateCompleteButton(lessonId);
     
-    // Scroll to top of lesson
+    // Scroll to top of the page
     window.scrollTo({
-        top: document.getElementById('lesson-content-section').offsetTop - 100,
+        top: 0,
         behavior: 'smooth'
     });
 };
@@ -619,6 +613,7 @@ window.showLesson = function(lessonId) {
 function updateNavigation(lessonId, moduleId) {
     const prevButton = document.getElementById('prev-lesson');
     const nextButton = document.getElementById('next-lesson');
+    const backButton = document.getElementById('back-to-module');
     
     if (prevButton && nextButton) {
         const lessons = moduleData[moduleId];
@@ -630,7 +625,7 @@ function updateNavigation(lessonId, moduleId) {
             prevButton.onclick = () => window.showLesson(lessons[currentIndex - 1]);
             
             // Add tooltip for previous lesson
-            const prevLesson = document.querySelector(`.lesson-box[onclick*="${lessons[currentIndex - 1]}"]`);
+            const prevLesson = document.querySelector(`#${lessons[currentIndex - 1]}-card`);
             if (prevLesson) {
                 const prevTitle = prevLesson.querySelector('h4').textContent;
                 prevButton.setAttribute('title', prevTitle);
@@ -645,7 +640,7 @@ function updateNavigation(lessonId, moduleId) {
             nextButton.onclick = () => window.showLesson(lessons[currentIndex + 1]);
             
             // Add tooltip for next lesson
-            const nextLesson = document.querySelector(`.lesson-box[onclick*="${lessons[currentIndex + 1]}"]`);
+            const nextLesson = document.querySelector(`#${lessons[currentIndex + 1]}-card`);
             if (nextLesson) {
                 const nextTitle = nextLesson.querySelector('h4').textContent;
                 nextButton.setAttribute('title', nextTitle);
@@ -653,6 +648,21 @@ function updateNavigation(lessonId, moduleId) {
         } else {
             nextButton.style.visibility = 'hidden';
         }
+    }
+    
+    // Set up back button
+    if (backButton) {
+        backButton.onclick = () => {
+            const lessonViewer = document.getElementById('lesson-viewer');
+            if (lessonViewer) {
+                lessonViewer.style.display = 'none';
+            }
+            
+            const moduleContent = document.getElementById(`${moduleId}-content`);
+            if (moduleContent) {
+                moduleContent.classList.add('active');
+            }
+        };
     }
 }
 
@@ -679,7 +689,7 @@ function updateCompleteButton(lessonId) {
                 completedLessons.push(lessonId);
                 saveQuizProgress(completedLessons, Object.values(moduleData).flat().length);
                 
-                // Update status icon
+                // Update status icon in lesson card
                 const statusIcon = document.getElementById(`status-${lessonId}`);
                 const statusText = statusIcon ? statusIcon.nextElementSibling : null;
                 
@@ -703,8 +713,35 @@ function updateCompleteButton(lessonId) {
                 
                 // Update progress displays
                 updateProgressDisplay();
+                
+                // Update module progress
+                updateModuleProgress(lessonId.charAt(6));
             }
         };
+    }
+}
+
+// Update module progress after completing a lesson
+function updateModuleProgress(moduleNum) {
+    const moduleId = `module${moduleNum}`;
+    const lessons = moduleData[moduleId] || [];
+    const completedLessons = loadQuizProgress();
+    
+    // Calculate percentage of module completed
+    const moduleCompletedCount = lessons.filter(lesson => completedLessons.includes(lesson)).length;
+    const modulePercentage = Math.round((moduleCompletedCount / lessons.length) * 100);
+    
+    // Update UI
+    const modulePercentageElement = document.getElementById(`${moduleId}-percentage`);
+    const moduleProgressBar = document.getElementById(`${moduleId}-progress-bar`);
+    
+    if (modulePercentageElement) {
+        modulePercentageElement.textContent = `${modulePercentage}%`;
+    }
+    
+    if (moduleProgressBar) {
+        moduleProgressBar.style.width = `${modulePercentage}%`;
+        moduleProgressBar.setAttribute('aria-valuenow', modulePercentage);
     }
 }
 
@@ -715,8 +752,62 @@ window.startFinalQuiz = function() {
 
 // Initialize everything when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    initTabs();
-    enhanceLessonBoxes();
+    // Initialize module tabs
+    const moduleTabs = document.querySelectorAll('.module-tab');
+    moduleTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.module-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            
+            // Show corresponding content
+            const moduleId = this.getAttribute('data-module');
+            const moduleContent = document.getElementById(`${moduleId}-content`);
+            if (moduleContent) {
+                moduleContent.classList.add('active');
+            }
+            
+            // Hide lesson viewer if visible
+            const lessonViewer = document.getElementById('lesson-viewer');
+            if (lessonViewer) {
+                lessonViewer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Set up "Back to Module" button
+    const backToModuleBtn = document.getElementById('back-to-module');
+    if (backToModuleBtn) {
+        backToModuleBtn.addEventListener('click', function() {
+            // Hide lesson viewer
+            const lessonViewer = document.getElementById('lesson-viewer');
+            if (lessonViewer) {
+                lessonViewer.style.display = 'none';
+            }
+            
+            // Find which module was active and show it
+            const activeModuleTab = document.querySelector('.module-tab.active');
+            if (activeModuleTab) {
+                const moduleId = activeModuleTab.getAttribute('data-module');
+                const moduleContent = document.getElementById(`${moduleId}-content`);
+                if (moduleContent) {
+                    moduleContent.classList.add('active');
+                }
+            } else {
+                // Default to module1 if none is active
+                const module1Content = document.getElementById('module1-content');
+                if (module1Content) {
+                    module1Content.classList.add('active');
+                    document.querySelector('.module-tab[data-module="module1"]').classList.add('active');
+                }
+            }
+        });
+    }
+    
+    // Other initializations
     setupResetButton();
     enhanceNavigation();
     initInteractiveDemos();
@@ -726,6 +817,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply visual enhancements
     document.querySelectorAll('.lesson-icon i').forEach(icon => {
         icon.classList.add('pulse-icon');
+    });
+    
+    // Make sure lesson containers are hidden by default
+    document.querySelectorAll('.lesson-container').forEach(container => {
+        container.style.display = 'none';
     });
     
     // Add ripple effect to all buttons
@@ -748,6 +844,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 600);
         });
     });
+
+    // Initialize module progress displays
+    for (let i = 1; i <= 5; i++) {
+        updateModuleProgress(i);
+    }
 });
 
 // Add update shift display function for Caesar cipher
