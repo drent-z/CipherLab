@@ -66,6 +66,141 @@ body::after {
     opacity: 0.3;
 }
 
+/* Hero gradient container */
+.hero-gradient-container {
+    position: fixed; /* FIXED position to ensure it covers everything */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hero-gradient-container::after {
+    content: "";
+    position: absolute;
+    top: -50vh; /* Extend upward */
+    left: -50vw; /* Extend leftward */
+    width: 200vw; /* Super wide */
+    height: 400vh; /* EXTREMELY tall - covers everything */
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 255, 65, 0.15) 0%, 
+        rgba(0, 255, 65, 0.1) 15%,
+        rgba(0, 255, 65, 0.05) 30%,
+        rgba(0, 255, 65, 0.02) 60%,
+        transparent 80%
+    );
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Welcome text styling */
+.welcome-svg {
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-text-base {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 48px;
+    fill: var(--primary);
+    filter: drop-shadow(0 0 2px var(--primary));
+    letter-spacing: -0.5px;
+}
+
+.welcome-text-glitch {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 48px;
+    opacity: 0.65;
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: -0.5px;
+}
+
+.welcome-text-glitch1 {
+    fill: var(--primary);
+    filter: drop-shadow(0 0 1px var(--primary));
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: welcome-glitch1 4s infinite linear alternate-reverse;
+}
+
+.welcome-text-glitch2 {
+    fill: var(--primary);
+    filter: drop-shadow(0 0 1px var(--primary));
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    animation: welcome-glitch2 3s infinite linear alternate-reverse;
+}
+
+@keyframes welcome-glitch1 {
+    0% { transform: translate(-2px, 0); }
+    20% { transform: translate(2px, 0); }
+    40% { transform: translate(-1px, 0); }
+    60% { transform: translate(1px, 0); }
+    80% { transform: translate(-1px, 0); }
+    100% { transform: translate(1px, 0); }
+}
+
+@keyframes welcome-glitch2 {
+    0% { transform: translate(2px, 0); }
+    20% { transform: translate(-2px, 0); }
+    40% { transform: translate(1px, 0); }
+    60% { transform: translate(-1px, 0); }
+    80% { transform: translate(1px, 0); }
+    100% { transform: translate(-1px, 0); }
+}
+
+/* Binary stream animation */
+.binary-stream {
+    position: absolute;
+    bottom: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--primary);
+    opacity: 0.3;
+    font-size: 1rem;
+    white-space: nowrap;
+    width: 100%;
+    padding-right: 100vw;
+    pointer-events: none;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: binaryScroll 15s linear infinite;
+}
+
+@keyframes binaryScroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Features grid styling */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.features-container {
+    padding: 3rem 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: visible;
+}
+
 /* Ensure content fills the viewport for proper scrolling */
 html, body {
     min-height: 100vh;
@@ -129,10 +264,12 @@ body {
     line-height: 1.6;
 }
 
-/* Terminal cursor animation - SIMPLIFIED */
+/* Terminal cursor animation */
 @keyframes blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+    0% { opacity: 1; }
+    49% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
 }
 
 /* Rainbow animation - REMOVED to improve performance */

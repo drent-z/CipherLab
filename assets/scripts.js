@@ -236,48 +236,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // DIRECT TOGGLE WITH NO DELAY
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('#main-nav');
-    
-    // Remove any possible existing event handlers
-    if (navbarToggler && navbarCollapse) {
-        const newToggler = navbarToggler.cloneNode(true);
-        navbarToggler.parentNode.replaceChild(newToggler, navbarToggler);
-        
-        // Add a direct, simple click handler
-        newToggler.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent any default behavior
-            e.stopPropagation(); // Stop event propagation
-            
-            // Directly toggle the show class
-            navbarCollapse.classList.toggle('show');
-            
-            // Update aria-expanded
-            const isExpanded = navbarCollapse.classList.contains('show');
-            newToggler.setAttribute('aria-expanded', isExpanded);
-            
-            // Force a reflow to ensure CSS transitions work properly
-            void navbarCollapse.offsetWidth;
-        });
-    }
-    
-    // Make all nav links work properly
-    document.querySelectorAll('.nav-links a').forEach(function(link) {
-        link.addEventListener('click', function() {
-            // Close menu when a link is clicked
-            if (navbarCollapse) {
-                navbarCollapse.classList.remove('show');
-                if (newToggler) {
-                    newToggler.setAttribute('aria-expanded', 'false');
-                }
-            }
-        });
-    });
+    // Initialize mobile navbar toggle
+    initMobileNav();
     
     // Initialize interactive cipher demos if they exist
     initCipherDemos();
 });
+
+// Mobile navigation initialization
+function initMobileNav() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('#main-nav');
+    
+    if (navbarToggler && navbarCollapse) {
+        // Clean approach without cloning
+        navbarToggler.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle show class
+            navbarCollapse.classList.toggle('show');
+            
+            // Update aria-expanded attribute
+            const isExpanded = navbarCollapse.classList.contains('show');
+            navbarToggler.setAttribute('aria-expanded', isExpanded);
+        });
+        
+        // Close menu when clicking any nav link
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                    navbarToggler.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navbarCollapse.classList.contains('show') && 
+                !navbarToggler.contains(e.target) && 
+                !navbarCollapse.contains(e.target)) {
+                navbarCollapse.classList.remove('show');
+                navbarToggler.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+}
+    
 
 // Matrix rain effect
 function initMatrixRain() {
@@ -500,7 +506,170 @@ function createBinaryDecorations() {
 }
 
 // Interactive cipher demos
+// Auto-pass functionality for quiz
+function setupAutoPassTrigger() {
+    const trigger = document.getElementById('secret-pass-trigger');
+    if (!trigger) {
+        return; // Skip if element doesn't exist
+    }
+
+    console.log('Found auto-pass trigger, attaching handler');
+    let clickCount = 0;
+    
+    // Add click handler directly
+    trigger.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        clickCount++;
+        
+        // Visual feedback
+        trigger.style.color = '#00FF41';
+        setTimeout(() => trigger.style.color = '', 300);
+        
+        console.log('Secret trigger clicked', clickCount, 'times');
+        
+        if (clickCount >= 3) {
+            console.log('Auto-pass activated!');
+            executeAutoPass();
+            clickCount = 0;
+        }
+    };
+}
+
+// Direct implementation of auto-pass functionality
+function executeAutoPass() {
+    try {
+        console.log('Executing auto-pass...');
+        
+        // Show visual notification
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = '#00FF41';
+        notification.style.color = '#0a0a0a';
+        notification.style.padding = '15px 20px';
+        notification.style.borderRadius = '8px';
+        notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+        notification.style.zIndex = '9999';
+        notification.style.fontWeight = 'bold';
+        notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Auto-Passed!';
+        document.body.appendChild(notification);
+        
+        // Get required elements
+        const quizEl = document.querySelector('.final-quiz-container');
+        const introSection = document.getElementById('final-quiz-intro');
+        const questionsSection = document.getElementById('final-quiz-questions');
+        const resultsSection = document.getElementById('final-quiz-results');
+        const startButton = document.getElementById('start-final-quiz-btn');
+        const submitButton = document.getElementById('submit-quiz');
+        
+        // Make sure we have quiz data
+        const quizData = window.quizData; 
+        if (!quizData || !Array.isArray(quizData)) {
+            console.error('Cannot auto-pass: Quiz data not available');
+            alert('Quiz data not available. Please try again in a few seconds.');
+            return;
+        }
+        
+        // Calculate perfect score
+        const totalQuestions = quizData.length;
+        const score = totalQuestions;
+        const percentage = 100;
+        
+        // Generate correct answers
+        const correctAnswers = quizData.map(q => q.correctAnswer);
+        
+        // Update quiz state
+        window.userAnswers = correctAnswers;
+        window.quizStarted = true;
+        
+        // Show results section, hide others
+        if (introSection) introSection.style.display = 'none';
+        if (questionsSection) questionsSection.style.display = 'none';
+        if (resultsSection) resultsSection.style.display = 'block';
+        if (startButton) startButton.style.display = 'none';
+        if (submitButton) submitButton.style.display = 'none';
+        
+        // Update score display
+        const finalScoreEl = document.getElementById('final-score');
+        const scorePercentageEl = document.getElementById('score-percentage');
+        const maxScoreEl = document.getElementById('max-score');
+        
+        if (finalScoreEl) finalScoreEl.textContent = score;
+        if (scorePercentageEl) scorePercentageEl.textContent = percentage + '%';
+        if (maxScoreEl) maxScoreEl.textContent = totalQuestions;
+        
+        // Show pass message, hide fail message
+        const passMessageEl = document.getElementById('pass-message');
+        const failMessageEl = document.getElementById('fail-message');
+        
+        if (passMessageEl) passMessageEl.style.display = 'block';
+        if (failMessageEl) failMessageEl.style.display = 'none';
+        
+        // Set certificate level to highest
+        const certLevelEl = document.getElementById('cert-level');
+        if (certLevelEl) certLevelEl.textContent = 'Master Cryptographer';
+        
+        // Save to localStorage
+        try {
+            // Create result object
+            const quizResult = {
+                completed: true,
+                passed: true,
+                score: score,
+                totalQuestions: totalQuestions,
+                percentage: percentage,
+                certLevel: 'Master Cryptographer',
+                userAnswers: correctAnswers,
+                completedDate: new Date().toISOString()
+            };
+            
+            // Try both storage methods for compatibility
+            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizResult));
+            
+            // Update progress tracking
+            try {
+                const progressData = localStorage.getItem('cipherLabQuizProgress');
+                if (progressData) {
+                    const progress = JSON.parse(progressData);
+                    progress.finalQuizCompleted = true;
+                    progress.finalQuizScore = percentage;
+                    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+                }
+            } catch (e) {
+                console.error('Error updating progress tracking:', e);
+            }
+            
+        } catch (e) {
+            console.error('Error saving quiz results:', e);
+        }
+        
+        // Scroll to results section
+        if (resultsSection) {
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 3000);
+        
+        console.log('Auto-pass successfully completed!');
+        
+    } catch (error) {
+        console.error('Error executing auto-pass:', error);
+        alert('There was an error with the auto-pass feature. Please try again.');
+    }
+}
+
 function initCipherDemos() {
+    // Initialize auto-pass functionality
+    setupAutoPassTrigger();
+    
     // Caesar Cipher Demo
     const caesarInput = document.getElementById('caesar-input');
     const caesarOutput = document.getElementById('caesar-output');
