@@ -38,7 +38,7 @@
                     <div class="quiz-navigation">
                         <button id="prev-question" class="nav-button"><i class="fas fa-chevron-left"></i> Previous</button>
                         <div class="question-progress">
-                            <span id="current-question">1</span>/<span id="total-questions">10</span>
+                            <span id="current-question">1</span>/<span id="total-questions">30</span>
                         </div>
                         <button id="next-question" class="nav-button">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
@@ -427,6 +427,39 @@ function manuallyDisplayResults() {
     }
 }
 </script>
+
+<style>
+/* Centered quiz navigation */
+.quiz-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+/* Prevent completion popup from showing */
+.completion-confirmation {
+    display: none !important;
+}
+
+/* Add pulse animation for button feedback */
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 255, 65, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 65, 0);
+    }
+}
+
+.pulse-animation {
+    animation: pulse-animation 1s ease-out;
+}
+</style>
 
 <!-- Include jsPDF library and html2canvas for improved certificate generation -->
 <!-- Load jsPDF directly from unpkg with fallback options -->

@@ -105,9 +105,15 @@ function setupLessonNavigation(lessonId, currentModule) {
                 statusIcon.parentElement.innerHTML = '<i class="fas fa-check-circle"></i> <span>Completed</span>';
             }
             
-            // Update the complete button
+            // Update the complete button with visual pulse feedback
             completeButton.classList.add('completed');
+            completeButton.classList.add('pulse-animation');
             completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            
+            // Remove pulse after animation completes
+            setTimeout(() => {
+                completeButton.classList.remove('pulse-animation');
+            }, 1000);
             
             // Update the quiz progress
             updateQuizProgress();
