@@ -469,11 +469,14 @@
         </div>
     </div>
     
-    <div class="simple-quiz">
-        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+    <div class="lesson-quiz">
         <div class="quiz-container">
+            <!-- Quiz Header -->
+            <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+            <!-- Quiz Question -->
             <p class="quiz-question">What makes quantum key distribution (QKD) secure against eavesdropping?</p>
             
+            <!-- Quiz Options -->
             <div class="simple-options">
                 <label class="simple-option">
                     <input type="radio" name="quiz5-1" value="a">
@@ -496,6 +499,7 @@
                 </label>
             </div>
             
+            <!-- Feedback Container -->
             <div class="feedback-container" style="display: none;">
                 <div class="correct-answer">
                     <i class="fas fa-check-circle"></i> Correct! According to quantum mechanics, the act of measuring a quantum system inevitably disturbs it in a detectable way. This means any eavesdropper trying to intercept quantum communications would necessarily introduce errors that the legitimate users can detect.
@@ -505,7 +509,8 @@
                 </div>
             </div>
             
-            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-1')">Check My Answer</button>
+            <!-- Action Button -->
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-1')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
         </div>
     </div>
 </div>
@@ -869,11 +874,14 @@
         </div>
     </div>
     
-    <div class="simple-quiz">
-        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+    <div class="lesson-quiz">
         <div class="quiz-container">
+            <!-- Quiz Header -->
+            <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+            <!-- Quiz Question -->
             <p class="quiz-question">What information does a zero-knowledge proof reveal to the verifier?</p>
             
+            <!-- Quiz Options -->
             <div class="simple-options">
                 <label class="simple-option">
                     <input type="radio" name="quiz5-2" value="a">
@@ -896,6 +904,7 @@
                 </label>
             </div>
             
+            <!-- Feedback Container -->
             <div class="feedback-container" style="display: none;">
                 <div class="correct-answer">
                     <i class="fas fa-check-circle"></i> Correct! A zero-knowledge proof reveals nothing beyond the fact that the statement being proven is true. The verifier learns no additional information about the secret or why the statement is true - this is the "zero-knowledge" property that gives the technique its name.
@@ -905,7 +914,8 @@
                 </div>
             </div>
             
-            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-2')">Check My Answer</button>
+            <!-- Action Button -->
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-2')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
         </div>
     </div>
 </div>
@@ -1313,11 +1323,14 @@
         </div>
     </div>
     
-    <div class="simple-quiz">
-        <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+    <div class="lesson-quiz">
         <div class="quiz-container">
+            <!-- Quiz Header -->
+            <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
+            <!-- Quiz Question -->
             <p class="quiz-question">What fundamental capability does homomorphic encryption provide?</p>
             
+            <!-- Quiz Options -->
             <div class="simple-options">
                 <label class="simple-option">
                     <input type="radio" name="quiz5-3" value="a">
@@ -1340,6 +1353,7 @@
                 </label>
             </div>
             
+            <!-- Feedback Container -->
             <div class="feedback-container" style="display: none;">
                 <div class="correct-answer">
                     <i class="fas fa-check-circle"></i> Correct! The defining feature of homomorphic encryption is that it allows computations to be performed directly on encrypted data, with the result, when decrypted, matching the result of the same operations performed on the plaintext. This enables secure processing of sensitive data while keeping it encrypted.
@@ -1349,7 +1363,125 @@
                 </div>
             </div>
             
-            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-3')">Check My Answer</button>
+            <!-- Action Button -->
+            <button class="simple-button" data-correct="b" onclick="checkAnswer(this, '5-3')">\n                <i class="fas fa-check"></i> Check My Answer\n            </button>
         </div>
     </div>
 </div>
+
+<style>
+/* Quick Check Styling - Redesigned to match Final Quiz */
+.lesson-quiz {
+    margin: 2rem 0;
+}
+
+.lesson-quiz .quiz-container {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.lesson-quiz h3 {
+    background-color: var(--light-dark);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--primary);
+    color: var(--primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+}
+
+.lesson-quiz .quiz-container > p, 
+.lesson-quiz .quiz-container > div {
+    padding: 0 2rem;
+}
+
+.quiz-question {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 1.5rem 0;
+    color: var(--text);
+}
+
+.simple-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.simple-option {
+    background-color: var(--dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.simple-option:hover {
+    background-color: var(--light-dark);
+    transform: translateY(-2px);
+}
+
+.simple-option input[type="radio"] {
+    margin-right: 1rem;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+}
+
+.simple-option input[type="radio"]:checked + .option-text {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.feedback-container {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: var(--dark);
+}
+
+.correct-answer, .incorrect-answer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.correct-answer i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.incorrect-answer i {
+    color: #ff3b30;
+    font-size: 1.2rem;
+}
+
+.simple-button {
+    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    color: var(--dark);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    margin: 1rem 2rem 2rem;
+}
+
+.simple-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+}
+</style>
