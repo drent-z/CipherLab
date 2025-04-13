@@ -337,6 +337,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- CSS Styles -->
 <style>
+    /* Override navigation styling to ensure proper button centering */
+    .lesson-navigation {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 30px !important;
+        margin-top: 2rem !important;
+        padding-top: 1.5rem !important;
+    }
+    
+    /* Ensure buttons have equal width and proper spacing */
+    .nav-button, .complete-button {
+        flex: 0 0 auto !important;
+        min-width: 140px !important;
+        margin: 0 !important;
+    }
+    
     /* Page heading styling */
     .page-heading {
         color: var(--primary);
@@ -1426,7 +1445,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Show success message
-            alert('Lesson completed! Your progress has been saved.');
+            // No alert popup
         });
         
         // Check quiz answer
