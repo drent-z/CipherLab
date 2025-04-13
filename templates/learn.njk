@@ -396,12 +396,22 @@ title: Learn Cryptography - CipherLab
                 </div>
                 
                 <div class="lesson-content-container mt-4">
-                    <!-- Lesson content will be dynamically loaded here -->
-                    {% include "learn/module1.njk" %}
-                    {% include "learn/module2.njk" %}
-                    {% include "learn/module3.njk" %}
-                    {% include "learn/module4.njk" %}
-                    {% include "learn/module5.njk" %}
+                    <!-- Lesson content dynamically loaded based on selection -->
+                    <div id="module1-lessons" class="module-lessons">
+                        {% include "learn/module1.njk" %}
+                    </div>
+                    <div id="module2-lessons" class="module-lessons" style="display: none;">
+                        {% include "learn/module2.njk" %}
+                    </div>
+                    <div id="module3-lessons" class="module-lessons" style="display: none;">
+                        {% include "learn/module3.njk" %}
+                    </div>
+                    <div id="module4-lessons" class="module-lessons" style="display: none;">
+                        {% include "learn/module4.njk" %}
+                    </div>
+                    <div id="module5-lessons" class="module-lessons" style="display: none;">
+                        {% include "learn/module5.njk" %}
+                    </div>
                 </div>
                 
                 <div class="lesson-navigation mt-4">
@@ -414,11 +424,27 @@ title: Learn Cryptography - CipherLab
                 </div>
             </div>
 
+            <!-- Final Quiz Section -->
+            <div id="final-quiz-section" class="mt-5" style="display: none;">
+                <div class="section-header">
+                    <div class="section-breadcrumbs">
+                        <a id="back-to-modules-from-quiz" href="javascript:void(0)">
+                            <i class="fas fa-home"></i> Back to Modules
+                        </a>
+                    </div>
+                    <h2 class="section-title text-center">Final Cryptography Assessment</h2>
+                </div>
+                
+                <div class="final-quiz-content mt-4">
+                    {% include "learn/final-quiz.njk" %}
+                </div>
+            </div>
+            
             <!-- Final Quiz Link -->
             <div class="final-quiz-link text-center mt-5">
                 <h3>Ready to Test Your Knowledge?</h3>
                 <p>Complete the final assessment to earn your cryptography certificate</p>
-                <button onclick="startFinalQuiz()" class="cta-button">
+                <button id="show-final-quiz" class="cta-button">
                     <i class="fas fa-graduation-cap"></i> Take the Final Quiz
                 </button>
             </div>
@@ -824,6 +850,35 @@ title: Learn Cryptography - CipherLab
     border-radius: 8px;
 }
 
+/* Section styles for final quiz */
+.section-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--primary-dark);
+}
+
+.section-breadcrumbs {
+    margin-bottom: 1rem;
+}
+
+.section-breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.section-breadcrumbs a:hover {
+    color: var(--secondary);
+}
+
+/* Module lessons container */
+.module-lessons {
+    width: 100%;
+}
+
 .pulse-animation {
     animation: pulse 1s;
 }
@@ -1019,9 +1074,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle lesson navigation
     function showLesson(lessonId) {
+        // Hide all main sections, only show lesson content
+        document.getElementById('lesson-content-section').style.display = 'block';
+        document.querySelector('.modules-container').style.display = 'none';
+        document.querySelector('.final-quiz-link').style.display = 'none';
+        document.getElementById('final-quiz-section').style.display = 'none';
+        
         // Extract module number from lessonId (e.g. lesson1-2 → module1)
         const moduleNum = lessonId.charAt(6);
         const moduleId = `module${moduleNum}`;
+        
+        // Hide all module lesson containers first
+        document.querySelectorAll('.module-lessons').forEach(module => {
+            module.style.display = 'none';
+        });
+        
+        // Show only the current module's lessons container
+        const currentModuleLessons = document.getElementById(`${moduleId}-lessons`);
+        if (currentModuleLessons) {
+            currentModuleLessons.style.display = 'block';
+        }
         
         // Get lesson index within module
         const lessons = moduleData[moduleId] || [];
@@ -1049,21 +1121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Hide all lesson content, then show the current one
-        const lessonContents = document.querySelectorAll('[id$="-content"]');
-        lessonContents.forEach(content => {
-            content.style.display = 'none';
-        });
-        
-        // Show the selected lesson
-        const currentLesson = document.getElementById(`${lessonId}-content`);
-        if (currentLesson) {
-            currentLesson.style.display = 'block';
-        }
-        
         // Show the lesson content section with animation
         const lessonSection = document.getElementById('lesson-content-section');
-        lessonSection.style.display = 'block';
         lessonSection.classList.add('animate__animated', 'animate__fadeIn');
         
         setTimeout(() => {
@@ -1075,6 +1134,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update complete button status
         updateCompleteButton(lessonId);
+        
+        // Store current lesson ID for navigation purposes
+        currentLesson = lessonId;
         
         // Scroll to top of lesson
         window.scrollTo({
@@ -1275,12 +1337,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 lessonSection.style.display = 'none';
                 lessonSection.classList.remove('animate__animated', 'animate__fadeOut');
                 
+                // Show modules and quiz link
+                document.querySelector('.modules-container').style.display = 'block';
+                document.querySelector('.final-quiz-link').style.display = 'block';
+                document.getElementById('final-quiz-section').style.display = 'none';
+                
                 // Scroll to modules section
                 const modulesContainer = document.querySelector('.modules-container');
                 if (modulesContainer) {
                     modulesContainer.scrollIntoView({ behavior: 'smooth' });
                 }
             }, 300);
+        });
+    }
+    
+    // Show final quiz button handler
+    const showFinalQuizButton = document.getElementById('show-final-quiz');
+    if (showFinalQuizButton) {
+        showFinalQuizButton.addEventListener('click', () => {
+            // Hide modules and lesson content
+            document.querySelector('.modules-container').style.display = 'none';
+            document.getElementById('lesson-content-section').style.display = 'none';
+            document.querySelector('.final-quiz-link').style.display = 'none';
+            
+            // Show final quiz section
+            document.getElementById('final-quiz-section').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // Back to modules from quiz button handler
+    const backFromQuizButton = document.getElementById('back-to-modules-from-quiz');
+    if (backFromQuizButton) {
+        backFromQuizButton.addEventListener('click', () => {
+            // Hide final quiz section
+            document.getElementById('final-quiz-section').style.display = 'none';
+            
+            // Show modules and quiz link
+            document.querySelector('.modules-container').style.display = 'block';
+            document.querySelector('.final-quiz-link').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
     
@@ -1386,5 +1486,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Function to check answers in module quick check questions
+function checkAnswer(button, lessonId) {
+    const correctAnswer = button.getAttribute('data-correct');
+    const questionContainer = button.closest('.quiz-container');
+    const selectedOption = questionContainer.querySelector('input[type="radio"]:checked');
+    const feedbackContainer = questionContainer.querySelector('.feedback-container');
+    
+    if (selectedOption) {
+        feedbackContainer.style.display = 'block';
+        
+        if (selectedOption.value === correctAnswer) {
+            questionContainer.querySelector('.correct-answer').style.display = 'block';
+            questionContainer.querySelector('.incorrect-answer').style.display = 'none';
+            selectedOption.closest('.simple-option').classList.add('correct-option');
+        } else {
+            questionContainer.querySelector('.correct-answer').style.display = 'none';
+            questionContainer.querySelector('.incorrect-answer').style.display = 'block';
+            selectedOption.closest('.simple-option').classList.add('incorrect-option');
+            
+            // Show correct answer
+            const correctOption = questionContainer.querySelector(`input[value="${correctAnswer}"]`);
+            if (correctOption) {
+                correctOption.closest('.simple-option').classList.add('correct-option');
+            }
+        }
+        
+        // Disable options after checking
+        questionContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.disabled = true;
+        });
+        
+        // Change button text
+        button.textContent = 'Answered';
+        button.disabled = true;
+    }
+}
 </script></file_content_or_search_replace_blocks>
 </invoke>
