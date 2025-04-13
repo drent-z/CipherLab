@@ -107,6 +107,12 @@ title: Cryptography Quiz - CipherLab
         if (prevButton) prevButton.disabled = window.currentQuestion === 0;
         if (nextButton) nextButton.disabled = window.currentQuestion === window.quizData.length - 1;
         
+        // Show submit button only when on the last question
+        const submitButton = document.getElementById('submit-quiz');
+        if (submitButton) {
+            submitButton.style.display = window.currentQuestion === window.quizData.length - 1 ? 'block' : 'none';
+        }
+        
         // Show the question
         if (questionText && window.quizData && window.quizData.length > window.currentQuestion) {
             questionText.textContent = window.quizData[window.currentQuestion].question;
@@ -669,11 +675,11 @@ title: Cryptography Quiz - CipherLab
             const questions = document.getElementById('final-quiz-questions');
             const submit = document.getElementById('submit-quiz');
             
-            // Hide intro, show questions
+            // Hide intro, show questions, but don't show submit button yet
             if (intro) intro.style.display = 'none';
             if (questions) questions.style.display = 'block';
             if (newButton) newButton.style.display = 'none';
-            if (submit) submit.style.display = 'block';
+            // Only show submit button when appropriate (not at the beginning)
             
             // Make sure quiz is started
             window.quizStarted = true;
@@ -802,7 +808,7 @@ title: Cryptography Quiz - CipherLab
                         if (questions) questions.style.display = 'none';
                         if (results) results.style.display = 'block';
                         if (startBtn) startBtn.style.display = 'none';
-                        if (submitBtn) submitBtn.style.display = 'none';
+                        if (submitBtn) submitBtn.style.display = 'none'; // Always hide submit when auto-passing
                         
                         // Set perfect score - ensuring 30 questions
                         const finalScore = document.getElementById('final-score');

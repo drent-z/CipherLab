@@ -30,8 +30,8 @@
             
             <div id="final-quiz-questions" style="display: none;">
                 <!-- Questions will be loaded dynamically -->
-                <div class="question-container">
-                    <h4 id="question-text">Question text will appear here</h4>
+<div class="question-container">
+                    <h4 id="question-text" class="text-center mb-4">Question text will appear here</h4>
                     <div class="answer-options" id="answer-options">
                         <!-- Options will be generated dynamically -->
                     </div>
@@ -108,19 +108,21 @@
                 <button id="back-to-results" class="back-button"><i class="fas fa-arrow-left"></i> Back to Results</button>
             </div>
         </div>
-        <div class="final-quiz-footer">
+<div class="final-quiz-footer">
             <div class="requirements">
                 <p><i class="fas fa-info-circle"></i> Take the quiz anytime to test your knowledge</p>
                 <div class="quiz-progress">
                     <div class="quiz-progress-value" id="quiz-progress-value" style="width: 100%;"></div>
                 </div>
             </div>
-            <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
-                <i class="fas fa-play"></i> Start Final Quiz
-            </button>
-            <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none;">
-                <i class="fas fa-check"></i> Submit Answers
-            </button>
+            <div class="text-center">
+                <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
+                    <i class="fas fa-play"></i> Start Final Quiz
+                </button>
+                <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none;">
+                    <i class="fas fa-check"></i> Submit Answers
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -439,13 +441,18 @@ function manuallyDisplayResults() {
 }
 
 /* Improved buttons and options styling */
-.nav-button, #submit-quiz {
+.nav-button, #submit-quiz, #start-final-quiz-btn {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 8px !important;
     padding: 0.75rem 1.25rem !important;
     margin: 0 auto !important;
+}
+
+/* Text center utility class */
+.text-center {
+    text-align: center !important;
 }
 
 /* Custom radio buttons for final quiz */
@@ -502,7 +509,7 @@ input[type="radio"]:hover {
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 10px;
 }
 
@@ -521,7 +528,7 @@ input[type="radio"]:hover {
 
 .option input[type="radio"] {
     margin-right: 10px;
-    margin-top: 3px;
+    margin-top: 0;
 }
 
 /* Prevent completion popup from showing */
@@ -544,6 +551,22 @@ input[type="radio"]:hover {
 
 .pulse-animation {
     animation: pulse-animation 1s ease-out;
+}
+
+/* Additional alignment utilities */
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Ensure consistent centering and spacing */
+.question-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.answer-options {
+    max-width: 650px;
+    margin: 0 auto;
 }
 </style>
 
