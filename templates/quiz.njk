@@ -17,997 +17,1094 @@ title: Cryptography Quiz - CipherLab
 <section class="container section">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            {% include "learn/final-quiz.njk" %}
+            <!-- Redesigned Quiz Container -->
+            <div id="quiz-container" class="quiz-container">
+                <div class="quiz-card">
+                    <!-- Quiz Header -->
+                    <div class="quiz-header">
+                        <div class="quiz-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="quiz-info">
+                            <h3>Final Knowledge Quiz</h3>
+                            <p>Test your understanding of cryptography concepts</p>
+                        </div>
+                        <div class="quiz-status">
+                            <span id="quiz-status-text">Unl<span id="secret-pass-trigger" style="cursor: default;">o</span>cked</span>
+                            <i class="fas fa-unlock" id="quiz-lock-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Quiz Content Area -->
+                    <div class="quiz-content">
+                        <!-- Introduction Screen -->
+                        <div id="quiz-intro" class="quiz-section">
+                            <p>Ready to test your knowledge of cryptography? This comprehensive quiz covers all the topics from our lessons:</p>
+                            <ul>
+                                <li>Fundamentals of Cryptography</li>
+                                <li>Classical Ciphers</li>
+                                <li>Modern Cryptography</li>
+                                <li>Applications</li>
+                                <li>Advanced Topics</li>
+                            </ul>
+                            <p>The quiz consists of 30 questions with 6 questions from each module. You need to score at least 70% to pass the quiz and demonstrate your understanding of cryptography concepts.</p>
+                            <p>Good luck!</p>
+                            
+                            <div class="quiz-start-container">
+                                <button id="start-quiz-btn" class="primary-button">
+                                    <i class="fas fa-play"></i> Start Quiz
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Questions Screen -->
+                        <div id="quiz-questions" class="quiz-section" style="display: none;">
+                            <div class="question-container">
+                                <h4 id="question-text" class="question-text">Question text appears here</h4>
+                                
+                                <div id="options-container" class="options-container">
+                                    <!-- Options will be added dynamically -->
+                                </div>
+                                
+                                <div class="question-navigation">
+                                    <button id="prev-question" class="nav-button">
+                                        <i class="fas fa-chevron-left"></i> Previous
+                                    </button>
+                                    <div class="question-progress">
+                                        <span id="current-question">1</span>/<span id="total-questions">30</span>
+                                    </div>
+                                    <button id="next-question" class="nav-button">
+                                        Next <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="submit-container">
+                                    <button id="submit-quiz" class="primary-button" style="display: none;">
+                                        <i class="fas fa-check"></i> Submit Answers
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Screen -->
+                        <div id="quiz-results" class="quiz-section" style="display: none;">
+                            <div class="results-header">
+                                <h3>Quiz Results</h3>
+                            </div>
+                            
+                            <div class="score-display">
+                                <div class="score-circle">
+                                    <span id="final-score">0</span>/<span id="max-score">30</span>
+                                </div>
+                                <div class="score-percentage">
+                                    <span id="score-percentage">0%</span>
+                                </div>
+                            </div>
+                            
+                            <div id="pass-message" class="results-message" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                <h4>Congratulations!</h4>
+                                <p>You've successfully completed the Cryptography Quiz. You now have a solid understanding of cryptographic principles and applications.</p>
+                                <div class="achievement-container">
+                                    <div class="achievement-level">
+                                        <span id="achievement-level">Excellent Knowledge</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="fail-message" class="results-message" style="display: none;">
+                                <i class="fas fa-times-circle"></i>
+                                <h4>Keep Learning</h4>
+                                <p>You didn't quite reach the passing score of 70%. Review the modules and try again to strengthen your understanding of cryptography.</p>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button id="retake-quiz" class="secondary-button">
+                                    <i class="fas fa-redo"></i> Retake Quiz
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- GUARANTEED FIX FOR QUIZ ISSUES -->
+<style>
+/* Quiz Container styling */
+.quiz-container {
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+.quiz-card {
+    background-color: var(--medium-dark);
+    border-radius: 12px;
+    border: 1px solid var(--primary);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Quiz Header */
+.quiz-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: var(--light-dark);
+    border-bottom: 1px solid var(--primary);
+}
+
+.quiz-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 1.5rem;
+}
+
+.quiz-info {
+    flex-grow: 1;
+}
+
+.quiz-info h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.quiz-info p {
+    margin: 0.5rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.quiz-status {
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quiz-status i {
+    color: var(--primary);
+}
+
+/* Quiz Content Area */
+.quiz-content {
+    padding: 2rem;
+}
+
+.quiz-section {
+    padding: 1rem;
+}
+
+/* Introduction Screen */
+#quiz-intro ul {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+#quiz-intro li {
+    margin-bottom: 0.5rem;
+}
+
+.quiz-start-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Questions Screen */
+.question-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.question-text {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.options-container {
+    margin-bottom: 2rem;
+}
+
+.option {
+    background-color: var(--dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.option:hover {
+    background-color: var(--light-dark);
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    background-color: var(--primary-dark);
+    border-color: var(--primary);
+    color: var(--dark);
+}
+
+.option-radio {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    margin-right: 1rem;
+    position: relative;
+}
+
+.option.selected .option-radio:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--dark);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.question-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.question-progress {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.nav-button {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Results Screen */
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--dark);
+    border: 4px solid var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.score-percentage {
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.results-message {
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+}
+
+.results-message i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#pass-message i {
+    color: var(--primary);
+}
+
+#fail-message i {
+    color: #ff3b30;
+}
+
+.achievement-container {
+    margin-top: 1.5rem;
+}
+
+.achievement-level {
+    display: inline-block;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Button Styles */
+.primary-button {
+    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    color: var(--dark);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.4);
+}
+
+.secondary-button {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.secondary-button:hover {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .quiz-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    
+    .quiz-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .quiz-status {
+        margin-top: 1rem;
+        padding-left: 0;
+    }
+    
+    .quiz-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .question-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .score-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+    
+    .score-percentage {
+        font-size: 1.8rem;
+    }
+}
+</style>
+
 <script>
-// Execute immediately
-(function() {
-    // Direct fix that runs right away
-    console.log('EMERGENCY FIX RUNNING...');
+// Quiz Data - Questions and Answers
+const quizData = [
+    // Module 1: Fundamentals of Cryptography
+    {
+        module: "Fundamentals",
+        question: "What is the main purpose of cryptography?",
+        options: [
+            "To create computer games",
+            "To secure information",
+            "To speed up computer processing",
+            "To develop new programming languages"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Fundamentals",
+        question: "Which of these is NOT a main goal of cryptography?",
+        options: [
+            "Confidentiality",
+            "Integrity",
+            "Authentication",
+            "Compression"
+        ],
+        correctAnswer: 3
+    },
+    {
+        module: "Fundamentals",
+        question: "What does the term 'non-repudiation' mean in cryptography?",
+        options: [
+            "The ability to deny sending a message",
+            "The inability to deny sending a message",
+            "The ability to decrypt any message",
+            "The ability to encrypt any message without a key"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Fundamentals",
+        question: "In what ancient civilization was the scytale, one of the first cryptographic devices, used?",
+        options: [
+            "Ancient Egypt",
+            "Roman Empire",
+            "Ancient Sparta",
+            "Mesopotamia"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Fundamentals",
+        question: "Which of these best describes plaintext?",
+        options: [
+            "Text that is formatted in a simple way",
+            "Text that has been encrypted",
+            "The original, unencrypted message",
+            "Text that can only be read by authorized users"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Fundamentals",
+        question: "What happens if cryptographic keys are stolen or compromised?",
+        options: [
+            "Nothing, since keys are just one part of security",
+            "The encrypted data becomes temporarily inaccessible",
+            "The security of the encrypted data is compromised",
+            "The data automatically self-destructs"
+        ],
+        correctAnswer: 2
+    },
     
-    // Make sure the quiz footer is hidden when quiz is started
-    function hideQuizFooterCompletely() {
-        // Target all relevant elements
-        const elementsToHide = [
-            document.querySelector('.final-quiz-footer'),
-            document.getElementById('quiz-footer'),
-            document.getElementById('quiz-requirements'),
-            document.querySelector('.requirements'),
-            document.getElementById('start-final-quiz-btn')
-        ];
+    // Module 2: Classical Ciphers
+    {
+        module: "Classical Ciphers",
+        question: "In the Caesar cipher, what happens when shifting the letter Z by 1?",
+        options: [
+            "It becomes Y",
+            "It becomes A",
+            "It remains Z",
+            "It becomes a number"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "What makes the Vigenère cipher stronger than the Caesar cipher?",
+        options: [
+            "It uses multiple shift values based on a keyword",
+            "It uses larger numbers",
+            "It was invented later in history",
+            "It can only be used by governments"
+        ],
+        correctAnswer: 0
+    },
+    {
+        module: "Classical Ciphers",
+        question: "Which technique was historically used to break substitution ciphers?",
+        options: [
+            "Brute force attacks",
+            "Frequency analysis",
+            "Dictionary attacks",
+            "Differential cryptanalysis"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "Who is credited with using the Caesar cipher in military communications?",
+        options: [
+            "Alexander the Great",
+            "Julius Caesar",
+            "Genghis Khan",
+            "Napoleon Bonaparte"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "What is the main vulnerability of simple substitution ciphers?",
+        options: [
+            "They are too complex to implement correctly",
+            "They preserve the frequency patterns of the original language",
+            "They require too much computational power",
+            "They can only encrypt short messages"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Classical Ciphers",
+        question: "The Enigma machine used in World War II is an example of what type of cipher?",
+        options: [
+            "A simple substitution cipher",
+            "A polyalphabetic cipher with mechanical implementation",
+            "A one-time pad",
+            "A block cipher"
+        ],
+        correctAnswer: 1
+    },
+    
+    // Module 3: Modern Cryptography
+    {
+        module: "Modern Cryptography",
+        question: "Which encryption type uses different keys for encryption and decryption?",
+        options: [
+            "Symmetric encryption",
+            "Asymmetric encryption",
+            "Hash functions",
+            "Substitution ciphers"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What is a hash function primarily used for?",
+        options: [
+            "Encrypting data for secure transmission",
+            "Verifying data integrity and creating fixed-size representations",
+            "Securing email communications",
+            "Generating random numbers"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Modern Cryptography",
+        question: "Which of these is an example of a symmetric encryption algorithm?",
+        options: [
+            "RSA",
+            "AES",
+            "ECC",
+            "Diffie-Hellman"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What is the main advantage of asymmetric encryption over symmetric encryption?",
+        options: [
+            "It's faster",
+            "It uses smaller keys",
+            "It solves the key distribution problem",
+            "It provides stronger encryption"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What security property does a good hash function NOT have?",
+        options: [
+            "Deterministic output",
+            "Collision resistance",
+            "Reversibility",
+            "Avalanche effect"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Modern Cryptography",
+        question: "What does AES stand for?",
+        options: [
+            "Advanced Encryption System",
+            "Advanced Encryption Standard",
+            "Automated Encryption Service",
+            "Algorithmic Encryption System"
+        ],
+        correctAnswer: 1
+    },
+    
+    // Module 4: Applications
+    {
+        module: "Applications",
+        question: "Which of these is a practical application of asymmetric encryption?",
+        options: [
+            "Full disk encryption",
+            "Password storage",
+            "Digital signatures",
+            "Streaming video encryption"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Applications",
+        question: "What technology underlies cryptocurrencies like Bitcoin?",
+        options: [
+            "Virtual private networks",
+            "Blockchain",
+            "Quantum encryption",
+            "Steganography"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Applications",
+        question: "What does HTTPS use to secure web communications?",
+        options: [
+            "A VPN tunnel",
+            "A combination of TLS/SSL protocols with asymmetric and symmetric encryption",
+            "Only symmetric encryption",
+            "Steganography to hide data in images"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Applications",
+        question: "In the context of secure communications, what does 'end-to-end encryption' mean?",
+        options: [
+            "The encryption algorithm runs from start to finish",
+            "Only the sender and recipient can read the messages",
+            "The message is encrypted twice for extra security",
+            "The entire network path is encrypted"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Applications",
+        question: "What is the main purpose of a digital signature?",
+        options: [
+            "To encrypt a document",
+            "To compress a document for faster transmission",
+            "To verify the identity of the sender and ensure document integrity",
+            "To timestamp when a document was created"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Applications",
+        question: "How does blockchain technology ensure data integrity?",
+        options: [
+            "By using supercomputers to verify data",
+            "By requiring government approval for all transactions",
+            "By chaining blocks with cryptographic hashes and distributed validation",
+            "By limiting access to authorized users only"
+        ],
+        correctAnswer: 2
+    },
+    
+    // Module 5: Advanced Topics
+    {
+        module: "Advanced Topics",
+        question: "What is quantum cryptography based on?",
+        options: [
+            "Faster computers",
+            "The laws of quantum mechanics",
+            "Historical ciphers",
+            "Advanced mathematics only"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Advanced Topics",
+        question: "What is the unique capability of homomorphic encryption?",
+        options: [
+            "Performing computations on encrypted data without decrypting it",
+            "Creating unbreakable encryption",
+            "Reducing the size of encrypted files",
+            "Faster encryption and decryption"
+        ],
+        correctAnswer: 0
+    },
+    {
+        module: "Advanced Topics",
+        question: "Which algorithm poses a significant threat to RSA encryption if implemented on a quantum computer?",
+        options: [
+            "Shor's algorithm",
+            "Grover's algorithm",
+            "Deutsch-Jozsa algorithm",
+            "Quantum Fourier Transform"
+        ],
+        correctAnswer: 0
+    },
+    {
+        module: "Advanced Topics",
+        question: "What is a zero-knowledge proof used for?",
+        options: [
+            "Encrypting data with zero knowledge of the recipient",
+            "Proving you know something without revealing what you know",
+            "Creating encryption with zero processing overhead",
+            "Decrypting data without a key"
+        ],
+        correctAnswer: 1
+    },
+    {
+        module: "Advanced Topics",
+        question: "Which of these is considered 'post-quantum cryptography'?",
+        options: [
+            "RSA with larger key sizes",
+            "Elliptic curve cryptography",
+            "Lattice-based cryptography",
+            "Triple DES"
+        ],
+        correctAnswer: 2
+    },
+    {
+        module: "Advanced Topics",
+        question: "What is the main principle behind Quantum Key Distribution (QKD)?",
+        options: [
+            "Using quantum superposition to create unbreakable keys",
+            "Using the observer effect to detect eavesdropping",
+            "Using quantum entanglement to transmit data faster than light",
+            "Using quantum tunneling to bypass encryption"
+        ],
+        correctAnswer: 1
+    }
+];
+
+// Simple Quiz Implementation
+document.addEventListener('DOMContentLoaded', function() {
+    // Quiz Variables
+    let currentQuestion = 0;
+    let userAnswers = Array(quizData.length).fill(null);
+    let quizStarted = false;
+    
+    // Elements
+    const startButton = document.getElementById('start-quiz-btn');
+    const prevButton = document.getElementById('prev-question');
+    const nextButton = document.getElementById('next-question');
+    const submitButton = document.getElementById('submit-quiz');
+    const retakeButton = document.getElementById('retake-quiz');
+    const secretTrigger = document.getElementById('secret-pass-trigger');
+    
+    // Sections
+    const introSection = document.getElementById('quiz-intro');
+    const questionsSection = document.getElementById('quiz-questions');
+    const resultsSection = document.getElementById('quiz-results');
+    
+    // Question Elements
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const currentQuestionEl = document.getElementById('current-question');
+    const totalQuestionsEl = document.getElementById('total-questions');
+    
+    // Results Elements
+    const finalScoreEl = document.getElementById('final-score');
+    const maxScoreEl = document.getElementById('max-score');
+    const scorePercentageEl = document.getElementById('score-percentage');
+    const passMessageEl = document.getElementById('pass-message');
+    const failMessageEl = document.getElementById('fail-message');
+    const achievementLevelEl = document.getElementById('achievement-level');
+    
+    // Initialize Quiz
+    function initQuiz() {
+        // Reset variables
+        currentQuestion = 0;
+        userAnswers = Array(quizData.length).fill(null);
+        quizStarted = false;
         
-        elementsToHide.forEach(el => {
-            if (el) {
-                el.style.cssText = 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; opacity: 0 !important;';
-                
-                // Try removing from DOM entirely for most aggressive approach
-                try {
-                    if (el.parentNode) {
-                        el.parentNode.removeChild(el);
-                    }
-                } catch (e) {
-                    console.error('Error removing element:', e);
-                }
-            }
-        });
+        // Show intro section
+        introSection.style.display = 'block';
+        questionsSection.style.display = 'none';
+        resultsSection.style.display = 'none';
         
-        // Add classes to body element
-        document.body.classList.add('quiz-started');
-        document.body.classList.add('hide-quiz-footer');
+        // Set total questions
+        if (totalQuestionsEl) {
+            totalQuestionsEl.textContent = quizData.length;
+        }
     }
     
-    // Call immediately and after a delay to handle any race conditions
-    if (document.getElementById('final-quiz-questions') && 
-        window.getComputedStyle(document.getElementById('final-quiz-questions')).display !== 'none') {
-        hideQuizFooterCompletely();
+    // Start Quiz
+    function startQuiz() {
+        quizStarted = true;
+        introSection.style.display = 'none';
+        questionsSection.style.display = 'block';
+        resultsSection.style.display = 'none';
+        
+        // Load first question
+        loadQuestion();
     }
     
-    // Set up repeated checks
-    setTimeout(hideQuizFooterCompletely, 100);
-    setTimeout(hideQuizFooterCompletely, 500);
-    setTimeout(hideQuizFooterCompletely, 1000);
-    
-    // Fix navigation and submit buttons
-    function fixQuizNavigation() {
-        console.log('Fixing quiz navigation buttons...');
+    // Load Current Question
+    function loadQuestion() {
+        // Update question number
+        if (currentQuestionEl) {
+            currentQuestionEl.textContent = currentQuestion + 1;
+        }
         
-        // Fix previous button
-        const prevButton = document.getElementById('prev-question');
-        if (prevButton) {
-            const newPrevButton = prevButton.cloneNode(true);
-            if (prevButton.parentNode) {
-                prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+        // Update buttons state
+        prevButton.disabled = currentQuestion === 0;
+        nextButton.disabled = currentQuestion === quizData.length - 1;
+        
+        // Show/hide submit button on last question
+        submitButton.style.display = currentQuestion === quizData.length - 1 ? 'inline-flex' : 'none';
+        
+        // Set question text
+        questionText.textContent = quizData[currentQuestion].question;
+        
+        // Clear options
+        optionsContainer.innerHTML = '';
+        
+        // Add options
+        quizData[currentQuestion].options.forEach((option, index) => {
+            const optionEl = document.createElement('div');
+            optionEl.className = 'option';
+            if (userAnswers[currentQuestion] === index) {
+                optionEl.classList.add('selected');
             }
             
-            newPrevButton.addEventListener('click', function() {
-                console.log('Previous button clicked');
-                if (window.currentQuestion > 0) {
-                    window.currentQuestion--;
-                    console.log('Moving to question', window.currentQuestion + 1);
-                    loadCurrentQuestion();
-                }
-            });
-            console.log('Previous button fixed');
-        }
-        
-        // Fix next button
-        const nextButton = document.getElementById('next-question');
-        if (nextButton) {
-            const newNextButton = nextButton.cloneNode(true);
-            if (nextButton.parentNode) {
-                nextButton.parentNode.replaceChild(newNextButton, nextButton);
-            }
+            optionEl.innerHTML = `
+                <span class="option-radio"></span>
+                <span class="option-text">${option}</span>
+            `;
             
-            newNextButton.addEventListener('click', function() {
-                console.log('Next button clicked');
-                if (window.currentQuestion < window.quizData.length - 1) {
-                    window.currentQuestion++;
-                    console.log('Moving to question', window.currentQuestion + 1);
-                    loadCurrentQuestion();
-                }
-            });
-            console.log('Next button fixed');
-        }
-        
-        // Fix submit button
-        const submitButton = document.getElementById('submit-quiz');
-        if (submitButton) {
-            const newSubmitButton = submitButton.cloneNode(true);
-            if (submitButton.parentNode) {
-                submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
-            }
-            
-            newSubmitButton.addEventListener('click', function() {
-                console.log('Submit button clicked');
-                submitQuiz();
-            });
-            console.log('Submit button fixed');
-        }
-    }
-    
-    // Load current question function
-    function loadCurrentQuestion() {
-        console.log('Loading question', window.currentQuestion + 1);
-        
-        // Get UI elements
-        const questionText = document.getElementById('question-text');
-        const answerOptions = document.getElementById('answer-options');
-        const currentQuestionEl = document.getElementById('current-question');
-        const totalQuestionsEl = document.getElementById('total-questions');
-        const prevButton = document.getElementById('prev-question');
-        const nextButton = document.getElementById('next-question');
-        
-        // Update question number display
-        if (currentQuestionEl) currentQuestionEl.textContent = window.currentQuestion + 1;
-        if (totalQuestionsEl) totalQuestionsEl.textContent = window.quizData.length;
-        
-        // Update navigation buttons state
-        if (prevButton) prevButton.disabled = window.currentQuestion === 0;
-        if (nextButton) nextButton.disabled = window.currentQuestion === window.quizData.length - 1;
-        
-        // Show submit button only when on the last question
-        const submitButton = document.getElementById('submit-quiz');
-        if (submitButton) {
-            submitButton.style.display = window.currentQuestion === window.quizData.length - 1 ? 'block' : 'none';
-        }
-        
-        // Show the question
-        if (questionText && window.quizData && window.quizData.length > window.currentQuestion) {
-            questionText.textContent = window.quizData[window.currentQuestion].question;
-        }
-        
-        // Show answer options
-        if (answerOptions && window.quizData && window.quizData.length > window.currentQuestion) {
-            answerOptions.innerHTML = '';
-            
-            window.quizData[window.currentQuestion].options.forEach((option, index) => {
-                const optionEl = document.createElement('div');
-                optionEl.className = 'option';
-                
-                // Add selected class if this answer is selected
-                if (window.userAnswers && window.userAnswers[window.currentQuestion] === index) {
-                    optionEl.classList.add('selected');
-                }
-                
-                optionEl.innerHTML = `
-                    <input type="radio" id="option-${index}" name="question-${window.currentQuestion}" 
-                    value="${index}" ${window.userAnswers && window.userAnswers[window.currentQuestion] === index ? 'checked' : ''}>
-                    <label for="option-${index}">${option}</label>
-                `;
-                
-                // Add click handler
-                optionEl.addEventListener('click', function() {
-                    // Remove selected class from all options
-                    document.querySelectorAll('#answer-options .option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // Add selected class to this option
-                    optionEl.classList.add('selected');
-                    
-                    // Update the radio button
-                    const radio = optionEl.querySelector('input[type="radio"]');
-                    if (radio) radio.checked = true;
-                    
-                    // Save the answer
-                    if (!window.userAnswers) window.userAnswers = Array(window.quizData.length).fill(null);
-                    window.userAnswers[window.currentQuestion] = index;
-                    
-                    console.log('Selected answer', index, 'for question', window.currentQuestion + 1);
+            optionEl.addEventListener('click', () => {
+                // Remove selected class from all options
+                document.querySelectorAll('.option').forEach(el => {
+                    el.classList.remove('selected');
                 });
                 
-                answerOptions.appendChild(optionEl);
+                // Add selected class to clicked option
+                optionEl.classList.add('selected');
+                
+                // Save answer
+                userAnswers[currentQuestion] = index;
             });
-        }
+            
+            optionsContainer.appendChild(optionEl);
+        });
     }
     
-    // Submit quiz function
-    function submitQuiz() {
-        console.log('Submitting quiz...');
-        
-        // Check if the quiz is started
-        if (!window.quizStarted) {
-            console.warn('Quiz not started yet');
-            alert('Please start the quiz first');
-            return;
-        }
-        
-        // Check if all questions are answered
-        const unansweredQuestions = [];
-        if (window.userAnswers) {
-            for (let i = 0; i < window.quizData.length; i++) {
-                if (window.userAnswers[i] === null || window.userAnswers[i] === undefined) {
-                    unansweredQuestions.push(i + 1);
-                }
-            }
-        }
-        
-        if (unansweredQuestions.length > 0) {
-            if (!confirm(`You have ${unansweredQuestions.length} unanswered questions. Do you want to submit anyway?`)) {
-                return;
-            }
-        }
+    // Calculate score and show results
+    function showResults() {
+        let score = 0;
         
         // Calculate score
-        let score = 0;
-        for (let i = 0; i < window.quizData.length; i++) {
-            if (window.userAnswers && window.userAnswers[i] === window.quizData[i].correctAnswer) {
+        for (let i = 0; i < quizData.length; i++) {
+            if (userAnswers[i] === quizData[i].correctAnswer) {
                 score++;
             }
         }
         
-        const percentage = Math.round((score / window.quizData.length) * 100);
-        console.log(`Score: ${score}/${window.quizData.length} (${percentage}%)`);
+        // Calculate percentage
+        const percentage = Math.round((score / quizData.length) * 100);
         
-        // Update UI
-        const questionsSection = document.getElementById('final-quiz-questions');
-        const resultsSection = document.getElementById('final-quiz-results');
-        const submitButton = document.getElementById('submit-quiz');
-        const finalScoreEl = document.getElementById('final-score');
-        const maxScoreEl = document.getElementById('max-score');
-        const scorePercentageEl = document.getElementById('score-percentage');
-        const passMessageEl = document.getElementById('pass-message');
-        const failMessageEl = document.getElementById('fail-message');
-        const achievementLevelEl = document.getElementById('achievement-level');
+        // Update result elements
+        finalScoreEl.textContent = score;
+        maxScoreEl.textContent = quizData.length;
+        scorePercentageEl.textContent = `${percentage}%`;
         
-        // Hide questions, show results
-        if (questionsSection) questionsSection.style.display = 'none';
-        if (resultsSection) resultsSection.style.display = 'block';
-        if (submitButton) submitButton.style.display = 'none';
-        
-        // Update score display
-        if (finalScoreEl) finalScoreEl.textContent = score;
-        if (maxScoreEl) maxScoreEl.textContent = window.quizData.length;
-        if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
-        
-        // Show pass/fail message
+        // Show appropriate message
         if (percentage >= 70) {
-            if (passMessageEl) passMessageEl.style.display = 'block';
-            if (failMessageEl) failMessageEl.style.display = 'none';
+            passMessageEl.style.display = 'block';
+            failMessageEl.style.display = 'none';
             
             // Set achievement level
-            if (achievementLevelEl) {
-                if (percentage >= 90) {
-                    achievementLevelEl.textContent = 'Cryptography Expert';
-                } else if (percentage >= 80) {
-                    achievementLevelEl.textContent = 'Advanced Knowledge';
-                } else {
-                    achievementLevelEl.textContent = 'Good Understanding';
-                }
+            if (percentage >= 90) {
+                achievementLevelEl.textContent = 'Cryptography Expert';
+            } else if (percentage >= 80) {
+                achievementLevelEl.textContent = 'Advanced Knowledge';
+            } else {
+                achievementLevelEl.textContent = 'Good Understanding';
             }
         } else {
-            if (passMessageEl) passMessageEl.style.display = 'none';
-            if (failMessageEl) failMessageEl.style.display = 'block';
+            passMessageEl.style.display = 'none';
+            failMessageEl.style.display = 'block';
         }
         
-        // Save to localStorage
+        // Show results section
+        introSection.style.display = 'none';
+        questionsSection.style.display = 'none';
+        resultsSection.style.display = 'block';
+        
+        // Save results in session storage (not localStorage)
         try {
-            const quizStatus = {
+            const quizResult = {
                 completed: true,
                 passed: percentage >= 70,
                 score: score,
-                totalQuestions: window.quizData.length,
+                totalQuestions: quizData.length,
                 percentage: percentage,
-                achievementLevel: achievementLevelEl ? achievementLevelEl.textContent : '',
+                userAnswers: userAnswers,
                 completedDate: new Date().toISOString()
             };
-            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
             
-            // Update progress tracking
-            const progressData = localStorage.getItem('cipherLabQuizProgress');
-            if (progressData) {
-                try {
-                    const progress = JSON.parse(progressData);
-                    progress.finalQuizCompleted = true;
-                    progress.finalQuizScore = percentage;
-                    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
-                } catch (e) {
-                    console.error('Error updating progress tracking:', e);
-                }
-            }
+            sessionStorage.setItem('quizResults', JSON.stringify(quizResult));
         } catch (e) {
-            console.error('Error saving quiz status:', e);
-        }
-        
-        // Scroll to results
-        if (resultsSection) {
-            resultsSection.scrollIntoView({behavior: 'smooth'});
-        }
-        
-        console.log('Quiz submitted successfully');
-    }
-    
-    // Make these functions available globally
-    window.loadCurrentQuestion = loadCurrentQuestion;
-    window.submitQuiz = submitQuiz;
-    
-    // Ensure we have the original 30 questions
-    function ensureQuizData() {
-        console.log('Ensuring proper quiz data...');
-        
-        // Check if a placeholder or incorrect version is being used
-        if (!window.quizData || !Array.isArray(window.quizData) || window.quizData.length !== 30) {
-            console.warn('Quiz data missing or incorrect, restoring original...');
-            
-            // Original 30 questions quiz data
-            window.quizData = [
-                // Module 1: Fundamentals of Cryptography
-                {
-                    module: "Fundamentals",
-                    question: "What is the main purpose of cryptography?",
-                    options: [
-                        "To create computer games",
-                        "To secure information",
-                        "To speed up computer processing",
-                        "To develop new programming languages"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Fundamentals",
-                    question: "Which of these is NOT a main goal of cryptography?",
-                    options: [
-                        "Confidentiality",
-                        "Integrity",
-                        "Authentication",
-                        "Compression"
-                    ],
-                    correctAnswer: 3
-                },
-                {
-                    module: "Fundamentals",
-                    question: "What does the term 'non-repudiation' mean in cryptography?",
-                    options: [
-                        "The ability to deny sending a message",
-                        "The inability to deny sending a message",
-                        "The ability to decrypt any message",
-                        "The ability to encrypt any message without a key"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Fundamentals",
-                    question: "In what ancient civilization was the scytale, one of the first cryptographic devices, used?",
-                    options: [
-                        "Ancient Egypt",
-                        "Roman Empire",
-                        "Ancient Sparta",
-                        "Mesopotamia"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Fundamentals",
-                    question: "Which of these best describes plaintext?",
-                    options: [
-                        "Text that is formatted in a simple way",
-                        "Text that has been encrypted",
-                        "The original, unencrypted message",
-                        "Text that can only be read by authorized users"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Fundamentals",
-                    question: "What happens if cryptographic keys are stolen or compromised?",
-                    options: [
-                        "Nothing, since keys are just one part of security",
-                        "The encrypted data becomes temporarily inaccessible",
-                        "The security of the encrypted data is compromised",
-                        "The data automatically self-destructs"
-                    ],
-                    correctAnswer: 2
-                },
-                
-                // Module 2: Classical Ciphers
-                {
-                    module: "Classical Ciphers",
-                    question: "In the Caesar cipher, what happens when shifting the letter Z by 1?",
-                    options: [
-                        "It becomes Y",
-                        "It becomes A",
-                        "It remains Z",
-                        "It becomes a number"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Classical Ciphers",
-                    question: "What makes the Vigenère cipher stronger than the Caesar cipher?",
-                    options: [
-                        "It uses multiple shift values based on a keyword",
-                        "It uses larger numbers",
-                        "It was invented later in history",
-                        "It can only be used by governments"
-                    ],
-                    correctAnswer: 0
-                },
-                {
-                    module: "Classical Ciphers",
-                    question: "Which technique was historically used to break substitution ciphers?",
-                    options: [
-                        "Brute force attacks",
-                        "Frequency analysis",
-                        "Dictionary attacks",
-                        "Differential cryptanalysis"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Classical Ciphers",
-                    question: "Who is credited with using the Caesar cipher in military communications?",
-                    options: [
-                        "Alexander the Great",
-                        "Julius Caesar",
-                        "Genghis Khan",
-                        "Napoleon Bonaparte"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Classical Ciphers",
-                    question: "What is the main vulnerability of simple substitution ciphers?",
-                    options: [
-                        "They are too complex to implement correctly",
-                        "They preserve the frequency patterns of the original language",
-                        "They require too much computational power",
-                        "They can only encrypt short messages"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Classical Ciphers",
-                    question: "The Enigma machine used in World War II is an example of what type of cipher?",
-                    options: [
-                        "A simple substitution cipher",
-                        "A polyalphabetic cipher with mechanical implementation",
-                        "A one-time pad",
-                        "A block cipher"
-                    ],
-                    correctAnswer: 1
-                },
-                
-                // Module 3: Modern Cryptography
-                {
-                    module: "Modern Cryptography",
-                    question: "Which encryption type uses different keys for encryption and decryption?",
-                    options: [
-                        "Symmetric encryption",
-                        "Asymmetric encryption",
-                        "Hash functions",
-                        "Substitution ciphers"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Modern Cryptography",
-                    question: "What is a hash function primarily used for?",
-                    options: [
-                        "Encrypting data for secure transmission",
-                        "Verifying data integrity and creating fixed-size representations",
-                        "Securing email communications",
-                        "Generating random numbers"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Modern Cryptography",
-                    question: "Which of these is an example of a symmetric encryption algorithm?",
-                    options: [
-                        "RSA",
-                        "AES",
-                        "ECC",
-                        "Diffie-Hellman"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Modern Cryptography",
-                    question: "What is the main advantage of asymmetric encryption over symmetric encryption?",
-                    options: [
-                        "It's faster",
-                        "It uses smaller keys",
-                        "It solves the key distribution problem",
-                        "It provides stronger encryption"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Modern Cryptography",
-                    question: "What security property does a good hash function NOT have?",
-                    options: [
-                        "Deterministic output",
-                        "Collision resistance",
-                        "Reversibility",
-                        "Avalanche effect"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Modern Cryptography",
-                    question: "What does AES stand for?",
-                    options: [
-                        "Advanced Encryption System",
-                        "Advanced Encryption Standard",
-                        "Automated Encryption Service",
-                        "Algorithmic Encryption System"
-                    ],
-                    correctAnswer: 1
-                },
-                
-                // Module 4: Applications
-                {
-                    module: "Applications",
-                    question: "Which of these is a practical application of asymmetric encryption?",
-                    options: [
-                        "Full disk encryption",
-                        "Password storage",
-                        "Digital signatures",
-                        "Streaming video encryption"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Applications",
-                    question: "What technology underlies cryptocurrencies like Bitcoin?",
-                    options: [
-                        "Virtual private networks",
-                        "Blockchain",
-                        "Quantum encryption",
-                        "Steganography"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Applications",
-                    question: "What does HTTPS use to secure web communications?",
-                    options: [
-                        "A VPN tunnel",
-                        "A combination of TLS/SSL protocols with asymmetric and symmetric encryption",
-                        "Only symmetric encryption",
-                        "Steganography to hide data in images"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Applications",
-                    question: "In the context of secure communications, what does 'end-to-end encryption' mean?",
-                    options: [
-                        "The encryption algorithm runs from start to finish",
-                        "Only the sender and recipient can read the messages",
-                        "The message is encrypted twice for extra security",
-                        "The entire network path is encrypted"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Applications",
-                    question: "What is the main purpose of a digital signature?",
-                    options: [
-                        "To encrypt a document",
-                        "To compress a document for faster transmission",
-                        "To verify the identity of the sender and ensure document integrity",
-                        "To timestamp when a document was created"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Applications",
-                    question: "How does blockchain technology ensure data integrity?",
-                    options: [
-                        "By using supercomputers to verify data",
-                        "By requiring government approval for all transactions",
-                        "By chaining blocks with cryptographic hashes and distributed validation",
-                        "By limiting access to authorized users only"
-                    ],
-                    correctAnswer: 2
-                },
-                
-                // Module 5: Advanced Topics
-                {
-                    module: "Advanced Topics",
-                    question: "What is quantum cryptography based on?",
-                    options: [
-                        "Faster computers",
-                        "The laws of quantum mechanics",
-                        "Historical ciphers",
-                        "Advanced mathematics only"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Advanced Topics",
-                    question: "What is the unique capability of homomorphic encryption?",
-                    options: [
-                        "Performing computations on encrypted data without decrypting it",
-                        "Creating unbreakable encryption",
-                        "Reducing the size of encrypted files",
-                        "Faster encryption and decryption"
-                    ],
-                    correctAnswer: 0
-                },
-                {
-                    module: "Advanced Topics",
-                    question: "Which algorithm poses a significant threat to RSA encryption if implemented on a quantum computer?",
-                    options: [
-                        "Shor's algorithm",
-                        "Grover's algorithm",
-                        "Deutsch-Jozsa algorithm",
-                        "Quantum Fourier Transform"
-                    ],
-                    correctAnswer: 0
-                },
-                {
-                    module: "Advanced Topics",
-                    question: "What is a zero-knowledge proof used for?",
-                    options: [
-                        "Encrypting data with zero knowledge of the recipient",
-                        "Proving you know something without revealing what you know",
-                        "Creating encryption with zero processing overhead",
-                        "Decrypting data without a key"
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    module: "Advanced Topics",
-                    question: "Which of these is considered 'post-quantum cryptography'?",
-                    options: [
-                        "RSA with larger key sizes",
-                        "Elliptic curve cryptography",
-                        "Lattice-based cryptography",
-                        "Triple DES"
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    module: "Advanced Topics",
-                    question: "What is the main principle behind Quantum Key Distribution (QKD)?",
-                    options: [
-                        "Using quantum superposition to create unbreakable keys",
-                        "Using the observer effect to detect eavesdropping",
-                        "Using quantum entanglement to transmit data faster than light",
-                        "Using quantum tunneling to bypass encryption"
-                    ],
-                    correctAnswer: 1
-                }
-            ];
-            
-            // Initialize user answers array
-            if (!window.userAnswers || window.userAnswers.length !== 30) {
-                window.userAnswers = Array(30).fill(null);
-            }
-            
-            console.log('Original 30 questions quiz data restored');
+            console.error('Error saving quiz results:', e);
         }
     }
     
-    // Function to fix the start quiz button
-    function fixStartButton() {
-        console.log('Fixing start quiz button...');
-        ensureQuizData(); // Make sure we have the right quiz data first
+    // Auto-pass quiz function
+    function autoPassQuiz() {
+        // Show notification
+        const notification = document.createElement('div');
+        notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Auto-Passed!';
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.left = '50%';
+        notification.style.transform = 'translateX(-50%)';
+        notification.style.backgroundColor = 'var(--primary)';
+        notification.style.color = 'var(--dark)';
+        notification.style.padding = '12px 24px';
+        notification.style.borderRadius = '8px';
+        notification.style.fontWeight = 'bold';
+        notification.style.zIndex = '9999';
+        notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        document.body.appendChild(notification);
         
-        const startButton = document.getElementById('start-final-quiz-btn');
+        // Set all answers to correct answers
+        userAnswers = quizData.map(q => q.correctAnswer);
         
-        if (!startButton) {
-            console.warn('Start button not found, will try again');
-            setTimeout(fixStartButton, 500);
-            return;
+        // Show perfect score results
+        finalScoreEl.textContent = quizData.length;
+        maxScoreEl.textContent = quizData.length;
+        scorePercentageEl.textContent = '100%';
+        passMessageEl.style.display = 'block';
+        failMessageEl.style.display = 'none';
+        achievementLevelEl.textContent = 'Cryptography Expert';
+        
+        // Show results section
+        introSection.style.display = 'none';
+        questionsSection.style.display = 'none';
+        resultsSection.style.display = 'block';
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 3000);
+        
+        // Save results
+        try {
+            const quizResult = {
+                completed: true,
+                passed: true,
+                score: quizData.length,
+                totalQuestions: quizData.length,
+                percentage: 100,
+                userAnswers: userAnswers,
+                completedDate: new Date().toISOString()
+            };
+            
+            sessionStorage.setItem('quizResults', JSON.stringify(quizResult));
+        } catch (e) {
+            console.error('Error saving quiz results:', e);
         }
-        
-        console.log('Found start button, fixing...');
-        
-        // Remove all existing event listeners
-        const newButton = startButton.cloneNode(true);
-        startButton.parentNode.replaceChild(newButton, startButton);
-        
-        // Add a direct, simple click handler
-        newButton.onclick = function(e) {
-            console.log('START BUTTON CLICKED');
-            e.preventDefault();
-            
-            // Make sure quiz data is correct
-            ensureQuizData();
-            
-            // Direct quiz start functionality
-            const intro = document.getElementById('final-quiz-intro');
-            const questions = document.getElementById('final-quiz-questions');
-            const submit = document.getElementById('submit-quiz');
-            
-            // Hide intro, show questions, but don't show submit button yet
-            if (intro) intro.style.display = 'none';
-            if (questions) questions.style.display = 'block';
-            if (newButton) newButton.style.display = 'none';
-            // Only show submit button when appropriate (not at the beginning)
-            
-            // Make sure quiz is started
-            window.quizStarted = true;
-            window.currentQuestion = 0;
-            
-            // Load first question (direct approach)
-            const questionText = document.getElementById('question-text');
-            const answerOptions = document.getElementById('answer-options');
-            const currentQuestionEl = document.getElementById('current-question');
-            const totalQuestionsEl = document.getElementById('total-questions');
-            
-            // Show first question text
-            if (questionText && window.quizData && window.quizData.length > 0) {
-                questionText.textContent = window.quizData[0].question;
-            }
-            
-            // Set question count display
-            if (currentQuestionEl) currentQuestionEl.textContent = '1';
-            if (totalQuestionsEl) totalQuestionsEl.textContent = '30';
-            
-            // Clear and populate answer options
-            if (answerOptions && window.quizData && window.quizData.length > 0) {
-                answerOptions.innerHTML = '';
-                
-                window.quizData[0].options.forEach((option, index) => {
-                    const optionEl = document.createElement('div');
-                    optionEl.className = 'option';
-                    
-                    optionEl.innerHTML = `
-                        <input type="radio" id="option-${index}" name="question-0" value="${index}">
-                        <label for="option-${index}">${option}</label>
-                    `;
-                    
-                    // Add click handler
-                    optionEl.addEventListener('click', function() {
-                        document.querySelectorAll('#answer-options .option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        optionEl.classList.add('selected');
-                        window.userAnswers[0] = index;
-                    });
-                    
-                    answerOptions.appendChild(optionEl);
-                });
-            }
-            
-            // Force scroll to questions section
-            if (questions) {
-                questions.scrollIntoView({behavior: 'smooth'});
-            }
-        };
-        
-        console.log('Start button fixed successfully');
     }
     
-    // Function to fix the secret 'o' pass trigger
-    function fixSecretTrigger() {
-        console.log('Fixing secret pass trigger...');
-        ensureQuizData(); // Make sure we have the right quiz data first
-        
-        const trigger = document.getElementById('secret-pass-trigger');
-        
-        if (!trigger) {
-            console.warn('Secret trigger not found, will try again');
-            setTimeout(fixSecretTrigger, 500);
-            return;
+    // Event Listeners
+    
+    // Start Quiz
+    startButton.addEventListener('click', startQuiz);
+    
+    // Navigation Buttons
+    prevButton.addEventListener('click', () => {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            loadQuestion();
         }
+    });
+    
+    nextButton.addEventListener('click', () => {
+        if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            loadQuestion();
+        }
+    });
+    
+    // Submit Quiz
+    submitButton.addEventListener('click', () => {
+        // Check if all questions are answered
+        const unansweredQuestions = userAnswers.reduce((acc, answer, index) => {
+            if (answer === null) acc.push(index + 1);
+            return acc;
+        }, []);
         
-        console.log('Found secret trigger, fixing...');
-        
-        // Remove existing handlers
-        const newTrigger = trigger.cloneNode(true);
-        trigger.parentNode.replaceChild(newTrigger, trigger);
-        
-        // Click counter
-        let clickCount = 0;
-        
-        // Super simple click handler
-        newTrigger.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            clickCount++;
-            console.log('Secret trigger clicked', clickCount, 'times');
-            
-            // Visual feedback
-            newTrigger.style.color = '#00FF41';
-            setTimeout(() => newTrigger.style.color = '', 300);
-            
-            // Auto-pass on third click
-            if (clickCount >= 3) {
-                console.log('AUTO-PASS ACTIVATED');
-                clickCount = 0;
-                
-                // Make sure quiz data is correct
-                ensureQuizData();
-                
-                // Show success notification
-                const popup = document.createElement('div');
-                popup.textContent = '✓ Quiz Auto-Passed!';
-                popup.style.position = 'fixed';
-                popup.style.top = '20px';
-                popup.style.left = '50%';
-                popup.style.transform = 'translateX(-50%)';
-                popup.style.background = '#00FF41';
-                popup.style.color = '#000';
-                popup.style.padding = '10px 20px';
-                popup.style.borderRadius = '5px';
-                popup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-                popup.style.zIndex = '9999';
-                popup.style.fontWeight = 'bold';
-                document.body.appendChild(popup);
-                
-                // Directly update quiz UI - most reliable approach
-                setTimeout(function() {
-                    try {
-                        // Get sections
-                        const intro = document.getElementById('final-quiz-intro');
-                        const questions = document.getElementById('final-quiz-questions');
-                        const results = document.getElementById('final-quiz-results');
-                        const startBtn = document.getElementById('start-final-quiz-btn');
-                        const submitBtn = document.getElementById('submit-quiz');
-                        
-                        // Hide/show correct sections
-                        if (intro) intro.style.display = 'none';
-                        if (questions) questions.style.display = 'none';
-                        if (results) results.style.display = 'block';
-                        if (startBtn) startBtn.style.display = 'none';
-                        if (submitBtn) submitBtn.style.display = 'none'; // Always hide submit when auto-passing
-                        
-                        // Set perfect score - ensuring 30 questions
-                        const finalScore = document.getElementById('final-score');
-                        const maxScore = document.getElementById('max-score');
-                        const scorePercentage = document.getElementById('score-percentage');
-                        const certLevel = document.getElementById('cert-level');
-                        const passMsg = document.getElementById('pass-message');
-                        const failMsg = document.getElementById('fail-message');
-                        
-                        if (finalScore) finalScore.textContent = '30';
-                        if (maxScore) maxScore.textContent = '30';
-                        if (scorePercentage) scorePercentage.textContent = '100%';
-                        if (certLevel) certLevel.textContent = 'Master Cryptographer';
-                        if (passMsg) passMsg.style.display = 'block';
-                        if (failMsg) failMsg.style.display = 'none';
-                        
-                        // Save to localStorage
-                        try {
-                            const quizStatus = {
-                                completed: true,
-                                passed: true,
-                                score: 30,
-                                totalQuestions: 30,
-                                percentage: 100,
-                                achievementLevel: 'Cryptography Expert',
-                                completedDate: new Date().toISOString()
-                            };
-                            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
-                            
-                            // Update progress tracking
-                            const progressData = localStorage.getItem('cipherLabQuizProgress');
-                            if (progressData) {
-                                const progress = JSON.parse(progressData);
-                                progress.finalQuizCompleted = true;
-                                progress.finalQuizScore = 100;
-                                localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
-                            }
-                        } catch (e) {
-                            console.error('Error saving quiz status:', e);
-                        }
-                        
-                        // Scroll to results
-                        if (results) {
-                            results.scrollIntoView({behavior: 'smooth'});
-                        }
-                        
-                        console.log('AUTO-PASS COMPLETED SUCCESSFULLY');
-                    } catch (err) {
-                        console.error('Error during auto-pass:', err);
-                    }
-                }, 100);
-                
-                // Remove notification after 2 seconds
-                setTimeout(() => {
-                    if (document.body.contains(popup)) {
-                        document.body.removeChild(popup);
-                    }
-                }, 2000);
+        if (unansweredQuestions.length > 0) {
+            if (!confirm(`You have ${unansweredQuestions.length} unanswered questions. Would you like to submit anyway?`)) {
+                return;
             }
-        };
-        
-        console.log('Secret trigger fixed successfully');
-    }
-    
-    // Wait for DOM to be ready then apply fixes
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            ensureQuizData();
-            fixStartButton();
-            fixSecretTrigger();
-            fixQuizNavigation();
-        });
-    } else {
-        // DOM already ready, apply fixes now
-        ensureQuizData();
-        fixStartButton();
-        fixSecretTrigger();
-        fixQuizNavigation();
-    }
-    
-    // Also apply fixes after a delay as a fallback
-    setTimeout(function() {
-        ensureQuizData();
-        fixStartButton();
-        fixSecretTrigger();
-        fixQuizNavigation();
-        
-        // Extra check for navigation buttons
-        const prevButton = document.getElementById('prev-question');
-        const nextButton = document.getElementById('next-question');
-        const submitButton = document.getElementById('submit-quiz');
-        
-        if (prevButton && !prevButton.onclick) {
-            console.log('Re-fixing navigation buttons after delay');
-            fixQuizNavigation();
         }
-    }, 1500);
-})();
+        
+        showResults();
+    });
+    
+    // Retake Quiz
+    retakeButton.addEventListener('click', () => {
+        initQuiz();
+        startQuiz();
+    });
+    
+    // Secret Trigger
+    let clickCount = 0;
+    secretTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        clickCount++;
+        
+        // Visual feedback
+        secretTrigger.style.color = 'var(--primary)';
+        setTimeout(() => secretTrigger.style.color = '', 300);
+        
+        if (clickCount >= 3) {
+            clickCount = 0;
+            autoPassQuiz();
+        }
+    });
+    
+    // Initialize Quiz
+    initQuiz();
+});
 </script>
-
-<style>
-    /* Page heading styling */
-    .page-heading {
-        color: var(--primary);
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-        font-weight: 700;
-        position: relative;
-        display: inline-block;
-    }
-    
-    /* Hero subtitle styling */
-    .hero-subtitle {
-        font-size: 1.5rem !important;
-        line-height: 1.6 !important;
-        color: var(--text) !important;
-        margin-top: 1rem !important;
-        margin-bottom: 1.5rem !important;
-        max-width: 800px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        text-align: center !important;
-    }
-    
-    /* Hero content must be centered */
-    .hero-content {
-        margin-top: 1rem !important;
-        position: relative !important;
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-    }
-    
-    /* Hero Styling */
-    #quiz-hero {
-        position: relative;
-        min-height: 40vh; /* Shorter than main page hero */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 3rem 0;
-        width: 100%;
-        max-width: 100%;
-        pointer-events: auto;
-        z-index: 1;
-        margin-bottom: 2rem;
-    }
-    
-    /* Force row to be full-width */
-    #quiz-hero .hero-row {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 !important;
-        padding: 0 1rem;
-        overflow: visible;
-    }
-</style>
