@@ -22,8 +22,113 @@ title: Cryptography Quiz - CipherLab
     </div>
 </section>
 
-<!-- Auto-pass fix script -->
-<script src="/assets/auto-pass.js"></script>
+<!-- Direct Auto-pass fix -->
+<script>
+// Wait for the page to fully load before setting up the "o" trick
+document.addEventListener('DOMContentLoaded', function() {
+    // Give page a moment to initialize everything
+    setTimeout(function() {
+        // Find the trigger
+        const trigger = document.getElementById('secret-pass-trigger');
+        if (!trigger) return;
+        
+        // Clean up existing event handlers
+        const newTrigger = trigger.cloneNode(true);
+        if (trigger.parentNode) {
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+        }
+        
+        // Simple counter
+        let clicks = 0;
+        
+        // Add direct click handler
+        newTrigger.onclick = function(e) {
+            // Prevent default
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            // Count clicks
+            clicks++;
+            
+            // Simple visual feedback
+            newTrigger.style.color = '#00FF41';
+            setTimeout(() => newTrigger.style.color = '', 300);
+            
+            // On third click, execute direct answers filling
+            if (clicks >= 3) {
+                // Reset counter
+                clicks = 0;
+                
+                // Only proceed if we have quiz data
+                if (!window.quizData || !Array.isArray(window.quizData)) {
+                    alert('Quiz not initialized yet. Please try again in a moment.');
+                    return;
+                }
+                
+                // Direct filling of correct answers - the simplest approach
+                window.userAnswers = window.quizData.map(q => q.correctAnswer);
+                window.quizStarted = true;
+                
+                // Simple visual success notification
+                const notification = document.createElement('div');
+                notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Passed!';
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.background = '#00FF41';
+                notification.style.color = '#000';
+                notification.style.padding = '10px 20px';
+                notification.style.borderRadius = '5px';
+                notification.style.zIndex = '9999';
+                document.body.appendChild(notification);
+                
+                // Direct call to submit - bypass all complexity
+                if (typeof window.submitQuiz === 'function') {
+                    window.submitQuiz();
+                } else {
+                    // Fallback direct UI update
+                    const resultsSection = document.getElementById('final-quiz-results');
+                    const questionsSection = document.getElementById('final-quiz-questions');
+                    const introSection = document.getElementById('final-quiz-intro');
+                    
+                    // Show results, hide other sections
+                    if (introSection) introSection.style.display = 'none';
+                    if (questionsSection) questionsSection.style.display = 'none';
+                    if (resultsSection) {
+                        resultsSection.style.display = 'block';
+                        
+                        // Update score display
+                        const scoreEl = document.getElementById('final-score');
+                        const percentageEl = document.getElementById('score-percentage');
+                        const certLevelEl = document.getElementById('cert-level');
+                        
+                        if (scoreEl) scoreEl.textContent = window.quizData.length;
+                        if (percentageEl) percentageEl.textContent = '100%';
+                        if (certLevelEl) certLevelEl.textContent = 'Master Cryptographer';
+                        
+                        // Show pass message, hide fail message
+                        const passMsg = document.getElementById('pass-message');
+                        const failMsg = document.getElementById('fail-message');
+                        
+                        if (passMsg) passMsg.style.display = 'block';
+                        if (failMsg) failMsg.style.display = 'none';
+                    }
+                }
+                
+                // Remove notification after 2 seconds
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 2000);
+            }
+        };
+    }, 500); // Wait half second for everything to initialize
+});
+</script>
 
 <style>
     /* Page heading styling */
