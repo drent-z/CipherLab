@@ -885,14 +885,14 @@
 <!-- Final Quiz Content -->
 <div id="final-quiz-content">
     <div class="final-quiz-intro">
-        <h2 class="section-title">Cryptography Certification Quiz</h2>
-        <p class="mb-4">Congratulations on completing all the modules! This final quiz will test your understanding of cryptographic concepts across all areas you've studied. Answer all questions correctly to earn your CipherLab Cryptography certification.</p>
+        <h2 class="section-title">Cryptography Knowledge Quiz</h2>
+        <p class="mb-4">Congratulations on completing all the modules! This final quiz will test your understanding of cryptographic concepts across all areas you've studied. Answer the questions to demonstrate your cryptography knowledge.</p>
         
         <div class="quiz-instructions">
             <h3><i class="fas fa-clipboard-list"></i> Instructions</h3>
             <ul>
                 <li>The quiz consists of 10 questions covering all modules</li>
-                <li>You need to score at least 80% to pass and receive your certification</li>
+                <li>You need to score at least 80% to pass the quiz</li>
                 <li>You can retake the quiz if needed</li>
                 <li>Read each question carefully before answering</li>
             </ul>
@@ -1152,35 +1152,26 @@
             </div>
         </div>
         
-        <div class="certification-container" id="certification-container" style="display: none;">
-            <div class="certificate">
-                <div class="certificate-header">
-                    <div class="certificate-logo">CipherLab</div>
-                    <h2 class="certificate-title">Certificate of Completion</h2>
+        <div class="achievement-container" id="achievement-container" style="display: none;">
+            <div class="achievement-display">
+                <div class="achievement-header">
+                    <div class="achievement-logo">CipherLab</div>
+                    <h2 class="achievement-title">Quiz Completed</h2>
                 </div>
-                <div class="certificate-body">
-                    <p class="certificate-text">This certifies that</p>
-                    <p class="certificate-name" id="certificate-name">Crypto Enthusiast</p>
-                    <p class="certificate-text">has successfully completed the</p>
-                    <p class="certificate-course">Cryptography Fundamentals Course</p>
-                    <p class="certificate-date">Date: <span id="certificate-date"></span></p>
+                <div class="achievement-body">
+                    <p class="achievement-text">Congratulations!</p>
+                    <p class="achievement-level" id="achievement-level">Cryptography Expert</p>
+                    <p class="achievement-text">You've successfully demonstrated your understanding of</p>
+                    <p class="achievement-course">Cryptography Fundamentals</p>
+                    <p class="achievement-date">Date: <span id="achievement-date"></span></p>
                 </div>
-                <div class="certificate-footer">
-                    <div class="certificate-signature">
-                        <div class="signature-line"></div>
-                        <p>CipherLab Instructor</p>
-                    </div>
-                    <div class="certificate-seal">
-                        <div class="seal-icon"><i class="fas fa-award"></i></div>
-                    </div>
+                <div class="achievement-seal">
+                    <div class="seal-icon"><i class="fas fa-award"></i></div>
                 </div>
             </div>
             
-            <div class="certificate-actions">
-                <button id="download-certificate" class="cta-button">
-                    <i class="fas fa-download"></i> Download Certificate
-                </button>
-                <button id="share-certificate" class="cta-button cta-button-alt">
+            <div class="achievement-actions">
+                <button id="share-achievement" class="cta-button cta-button-alt">
                     <i class="fas fa-share-alt"></i> Share Achievement
                 </button>
             </div>

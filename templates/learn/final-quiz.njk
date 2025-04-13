@@ -549,72 +549,9 @@ input[type="radio"]:hover {
 }
 </style>
 
-<!-- Include jsPDF library and html2canvas for improved certificate generation -->
-<!-- Load jsPDF directly from unpkg with fallback options -->
-<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<!-- Certificate generation libraries removed -->
 <script>
-// Define a global variable to track library status
-window.librariesLoaded = {
-    jspdf: false
-};
-
-// Handle initial library loading
-document.addEventListener('DOMContentLoaded', function() {
-    // First check if jsPDF loaded properly
-    if (typeof window.jspdf !== 'undefined') {
-        console.log('jsPDF library loaded successfully from unpkg');
-        window.librariesLoaded.jspdf = true;
-    } else {
-        console.warn('Primary jsPDF load failed, trying alternative sources...');
-        
-        // Try loading from CDN
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')
-            .then(() => {
-                console.log('jsPDF library loaded successfully from cdnjs');
-                window.librariesLoaded.jspdf = true;
-            })
-            .catch(() => {
-                // Try one more alternative source
-                return loadScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js');
-            })
-            .then(() => {
-                console.log('jsPDF library loaded successfully from jsdelivr');
-                window.librariesLoaded.jspdf = true;
-            })
-            .catch(error => {
-                console.error('All attempts to load jsPDF failed:', error);
-                alert('Could not load the PDF generation library. Please check your internet connection and try again later.');
-            });
-    }
-    
-    // Helper function to load scripts with promise
-    function loadScript(url) {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = url;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
-    }
-    
-    // Add polyfill for older browsers
-    if (typeof window.Promise === 'undefined') {
-        console.warn('Promise not available, loading polyfill');
-        loadScript('https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js');
-    }
-    
-    // Define global jsPDF accessor function for better compatibility
-    window.getJsPDF = function() {
-        if (window.jspdf) {
-            return window.jspdf.jsPDF;
-        } else if (window.jsPDF) {
-            return window.jsPDF;
-        } else {
-            throw new Error('jsPDF library not available');
-        }
-    };
-});
+// Library loading code has been removed
 </script>
 
 <script>
@@ -2104,6 +2041,14 @@ function retakeQuiz() {
 }
 
 /* Center buttons properly */
+.final-quiz-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .final-quiz-footer .text-center {
     display: flex;
     justify-content: center;
@@ -2111,12 +2056,15 @@ function retakeQuiz() {
     flex-wrap: wrap;
     gap: 1rem;
     width: 100%;
+    padding: 1rem 0;
 }
 
 /* Improved option alignment for radio buttons and text */
 .option {
     display: flex !important; 
     align-items: center !important;
+    padding: 1rem !important;
+    cursor: pointer !important;
 }
 
 .option input[type="radio"] {
@@ -2124,6 +2072,9 @@ function retakeQuiz() {
     position: relative !important;
     top: 0 !important;
     flex-shrink: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    vertical-align: middle !important;
 }
 
 .option label {
@@ -2131,6 +2082,9 @@ function retakeQuiz() {
     display: flex !important;
     align-items: center !important;
     height: 100% !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    flex: 1 !important;
 }
 
 /* Make absolutely sure the submit button doesn't show on initial quiz load */
@@ -2143,10 +2097,10 @@ function retakeQuiz() {
     background: linear-gradient(45deg, var(--primary-dark), var(--primary));
     color: var(--dark);
     font-weight: 700;
-    padding: 0.75rem 1.5rem;
+    padding: 0.85rem 1.75rem;
     font-size: 1.1rem;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     border: none;
     position: relative;
     z-index: 1;
@@ -2156,26 +2110,36 @@ function retakeQuiz() {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    gap: 0.5rem;
-    min-width: 180px;
+    gap: 0.75rem;
+    min-width: 200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .final-quiz-button:hover {
     color: var(--dark);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+}
+
+.final-quiz-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Question Styling */
 .question-container {
     max-width: 800px;
     margin: 0 auto;
+    padding: 1rem;
 }
 
 .question-container h4 {
     font-size: 1.3rem;
     color: var(--primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1.5;
 }
 
 .answer-options {
@@ -2305,24 +2269,30 @@ function retakeQuiz() {
 
 .results-message {
     text-align: center;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 8px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.6s ease-out;
 }
 
 .results-message i {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
+    display: inline-block;
 }
 
 .results-message h4 {
-    font-size: 1.5rem;
-    margin: 0 0 1rem 0;
+    font-size: 1.75rem;
+    margin: 0.5rem 0 1rem 0;
+    color: var(--primary);
 }
 
 .results-message p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     margin: 0 0 1.5rem 0;
+    line-height: 1.6;
 }
 
 #pass-message {
@@ -2344,24 +2314,30 @@ function retakeQuiz() {
 }
 
 .achievement-level {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0, 255, 65, 0.2);
-    border-radius: 4px;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(0, 255, 65, 0.15);
+    border-radius: 8px;
     display: inline-block;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
 }
 
 .achievement-level span {
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     color: var(--primary);
+    display: inline-block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Certificate form styles removed */
-
-.certificate-form p {
-    margin-bottom: 1rem;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+/* All certificate styles have been removed */
 
 .name-input-container {
     display: flex;
@@ -2389,146 +2365,15 @@ function retakeQuiz() {
     transform: translateY(-2px);
 }
 
-/* Fancy Generate Certificate Button */
-#generate-certificate {
-    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
-    color: var(--dark);
-    font-weight: 700;
-    padding: 0.9rem 1.75rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.1rem;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
+/* Certificate button styles removed */
 
-#generate-certificate:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.3s ease;
-}
+/* More certificate styles removed */
 
-#generate-certificate:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 200, 83, 0.6);
-}
+/* Fancy button styles removed */
 
-#generate-certificate:hover:before {
-    opacity: 1;
-}
+/* Button effects removed */
 
-#generate-certificate:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 200, 83, 0.4);
-}
-
-#generate-certificate:after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.3s ease, transform 0.5s ease;
-}
-
-#generate-certificate:hover:after {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.fancy-generate-button {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-dark));
-    background-size: 200% auto;
-    color: var(--dark);
-    border: none;
-    padding: 0.9rem 2rem;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
-    min-width: 240px;
-    animation: pulse 2.5s infinite;
-    text-align: center;
-}
-
-.fancy-generate-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: all 0.6s ease;
-}
-
-.fancy-generate-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 255, 65, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.4);
-    background-position: right center;
-}
-
-.fancy-generate-button:hover::before {
-    left: 100%;
-}
-
-.fancy-generate-button:active {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.4);
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
-    }
-    50% {
-        box-shadow: 0 4px 25px rgba(0, 255, 65, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-    100% {
-        box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
-    }
-}
-
-.button-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.15);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.3);
-    transition: all 0.3s ease;
-    position: relative;
-    flex-shrink: 0;
-}
+/* Animation styles removed */
 
 .button-icon i {
     position: absolute;
@@ -2550,27 +2395,7 @@ function retakeQuiz() {
     text-align: center;
 }
 
-.certificate-link {
-    margin-top: 1.5rem;
-}
-
-.certificate-link a {
-    display: inline-block;
-    background-color: var(--primary);
-    color: var(--dark);
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.certificate-link a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.certificate-preview {
+/* Certificate link styles removed */
     display: none;
     margin: 2rem 0;
     border: 1px solid var(--primary-dark);
@@ -2579,61 +2404,17 @@ function retakeQuiz() {
     background-color: white;
 }
 
-/* Added visual feedback styles for certificate generation */
-#generate-certificate.generating {
-    opacity: 0.8;
-    cursor: wait;
-    animation: pulse 1s infinite alternate;
-}
-
-#generate-certificate.generating .button-icon {
-    animation: none; /* Remove rotation from container */
-}
-
-#generate-certificate.generating .button-icon i {
-    animation: spin 1.5s linear infinite;
-    display: inline-block;
-}
-
-#generate-certificate.success {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
-}
+/* Certificate generation feedback styles removed */
 
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Enhanced certificate link styling */
-.certificate-link {
-    margin-top: 1.5rem;
-    text-align: center;
-    background-color: rgba(0, 255, 65, 0.1);
-    border-radius: 8px;
-    padding: 1.2rem;
-    border: 1px dashed var(--primary);
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.certificate-link a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--primary);
-    color: var(--dark);
+/* Enhanced certificate link styles removed */
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.certificate-link a:before {
-    content: "\f56e"; /* Font Awesome download icon */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-}
+/* Last certificate link styles removed */
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
