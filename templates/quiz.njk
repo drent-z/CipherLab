@@ -29,6 +29,254 @@ title: Cryptography Quiz - CipherLab
     // Direct fix that runs right away
     console.log('EMERGENCY FIX RUNNING...');
     
+    // Fix navigation and submit buttons
+    function fixQuizNavigation() {
+        console.log('Fixing quiz navigation buttons...');
+        
+        // Fix previous button
+        const prevButton = document.getElementById('prev-question');
+        if (prevButton) {
+            const newPrevButton = prevButton.cloneNode(true);
+            if (prevButton.parentNode) {
+                prevButton.parentNode.replaceChild(newPrevButton, prevButton);
+            }
+            
+            newPrevButton.addEventListener('click', function() {
+                console.log('Previous button clicked');
+                if (window.currentQuestion > 0) {
+                    window.currentQuestion--;
+                    console.log('Moving to question', window.currentQuestion + 1);
+                    loadCurrentQuestion();
+                }
+            });
+            console.log('Previous button fixed');
+        }
+        
+        // Fix next button
+        const nextButton = document.getElementById('next-question');
+        if (nextButton) {
+            const newNextButton = nextButton.cloneNode(true);
+            if (nextButton.parentNode) {
+                nextButton.parentNode.replaceChild(newNextButton, nextButton);
+            }
+            
+            newNextButton.addEventListener('click', function() {
+                console.log('Next button clicked');
+                if (window.currentQuestion < window.quizData.length - 1) {
+                    window.currentQuestion++;
+                    console.log('Moving to question', window.currentQuestion + 1);
+                    loadCurrentQuestion();
+                }
+            });
+            console.log('Next button fixed');
+        }
+        
+        // Fix submit button
+        const submitButton = document.getElementById('submit-quiz');
+        if (submitButton) {
+            const newSubmitButton = submitButton.cloneNode(true);
+            if (submitButton.parentNode) {
+                submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
+            }
+            
+            newSubmitButton.addEventListener('click', function() {
+                console.log('Submit button clicked');
+                submitQuiz();
+            });
+            console.log('Submit button fixed');
+        }
+    }
+    
+    // Load current question function
+    function loadCurrentQuestion() {
+        console.log('Loading question', window.currentQuestion + 1);
+        
+        // Get UI elements
+        const questionText = document.getElementById('question-text');
+        const answerOptions = document.getElementById('answer-options');
+        const currentQuestionEl = document.getElementById('current-question');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        
+        // Update question number display
+        if (currentQuestionEl) currentQuestionEl.textContent = window.currentQuestion + 1;
+        if (totalQuestionsEl) totalQuestionsEl.textContent = window.quizData.length;
+        
+        // Update navigation buttons state
+        if (prevButton) prevButton.disabled = window.currentQuestion === 0;
+        if (nextButton) nextButton.disabled = window.currentQuestion === window.quizData.length - 1;
+        
+        // Show the question
+        if (questionText && window.quizData && window.quizData.length > window.currentQuestion) {
+            questionText.textContent = window.quizData[window.currentQuestion].question;
+        }
+        
+        // Show answer options
+        if (answerOptions && window.quizData && window.quizData.length > window.currentQuestion) {
+            answerOptions.innerHTML = '';
+            
+            window.quizData[window.currentQuestion].options.forEach((option, index) => {
+                const optionEl = document.createElement('div');
+                optionEl.className = 'option';
+                
+                // Add selected class if this answer is selected
+                if (window.userAnswers && window.userAnswers[window.currentQuestion] === index) {
+                    optionEl.classList.add('selected');
+                }
+                
+                optionEl.innerHTML = `
+                    <input type="radio" id="option-${index}" name="question-${window.currentQuestion}" 
+                    value="${index}" ${window.userAnswers && window.userAnswers[window.currentQuestion] === index ? 'checked' : ''}>
+                    <label for="option-${index}">${option}</label>
+                `;
+                
+                // Add click handler
+                optionEl.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    document.querySelectorAll('#answer-options .option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to this option
+                    optionEl.classList.add('selected');
+                    
+                    // Update the radio button
+                    const radio = optionEl.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                    
+                    // Save the answer
+                    if (!window.userAnswers) window.userAnswers = Array(window.quizData.length).fill(null);
+                    window.userAnswers[window.currentQuestion] = index;
+                    
+                    console.log('Selected answer', index, 'for question', window.currentQuestion + 1);
+                });
+                
+                answerOptions.appendChild(optionEl);
+            });
+        }
+    }
+    
+    // Submit quiz function
+    function submitQuiz() {
+        console.log('Submitting quiz...');
+        
+        // Check if the quiz is started
+        if (!window.quizStarted) {
+            console.warn('Quiz not started yet');
+            alert('Please start the quiz first');
+            return;
+        }
+        
+        // Check if all questions are answered
+        const unansweredQuestions = [];
+        if (window.userAnswers) {
+            for (let i = 0; i < window.quizData.length; i++) {
+                if (window.userAnswers[i] === null || window.userAnswers[i] === undefined) {
+                    unansweredQuestions.push(i + 1);
+                }
+            }
+        }
+        
+        if (unansweredQuestions.length > 0) {
+            if (!confirm(`You have ${unansweredQuestions.length} unanswered questions. Do you want to submit anyway?`)) {
+                return;
+            }
+        }
+        
+        // Calculate score
+        let score = 0;
+        for (let i = 0; i < window.quizData.length; i++) {
+            if (window.userAnswers && window.userAnswers[i] === window.quizData[i].correctAnswer) {
+                score++;
+            }
+        }
+        
+        const percentage = Math.round((score / window.quizData.length) * 100);
+        console.log(`Score: ${score}/${window.quizData.length} (${percentage}%)`);
+        
+        // Update UI
+        const questionsSection = document.getElementById('final-quiz-questions');
+        const resultsSection = document.getElementById('final-quiz-results');
+        const submitButton = document.getElementById('submit-quiz');
+        const finalScoreEl = document.getElementById('final-score');
+        const maxScoreEl = document.getElementById('max-score');
+        const scorePercentageEl = document.getElementById('score-percentage');
+        const passMessageEl = document.getElementById('pass-message');
+        const failMessageEl = document.getElementById('fail-message');
+        const certLevelEl = document.getElementById('cert-level');
+        
+        // Hide questions, show results
+        if (questionsSection) questionsSection.style.display = 'none';
+        if (resultsSection) resultsSection.style.display = 'block';
+        if (submitButton) submitButton.style.display = 'none';
+        
+        // Update score display
+        if (finalScoreEl) finalScoreEl.textContent = score;
+        if (maxScoreEl) maxScoreEl.textContent = window.quizData.length;
+        if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
+        
+        // Show pass/fail message
+        if (percentage >= 70) {
+            if (passMessageEl) passMessageEl.style.display = 'block';
+            if (failMessageEl) failMessageEl.style.display = 'none';
+            
+            // Set certificate level
+            if (certLevelEl) {
+                if (percentage >= 90) {
+                    certLevelEl.textContent = 'Master Cryptographer';
+                } else if (percentage >= 80) {
+                    certLevelEl.textContent = 'Advanced Cryptographer';
+                } else {
+                    certLevelEl.textContent = 'Certified Cryptographer';
+                }
+            }
+        } else {
+            if (passMessageEl) passMessageEl.style.display = 'none';
+            if (failMessageEl) failMessageEl.style.display = 'block';
+        }
+        
+        // Save to localStorage
+        try {
+            const quizStatus = {
+                completed: true,
+                passed: percentage >= 70,
+                score: score,
+                totalQuestions: window.quizData.length,
+                percentage: percentage,
+                certLevel: certLevelEl ? certLevelEl.textContent : '',
+                completedDate: new Date().toISOString()
+            };
+            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
+            
+            // Update progress tracking
+            const progressData = localStorage.getItem('cipherLabQuizProgress');
+            if (progressData) {
+                try {
+                    const progress = JSON.parse(progressData);
+                    progress.finalQuizCompleted = true;
+                    progress.finalQuizScore = percentage;
+                    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+                } catch (e) {
+                    console.error('Error updating progress tracking:', e);
+                }
+            }
+        } catch (e) {
+            console.error('Error saving quiz status:', e);
+        }
+        
+        // Scroll to results
+        if (resultsSection) {
+            resultsSection.scrollIntoView({behavior: 'smooth'});
+        }
+        
+        console.log('Quiz submitted successfully');
+    }
+    
+    // Make these functions available globally
+    window.loadCurrentQuestion = loadCurrentQuestion;
+    window.submitQuiz = submitQuiz;
+    
     // Ensure we have the original 30 questions
     function ensureQuizData() {
         console.log('Ensuring proper quiz data...');
@@ -622,20 +870,36 @@ title: Cryptography Quiz - CipherLab
     // Wait for DOM to be ready then apply fixes
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
+            ensureQuizData();
             fixStartButton();
             fixSecretTrigger();
+            fixQuizNavigation();
         });
     } else {
         // DOM already ready, apply fixes now
+        ensureQuizData();
         fixStartButton();
         fixSecretTrigger();
+        fixQuizNavigation();
     }
     
     // Also apply fixes after a delay as a fallback
     setTimeout(function() {
+        ensureQuizData();
         fixStartButton();
         fixSecretTrigger();
-    }, 1000);
+        fixQuizNavigation();
+        
+        // Extra check for navigation buttons
+        const prevButton = document.getElementById('prev-question');
+        const nextButton = document.getElementById('next-question');
+        const submitButton = document.getElementById('submit-quiz');
+        
+        if (prevButton && !prevButton.onclick) {
+            console.log('Re-fixing navigation buttons after delay');
+            fixQuizNavigation();
+        }
+    }, 1500);
 })();
 </script>
 
