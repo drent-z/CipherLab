@@ -354,6 +354,34 @@ document.addEventListener('DOMContentLoaded', function() {
         flex: 0 0 auto !important;
         min-width: 140px !important;
         margin: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 8px !important;
+        text-align: center !important;
+    }
+    
+    /* Improved styling for selected options */
+    .simple-option:hover {
+        background-color: var(--light-dark) !important;
+        border: 1px solid var(--primary-dark) !important;
+        transform: translateY(-2px) !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .simple-option.selected,
+    .option.selected {
+        background-color: var(--primary-dark) !important;
+        color: var(--dark) !important;
+        border: 1px solid var(--primary) !important;
+        box-shadow: 0 0 8px rgba(0, 255, 65, 0.4) !important;
+        transform: translateY(-2px) !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .simple-option input[type="radio"],
+    .option input[type="radio"] {
+        margin-right: 8px !important;
     }
     
     /* Page heading styling */

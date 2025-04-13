@@ -438,6 +438,45 @@ function manuallyDisplayResults() {
     margin: 1.5rem 0;
 }
 
+/* Improved buttons and options styling */
+.nav-button {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0.75rem 1.25rem !important;
+}
+
+.option {
+    background-color: var(--medium-dark);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.option:hover {
+    background-color: var(--light-dark);
+    border: 1px solid var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    background-color: var(--primary-dark);
+    color: var(--dark);
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+}
+
+.option input[type="radio"] {
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
 /* Prevent completion popup from showing */
 .completion-confirmation {
     display: none !important;
