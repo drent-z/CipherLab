@@ -106,42 +106,132 @@
     </div>
 </div>
 
-<!-- Fix for the quiz footer visibility issue -->
+<!-- COMPLETE OVERHAUL FOR QUIZ FOOTER VISIBILITY ISSUE -->
 <script>
 (function() {
-    // Immediately check if we're in quiz mode and hide footer if needed
-    function hideFooterIfQuizStarted() {
+    // More aggressive approaches to hide the footer once quiz starts
+    function hideFooterCompletely() {
+        // Target all possible footer elements with multiple selectors
+        const allFooterElements = [
+            document.getElementById('quiz-footer'),
+            document.getElementById('quiz-requirements'),
+            document.querySelector('.final-quiz-footer'),
+            document.querySelector('.requirements'),
+            document.querySelector('.quiz-progress'),
+            document.getElementById('start-final-quiz-btn')
+        ];
+        
+        // Apply multiple hiding techniques to ensure it's hidden
+        allFooterElements.forEach(el => {
+            if (el) {
+                // Remove from document flow completely
+                el.style.cssText = 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; position: absolute !important; opacity: 0 !important; pointer-events: none !important;';
+                
+                // Also set HTML attribute for style as a backup
+                el.setAttribute('style', 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; position: absolute !important; opacity: 0 !important; pointer-events: none !important;');
+                
+                // Add a class to help with CSS targeting
+                el.classList.add('permanently-hidden');
+                
+                // Clone and replace to remove event listeners that might be re-showing it
+                try {
+                    const parent = el.parentNode;
+                    if (parent) {
+                        const clone = el.cloneNode(true);
+                        clone.style.cssText = 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; position: absolute !important; opacity: 0 !important; pointer-events: none !important;';
+                        parent.replaceChild(clone, el);
+                    }
+                } catch (e) {
+                    console.error('Error while replacing element:', e);
+                }
+            }
+        });
+        
+        // Add class to body for CSS targeting
+        document.body.classList.add('quiz-started');
+        document.body.classList.add('hide-quiz-footer');
+        
+        // Also try hiding parent containers that might be making the footer visible
+        const quizContainer = document.querySelector('.final-quiz-container');
+        if (quizContainer) {
+            const footerParent = quizContainer.querySelector(':scope > div > div.final-quiz-footer');
+            if (footerParent) {
+                footerParent.style.cssText = 'display: none !important; visibility: hidden !important;';
+            }
+        }
+        
+        console.log('Footer completely hidden with multiple methods');
+    }
+    
+    // Check if we're in quiz mode (questions visible)
+    function checkQuizState() {
         const questionsSection = document.getElementById('final-quiz-questions');
         if (questionsSection && window.getComputedStyle(questionsSection).display !== 'none') {
-            // Questions are visible, hide the footer
-            console.log('Questions visible - hiding footer completely');
-            document.body.classList.add('quiz-started');
+            console.log('Quiz questions visible - hiding footer completely');
+            hideFooterCompletely();
+            return true;
+        }
+        return false;
+    }
+    
+    // Also observe DOM changes to catch dynamic updates
+    const observeDOM = (function(){
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        
+        return function(obj, callback){
+            if(!obj || obj.nodeType !== 1) return;
             
-            // Hide the footer using multiple methods
-            const elements = [
-                document.getElementById('quiz-footer'),
-                document.getElementById('quiz-requirements'),
-                document.querySelector('.final-quiz-footer'),
-                document.getElementById('start-final-quiz-btn')
-            ];
+            if(MutationObserver){
+                const mutationObserver = new MutationObserver(callback);
+                mutationObserver.observe(obj, { childList: true, subtree: true });
+                return mutationObserver;
+            } else if(window.addEventListener){
+                obj.addEventListener('DOMNodeInserted', callback, false);
+                obj.addEventListener('DOMNodeRemoved', callback, false);
+            }
+        };
+    })();
+    
+    // Execute immediately
+    if (!checkQuizState()) {
+        // If quiz not started yet, set up event listener for the start button
+        const startButton = document.getElementById('start-final-quiz-btn');
+        if (startButton) {
+            // Create a new button to replace the existing one (to remove all previous listeners)
+            const newStartButton = startButton.cloneNode(true);
+            if (startButton.parentNode) {
+                startButton.parentNode.replaceChild(newStartButton, startButton);
+            }
             
-            elements.forEach(el => {
-                if (el) {
-                    el.style.display = 'none';
-                    el.style.visibility = 'hidden';
-                    el.setAttribute('style', 'display:none !important; visibility:hidden !important;');
-                }
+            // Add our listener that explicitly hides the footer
+            newStartButton.addEventListener('click', function(e) {
+                console.log('Start button clicked - hiding footer');
+                setTimeout(hideFooterCompletely, 10);
+                setTimeout(hideFooterCompletely, 50);
+                setTimeout(hideFooterCompletely, 100);
             });
         }
     }
     
-    // Run immediately
-    hideFooterIfQuizStarted();
+    // Also observe the quiz container for changes
+    const quizContainer = document.querySelector('.final-quiz-container');
+    if (quizContainer) {
+        observeDOM(quizContainer, function(mutations) {
+            checkQuizState();
+        });
+    }
     
-    // Also run after a short delay to catch any race conditions
-    setTimeout(hideFooterIfQuizStarted, 100);
-    setTimeout(hideFooterIfQuizStarted, 500);
-    setTimeout(hideFooterIfQuizStarted, 1000);
+    // Run checks at multiple intervals to handle any race conditions
+    setTimeout(checkQuizState, 10);
+    setTimeout(checkQuizState, 100);
+    setTimeout(checkQuizState, 500);
+    setTimeout(checkQuizState, 1000);
+    
+    // Also handle the window load event
+    window.addEventListener('load', function() {
+        setTimeout(checkQuizState, 10);
+        setTimeout(checkQuizState, 100);
+    });
 })();
 </script>
 
@@ -1540,29 +1630,49 @@ function startQuiz() {
         // Hide submit button by default - it will only be shown on the last question
         if (submitButton) submitButton.style.display = 'none';
         
-        // Completely hide the quiz footer with all its contents - using multiple methods
-        const quizFooter = document.getElementById('quiz-footer');
-        const quizRequirements = document.getElementById('quiz-requirements');
-        const footer = document.querySelector('.final-quiz-footer');
+        // Completely and aggressively hide all footer-related elements
+        const elementsToHide = [
+            // Get by ID
+            document.getElementById('start-final-quiz-btn'),
+            document.getElementById('quiz-footer'),
+            document.getElementById('quiz-requirements'),
+            document.getElementById('quiz-progress-value'),
+            // Get by class
+            ...document.querySelectorAll('.final-quiz-footer'),
+            ...document.querySelectorAll('.requirements'),
+            ...document.querySelectorAll('.quiz-progress')
+        ];
         
-        // Add class to body to signal quiz has started (for CSS selectors)
+        // Add classes to body element for CSS targeting
         document.body.classList.add('quiz-started');
+        document.body.classList.add('hide-quiz-footer');
         
-        // Hide using all methods available
-        [quizFooter, quizRequirements, footer].forEach(element => {
+        // Apply multiple hiding techniques to ensure elements are completely hidden
+        elementsToHide.forEach(element => {
             if (element) {
-                // Remove from DOM flow
-                element.style.display = 'none';
-                element.style.visibility = 'hidden';
-                element.style.height = '0';
-                element.style.overflow = 'hidden';
-                element.style.margin = '0';
-                element.style.padding = '0';
+                // Apply CSS to completely remove from document flow
+                const hideStyle = 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; opacity: 0 !important; overflow: hidden !important; position: absolute !important; pointer-events: none !important; clip: rect(0, 0, 0, 0) !important;';
                 
-                // Add important flag
-                element.setAttribute('style', 'display:none !important; visibility:hidden !important; height:0 !important; overflow:hidden !important;');
+                element.style.cssText = hideStyle;
+                element.setAttribute('style', hideStyle);
+                element.classList.add('permanently-hidden');
+                
+                // Try removing from DOM entirely
+                try {
+                    if (element.parentNode) {
+                        element.parentNode.removeChild(element);
+                    }
+                } catch (e) {
+                    console.error('Error removing element:', e);
+                }
             }
         });
+        
+        // Hide the entire footer section at the parent level
+        const footerContainer = document.querySelector('.final-quiz-container')?.lastElementChild;
+        if (footerContainer && footerContainer.classList.contains('final-quiz-footer')) {
+            footerContainer.remove();
+        }
         
         // Reset quiz state
         currentQuestion = 0;
@@ -2212,15 +2322,33 @@ function retakeQuiz() {
     display: none !important;
 }
 
-/* Hide the footer when questions are displayed */
+/* Extremely aggressive footer hiding when quiz is active */
 #final-quiz-questions:not([style*="display: none"]) ~ .final-quiz-footer,
-body.quiz-started .final-quiz-footer {
+#final-quiz-questions:not([style*="display: none"]) ~ div,
+#final-quiz-questions:not([style*="display:none"]) ~ .final-quiz-footer,
+#final-quiz-questions[style*="display: block"] ~ .final-quiz-footer,
+body.quiz-started .final-quiz-footer,
+body.quiz-started #quiz-footer,
+body.quiz-started .requirements,
+body.quiz-started #start-final-quiz-btn,
+body.hide-quiz-footer .final-quiz-footer,
+.permanently-hidden,
+.quiz-progress:has(~ #final-quiz-questions:not([style*="display: none"])),
+.final-quiz-content:has(> #final-quiz-questions[style*="display: block"]) ~ .final-quiz-footer {
     display: none !important;
     visibility: hidden !important;
     height: 0 !important;
+    width: 0 !important;
+    opacity: 0 !important;
     overflow: hidden !important;
     margin: 0 !important;
     padding: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
+    transform: scale(0) !important;
+    z-index: -9999 !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
 }
 
 .final-quiz-button {
@@ -2247,12 +2375,38 @@ body.quiz-started .final-quiz-footer {
     text-align: center;
 }
 
-/* Fix for any extra borders or outlines shown in browsers */
+/* Comprehensive fix for any extra borders or outlines shown in browsers */
 button.final-quiz-button:focus,
-button.final-quiz-button:active {
+button.final-quiz-button:active,
+button.final-quiz-button:focus-visible,
+button.final-quiz-button:focus-within,
+button.final-quiz-button:-moz-focus-inner,
+button.final-quiz-button::-moz-focus-inner {
     outline: none !important;
     border: none !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Firefox specific fix */
+button.final-quiz-button::-moz-focus-inner {
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+/* Safari/Chrome specific fix */
+button.final-quiz-button {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Additional rule to handle button during quiz */
+body.quiz-started button#start-final-quiz-btn,
+#final-quiz-questions:not([style*="display: none"]) ~ * button#start-final-quiz-btn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 
 .final-quiz-button:hover {

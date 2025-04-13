@@ -29,6 +29,48 @@ title: Cryptography Quiz - CipherLab
     // Direct fix that runs right away
     console.log('EMERGENCY FIX RUNNING...');
     
+    // Make sure the quiz footer is hidden when quiz is started
+    function hideQuizFooterCompletely() {
+        // Target all relevant elements
+        const elementsToHide = [
+            document.querySelector('.final-quiz-footer'),
+            document.getElementById('quiz-footer'),
+            document.getElementById('quiz-requirements'),
+            document.querySelector('.requirements'),
+            document.getElementById('start-final-quiz-btn')
+        ];
+        
+        elementsToHide.forEach(el => {
+            if (el) {
+                el.style.cssText = 'display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; opacity: 0 !important;';
+                
+                // Try removing from DOM entirely for most aggressive approach
+                try {
+                    if (el.parentNode) {
+                        el.parentNode.removeChild(el);
+                    }
+                } catch (e) {
+                    console.error('Error removing element:', e);
+                }
+            }
+        });
+        
+        // Add classes to body element
+        document.body.classList.add('quiz-started');
+        document.body.classList.add('hide-quiz-footer');
+    }
+    
+    // Call immediately and after a delay to handle any race conditions
+    if (document.getElementById('final-quiz-questions') && 
+        window.getComputedStyle(document.getElementById('final-quiz-questions')).display !== 'none') {
+        hideQuizFooterCompletely();
+    }
+    
+    // Set up repeated checks
+    setTimeout(hideQuizFooterCompletely, 100);
+    setTimeout(hideQuizFooterCompletely, 500);
+    setTimeout(hideQuizFooterCompletely, 1000);
+    
     // Fix navigation and submit buttons
     function fixQuizNavigation() {
         console.log('Fixing quiz navigation buttons...');
