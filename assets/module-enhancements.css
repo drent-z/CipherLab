@@ -677,6 +677,102 @@
 }
 
 /* Responsive adjustments */
+/* Learn Page Specific Enhancements */
+.learn-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.learn-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.05), transparent);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.guide-step .step-number i {
+    animation: pulse 2s infinite;
+}
+
+.lesson-box .lesson-icon i {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.lesson-box:hover .lesson-icon i {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px var(--primary));
+}
+
+.tab-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(0, 255, 65, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.tab-button:hover::after {
+    transform: translateX(100%);
+}
+
+.lesson-nav button {
+    transition: all 0.3s ease;
+}
+
+.lesson-nav button:hover {
+    transform: translateY(-3px);
+}
+
+#complete-lesson.completed {
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px var(--primary);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--primary);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--primary);
+    }
+}
+
+.correct-option {
+    border-color: var(--primary) !important;
+    background-color: rgba(0, 255, 65, 0.1) !important;
+}
+
+.incorrect-option {
+    border-color: #ff3333 !important;
+    background-color: rgba(255, 51, 51, 0.1) !important;
+}
+
+.correct-answer-btn {
+    background-color: var(--primary) !important;
+    color: var(--dark) !important;
+}
+
+.incorrect-answer-btn {
+    background-color: #ff3333 !important;
+    color: var(--text) !important;
+}
+
 @media (max-width: 768px) {
     .quantum-columns::after {
         display: none;
@@ -691,6 +787,14 @@
     }
     
     .animated-steps li:hover {
+        transform: none;
+    }
+    
+    .lesson-box:hover {
+        transform: none;
+    }
+    
+    .lesson-nav button:hover {
         transform: none;
     }
 }
