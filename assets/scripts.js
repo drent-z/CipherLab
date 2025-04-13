@@ -1,15 +1,15 @@
-// Store quiz data in localStorage 
+// Store quiz data in sessionStorage instead of localStorage for no caching
 function saveQuizProgress(completedLessons, totalLessons) {
     const progress = {
         completedLessons: completedLessons,
         totalLessons: totalLessons
     };
-    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+    sessionStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
 }
 
-// Load quiz progress from localStorage
+// Load quiz progress from sessionStorage
 function loadQuizProgress() {
-    const progressData = localStorage.getItem('cipherLabQuizProgress');
+    const progressData = sessionStorage.getItem('cipherLabQuizProgress');
     if (progressData) {
         const progress = JSON.parse(progressData);
         return progress.completedLessons || [];
@@ -626,17 +626,17 @@ function executeAutoPass() {
                 completedDate: new Date().toISOString()
             };
             
-            // Try both storage methods for compatibility
-            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizResult));
+            // Use sessionStorage instead of localStorage
+            sessionStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizResult));
             
             // Update progress tracking
             try {
-                const progressData = localStorage.getItem('cipherLabQuizProgress');
+                const progressData = sessionStorage.getItem('cipherLabQuizProgress');
                 if (progressData) {
                     const progress = JSON.parse(progressData);
                     progress.finalQuizCompleted = true;
                     progress.finalQuizScore = percentage;
-                    localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+                    sessionStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
                 }
             } catch (e) {
                 console.error('Error updating progress tracking:', e);

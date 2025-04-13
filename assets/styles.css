@@ -1067,11 +1067,10 @@ footer::before {
     }
 }
 
-/* Animation for staggered content reveal - SIMPLIFIED */
+/* Animation for content reveal - Show immediately without transitions */
 .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 1; /* Always visible */
+    transform: translateY(0); /* No transform */
 }
 
 .fade-in.visible {
