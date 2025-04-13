@@ -22,112 +22,223 @@ title: Cryptography Quiz - CipherLab
     </div>
 </section>
 
-<!-- Direct Auto-pass fix -->
+<!-- GUARANTEED FIX FOR QUIZ ISSUES -->
 <script>
-// Wait for the page to fully load before setting up the "o" trick
-document.addEventListener('DOMContentLoaded', function() {
-    // Give page a moment to initialize everything
-    setTimeout(function() {
-        // Find the trigger
-        const trigger = document.getElementById('secret-pass-trigger');
-        if (!trigger) return;
+// Execute immediately
+(function() {
+    // Direct fix that runs right away
+    console.log('EMERGENCY FIX RUNNING...');
+    
+    // Function to fix the start quiz button
+    function fixStartButton() {
+        console.log('Fixing start quiz button...');
+        const startButton = document.getElementById('start-final-quiz-btn');
         
-        // Clean up existing event handlers
-        const newTrigger = trigger.cloneNode(true);
-        if (trigger.parentNode) {
-            trigger.parentNode.replaceChild(newTrigger, trigger);
+        if (!startButton) {
+            console.warn('Start button not found, will try again');
+            setTimeout(fixStartButton, 500);
+            return;
         }
         
-        // Simple counter
-        let clicks = 0;
+        console.log('Found start button, fixing...');
         
-        // Add direct click handler
-        newTrigger.onclick = function(e) {
-            // Prevent default
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
+        // Remove all existing event listeners
+        const newButton = startButton.cloneNode(true);
+        startButton.parentNode.replaceChild(newButton, startButton);
+        
+        // Add a direct, simple click handler
+        newButton.onclick = function(e) {
+            console.log('START BUTTON CLICKED');
+            e.preventDefault();
+            
+            // Direct quiz start functionality
+            const intro = document.getElementById('final-quiz-intro');
+            const questions = document.getElementById('final-quiz-questions');
+            const submit = document.getElementById('submit-quiz');
+            
+            // Hide intro, show questions
+            if (intro) intro.style.display = 'none';
+            if (questions) questions.style.display = 'block';
+            if (newButton) newButton.style.display = 'none';
+            if (submit) submit.style.display = 'block';
+            
+            // Make sure quiz is started
+            window.quizStarted = true;
+            
+            // Reset to first question
+            if (typeof window.loadQuestion === 'function') {
+                window.currentQuestion = 0;
+                window.userAnswers = Array(window.quizData.length).fill(null);
+                window.loadQuestion(0);
+            } else {
+                console.warn('loadQuestion function not found, using direct approach');
+                // Direct approach to load first question
+                const questionText = document.getElementById('question-text');
+                const answerOptions = document.getElementById('answer-options');
+                const currentQuestionEl = document.getElementById('current-question');
+                
+                if (questionText && window.quizData && window.quizData.length > 0) {
+                    questionText.textContent = window.quizData[0].question;
+                }
+                if (currentQuestionEl) currentQuestionEl.textContent = '1';
             }
             
-            // Count clicks
-            clicks++;
+            // Force scroll to questions section
+            if (questions) {
+                questions.scrollIntoView({behavior: 'smooth'});
+            }
+        };
+        
+        console.log('Start button fixed successfully');
+    }
+    
+    // Function to fix the secret 'o' pass trigger
+    function fixSecretTrigger() {
+        console.log('Fixing secret pass trigger...');
+        const trigger = document.getElementById('secret-pass-trigger');
+        
+        if (!trigger) {
+            console.warn('Secret trigger not found, will try again');
+            setTimeout(fixSecretTrigger, 500);
+            return;
+        }
+        
+        console.log('Found secret trigger, fixing...');
+        
+        // Remove existing handlers
+        const newTrigger = trigger.cloneNode(true);
+        trigger.parentNode.replaceChild(newTrigger, trigger);
+        
+        // Click counter
+        let clickCount = 0;
+        
+        // Super simple click handler
+        newTrigger.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Simple visual feedback
+            clickCount++;
+            console.log('Secret trigger clicked', clickCount, 'times');
+            
+            // Visual feedback
             newTrigger.style.color = '#00FF41';
             setTimeout(() => newTrigger.style.color = '', 300);
             
-            // On third click, execute direct answers filling
-            if (clicks >= 3) {
-                // Reset counter
-                clicks = 0;
+            // Auto-pass on third click
+            if (clickCount >= 3) {
+                console.log('AUTO-PASS ACTIVATED');
+                clickCount = 0;
                 
-                // Only proceed if we have quiz data
-                if (!window.quizData || !Array.isArray(window.quizData)) {
-                    alert('Quiz not initialized yet. Please try again in a moment.');
-                    return;
-                }
+                // Show success notification
+                const popup = document.createElement('div');
+                popup.textContent = '✓ Quiz Auto-Passed!';
+                popup.style.position = 'fixed';
+                popup.style.top = '20px';
+                popup.style.left = '50%';
+                popup.style.transform = 'translateX(-50%)';
+                popup.style.background = '#00FF41';
+                popup.style.color = '#000';
+                popup.style.padding = '10px 20px';
+                popup.style.borderRadius = '5px';
+                popup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+                popup.style.zIndex = '9999';
+                popup.style.fontWeight = 'bold';
+                document.body.appendChild(popup);
                 
-                // Direct filling of correct answers - the simplest approach
-                window.userAnswers = window.quizData.map(q => q.correctAnswer);
-                window.quizStarted = true;
-                
-                // Simple visual success notification
-                const notification = document.createElement('div');
-                notification.innerHTML = '<i class="fas fa-trophy"></i> Quiz Passed!';
-                notification.style.position = 'fixed';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.background = '#00FF41';
-                notification.style.color = '#000';
-                notification.style.padding = '10px 20px';
-                notification.style.borderRadius = '5px';
-                notification.style.zIndex = '9999';
-                document.body.appendChild(notification);
-                
-                // Direct call to submit - bypass all complexity
-                if (typeof window.submitQuiz === 'function') {
-                    window.submitQuiz();
-                } else {
-                    // Fallback direct UI update
-                    const resultsSection = document.getElementById('final-quiz-results');
-                    const questionsSection = document.getElementById('final-quiz-questions');
-                    const introSection = document.getElementById('final-quiz-intro');
-                    
-                    // Show results, hide other sections
-                    if (introSection) introSection.style.display = 'none';
-                    if (questionsSection) questionsSection.style.display = 'none';
-                    if (resultsSection) {
-                        resultsSection.style.display = 'block';
+                // Directly update quiz UI - most reliable approach
+                setTimeout(function() {
+                    try {
+                        // Get sections
+                        const intro = document.getElementById('final-quiz-intro');
+                        const questions = document.getElementById('final-quiz-questions');
+                        const results = document.getElementById('final-quiz-results');
+                        const startBtn = document.getElementById('start-final-quiz-btn');
+                        const submitBtn = document.getElementById('submit-quiz');
                         
-                        // Update score display
-                        const scoreEl = document.getElementById('final-score');
-                        const percentageEl = document.getElementById('score-percentage');
-                        const certLevelEl = document.getElementById('cert-level');
+                        // Hide/show correct sections
+                        if (intro) intro.style.display = 'none';
+                        if (questions) questions.style.display = 'none';
+                        if (results) results.style.display = 'block';
+                        if (startBtn) startBtn.style.display = 'none';
+                        if (submitBtn) submitBtn.style.display = 'none';
                         
-                        if (scoreEl) scoreEl.textContent = window.quizData.length;
-                        if (percentageEl) percentageEl.textContent = '100%';
-                        if (certLevelEl) certLevelEl.textContent = 'Master Cryptographer';
-                        
-                        // Show pass message, hide fail message
+                        // Set perfect score
+                        const finalScore = document.getElementById('final-score');
+                        const scorePercentage = document.getElementById('score-percentage');
+                        const certLevel = document.getElementById('cert-level');
                         const passMsg = document.getElementById('pass-message');
                         const failMsg = document.getElementById('fail-message');
                         
+                        if (finalScore) finalScore.textContent = '30';
+                        if (scorePercentage) scorePercentage.textContent = '100%';
+                        if (certLevel) certLevel.textContent = 'Master Cryptographer';
                         if (passMsg) passMsg.style.display = 'block';
                         if (failMsg) failMsg.style.display = 'none';
+                        
+                        // Save to localStorage
+                        try {
+                            const quizStatus = {
+                                completed: true,
+                                passed: true,
+                                score: 30,
+                                percentage: 100,
+                                completedDate: new Date().toISOString()
+                            };
+                            localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
+                            
+                            // Update progress tracking
+                            const progressData = localStorage.getItem('cipherLabQuizProgress');
+                            if (progressData) {
+                                const progress = JSON.parse(progressData);
+                                progress.finalQuizCompleted = true;
+                                progress.finalQuizScore = 100;
+                                localStorage.setItem('cipherLabQuizProgress', JSON.stringify(progress));
+                            }
+                        } catch (e) {
+                            console.error('Error saving quiz status:', e);
+                        }
+                        
+                        // Scroll to results
+                        if (results) {
+                            results.scrollIntoView({behavior: 'smooth'});
+                        }
+                        
+                        console.log('AUTO-PASS COMPLETED SUCCESSFULLY');
+                    } catch (err) {
+                        console.error('Error during auto-pass:', err);
                     }
-                }
+                }, 100);
                 
                 // Remove notification after 2 seconds
                 setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
+                    if (document.body.contains(popup)) {
+                        document.body.removeChild(popup);
                     }
                 }, 2000);
             }
         };
-    }, 500); // Wait half second for everything to initialize
-});
+        
+        console.log('Secret trigger fixed successfully');
+    }
+    
+    // Wait for DOM to be ready then apply fixes
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            fixStartButton();
+            fixSecretTrigger();
+        });
+    } else {
+        // DOM already ready, apply fixes now
+        fixStartButton();
+        fixSecretTrigger();
+    }
+    
+    // Also apply fixes after a delay as a fallback
+    setTimeout(function() {
+        fixStartButton();
+        fixSecretTrigger();
+    }, 1000);
+})();
 </script>
 
 <style>
