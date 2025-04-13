@@ -2,10 +2,10 @@
 
 <!-- Lesson 2-1: Caesar Cipher -->
 <div id="lesson2-1-content">
-    <p class="mb-4">The Caesar cipher is one of the earliest and simplest encryption techniques. Named after Julius Caesar, who used it to communicate with his generals, this cipher works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
+    <p class="mb-4 glow-text-subtle">The Caesar cipher is one of the earliest and simplest encryption techniques. Named after Julius Caesar, who used it to communicate with his generals, this cipher works by shifting each letter in the plaintext by a fixed number of positions down the alphabet.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 highlight-box">
+        <h4><i class="fas fa-key pulse-icon"></i> Key Concept</h4>
         <p>In a Caesar cipher, each letter in the plaintext is replaced by a letter a fixed number of positions further in the alphabet. This shift value acts as the encryption key.</p>
     </div>
     
@@ -36,21 +36,21 @@
             
             <div class="column">
                 <h4 class="subsection-title">Example: Shift of 3</h4>
-                <div class="cipher-example">
+<div class="cipher-example animated-example">
                     <div class="example-row">
                         <div class="label">Plaintext:</div>
-                        <div class="value">HELLO WORLD</div>
+                        <div class="value highlight-text">HELLO WORLD</div>
                     </div>
                     <div class="example-row">
                         <div class="label">Shift:</div>
-                        <div class="value">3</div>
+                        <div class="value highlight-value">3</div>
                     </div>
                     <div class="example-row">
                         <div class="label">Ciphertext:</div>
-                        <div class="value">KHOOR ZRUOG</div>
+                        <div class="value result-text">KHOOR ZRUOG</div>
                     </div>
                     
-                    <div class="letter-mapping">
+                    <div class="letter-mapping interactive-mapping">
                         <div class="mapping-item">H → K</div>
                         <div class="mapping-item">E → H</div>
                         <div class="mapping-item">L → O</div>
@@ -92,8 +92,8 @@
                 </div>
             </div>
             
-            <div class="alphabet-visualization">
-                <div class="alphabet-row">
+<div class="alphabet-visualization enhanced-visualization">
+                <div class="alphabet-row original-alphabet">
                     <div class="alphabet-letter">A</div>
                     <div class="alphabet-letter">B</div>
                     <div class="alphabet-letter">C</div>
@@ -122,9 +122,9 @@
                     <div class="alphabet-letter">Z</div>
                 </div>
                 
-                <div class="shift-arrow">
+                <div class="shift-arrow animated-arrow">
                     <i class="fas fa-long-arrow-alt-right"></i>
-                    <span>Shift by 3</span>
+                    <span id="shift-label">Shift by 3</span>
                 </div>
                 
                 <div class="alphabet-row shifted">
@@ -185,11 +185,11 @@
     <div class="lesson-section mb-5">
         <h3 class="section-title">Security Considerations</h3>
         
-        <div class="security-analysis">
-            <div class="security-item">
-                <div class="security-icon"><i class="fas fa-unlock"></i></div>
+<div class="security-analysis enhanced-security-analysis">
+            <div class="security-item weakness-item">
+                <div class="security-icon"><i class="fas fa-unlock pulse-danger"></i></div>
                 <h4>Weaknesses</h4>
-                <ul>
+                <ul class="highlight-list">
                     <li>Only 25 possible keys (shifts), making it easy to try all possibilities</li>
                     <li>Vulnerable to frequency analysis (common letters like E, T, A, and O can be identified)</li>
                     <li>Patterns in the language remain visible in the ciphertext</li>
@@ -197,20 +197,20 @@
             </div>
             
             <div class="security-item">
-                <div class="security-icon"><i class="fas fa-cogs"></i></div>
+                <div class="security-icon"><i class="fas fa-cogs rotating-icon"></i></div>
                 <h4>Breaking the Cipher</h4>
                 <p>There are two primary methods to break a Caesar cipher:</p>
-                <ol>
+                <ol class="numbered-steps">
                     <li><strong>Brute Force Attack:</strong> Try all 25 possible shift values until readable text appears</li>
                     <li><strong>Frequency Analysis:</strong> Analyze the frequency of letters in the ciphertext and match against known language patterns</li>
                 </ol>
             </div>
             
             <div class="security-item">
-                <div class="security-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="security-icon"><i class="fas fa-lightbulb glow-icon"></i></div>
                 <h4>Modern Use</h4>
                 <p>While not secure for serious applications, the Caesar cipher is:</p>
-                <ul>
+                <ul class="check-list">
                     <li>A building block for understanding more complex ciphers</li>
                     <li>Used in educational settings to teach basic encryption concepts</li>
                     <li>Sometimes used in games and puzzles (like "ROT13")</li>

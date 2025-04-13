@@ -2,59 +2,59 @@
 
 <!-- Lesson 3-1: Symmetric Encryption -->
 <div id="lesson3-1-content">
-    <p class="mb-4">Symmetric encryption is a fundamental type of modern cryptography where the same key is used for both encryption and decryption. Despite being one of the oldest forms of encryption, symmetric algorithms remain essential components of today's secure communications.</p>
+    <p class="mb-4 intro-text">Symmetric encryption is a fundamental type of modern cryptography where the same key is used for both encryption and decryption. Despite being one of the oldest forms of encryption, symmetric algorithms remain essential components of today's secure communications.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 enhanced-concept">
+        <h4><i class="fas fa-key animated-key"></i> Key Concept</h4>
         <p>In symmetric encryption, both the sender and receiver share a secret key. The sender uses this key to encrypt the message, and the receiver uses the identical key to decrypt it. The security of the system relies entirely on keeping this shared key secret.</p>
     </div>
     
     <div class="lesson-section mb-5">
         <h3 class="section-title">How It Works</h3>
         
-        <div class="process-diagram">
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+<div class="process-diagram animated-diagram">
+            <div class="process-step highlight-step">
+                <div class="step-icon"><i class="fas fa-file-alt pulse-icon"></i></div>
                 <div class="step-content">
                     <h4>1. Original Message</h4>
                     <p>Alice has a plaintext message she wants to send securely to Bob.</p>
                 </div>
             </div>
             
-            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="process-arrow animated-arrow"><i class="fas fa-arrow-down"></i></div>
             
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-key"></i></div>
+            <div class="process-step highlight-step">
+                <div class="step-icon"><i class="fas fa-key glow-icon"></i></div>
                 <div class="step-content">
                     <h4>2. Secret Key</h4>
                     <p>Alice and Bob agree on a shared secret key through a secure channel.</p>
                 </div>
             </div>
             
-            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="process-arrow animated-arrow"><i class="fas fa-arrow-down"></i></div>
             
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-lock"></i></div>
+            <div class="process-step highlight-step">
+                <div class="step-icon"><i class="fas fa-lock pulse-icon"></i></div>
                 <div class="step-content">
                     <h4>3. Encryption</h4>
                     <p>Alice encrypts her message using the secret key and a symmetric algorithm.</p>
                 </div>
             </div>
             
-            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="process-arrow animated-arrow"><i class="fas fa-arrow-down"></i></div>
             
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-envelope"></i></div>
+            <div class="process-step highlight-step">
+                <div class="step-icon"><i class="fas fa-envelope moving-icon"></i></div>
                 <div class="step-content">
                     <h4>4. Transmission</h4>
                     <p>Alice sends the encrypted message (ciphertext) to Bob over any channel.</p>
                 </div>
             </div>
             
-            <div class="process-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="process-arrow animated-arrow"><i class="fas fa-arrow-down"></i></div>
             
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-unlock"></i></div>
+            <div class="process-step highlight-step">
+                <div class="step-icon"><i class="fas fa-unlock pulse-icon"></i></div>
                 <div class="step-content">
                     <h4>5. Decryption</h4>
                     <p>Bob uses the same secret key to decrypt the message back to plaintext.</p>
@@ -66,8 +66,8 @@
     <div class="lesson-section mb-5">
         <h3 class="section-title">Key Symmetric Algorithms</h3>
         
-        <div class="algorithm-grid">
-            <div class="algorithm-card">
+<div class="algorithm-grid enhanced-grid">
+            <div class="algorithm-card featured-card">
                 <div class="algorithm-header">
                     <h4>AES (Advanced Encryption Standard)</h4>
                     <div class="algorithm-meta">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="algorithm-body">
                     <p>The current industry standard, adopted by the U.S. government and widely used worldwide. AES replaced the older DES standard and offers three key lengths:</p>
-                    <ul>
+                    <ul class="feature-list">
                         <li><strong>AES-128:</strong> Uses 128-bit keys (considered secure)</li>
                         <li><strong>AES-192:</strong> Uses 192-bit keys (enhanced security)</li>
                         <li><strong>AES-256:</strong> Uses 256-bit keys (highest security)</li>
@@ -86,11 +86,11 @@
                 </div>
                 <div class="algorithm-footer">
                     <div class="algorithm-stats">
-                        <div class="stat">
+                        <div class="stat high-rating">
                             <span class="stat-label">Security Level</span>
                             <span class="stat-value">Very High</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat high-rating">
                             <span class="stat-label">Performance</span>
                             <span class="stat-value">Excellent</span>
                         </div>
@@ -157,20 +157,20 @@
     <div class="lesson-section mb-5">
         <h3 class="section-title">Block Ciphers vs. Stream Ciphers</h3>
         
-        <div class="comparison-table">
+<div class="comparison-table interactive-table">
             <div class="comparison-header">
                 <div class="comparison-cell header-cell">Characteristic</div>
-                <div class="comparison-cell header-cell">Block Ciphers</div>
-                <div class="comparison-cell header-cell">Stream Ciphers</div>
+                <div class="comparison-cell header-cell highlight-cell">Block Ciphers</div>
+                <div class="comparison-cell header-cell highlight-cell">Stream Ciphers</div>
             </div>
             
-            <div class="comparison-row">
+            <div class="comparison-row hover-row">
                 <div class="comparison-cell feature-cell">Processing Unit</div>
                 <div class="comparison-cell">Encrypts fixed-size blocks of data (typically 64 or 128 bits)</div>
                 <div class="comparison-cell">Encrypts individual bits or bytes one at a time</div>
             </div>
             
-            <div class="comparison-row">
+            <div class="comparison-row hover-row">
                 <div class="comparison-cell feature-cell">Key Stream</div>
                 <div class="comparison-cell">Uses key to transform entire blocks at once</div>
                 <div class="comparison-cell">Generates a continuous stream of key bits (keystream)</div>

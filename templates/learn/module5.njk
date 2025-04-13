@@ -2,10 +2,10 @@
 
 <!-- Lesson 5-1: Quantum Cryptography -->
 <div id="lesson5-1-content">
-    <p class="mb-4">Quantum cryptography represents the cutting edge of secure communications technology, leveraging the principles of quantum mechanics to achieve levels of security that are theoretically impossible with classical methods. This frontier of cryptography holds both immense promise and significant challenges.</p>
+    <p class="mb-4 quantum-intro">Quantum cryptography represents the cutting edge of secure communications technology, leveraging the principles of quantum mechanics to achieve levels of security that are theoretically impossible with classical methods. This frontier of cryptography holds both immense promise and significant challenges.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 quantum-concept">
+        <h4><i class="fas fa-key quantum-icon"></i> Key Concept</h4>
         <p>Quantum cryptography uses the principles of quantum mechanics to secure communications in ways that are fundamentally different from classical cryptography. While classical cryptography relies on the computational difficulty of mathematical problems, quantum cryptography relies on the fundamental laws of physics for its security.</p>
     </div>
     
@@ -18,14 +18,14 @@
             <img src="/assets/images/qkd-diagram.png" alt="Quantum Key Distribution diagram" class="qkd-image">
         </div>
         
-        <div class="two-column">
-            <div class="column">
-                <h4 class="subsection-title">BB84 Protocol</h4>
+<div class="two-column quantum-columns">
+            <div class="column protocol-column">
+                <h4 class="subsection-title glowing-title">BB84 Protocol</h4>
                 <p>The first and most well-known QKD protocol, developed by Charles Bennett and Gilles Brassard in 1984.</p>
                 
-                <div class="protocol-steps">
+                <div class="protocol-steps quantum-steps">
                     <h5>How it works:</h5>
-                    <ol>
+                    <ol class="animated-steps">
                         <li>Alice sends qubits (quantum bits) to Bob, each prepared in one of four polarization states</li>
                         <li>For each qubit, Bob randomly chooses one of two measurement bases</li>
                         <li>Alice and Bob publicly compare which bases they used (but not the results)</li>
@@ -35,37 +35,37 @@
                     </ol>
                 </div>
                 
-                <div class="key-principle">
-                    <i class="fas fa-lightbulb"></i>
+                <div class="key-principle quantum-principle">
+                    <i class="fas fa-lightbulb glow-icon"></i>
                     <div class="principle-content">
                         <p><strong>Quantum Principle:</strong> The act of measuring a quantum system disturbs it in a detectable way (Heisenberg's Uncertainty Principle). Any eavesdropper would inevitably introduce errors that can be detected.</p>
                     </div>
                 </div>
             </div>
             
-            <div class="column">
-                <h4 class="subsection-title">Security Advantages</h4>
+            <div class="column advantages-column">
+                <h4 class="subsection-title glowing-title">Security Advantages</h4>
                 
-                <div class="advantage-item">
-                    <div class="advantage-icon"><i class="fas fa-user-secret"></i></div>
+                <div class="advantage-item hover-highlight">
+                    <div class="advantage-icon"><i class="fas fa-user-secret quantum-icon"></i></div>
                     <h5>Information-Theoretic Security</h5>
                     <p>Security based on fundamental laws of physics rather than computational difficulty</p>
                 </div>
                 
-                <div class="advantage-item">
-                    <div class="advantage-icon"><i class="fas fa-eye-slash"></i></div>
+                <div class="advantage-item hover-highlight">
+                    <div class="advantage-icon"><i class="fas fa-eye-slash quantum-icon"></i></div>
                     <h5>Eavesdropping Detection</h5>
                     <p>Any interception attempt changes the quantum states, revealing the presence of an eavesdropper</p>
                 </div>
                 
-                <div class="advantage-item">
-                    <div class="advantage-icon"><i class="fas fa-ban"></i></div>
+                <div class="advantage-item hover-highlight">
+                    <div class="advantage-icon"><i class="fas fa-ban quantum-icon"></i></div>
                     <h5>Future-Proof</h5>
                     <p>Immune to attacks using quantum computers, which threaten many classical cryptographic methods</p>
                 </div>
                 
-                <div class="advantage-item">
-                    <div class="advantage-icon"><i class="fas fa-random"></i></div>
+                <div class="advantage-item hover-highlight">
+                    <div class="advantage-icon"><i class="fas fa-random quantum-icon"></i></div>
                     <h5>True Randomness</h5>
                     <p>Quantum processes can generate truly random numbers, unlike classical computers that use pseudo-random methods</p>
                 </div>
@@ -512,10 +512,10 @@
 
 <!-- Lesson 5-2: Zero-Knowledge Proofs -->
 <div id="lesson5-2-content">
-    <p class="mb-4">Zero-knowledge proofs (ZKPs) are one of the most fascinating and powerful concepts in modern cryptography. They allow one party to prove to another that they know a secret or that a statement is true, without revealing any information about the secret itself or why the statement is true.</p>
+    <p class="mb-4 zkp-intro">Zero-knowledge proofs (ZKPs) are one of the most fascinating and powerful concepts in modern cryptography. They allow one party to prove to another that they know a secret or that a statement is true, without revealing any information about the secret itself or why the statement is true.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 zkp-concept">
+        <h4><i class="fas fa-key floating-key"></i> Key Concept</h4>
         <p>A zero-knowledge proof is a method by which one party (the prover) can prove to another party (the verifier) that a given statement is true without conveying any additional information apart from the fact that the statement is indeed true.</p>
     </div>
     
@@ -524,31 +524,31 @@
         
         <p>The famous "Ali Baba's Cave" analogy, introduced by cryptographers Jean-Jacques Quisquater and Louis Guillou, helps explain the concept of zero-knowledge proofs:</p>
         
-        <div class="cave-analogy">
+<div class="cave-analogy interactive-analogy">
             <div class="analogy-diagram">
-                <img src="/assets/images/zkp-cave.png" alt="Zero Knowledge Proof Cave Analogy" class="analogy-image">
+                <img src="/assets/images/zkp-cave.png" alt="Zero Knowledge Proof Cave Analogy" class="analogy-image hover-zoom">
             </div>
             
             <div class="analogy-explanation">
-                <div class="scenario">
+                <div class="scenario highlight-box">
                     <h4>The Scenario</h4>
                     <p>There's a cave with a circular path and a door that requires a secret password to open. Peggy (the prover) knows the password and wants to convince Victor (the verifier) that she knows it without revealing the password itself.</p>
                 </div>
                 
                 <div class="protocol">
                     <h4>The Protocol</h4>
-                    <ol>
-                        <li>Victor waits outside while Peggy enters the cave, choosing either path A or B</li>
-                        <li>Victor then comes to the fork and calls out a random path (A or B) for Peggy to exit from</li>
-                        <li>If Peggy knows the password, she can always come out the requested path (using the door if needed)</li>
-                        <li>If Peggy doesn't know the password, she has only a 50% chance of being on the correct side</li>
-                        <li>By repeating this process multiple times, Peggy can prove knowledge of the password with high probability</li>
+                    <ol class="numbered-protocol">
+                        <li class="highlight-step">Victor waits outside while Peggy enters the cave, choosing either path A or B</li>
+                        <li class="highlight-step">Victor then comes to the fork and calls out a random path (A or B) for Peggy to exit from</li>
+                        <li class="highlight-step">If Peggy knows the password, she can always come out the requested path (using the door if needed)</li>
+                        <li class="highlight-step">If Peggy doesn't know the password, she has only a 50% chance of being on the correct side</li>
+                        <li class="highlight-step">By repeating this process multiple times, Peggy can prove knowledge of the password with high probability</li>
                     </ol>
                 </div>
                 
-                <div class="properties">
+                <div class="properties key-properties">
                     <h4>Zero-Knowledge Properties</h4>
-                    <ul>
+                    <ul class="feature-list">
                         <li><strong>Completeness:</strong> If Peggy knows the password, Victor is convinced</li>
                         <li><strong>Soundness:</strong> If Peggy doesn't know the password, she can't convince Victor except with very small probability</li>
                         <li><strong>Zero-Knowledge:</strong> Victor learns nothing about the password itself</li>

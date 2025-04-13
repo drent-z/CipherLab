@@ -2,10 +2,10 @@
 
 <!-- Lesson 4-1: Secure Communications -->
 <div id="lesson4-1-content">
-    <p class="mb-4">Secure communications are essential in our digital world. Every day, billions of messages, transactions, and data transfers occur online that need protection from eavesdropping and tampering. Let's explore how cryptography makes secure communications possible.</p>
+    <p class="mb-4 glowing-intro">Secure communications are essential in our digital world. Every day, billions of messages, transactions, and data transfers occur online that need protection from eavesdropping and tampering. Let's explore how cryptography makes secure communications possible.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 animated-concept">
+        <h4><i class="fas fa-key rotating-key"></i> Key Concept</h4>
         <p>Secure communication involves protecting both the confidentiality and integrity of messages as they travel across networks. This is achieved through a layered approach using various cryptographic protocols and techniques.</p>
     </div>
     
@@ -14,37 +14,37 @@
         
         <p>The security of communications is often evaluated against the CIA triad—a model for information security that focuses on three key aspects:</p>
         
-        <div class="triad-diagram">
-            <div class="triad-node">
-                <div class="triad-icon"><i class="fas fa-user-secret"></i></div>
+<div class="triad-diagram interactive-triad">
+            <div class="triad-node hover-expand">
+                <div class="triad-icon"><i class="fas fa-user-secret pulse-icon"></i></div>
                 <h4>Confidentiality</h4>
                 <p>Ensuring that information is accessible only to authorized individuals and kept hidden from others.</p>
-                <div class="technique-list">
-                    <span class="technique">Encryption</span>
-                    <span class="technique">Access controls</span>
-                    <span class="technique">Authentication</span>
+                <div class="technique-list animated-list">
+                    <span class="technique glow-badge">Encryption</span>
+                    <span class="technique glow-badge">Access controls</span>
+                    <span class="technique glow-badge">Authentication</span>
                 </div>
             </div>
             
-            <div class="triad-node">
-                <div class="triad-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="triad-node hover-expand">
+                <div class="triad-icon"><i class="fas fa-check-circle pulse-icon"></i></div>
                 <h4>Integrity</h4>
                 <p>Ensuring that information remains accurate, complete, and unaltered during transit or storage.</p>
-                <div class="technique-list">
-                    <span class="technique">Hash functions</span>
-                    <span class="technique">Digital signatures</span>
-                    <span class="technique">Message authentication codes</span>
+                <div class="technique-list animated-list">
+                    <span class="technique glow-badge">Hash functions</span>
+                    <span class="technique glow-badge">Digital signatures</span>
+                    <span class="technique glow-badge">Message authentication codes</span>
                 </div>
             </div>
             
-            <div class="triad-node">
-                <div class="triad-icon"><i class="fas fa-clock"></i></div>
+            <div class="triad-node hover-expand">
+                <div class="triad-icon"><i class="fas fa-clock pulse-icon"></i></div>
                 <h4>Availability</h4>
                 <p>Ensuring that information and systems are available when needed by authorized users.</p>
-                <div class="technique-list">
-                    <span class="technique">Redundancy</span>
-                    <span class="technique">Backup systems</span>
-                    <span class="technique">DDoS protection</span>
+                <div class="technique-list animated-list">
+                    <span class="technique glow-badge">Redundancy</span>
+                    <span class="technique glow-badge">Backup systems</span>
+                    <span class="technique glow-badge">DDoS protection</span>
                 </div>
             </div>
         </div>
@@ -53,29 +53,29 @@
     <div class="lesson-section mb-5">
         <h3 class="section-title">Secure Communication Protocols</h3>
         
-        <div class="protocol-cards">
-            <div class="protocol-card">
+<div class="protocol-cards interactive-cards">
+            <div class="protocol-card spotlight-card">
                 <div class="protocol-header">
                     <h4>TLS/SSL</h4>
-                    <div class="protocol-icon"><i class="fas fa-lock"></i></div>
+                    <div class="protocol-icon"><i class="fas fa-lock glow-icon"></i></div>
                 </div>
                 <div class="protocol-body">
                     <p><strong>Transport Layer Security</strong> (TLS) and its predecessor <strong>Secure Sockets Layer</strong> (SSL) are cryptographic protocols designed to provide secure communication over a computer network.</p>
                     
                     <div class="protocol-process">
                         <h5>How it works:</h5>
-                        <ol>
-                            <li>Client and server perform a handshake to establish trust</li>
-                            <li>They negotiate which cipher suite (set of algorithms) to use</li>
-                            <li>They authenticate each other (usually server authenticates to client)</li>
-                            <li>They establish a shared secret key for session encryption</li>
-                            <li>All subsequent communications are encrypted with this key</li>
+                        <ol class="animated-list">
+                            <li class="highlight-step">Client and server perform a handshake to establish trust</li>
+                            <li class="highlight-step">They negotiate which cipher suite (set of algorithms) to use</li>
+                            <li class="highlight-step">They authenticate each other (usually server authenticates to client)</li>
+                            <li class="highlight-step">They establish a shared secret key for session encryption</li>
+                            <li class="highlight-step">All subsequent communications are encrypted with this key</li>
                         </ol>
                     </div>
                     
                     <div class="protocol-applications">
                         <h5>Common Uses:</h5>
-                        <ul>
+                        <ul class="check-list">
                             <li>HTTPS (Secure Websites)</li>
                             <li>Secure Email (SMTPS, IMAPS, POP3S)</li>
                             <li>VPN connections</li>
@@ -84,8 +84,8 @@
                     </div>
                 </div>
                 <div class="protocol-footer">
-                    <div class="protocol-note">
-                        <i class="fas fa-info-circle"></i>
+                    <div class="protocol-note highlight-note">
+                        <i class="fas fa-info-circle pulse-icon"></i>
                         <p>The padlock icon in your browser indicates TLS/SSL protection</p>
                     </div>
                 </div>
@@ -443,10 +443,10 @@
 
 <!-- Lesson 4-2: Digital Signatures -->
 <div id="lesson4-2-content">
-    <p class="mb-4">Digital signatures are one of the most important applications of cryptography, providing a way to verify the authenticity and integrity of digital documents, messages, or software. They serve as the electronic equivalent of handwritten signatures or stamped seals, but with far greater security.</p>
+    <p class="mb-4 highlight-intro">Digital signatures are one of the most important applications of cryptography, providing a way to verify the authenticity and integrity of digital documents, messages, or software. They serve as the electronic equivalent of handwritten signatures or stamped seals, but with far greater security.</p>
     
-    <div class="key-concept mb-5">
-        <h4><i class="fas fa-key"></i> Key Concept</h4>
+    <div class="key-concept mb-5 enhanced-concept">
+        <h4><i class="fas fa-key pulse-effect"></i> Key Concept</h4>
         <p>A digital signature is a mathematical technique used to validate the authenticity and integrity of a digital message, document, or software. It provides proof of origin, identity, and status of electronic documents, transactions, or digital messages and acknowledges informed consent by the signer.</p>
     </div>
     

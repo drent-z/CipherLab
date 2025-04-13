@@ -1,121 +1,143 @@
 <!-- Module 1: Fundamentals of Cryptography -->
 
 <!-- Lesson 1-1: What is Cryptography? -->
-<div id="lesson1-1-content">
-    <div class="simple-lesson-intro">
-        <img src="/assets/images/cryptography-intro.png" alt="Cryptography concept illustration" class="lesson-image">
-        <p>Cryptography is a way to keep information safe by turning it into secret code. Only people with the right "key" can read it. The word comes from Greek, meaning "hidden writing."</p>
+<div id="lesson1-1-content" class="lesson-container" aria-labelledby="lesson1-1-title">
+    <h3 id="lesson1-1-title" class="sr-only">What is Cryptography?</h3>
+    <div class="lesson-intro">
+        <div class="lesson-image-container">
+            <img src="/assets/images/crypto-concept.svg" alt="Cryptography concept illustration" class="lesson-image">
+        </div>
+        <p class="lesson-intro-text">Cryptography is a way to keep information safe by turning it into secret code. Only people with the right "key" can read it. The word comes from Greek, meaning "hidden writing."</p>
     </div>
     
-    <div class="simple-concept-box">
-        <h4><i class="fas fa-lightbulb"></i> Key Idea</h4>
-        <p>Cryptography changes normal messages (called "plaintext") into scrambled code (called "ciphertext"). Only people with the right key can unscramble it back to read the message.</p>
-    </div>
-    
-    <div class="simple-section">
-        <h3>The Four Main Goals of Cryptography</h3>
-        
-        <div class="simple-cards">
-            <div class="simple-card">
-                <div class="card-icon"><i class="fas fa-user-secret"></i></div>
-                <h4>Confidentiality</h4>
-                <p>Keeping information private - only authorized people can read it</p>
-            </div>
-            
-            <div class="simple-card">
-                <div class="card-icon"><i class="fas fa-fingerprint"></i></div>
-                <h4>Integrity</h4>
-                <p>Making sure information hasn't been changed by someone else</p>
-            </div>
-            
-            <div class="simple-card">
-                <div class="card-icon"><i class="fas fa-signature"></i></div>
-                <h4>Authentication</h4>
-                <p>Proving who sent the information or who you're talking to</p>
-            </div>
-            
-            <div class="simple-card">
-                <div class="card-icon"><i class="fas fa-ban"></i></div>
-                <h4>Non-repudiation</h4>
-                <p>Preventing someone from denying they sent a message</p>
-            </div>
+    <div class="concept-box">
+        <div class="concept-icon">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="concept-content">
+            <h4>Key Idea</h4>
+            <p>Cryptography changes normal messages (called "plaintext") into scrambled code (called "ciphertext"). Only people with the right key can unscramble it back to read the message.</p>
         </div>
     </div>
     
-    <div class="simple-section">
-        <h3>A Brief History of Secret Codes</h3>
+    <h3>The Four Main Goals of Cryptography</h3>
+    
+<div class="card-grid animate-cards">
+        <div class="info-card">
+            <div class="card-icon pulse-icon">
+                <i class="fas fa-user-secret"></i>
+            </div>
+            <h4>Confidentiality</h4>
+            <p>Keeping information private - only authorized people can read it</p>
+        </div>
         
-        <div class="history-highlights">
-            <div class="history-item">
-                <span class="history-date">Ancient Egypt (1900 BCE)</span>
+        <div class="info-card">
+            <div class="card-icon pulse-icon">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+            <h4>Integrity</h4>
+            <p>Making sure information hasn't been changed by someone else</p>
+        </div>
+        
+        <div class="info-card">
+            <div class="card-icon pulse-icon">
+                <i class="fas fa-signature"></i>
+            </div>
+            <h4>Authentication</h4>
+            <p>Proving who sent the information or who you're talking to</p>
+        </div>
+        
+        <div class="info-card">
+            <div class="card-icon pulse-icon">
+                <i class="fas fa-ban"></i>
+            </div>
+            <h4>Non-repudiation</h4>
+            <p>Preventing someone from denying they sent a message</p>
+        </div>
+    </div>
+    
+    <h3>A Brief History of Secret Codes</h3>
+    
+<div class="timeline animated-timeline">
+        <div class="timeline-item fade-in-item">
+            <div class="timeline-date">Ancient Egypt (1900 BCE)</div>
+            <div class="timeline-content">
                 <p>Egyptians used unusual hieroglyphics to hide secret messages in tombs</p>
             </div>
-            
-            <div class="history-item">
-                <span class="history-date">Ancient Sparta (500 BCE)</span>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">Ancient Sparta (500 BCE)</div>
+            <div class="timeline-content">
                 <p>Spartans wrapped messages around sticks (called scytales) to send secret military orders</p>
             </div>
-            
-            <div class="history-item">
-                <span class="history-date">Roman Empire (50 BCE)</span>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">Roman Empire (50 BCE)</div>
+            <div class="timeline-content">
                 <p>Julius Caesar created a simple code by shifting letters - now called the Caesar cipher</p>
             </div>
-            
-            <div class="history-item">
-                <span class="history-date">Renaissance (1500s)</span>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">Renaissance (1500s)</div>
+            <div class="timeline-content">
                 <p>The Vigenère cipher was created and thought to be unbreakable for 300 years</p>
             </div>
-            
-            <div class="history-item">
-                <span class="history-date">World War II (1940s)</span>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">World War II (1940s)</div>
+            <div class="timeline-content">
                 <p>The Germans used the Enigma machine. Alan Turing and his team cracked the code, helping end the war</p>
             </div>
-            
-            <div class="history-item">
-                <span class="history-date">Modern Era (1970s+)</span>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">Modern Era (1970s+)</div>
+            <div class="timeline-content">
                 <p>Modern computer-based encryption was developed, leading to the systems we use today</p>
             </div>
         </div>
     </div>
     
-    <div class="simple-section">
-        <h3>Where You See Cryptography Every Day</h3>
-        <p>You use cryptography all the time without even knowing it:</p>
+    <h3>Where You See Cryptography Every Day</h3>
+    <p>You use cryptography all the time without even knowing it:</p>
+    
+<div class="example-grid hover-effect-grid">
+        <div class="example-item">
+            <i class="fas fa-lock glow-icon"></i>
+            <p>The lock icon in your web browser (HTTPS)</p>
+        </div>
         
-        <div class="everyday-examples">
-            <div class="example-item">
-                <i class="fas fa-lock"></i>
-                <p>The lock icon in your web browser (HTTPS)</p>
-            </div>
-            
-            <div class="example-item">
-                <i class="fas fa-wifi"></i>
-                <p>Your home Wi-Fi network security</p>
-            </div>
-            
-            <div class="example-item">
-                <i class="fas fa-credit-card"></i>
-                <p>When you shop online or use your credit card</p>
-            </div>
-            
-            <div class="example-item">
-                <i class="fas fa-envelope"></i>
-                <p>Secure email and messaging apps</p>
-            </div>
-            
-            <div class="example-item">
-                <i class="fas fa-mobile-alt"></i>
-                <p>Your smartphone's security features</p>
-            </div>
-            
-            <div class="example-item">
-                <i class="fas fa-bitcoin"></i>
-                <p>Cryptocurrencies like Bitcoin</p>
-            </div>
+        <div class="example-item">
+            <i class="fas fa-wifi glow-icon"></i>
+            <p>Your home Wi-Fi network security</p>
+        </div>
+        
+        <div class="example-item">
+            <i class="fas fa-credit-card glow-icon"></i>
+            <p>When you shop online or use your credit card</p>
+        </div>
+        
+        <div class="example-item">
+            <i class="fas fa-envelope glow-icon"></i>
+            <p>Secure email and messaging apps</p>
+        </div>
+        
+        <div class="example-item">
+            <i class="fas fa-mobile-alt glow-icon"></i>
+            <p>Your smartphone's security features</p>
+        </div>
+        
+        <div class="example-item">
+            <i class="fas fa-bitcoin glow-icon"></i>
+            <p>Cryptocurrencies like Bitcoin</p>
         </div>
     </div>
     
-    <div class="simple-quiz">
+    <div class="lesson-quiz">
         <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
         <div class="quiz-container">
             <p class="quiz-question">Who can read a message that's been encrypted?</p>
@@ -157,20 +179,26 @@
 </div>
 
 <!-- Lesson 1-2: Types of Cryptography -->
-<div id="lesson1-2-content">
-    <p class="mb-4">Cryptography can be categorized into three primary types, each with its distinct approach to securing information. Understanding these types is essential for grasping how modern security systems work.</p>
+<div id="lesson1-2-content" class="lesson-container" aria-labelledby="lesson1-2-title">
+    <h3 id="lesson1-2-title" class="sr-only">Types of Cryptography</h3>
+    <p class="lesson-intro-text">Cryptography can be categorized into three primary types, each with its distinct approach to securing information. Understanding these types is essential for grasping how modern security systems work.</p>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">1. Symmetric Key Cryptography</h3>
+    <div class="lesson-section">
+        <h3>1. Symmetric Key Cryptography</h3>
         
-        <div class="key-concept mb-4">
-            <h4><i class="fas fa-key"></i> Definition</h4>
-            <p>Symmetric key cryptography uses a <strong>single shared key</strong> for both encryption and decryption processes. Both the sender and recipient of an encrypted message have access to the same secret key.</p>
+        <div class="concept-box">
+            <div class="concept-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <div class="concept-content">
+                <h4>Definition</h4>
+                <p>Symmetric key cryptography uses a <strong>single shared key</strong> for both encryption and decryption processes. Both the sender and recipient of an encrypted message have access to the same secret key.</p>
+            </div>
         </div>
         
-        <div class="two-column">
-            <div class="column">
-                <h4 class="subsection-title">How It Works</h4>
+        <div class="flex-container">
+            <div class="flex-column">
+                <h4>How It Works</h4>
                 <ol class="process-list">
                     <li>Alice and Bob agree on a secret key</li>
                     <li>Alice encrypts her message using the key</li>
@@ -183,8 +211,8 @@
                 </div>
             </div>
             
-            <div class="column">
-                <h4 class="subsection-title">Common Algorithms</h4>
+            <div class="flex-column">
+                <h4>Common Algorithms</h4>
                 <div class="algorithm-list">
                     <div class="algorithm-item">
                         <h5>DES (Data Encryption Standard)</h5>
@@ -206,23 +234,23 @@
             </div>
         </div>
         
-        <div class="attributes-container">
-            <div class="attribute">
+        <div class="attribute-container">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-bolt"></i></div>
                 <h5>Speed</h5>
                 <p>Fast and efficient for large amounts of data</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-cogs"></i></div>
                 <h5>Efficiency</h5>
                 <p>Low computational overhead</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-user-secret"></i></div>
                 <h5>Confidentiality</h5>
                 <p>Provides strong confidentiality if key remains secret</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-exchange-alt"></i></div>
                 <h5>Key Exchange</h5>
                 <p>Requires secure method to share keys</p>
@@ -230,17 +258,22 @@
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">2. Asymmetric Key Cryptography</h3>
+    <div class="lesson-section">
+        <h3>2. Asymmetric Key Cryptography</h3>
         
-        <div class="key-concept mb-4">
-            <h4><i class="fas fa-key"></i> Definition</h4>
-            <p>Asymmetric cryptography uses <strong>a pair of keys</strong> - a public key for encryption and a private key for decryption. The keys are mathematically related but knowing the public key does not reveal the private key.</p>
+        <div class="concept-box">
+            <div class="concept-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <div class="concept-content">
+                <h4>Definition</h4>
+                <p>Asymmetric cryptography uses <strong>a pair of keys</strong> - a public key for encryption and a private key for decryption. The keys are mathematically related but knowing the public key does not reveal the private key.</p>
+            </div>
         </div>
         
-        <div class="two-column">
-            <div class="column">
-                <h4 class="subsection-title">How It Works</h4>
+        <div class="flex-container">
+            <div class="flex-column">
+                <h4>How It Works</h4>
                 <ol class="process-list">
                     <li>Bob generates a key pair (public and private)</li>
                     <li>Bob shares his public key with anyone, including Alice</li>
@@ -250,8 +283,8 @@
                 </ol>
             </div>
             
-            <div class="column">
-                <h4 class="subsection-title">Common Algorithms</h4>
+            <div class="flex-column">
+                <h4>Common Algorithms</h4>
                 <div class="algorithm-list">
                     <div class="algorithm-item">
                         <h5>RSA (Rivest-Shamir-Adleman)</h5>
@@ -273,23 +306,23 @@
             </div>
         </div>
         
-        <div class="attributes-container">
-            <div class="attribute">
+        <div class="attribute-container">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-shield-alt"></i></div>
                 <h5>Security</h5>
                 <p>Strong security based on mathematical problems</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-globe"></i></div>
                 <h5>Key Distribution</h5>
                 <p>Solves the key exchange problem</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-tachometer-alt"></i></div>
                 <h5>Performance</h5>
                 <p>Slower than symmetric encryption</p>
             </div>
-            <div class="attribute">
+            <div class="attribute-item">
                 <div class="attribute-icon"><i class="fas fa-signature"></i></div>
                 <h5>Authentication</h5>
                 <p>Enables digital signatures and authentication</p>
@@ -297,17 +330,22 @@
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">3. Hash Functions</h3>
+    <div class="lesson-section">
+        <h3>3. Hash Functions</h3>
         
-        <div class="key-concept mb-4">
-            <h4><i class="fas fa-fingerprint"></i> Definition</h4>
-            <p>A hash function is a <strong>one-way method</strong> that transforms data of any size into a fixed-size output (hash value or digest). Unlike encryption, hashing is not reversible—you cannot derive the original data from its hash.</p>
+        <div class="concept-box">
+            <div class="concept-icon">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+            <div class="concept-content">
+                <h4>Definition</h4>
+                <p>A hash function is a <strong>one-way method</strong> that transforms data of any size into a fixed-size output (hash value or digest). Unlike encryption, hashing is not reversible—you cannot derive the original data from its hash.</p>
+            </div>
         </div>
         
-        <div class="two-column">
-            <div class="column">
-                <h4 class="subsection-title">How It Works</h4>
+        <div class="flex-container">
+            <div class="flex-column">
+                <h4>How It Works</h4>
                 <ol class="process-list">
                     <li>Input data (of any size) is processed by the hash function</li>
                     <li>The function produces a fixed-length output (hash)</li>
@@ -320,8 +358,8 @@
                 </div>
             </div>
             
-            <div class="column">
-                <h4 class="subsection-title">Common Algorithms</h4>
+            <div class="flex-column">
+                <h4>Common Algorithms</h4>
                 <div class="algorithm-list">
                     <div class="algorithm-item">
                         <h5>SHA-2 & SHA-3 (Secure Hash Algorithm)</h5>
@@ -343,34 +381,32 @@
             </div>
         </div>
         
-        <div class="applications-container">
-            <h4 class="subsection-title">Common Applications</h4>
-            <div class="application-grid">
-                <div class="application-item">
-                    <div class="application-icon"><i class="fas fa-lock"></i></div>
-                    <h5>Password Storage</h5>
-                    <p>Systems store hashed passwords rather than plaintext</p>
-                </div>
-                <div class="application-item">
-                    <div class="application-icon"><i class="fas fa-file-alt"></i></div>
-                    <h5>Data Integrity</h5>
-                    <p>Verifying files haven't been altered during transfer</p>
-                </div>
-                <div class="application-item">
-                    <div class="application-icon"><i class="fas fa-signature"></i></div>
-                    <h5>Digital Signatures</h5>
-                    <p>Creating and verifying document signatures</p>
-                </div>
-                <div class="application-item">
-                    <div class="application-icon"><i class="fas fa-link"></i></div>
-                    <h5>Blockchain</h5>
-                    <p>Securing transactions in cryptocurrencies</p>
-                </div>
+        <h4>Common Applications</h4>
+        <div class="application-grid">
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-lock"></i></div>
+                <h5>Password Storage</h5>
+                <p>Systems store hashed passwords rather than plaintext</p>
+            </div>
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-file-alt"></i></div>
+                <h5>Data Integrity</h5>
+                <p>Verifying files haven't been altered during transfer</p>
+            </div>
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-signature"></i></div>
+                <h5>Digital Signatures</h5>
+                <p>Creating and verifying document signatures</p>
+            </div>
+            <div class="application-item">
+                <div class="application-icon"><i class="fas fa-link"></i></div>
+                <h5>Blockchain</h5>
+                <p>Securing transactions in cryptocurrencies</p>
             </div>
         </div>
     </div>
     
-    <div class="simple-quiz">
+    <div class="lesson-quiz">
         <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
         <div class="quiz-container">
             <p class="quiz-question">Which is not a cryptography key type?</p>
@@ -412,11 +448,12 @@
 </div>
 
 <!-- Lesson 1-3: The Use of Cryptography in the Real World -->
-<div id="lesson1-3-content">
-    <p class="mb-4">Cryptography is vastly important since it secures and encrypts our sensitive information/data so that only those with permission can access it. It plays a crucial role in modern-day digital security, spanning multiple industries and technologies to guarantee privacy, data integrity, and security.</p>
+<div id="lesson1-3-content" class="lesson-container" aria-labelledby="lesson1-3-title">
+    <h3 id="lesson1-3-title" class="sr-only">The Use of Cryptography in the Real World</h3>
+    <p class="lesson-intro-text">Cryptography is vastly important since it secures and encrypts our sensitive information/data so that only those with permission can access it. It plays a crucial role in modern-day digital security, spanning multiple industries and technologies to guarantee privacy, data integrity, and security.</p>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Industries Relying on Cryptography</h3>
+    <div class="lesson-section">
+        <h3>Industries Relying on Cryptography</h3>
         
         <div class="industry-grid">
             <div class="industry-item">
@@ -452,10 +489,10 @@
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Everyday Applications</h3>
+    <div class="lesson-section">
+        <h3>Everyday Applications</h3>
         
-        <div class="applications-container">
+        <div class="app-categories">
             <div class="app-category">
                 <h4><i class="fas fa-globe"></i> Web Security</h4>
                 <div class="app-items">
@@ -500,8 +537,8 @@
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Modern Implementation Examples</h3>
+    <div class="lesson-section">
+        <h3>Modern Implementation Examples</h3>
         
         <div class="implementation-grid">
             <div class="implementation-item">
@@ -568,10 +605,10 @@
         </div>
     </div>
     
-    <div class="lesson-section mb-5">
-        <h3 class="section-title">Future Trends</h3>
+    <div class="lesson-section">
+        <h3>Future Trends</h3>
         
-        <div class="trends-container">
+        <div class="trend-container">
             <div class="trend-item">
                 <div class="trend-icon"><i class="fas fa-atom"></i></div>
                 <h4>Quantum Cryptography</h4>
@@ -598,7 +635,7 @@
         </div>
     </div>
     
-    <div class="simple-quiz">
+    <div class="lesson-quiz">
         <h3><i class="fas fa-question-circle"></i> Quick Check</h3>
         <div class="quiz-container">
             <p class="quiz-question">What is the main purpose of cryptography?</p>
@@ -638,3 +675,610 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Lesson Styles */
+.lesson-container {
+    padding: 0.5rem 0;
+}
+
+/* Lesson Intro */
+.lesson-intro {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lesson-image-container {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.lesson-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.lesson-intro-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Concept Box */
+.concept-box {
+    background-color: var(--darker);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+}
+
+.concept-icon {
+    font-size: 1.75rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.concept-content h4 {
+    color: var(--primary);
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+}
+
+.concept-content p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.info-card {
+    background-color: var(--darker);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.info-card h4 {
+    color: var(--primary);
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
+}
+
+.info-card p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Timeline */
+.timeline {
+    margin: 2rem 0;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    width: 2px;
+    background-color: var(--primary-dark);
+}
+
+.timeline-item {
+    margin-bottom: 1.5rem;
+    padding-left: 40px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+    margin: 0;
+}
+
+/* Example Grid */
+.example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.example-item {
+    background-color: var(--darker);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.example-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary);
+}
+
+.example-item i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.example-item p {
+    margin: 0;
+}
+
+/* Lesson Quiz */
+.lesson-quiz {
+    background-color: var(--darker);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2.5rem 0 1rem;
+}
+
+.lesson-quiz h3 {
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.quiz-question {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+.option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.option-item {
+    background-color: var(--medium-dark);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid transparent;
+}
+
+.option-item:hover {
+    background-color: var(--light-dark);
+    transform: translateY(-2px);
+}
+
+.option-item.selected {
+    background-color: var(--primary-dark);
+    color: var(--dark);
+    border-color: var(--primary);
+}
+
+.option-item input[type="radio"] {
+    margin: 0;
+}
+
+.quiz-button {
+    background-color: var(--primary);
+    color: var(--dark);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quiz-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-button:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.feedback-container {
+    background-color: var(--medium-dark);
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin: 1.25rem 0;
+}
+
+.correct-answer {
+    color: var(--primary);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.incorrect-answer {
+    color: #ff4d4d;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+/* Lesson Section */
+.lesson-section {
+    margin: 2.5rem 0;
+}
+
+/* Flex Container */
+.flex-container {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+.flex-column {
+    flex: 1;
+}
+
+/* Note Box */
+.note-box {
+    background-color: var(--medium-dark);
+    border-left: 4px solid var(--primary);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.note-box p {
+    margin: 0;
+}
+
+/* Process List */
+.process-list {
+    padding-left: 1.5rem;
+}
+
+.process-list li {
+    margin-bottom: 0.75rem;
+}
+
+/* Algorithm List */
+.algorithm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.algorithm-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.algorithm-item h5 {
+    color: var(--primary);
+    margin: 0 0 0.75rem 0;
+}
+
+.algorithm-item ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.algorithm-item li {
+    margin-bottom: 0.5rem;
+}
+
+/* Attribute Container */
+.attribute-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+}
+
+.attribute-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.attribute-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.attribute-item h5 {
+    color: var(--primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.attribute-item p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Application Grid */
+.application-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.application-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.application-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.application-icon {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.application-item h5 {
+    color: var(--primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.application-item p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* App Categories */
+.app-categories {
+    margin: 1.5rem 0;
+}
+
+.app-category {
+    margin-bottom: 2rem;
+}
+
+.app-category h4 {
+    color: var(--primary);
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.app-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.app-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+}
+
+.app-item h5 {
+    color: var(--primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.app-item p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Industry Grid */
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.industry-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.industry-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.industry-icon {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.industry-item h4 {
+    color: var(--primary);
+    margin: 0 0 0.75rem 0;
+}
+
+.industry-item p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Implementation Grid */
+.implementation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.implementation-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.implementation-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.implementation-header {
+    background-color: var(--darker);
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.implementation-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.implementation-header h4 {
+    color: var(--primary);
+    margin: 0;
+    flex-grow: 1;
+}
+
+.implementation-content {
+    padding: 1.25rem;
+}
+
+.implementation-content p {
+    margin-top: 0;
+}
+
+.implementation-content ul {
+    margin-bottom: 0;
+    padding-left: 1.5rem;
+}
+
+/* Trend Container */
+.trend-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.trend-item {
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.trend-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.trend-icon {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.trend-item h4 {
+    color: var(--primary);
+    margin: 0 0 0.75rem 0;
+}
+
+.trend-item p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .attribute-container,
+    .application-grid,
+    .industry-grid,
+    .implementation-grid,
+    .trend-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .app-items {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
