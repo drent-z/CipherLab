@@ -396,22 +396,12 @@ title: Learn Cryptography - CipherLab
                 </div>
                 
                 <div class="lesson-content-container mt-4">
-                    <!-- Lesson content dynamically loaded based on selection -->
-                    <div id="module1-lessons" class="module-lessons">
-                        {% include "learn/module1.njk" %}
-                    </div>
-                    <div id="module2-lessons" class="module-lessons" style="display: none;">
-                        {% include "learn/module2.njk" %}
-                    </div>
-                    <div id="module3-lessons" class="module-lessons" style="display: none;">
-                        {% include "learn/module3.njk" %}
-                    </div>
-                    <div id="module4-lessons" class="module-lessons" style="display: none;">
-                        {% include "learn/module4.njk" %}
-                    </div>
-                    <div id="module5-lessons" class="module-lessons" style="display: none;">
-                        {% include "learn/module5.njk" %}
-                    </div>
+                    <!-- Module content will be shown/hidden based on current lesson -->
+                    {% include "learn/module1.njk" %}
+                    {% include "learn/module2.njk" %}
+                    {% include "learn/module3.njk" %}
+                    {% include "learn/module4.njk" %}
+                    {% include "learn/module5.njk" %}
                 </div>
                 
                 <div class="lesson-navigation mt-4">
@@ -874,11 +864,6 @@ title: Learn Cryptography - CipherLab
     color: var(--secondary);
 }
 
-/* Module lessons container */
-.module-lessons {
-    width: 100%;
-}
-
 .pulse-animation {
     animation: pulse 1s;
 }
@@ -1008,6 +993,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Use sessionStorage for progress tracking to avoid caching issues
     const PROGRESS_KEY = 'cipherLabQuizProgress';
     
+    // Common selectors
+    const modulesContainer = document.querySelector('.modules-container');
+    const lessonContentSection = document.getElementById('lesson-content-section');
+    const finalQuizSection = document.getElementById('final-quiz-section');
+    const finalQuizLink = document.querySelector('.final-quiz-link');
+    
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.module-content');
@@ -1032,6 +1023,9 @@ document.addEventListener('DOMContentLoaded', function() {
         module5: "Advanced Topics"
     };
     
+    // Current lesson tracking
+    let currentLesson = null;
+    
     // Tab switching functionality with roadmap update
     function activateModule(moduleId) {
         // Remove active class from all tabs, contents, and roadmap nodes
@@ -1039,489 +1033,340 @@ document.addEventListener('DOMContentLoaded', function() {
         tabContents.forEach(content => content.classList.remove('active'));
         roadmapNodes.forEach(node => node.classList.remove('active'));
         
-        // Add active class to clicked tab, content, and roadmap node
-        const button = document.querySelector(`[data-module="${moduleId}"]`);
-        if (button) button.classList.add('active');
-        const content = document.getElementById(`${moduleId}-content`);
-        if (content) content.classList.add('active');
+        // Add active class to selected tab and content
+        document.querySelector(`.tab-button[data-module="${moduleId}"]`).classList.add('active');
+        document.getElementById(`${moduleId}-content`).classList.add('active');
         
         // Update roadmap
-        const roadmapNode = document.querySelector(`.roadmap-node[data-module="${moduleId}"]`);
-        if (roadmapNode) roadmapNode.classList.add('active');
+        document.querySelector(`.roadmap-node[data-module="${moduleId}"]`).classList.add('active');
         
-        // Update progress bar based on module index
+        // Update roadmap progress based on active module
         const moduleIndex = parseInt(moduleId.replace('module', '')) - 1;
-        const totalModules = 5;
-        const progressWidth = ((moduleIndex) / (totalModules - 1)) * 100;
-        if (roadmapProgress) roadmapProgress.style.width = `${progressWidth}%`;
+        const progressPercentage = (moduleIndex / (roadmapNodes.length - 1)) * 100;
+        roadmapProgress.style.width = progressPercentage + '%';
     }
     
-    // Tab button click handlers
+    // Tab click handlers
     tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const moduleId = button.getAttribute('data-module');
+        button.addEventListener('click', function() {
+            const moduleId = this.getAttribute('data-module');
             activateModule(moduleId);
         });
     });
     
     // Roadmap node click handlers
     roadmapNodes.forEach(node => {
-        node.addEventListener('click', () => {
-            const moduleId = node.getAttribute('data-module');
+        node.addEventListener('click', function() {
+            const moduleId = this.getAttribute('data-module');
             activateModule(moduleId);
         });
     });
     
-    // Handle lesson navigation
+    // Handle showing a specific lesson
     function showLesson(lessonId) {
-        // Hide all main sections, only show lesson content
-        document.getElementById('lesson-content-section').style.display = 'block';
-        document.querySelector('.modules-container').style.display = 'none';
-        document.querySelector('.final-quiz-link').style.display = 'none';
-        document.getElementById('final-quiz-section').style.display = 'none';
+        // Hide modules section and final quiz, show lesson content
+        modulesContainer.style.display = 'none';
+        lessonContentSection.style.display = 'block';
+        finalQuizSection.style.display = 'none';
+        finalQuizLink.style.display = 'none';
         
-        // Extract module number from lessonId (e.g. lesson1-2 → module1)
+        // Store current lesson
+        currentLesson = lessonId;
+        
+        // Extract module number and ID
         const moduleNum = lessonId.charAt(6);
         const moduleId = `module${moduleNum}`;
         
-        // Hide all module lesson containers first
-        document.querySelectorAll('.module-lessons').forEach(module => {
-            module.style.display = 'none';
+        // Hide all lesson content
+        document.querySelectorAll('.lesson-container').forEach(container => {
+            container.style.display = 'none';
         });
         
-        // Show only the current module's lessons container
-        const currentModuleLessons = document.getElementById(`${moduleId}-lessons`);
-        if (currentModuleLessons) {
-            currentModuleLessons.style.display = 'block';
+        // Show only the current lesson
+        const currentLessonElement = document.getElementById(`${lessonId}-content`);
+        if (currentLessonElement) {
+            currentLessonElement.style.display = 'block';
         }
         
-        // Get lesson index within module
-        const lessons = moduleData[moduleId] || [];
+        // Update lesson navigation
+        const lessons = moduleData[moduleId];
         const currentIndex = lessons.indexOf(lessonId);
-        const totalLessons = lessons.length;
         
         // Update lesson number display
-        const lessonNumber = document.getElementById('lesson-number');
-        const lessonTotal = document.getElementById('lesson-total');
-        if (lessonNumber) lessonNumber.textContent = currentIndex + 1;
-        if (lessonTotal) lessonTotal.textContent = totalLessons;
+        document.getElementById('lesson-number').textContent = currentIndex + 1;
+        document.getElementById('lesson-total').textContent = lessons.length;
         
-        // Update current module name in breadcrumbs
-        const currentModuleName = document.getElementById('current-module-name');
-        if (currentModuleName) {
-            currentModuleName.textContent = moduleNames[moduleId] || moduleId;
-        }
+        // Update module name in breadcrumb
+        document.getElementById('current-module-name').textContent = moduleNames[moduleId];
         
         // Set lesson title
-        const lessonElement = document.querySelector(`.lesson-box[onclick*="${lessonId}"]`);
-        if (lessonElement) {
-            const lessonTitle = document.getElementById('lesson-title');
-            if (lessonTitle) {
-                lessonTitle.textContent = lessonElement.querySelector('h4').textContent;
-            }
+        const lessonBox = document.querySelector(`.lesson-box[onclick*="${lessonId}"]`);
+        if (lessonBox) {
+            document.getElementById('lesson-title').textContent = lessonBox.querySelector('h4').textContent;
         }
         
-        // Show the lesson content section with animation
-        const lessonSection = document.getElementById('lesson-content-section');
-        lessonSection.classList.add('animate__animated', 'animate__fadeIn');
-        
-        setTimeout(() => {
-            lessonSection.classList.remove('animate__animated', 'animate__fadeIn');
-        }, 500);
+        // Update complete button status
+        updateCompleteButtonStatus(lessonId);
         
         // Update navigation buttons
-        updateNavigation(lessonId, moduleId);
+        updateNavigationButtons(lessonId, moduleId);
         
-        // Update complete button status
-        updateCompleteButton(lessonId);
-        
-        // Store current lesson ID for navigation purposes
-        currentLesson = lessonId;
-        
-        // Scroll to top of lesson
-        window.scrollTo({
-            top: document.getElementById('lesson-content-section').offsetTop - 100,
-            behavior: 'smooth'
-        });
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     // Update navigation buttons based on current lesson
-    function updateNavigation(lessonId, moduleId) {
+    function updateNavigationButtons(lessonId, moduleId) {
         const prevButton = document.getElementById('prev-lesson');
         const nextButton = document.getElementById('next-lesson');
         
-        if (prevButton && nextButton) {
-            const lessons = moduleData[moduleId];
-            const currentIndex = lessons.indexOf(lessonId);
-            
-            // Update previous button
-            if (currentIndex > 0) {
-                prevButton.style.visibility = 'visible';
-                prevButton.onclick = () => showLesson(lessons[currentIndex - 1]);
-            } else {
-                prevButton.style.visibility = 'hidden';
-            }
-            
-            // Update next button
-            if (currentIndex < lessons.length - 1) {
-                nextButton.style.visibility = 'visible';
-                nextButton.onclick = () => showLesson(lessons[currentIndex + 1]);
-            } else {
-                nextButton.style.visibility = 'hidden';
-            }
-        }
-    }
-    
-    // Update the complete button status
-    function updateCompleteButton(lessonId) {
-        const completeButton = document.getElementById('complete-lesson');
+        const lessons = moduleData[moduleId];
+        const currentIndex = lessons.indexOf(lessonId);
         
-        if (completeButton) {
-            const progress = loadProgress();
-            
-            if (progress.completedLessons && progress.completedLessons.includes(lessonId)) {
-                completeButton.classList.add('completed');
-                completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-            } else {
-                completeButton.classList.remove('completed');
-                completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
-            }
-            
-            // Complete button click handler
-            completeButton.onclick = () => {
-                const progress = loadProgress();
-                
-                if (!progress.completedLessons.includes(lessonId)) {
-                    progress.completedLessons.push(lessonId);
-                    saveProgress(progress);
-                    
-                    // Update status icon
-                    const statusIcon = document.getElementById(`status-${lessonId}`);
-                    const statusText = statusIcon ? statusIcon.nextElementSibling : null;
-                    
-                    if (statusIcon) {
-                        statusIcon.className = 'fas fa-check-circle';
-                    }
-                    
-                    if (statusText) {
-                        statusText.textContent = 'Completed';
-                    }
-                    
-                    // Update button
-                    completeButton.classList.add('completed');
-                    completeButton.classList.add('pulse-animation');
-                    completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                    
-                    // Remove pulse after animation completes
-                    setTimeout(() => {
-                        completeButton.classList.remove('pulse-animation');
-                    }, 1000);
-                    
-                    // Update progress bar
-                    updateQuizProgress();
-                }
+        // Previous button
+        if (currentIndex > 0) {
+            prevButton.style.display = 'block';
+            prevButton.onclick = function() {
+                showLesson(lessons[currentIndex - 1]);
             };
+        } else {
+            prevButton.style.display = 'none';
+        }
+        
+        // Next button
+        if (currentIndex < lessons.length - 1) {
+            nextButton.style.display = 'block';
+            nextButton.onclick = function() {
+                showLesson(lessons[currentIndex + 1]);
+            };
+        } else {
+            nextButton.style.display = 'none';
         }
     }
     
-    // Load progress from sessionStorage
+    // Back to modules button
+    document.getElementById('back-to-modules').addEventListener('click', function() {
+        // Hide lesson content and final quiz
+        lessonContentSection.style.display = 'none';
+        finalQuizSection.style.display = 'none';
+        
+        // Show modules and quiz link
+        modulesContainer.style.display = 'block';
+        finalQuizLink.style.display = 'block';
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Show final quiz button
+    document.getElementById('show-final-quiz').addEventListener('click', function() {
+        // Hide modules and lesson content
+        modulesContainer.style.display = 'none';
+        lessonContentSection.style.display = 'none';
+        finalQuizLink.style.display = 'none';
+        
+        // Show final quiz section
+        finalQuizSection.style.display = 'block';
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Back to modules from quiz
+    document.getElementById('back-to-modules-from-quiz').addEventListener('click', function() {
+        // Hide final quiz
+        finalQuizSection.style.display = 'none';
+        
+        // Show modules and quiz link
+        modulesContainer.style.display = 'block';
+        finalQuizLink.style.display = 'block';
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Progress tracking functions
     function loadProgress() {
-        try {
-            const progressData = sessionStorage.getItem(PROGRESS_KEY);
-            if (progressData) {
-                return JSON.parse(progressData);
-            }
-        } catch (e) {
-            console.error('Error loading progress:', e);
+        const progressData = sessionStorage.getItem(PROGRESS_KEY);
+        
+        if (progressData) {
+            return JSON.parse(progressData);
+        } else {
+            // Initialize empty progress
+            return { completedLessons: [] };
         }
-        return { completedLessons: [] };
     }
     
-    // Save progress to sessionStorage
     function saveProgress(progress) {
-        try {
-            sessionStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-        } catch (e) {
-            console.error('Error saving progress:', e);
-        }
+        sessionStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+        updateProgressDisplay();
     }
     
-    // Update quiz progress UI
-    function updateQuizProgress() {
+    function isLessonCompleted(lessonId) {
         const progress = loadProgress();
-        const completedLessons = progress.completedLessons || [];
-        const totalLessons = Object.values(moduleData).flat().length;
-        
-        const progressValue = document.getElementById('quiz-progress-value');
-        const progressPercentage = document.getElementById('progress-percentage');
-        
-        const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
-        
-        if (progressValue) {
-            progressValue.style.width = `${percentage}%`;
-            progressValue.setAttribute('aria-valuenow', percentage);
-        }
-        
-        if (progressPercentage) {
-            progressPercentage.textContent = `${percentage}%`;
-        }
-        
-        // Update lesson status indicators
-        updateLessonStatusIcons();
-        
-        // Update roadmap nodes based on completed modules
-        updateRoadmapProgress();
+        return progress.completedLessons && progress.completedLessons.includes(lessonId);
     }
     
-    // Update all lesson status icons based on progress
-    function updateLessonStatusIcons() {
+    // Complete lesson button
+    document.getElementById('complete-lesson').addEventListener('click', function() {
+        if (!currentLesson) return;
+        
         const progress = loadProgress();
         
-        document.querySelectorAll('[id^="status-lesson"]').forEach(statusIcon => {
-            const lessonId = statusIcon.id.replace('status-', '');
-            const statusText = statusIcon.nextElementSibling;
+        // If lesson not already completed, mark it complete
+        if (!isLessonCompleted(currentLesson)) {
+            progress.completedLessons.push(currentLesson);
+            saveProgress(progress);
             
-            if (progress.completedLessons && progress.completedLessons.includes(lessonId)) {
+            // Update button appearance
+            this.classList.add('completed');
+            this.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            
+            // Update status icon
+            const statusIcon = document.getElementById(`status-${currentLesson}`);
+            const statusText = statusIcon ? statusIcon.nextElementSibling : null;
+            
+            if (statusIcon) {
                 statusIcon.className = 'fas fa-check-circle';
-                if (statusText) statusText.textContent = 'Completed';
-            } else {
-                statusIcon.className = 'fas fa-circle';
-                if (statusText) statusText.textContent = 'Not started';
             }
-        });
-    }
-    
-    // Update roadmap based on completed lessons
-    function updateRoadmapProgress() {
-        const progress = loadProgress();
-        if (!progress.completedLessons) return;
-        
-        // Calculate completed modules
-        const moduleCompletionStatus = {};
-        
-        // Initialize all modules as incomplete
-        Object.keys(moduleData).forEach(moduleId => {
-            moduleCompletionStatus[moduleId] = false;
-        });
-        
-        // Mark modules as completed if all lessons are done
-        Object.entries(moduleData).forEach(([moduleId, lessons]) => {
-            const allCompleted = lessons.every(lesson => 
-                progress.completedLessons.includes(lesson)
-            );
-            moduleCompletionStatus[moduleId] = allCompleted;
-        });
-        
-        // Update roadmap nodes
-        Object.entries(moduleCompletionStatus).forEach(([moduleId, isCompleted]) => {
-            const roadmapNode = document.querySelector(`.roadmap-node[data-module="${moduleId}"]`);
-            if (roadmapNode) {
-                if (isCompleted) {
-                    roadmapNode.classList.add('completed');
-                } else {
-                    roadmapNode.classList.remove('completed');
-                }
-            }
-        });
-    }
-    
-    // Back to modules button handler
-    const backButton = document.getElementById('back-to-modules');
-    if (backButton) {
-        backButton.addEventListener('click', () => {
-            // Hide lesson section with animation
-            const lessonSection = document.getElementById('lesson-content-section');
-            lessonSection.classList.add('animate__animated', 'animate__fadeOut');
             
+            if (statusText) {
+                statusText.textContent = 'Completed';
+            }
+            
+            // Add animation
+            this.classList.add('pulse-animation');
             setTimeout(() => {
-                lessonSection.style.display = 'none';
-                lessonSection.classList.remove('animate__animated', 'animate__fadeOut');
-                
-                // Show modules and quiz link
-                document.querySelector('.modules-container').style.display = 'block';
-                document.querySelector('.final-quiz-link').style.display = 'block';
-                document.getElementById('final-quiz-section').style.display = 'none';
-                
-                // Scroll to modules section
-                const modulesContainer = document.querySelector('.modules-container');
-                if (modulesContainer) {
-                    modulesContainer.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 300);
-        });
-    }
-    
-    // Show final quiz button handler
-    const showFinalQuizButton = document.getElementById('show-final-quiz');
-    if (showFinalQuizButton) {
-        showFinalQuizButton.addEventListener('click', () => {
-            // Hide modules and lesson content
-            document.querySelector('.modules-container').style.display = 'none';
-            document.getElementById('lesson-content-section').style.display = 'none';
-            document.querySelector('.final-quiz-link').style.display = 'none';
-            
-            // Show final quiz section
-            document.getElementById('final-quiz-section').style.display = 'block';
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-    
-    // Back to modules from quiz button handler
-    const backFromQuizButton = document.getElementById('back-to-modules-from-quiz');
-    if (backFromQuizButton) {
-        backFromQuizButton.addEventListener('click', () => {
-            // Hide final quiz section
-            document.getElementById('final-quiz-section').style.display = 'none';
-            
-            // Show modules and quiz link
-            document.querySelector('.modules-container').style.display = 'block';
-            document.querySelector('.final-quiz-link').style.display = 'block';
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-    
-    // Reset progress button
-    const resetButton = document.getElementById('reset-progress');
-    if (resetButton) {
-        resetButton.addEventListener('click', function() {
-            if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
-                // Show visual feedback
-                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Resetting...';
-                
-                // Wait a moment for animation effect
-                setTimeout(() => {
-                    // Clear storage
-                    sessionStorage.removeItem(PROGRESS_KEY);
-                    
-                    // Reset progress object
-                    saveProgress({ completedLessons: [] });
-                    
-                    // Reset UI elements and update display
-                    updateLessonStatusIcons();
-                    updateQuizProgress();
-                    updateRoadmapProgress();
-                    
-                    // Reset button text
-                    this.innerHTML = 'Reset Progress';
-                    
-                    // Show confirmation
-                    alert('Your progress has been reset successfully!');
-                }, 800);
-            }
-        });
-    }
-    
-    // Initialize everything on page load
-    updateQuizProgress();
-    updateRoadmapProgress();
-    
-    // Make first tab active by default
-    const firstTab = document.querySelector('.tab-button');
-    if (firstTab) {
-        const moduleId = firstTab.getAttribute('data-module');
-        activateModule(moduleId);
-    }
-    
-    // Fix for quiz check answers - now using event delegation
-    document.addEventListener('click', function(event) {
-        const target = event.target;
-        
-        // Check if it's a quiz answer button
-        if (target.classList.contains('simple-button') && target.hasAttribute('data-correct')) {
-            const correctOption = target.getAttribute('data-correct');
-            const questionContainer = target.closest('.quiz-container');
-            
-            if (!questionContainer) return;
-            
-            const options = questionContainer.querySelectorAll('.simple-option input[type="radio"]');
-            const feedbackContainer = questionContainer.querySelector('.feedback-container');
-            
-            let selectedOption = null;
-            options.forEach(option => {
-                if (option.checked) {
-                    selectedOption = option.value;
-                }
-            });
-            
-            // If no option selected, show alert
-            if (!selectedOption) {
-                alert('Please select an answer first!');
-                return;
-            }
-            
-            // Show feedback with animation
-            if (feedbackContainer) {
-                feedbackContainer.style.display = 'block';
-                
-                const isCorrect = selectedOption === correctOption;
-                
-                // Show correct/incorrect message
-                feedbackContainer.querySelector('.correct-answer').style.display = isCorrect ? 'block' : 'none';
-                feedbackContainer.querySelector('.incorrect-answer').style.display = isCorrect ? 'none' : 'block';
-                
-                // Disable options
-                options.forEach(option => {
-                    option.disabled = true;
-                    
-                    // Highlight correct/incorrect options
-                    const optionContainer = option.closest('.simple-option');
-                    if (optionContainer) {
-                        if (option.value === correctOption) {
-                            optionContainer.classList.add('correct-option');
-                        } else if (option.checked) {
-                            optionContainer.classList.add('incorrect-option');
-                        }
-                    }
-                });
-                
-                // Update check button
-                target.disabled = true;
-                target.innerHTML = isCorrect ? '<i class="fas fa-check-circle"></i> Correct!' : '<i class="fas fa-times-circle"></i> Try Again';
-                target.className = isCorrect ? 'simple-button correct-answer-btn' : 'simple-button incorrect-answer-btn';
-            }
+                this.classList.remove('pulse-animation');
+            }, 1000);
         }
     });
-});
-
-// Function to check answers in module quick check questions
-function checkAnswer(button, lessonId) {
-    const correctAnswer = button.getAttribute('data-correct');
-    const questionContainer = button.closest('.quiz-container');
-    const selectedOption = questionContainer.querySelector('input[type="radio"]:checked');
-    const feedbackContainer = questionContainer.querySelector('.feedback-container');
     
-    if (selectedOption) {
+    // Update complete button status
+    function updateCompleteButtonStatus(lessonId) {
+        const completeButton = document.getElementById('complete-lesson');
+        
+        if (isLessonCompleted(lessonId)) {
+            completeButton.classList.add('completed');
+            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+        } else {
+            completeButton.classList.remove('completed');
+            completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+        }
+    }
+    
+    // Update all progress indicators
+    function updateProgressDisplay() {
+        const progress = loadProgress();
+        const totalLessons = Object.values(moduleData).flat().length;
+        const completedCount = progress.completedLessons ? progress.completedLessons.length : 0;
+        const percentComplete = Math.round((completedCount / totalLessons) * 100);
+        
+        // Update progress bar and text
+        document.getElementById('progress-percentage').textContent = percentComplete + '%';
+        document.getElementById('quiz-progress-value').style.width = percentComplete + '%';
+        document.getElementById('quiz-progress-value').setAttribute('aria-valuenow', percentComplete);
+        
+        // Update all lesson status icons
+        Object.values(moduleData).flat().forEach(lessonId => {
+            const statusIcon = document.getElementById(`status-${lessonId}`);
+            const statusText = statusIcon ? statusIcon.nextElementSibling : null;
+            
+            if (statusIcon && statusText) {
+                if (isLessonCompleted(lessonId)) {
+                    statusIcon.className = 'fas fa-check-circle';
+                    statusText.textContent = 'Completed';
+                } else {
+                    statusIcon.className = 'fas fa-circle';
+                    statusText.textContent = 'Not started';
+                }
+            }
+        });
+        
+        // Update module completion status in roadmap
+        roadmapNodes.forEach((node, index) => {
+            const moduleId = node.getAttribute('data-module');
+            const moduleLessons = moduleData[moduleId];
+            
+            // Mark module as completed if all its lessons are completed
+            if (moduleLessons.every(lessonId => isLessonCompleted(lessonId))) {
+                node.classList.add('completed');
+            } else {
+                node.classList.remove('completed');
+            }
+        });
+    }
+    
+    // Reset progress button handler
+    document.getElementById('reset-progress').addEventListener('click', function() {
+        if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
+            // Clear progress data
+            sessionStorage.removeItem(PROGRESS_KEY);
+            
+            // Reset UI
+            updateProgressDisplay();
+            
+            // Provide feedback
+            this.textContent = 'Progress Reset!';
+            setTimeout(() => {
+                this.textContent = 'Reset Progress';
+            }, 2000);
+        }
+    });
+    
+    // Initialize progress display
+    updateProgressDisplay();
+    
+    // Set up initial tab
+    activateModule('module1');
+    
+    // Set up global function for checking quiz answers
+    window.checkAnswer = function(button, lessonId) {
+        const correctAnswer = button.getAttribute('data-correct');
+        const questionContainer = button.closest('.quiz-container');
+        const selectedOption = questionContainer.querySelector('input[type="radio"]:checked');
+        
+        if (!selectedOption) {
+            alert('Please select an answer first!');
+            return;
+        }
+        
+        const feedbackContainer = questionContainer.querySelector('.feedback-container');
+        
+        // Show feedback container
         feedbackContainer.style.display = 'block';
         
+        // Check if answer is correct
         if (selectedOption.value === correctAnswer) {
+            // Show correct feedback, hide incorrect
             questionContainer.querySelector('.correct-answer').style.display = 'block';
             questionContainer.querySelector('.incorrect-answer').style.display = 'none';
+            
+            // Highlight selected option
             selectedOption.closest('.simple-option').classList.add('correct-option');
         } else {
+            // Show incorrect feedback, hide correct
             questionContainer.querySelector('.correct-answer').style.display = 'none';
             questionContainer.querySelector('.incorrect-answer').style.display = 'block';
+            
+            // Highlight selected option as incorrect
             selectedOption.closest('.simple-option').classList.add('incorrect-option');
             
-            // Show correct answer
+            // Highlight correct option
             const correctOption = questionContainer.querySelector(`input[value="${correctAnswer}"]`);
             if (correctOption) {
                 correctOption.closest('.simple-option').classList.add('correct-option');
             }
         }
         
-        // Disable options after checking
+        // Disable all options
         questionContainer.querySelectorAll('input[type="radio"]').forEach(input => {
             input.disabled = true;
         });
         
-        // Change button text
+        // Update button
         button.textContent = 'Answered';
         button.disabled = true;
-    }
-}
-</script></file_content_or_search_replace_blocks>
-</invoke>
+    };
+});
+</script>
