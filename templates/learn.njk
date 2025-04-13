@@ -281,7 +281,7 @@ title: Learn Cryptography - CipherLab
                         <!-- Lesson content will be loaded here -->
                     </div>
                     
-                    <div class="lesson-navigation">
+                <div class="lesson-navigation">
                         <button id="prev-lesson" class="nav-button"><i class="fas fa-chevron-left"></i> Previous</button>
                         <button id="complete-lesson" class="complete-button">
                             <i class="fas fa-check-circle"></i> Mark as Complete
@@ -293,6 +293,37 @@ title: Learn Cryptography - CipherLab
         </div>
     </div>
 </section>
+
+<!-- Script to remove popups -->
+<script>
+// Remove any existing popup elements
+document.addEventListener('DOMContentLoaded', function() {
+    // Observer to remove popups as they get added
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                for (let node of mutation.addedNodes) {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        // Check if it's a popup notification
+                        if ((node.textContent && node.textContent.includes('Lesson completed')) || 
+                            (node.className && (
+                                node.className.includes('notification') || 
+                                node.className.includes('confirmation')
+                            )) ||
+                            (node.style && node.style.position === 'fixed' && node.style.top && node.style.zIndex)) {
+                            // Remove the popup
+                            node.parentNode.removeChild(node);
+                        }
+                    }
+                }
+            }
+        });
+    });
+    
+    // Observe the entire document for new nodes
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
 
 <!-- Lesson Content Templates -->
 <div id="lesson-templates" style="display: none;">
@@ -1105,6 +1136,29 @@ title: Learn Cryptography - CipherLab
             flex-direction: column;
             align-items: flex-start;
         }
+    }
+    
+    /* Additional fixes */
+    /* Properly center the buttons in the navigation */
+    .lesson-navigation {
+        display: flex !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 24px !important;
+    }
+    
+    /* Ensure buttons have equal width */
+    .nav-button, .complete-button {
+        flex: 0 0 auto !important;
+        min-width: 150px !important;
+    }
+    
+    /* Hide any popup notifications */
+    div[class*="confirmation"], 
+    div[class*="notification"],
+    div[class*="alert"]:not(.simple-alert),
+    div[style*="position: fixed"][style*="top"] {
+        display: none !important;
     }
 </style>
 
