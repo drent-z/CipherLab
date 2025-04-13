@@ -119,7 +119,7 @@
                 <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
                     <i class="fas fa-play"></i> Start Final Quiz
                 </button>
-                <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none;">
+                <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none; margin-top: 1rem;">
                     <i class="fas fa-check"></i> Submit Answers
                 </button>
             </div>
@@ -1568,7 +1568,8 @@ function startQuiz() {
         if (introSection) introSection.style.display = 'none';
         if (questionsSection) questionsSection.style.display = 'block';
         if (startButton) startButton.style.display = 'none';
-        if (submitButton) submitButton.style.display = 'block';
+        // Hide submit button by default - it will only be shown on the last question
+        if (submitButton) submitButton.style.display = 'none';
         
         // Reset quiz state
         currentQuestion = 0;
@@ -1733,9 +1734,14 @@ function updateNavButtons() {
     try {
         if (prevButton) prevButton.disabled = currentQuestion === 0;
         if (nextButton) nextButton.disabled = currentQuestion === quizData.length - 1;
-        
+
         // Update question counter if it exists
         if (currentQuestionEl) currentQuestionEl.textContent = currentQuestion + 1;
+        
+        // Show submit button only on the last question and only if quiz has started
+        if (submitButton) {
+            submitButton.style.display = (quizStarted && currentQuestion === quizData.length - 1) ? 'block' : 'none';
+        }
     } catch (error) {
         console.error('Error updating navigation buttons:', error);
     }
@@ -2092,6 +2098,14 @@ function retakeQuiz() {
     justify-content: space-between;
 }
 
+/* Ensure the buttons container is properly centered */
+.final-quiz-footer .text-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .requirements {
     display: flex;
     flex-direction: column;
@@ -2120,6 +2134,16 @@ function retakeQuiz() {
     transition: width 0.3s ease;
 }
 
+/* Center buttons properly */
+.final-quiz-footer .text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+}
+
 .final-quiz-button {
     display: inline-block;
     background: linear-gradient(45deg, var(--primary-dark), var(--primary));
@@ -2136,7 +2160,10 @@ function retakeQuiz() {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin: 0 auto;
     gap: 0.5rem;
+    min-width: 180px;
 }
 
 .final-quiz-button:hover {
