@@ -79,6 +79,32 @@ title: Learn Cryptography - CipherLab
             <div class="modules-container">
                 <h2 class="section-title text-center mb-4">Learning Modules</h2>
                 
+                <div class="module-roadmap mb-4">
+                    <div class="roadmap-track">
+                        <div class="roadmap-progress"></div>
+                        <div class="roadmap-node active" data-module="module1">
+                            <div class="node-icon"><i class="fas fa-book"></i></div>
+                            <div class="node-label">1. Fundamentals</div>
+                        </div>
+                        <div class="roadmap-node" data-module="module2">
+                            <div class="node-icon"><i class="fas fa-history"></i></div>
+                            <div class="node-label">2. Classical Ciphers</div>
+                        </div>
+                        <div class="roadmap-node" data-module="module3">
+                            <div class="node-icon"><i class="fas fa-lock"></i></div>
+                            <div class="node-label">3. Modern Crypto</div>
+                        </div>
+                        <div class="roadmap-node" data-module="module4">
+                            <div class="node-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div class="node-label">4. Applications</div>
+                        </div>
+                        <div class="roadmap-node" data-module="module5">
+                            <div class="node-icon"><i class="fas fa-rocket"></i></div>
+                            <div class="node-label">5. Advanced Topics</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="simple-tabs">
                     <div class="tab-header">
                         <button class="tab-button active" data-module="module1">
@@ -349,14 +375,24 @@ title: Learn Cryptography - CipherLab
 
             <!-- Lesson Content Section -->
             <div id="lesson-content-section" class="mt-5" style="display: none;">
-                <div class="lesson-nav">
-                    <button id="back-to-modules" class="simple-button">
-                        <i class="fas fa-arrow-left"></i> Back to Modules
-                    </button>
-                    <h3 id="lesson-title" class="section-title mb-0">Lesson Title</h3>
-                    <button id="complete-lesson" class="simple-button">
-                        <i class="fas fa-check-circle"></i> Mark as Complete
-                    </button>
+                <div class="lesson-header">
+                    <div class="lesson-breadcrumbs">
+                        <a id="back-to-modules" href="javascript:void(0)">
+                            <i class="fas fa-home"></i> Modules
+                        </a>
+                        <span class="breadcrumb-separator"><i class="fas fa-angle-right"></i></span>
+                        <span id="current-module-name">Module</span>
+                        <span class="breadcrumb-separator"><i class="fas fa-angle-right"></i></span>
+                        <span id="lesson-title">Lesson</span>
+                    </div>
+                    <div class="lesson-actions">
+                        <div class="lesson-progress-indicator">
+                            <span id="lesson-number">1</span> of <span id="lesson-total">3</span>
+                        </div>
+                        <button id="complete-lesson" class="simple-button">
+                            <i class="fas fa-check-circle"></i> Mark as Complete
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="lesson-content-container mt-4">
@@ -392,6 +428,134 @@ title: Learn Cryptography - CipherLab
 
 <style>
 /* Enhanced Learn Page Styles */
+/* Module Roadmap */
+.module-roadmap {
+    position: relative;
+    width: 100%;
+    padding: 30px 0;
+    margin-bottom: 2rem;
+}
+
+.roadmap-track {
+    position: relative;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.roadmap-progress {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: 4px;
+    background-color: var(--primary-dark);
+    width: 0%;
+    transition: width 0.6s ease;
+    z-index: 1;
+}
+
+.roadmap-node {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+}
+
+.node-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--darker);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 10px;
+    border: 2px solid var(--primary-dark);
+    color: var(--primary-dark);
+    transition: all 0.3s ease;
+}
+
+.roadmap-node.active .node-icon, 
+.roadmap-node.completed .node-icon {
+    background-color: var(--primary);
+    color: var(--dark);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.roadmap-node.completed .node-icon {
+    background-color: var(--primary-dark);
+}
+
+.node-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+.roadmap-node.active .node-label, 
+.roadmap-node.completed .node-label {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.roadmap-node:hover .node-icon {
+    transform: scale(1.1);
+}
+
+/* Lesson Header Styles */
+.lesson-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--primary-dark);
+}
+
+.lesson-breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+}
+
+.lesson-breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.lesson-breadcrumbs a:hover {
+    color: var(--secondary);
+}
+
+.breadcrumb-separator {
+    margin: 0 8px;
+    color: var(--text-muted);
+}
+
+.lesson-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lesson-progress-indicator {
+    background-color: var(--darker);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border: 1px solid var(--primary-dark);
+}
+
 #learn-hero {
     min-height: 40vh;
     padding: 4rem 0;
@@ -608,15 +772,6 @@ title: Learn Cryptography - CipherLab
     color: var(--primary);
 }
 
-.lesson-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--primary-dark);
-}
-
 .simple-button {
     background-color: var(--darker);
     border: 1px solid var(--primary-dark);
@@ -770,7 +925,7 @@ title: Learn Cryptography - CipherLab
         border-radius: 4px;
     }
     
-    .lesson-nav {
+    .lesson-header {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
@@ -778,6 +933,16 @@ title: Learn Cryptography - CipherLab
     
     .guide-steps {
         grid-template-columns: 1fr;
+    }
+    
+    .roadmap-track {
+        height: auto;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .roadmap-progress {
+        display: none;
     }
 }
 </style>
@@ -791,6 +956,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.module-content');
+    const roadmapNodes = document.querySelectorAll('.roadmap-node');
+    const roadmapProgress = document.querySelector('.roadmap-progress');
     
     // Module data structure to organize lessons
     const moduleData = {
@@ -801,18 +968,52 @@ document.addEventListener('DOMContentLoaded', function() {
         module5: ['lesson5-1', 'lesson5-2', 'lesson5-3']
     };
     
-    // Tab switching functionality
+    // Module names for display
+    const moduleNames = {
+        module1: "Fundamentals",
+        module2: "Classical Ciphers",
+        module3: "Modern Cryptography",
+        module4: "Applications",
+        module5: "Advanced Topics"
+    };
+    
+    // Tab switching functionality with roadmap update
+    function activateModule(moduleId) {
+        // Remove active class from all tabs, contents, and roadmap nodes
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        roadmapNodes.forEach(node => node.classList.remove('active'));
+        
+        // Add active class to clicked tab, content, and roadmap node
+        const button = document.querySelector(`[data-module="${moduleId}"]`);
+        if (button) button.classList.add('active');
+        const content = document.getElementById(`${moduleId}-content`);
+        if (content) content.classList.add('active');
+        
+        // Update roadmap
+        const roadmapNode = document.querySelector(`.roadmap-node[data-module="${moduleId}"]`);
+        if (roadmapNode) roadmapNode.classList.add('active');
+        
+        // Update progress bar based on module index
+        const moduleIndex = parseInt(moduleId.replace('module', '')) - 1;
+        const totalModules = 5;
+        const progressWidth = ((moduleIndex) / (totalModules - 1)) * 100;
+        if (roadmapProgress) roadmapProgress.style.width = `${progressWidth}%`;
+    }
+    
+    // Tab button click handlers
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const moduleId = button.getAttribute('data-module');
-            
-            // Remove active class from all tabs and contents
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            // Add active class to clicked tab and corresponding content
-            button.classList.add('active');
-            document.getElementById(`${moduleId}-content`).classList.add('active');
+            activateModule(moduleId);
+        });
+    });
+    
+    // Roadmap node click handlers
+    roadmapNodes.forEach(node => {
+        node.addEventListener('click', () => {
+            const moduleId = node.getAttribute('data-module');
+            activateModule(moduleId);
         });
     });
     
@@ -821,6 +1022,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Extract module number from lessonId (e.g. lesson1-2 → module1)
         const moduleNum = lessonId.charAt(6);
         const moduleId = `module${moduleNum}`;
+        
+        // Get lesson index within module
+        const lessons = moduleData[moduleId] || [];
+        const currentIndex = lessons.indexOf(lessonId);
+        const totalLessons = lessons.length;
+        
+        // Update lesson number display
+        const lessonNumber = document.getElementById('lesson-number');
+        const lessonTotal = document.getElementById('lesson-total');
+        if (lessonNumber) lessonNumber.textContent = currentIndex + 1;
+        if (lessonTotal) lessonTotal.textContent = totalLessons;
+        
+        // Update current module name in breadcrumbs
+        const currentModuleName = document.getElementById('current-module-name');
+        if (currentModuleName) {
+            currentModuleName.textContent = moduleNames[moduleId] || moduleId;
+        }
         
         // Set lesson title
         const lessonElement = document.querySelector(`.lesson-box[onclick*="${lessonId}"]`);
@@ -843,8 +1061,14 @@ document.addEventListener('DOMContentLoaded', function() {
             currentLesson.style.display = 'block';
         }
         
-        // Show the lesson content section
-        document.getElementById('lesson-content-section').style.display = 'block';
+        // Show the lesson content section with animation
+        const lessonSection = document.getElementById('lesson-content-section');
+        lessonSection.style.display = 'block';
+        lessonSection.classList.add('animate__animated', 'animate__fadeIn');
+        
+        setTimeout(() => {
+            lessonSection.classList.remove('animate__animated', 'animate__fadeIn');
+        }, 500);
         
         // Update navigation buttons
         updateNavigation(lessonId, moduleId);
@@ -982,6 +1206,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update lesson status indicators
         updateLessonStatusIcons();
+        
+        // Update roadmap nodes based on completed modules
+        updateRoadmapProgress();
     }
     
     // Update all lesson status icons based on progress
@@ -1002,89 +1229,162 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Back to modules button handler
-    const backButton = document.getElementById('back-to-modules');
-    if (backButton) {
-        backButton.addEventListener('click', () => {
-            document.getElementById('lesson-content-section').style.display = 'none';
+    // Update roadmap based on completed lessons
+    function updateRoadmapProgress() {
+        const progress = loadProgress();
+        if (!progress.completedLessons) return;
+        
+        // Calculate completed modules
+        const moduleCompletionStatus = {};
+        
+        // Initialize all modules as incomplete
+        Object.keys(moduleData).forEach(moduleId => {
+            moduleCompletionStatus[moduleId] = false;
         });
-    }
-    
-    // Reset progress button functionality
-    const resetButton = document.getElementById('reset-progress');
-    if (resetButton) {
-        resetButton.addEventListener('click', function() {
-            if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
-                sessionStorage.removeItem(PROGRESS_KEY);
-                updateQuizProgress();
-                
-                // Reset complete button
-                const completeButton = document.getElementById('complete-lesson');
-                if (completeButton) {
-                    completeButton.classList.remove('completed');
-                    completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+        
+        // Mark modules as completed if all lessons are done
+        Object.entries(moduleData).forEach(([moduleId, lessons]) => {
+            const allCompleted = lessons.every(lesson => 
+                progress.completedLessons.includes(lesson)
+            );
+            moduleCompletionStatus[moduleId] = allCompleted;
+        });
+        
+        // Update roadmap nodes
+        Object.entries(moduleCompletionStatus).forEach(([moduleId, isCompleted]) => {
+            const roadmapNode = document.querySelector(`.roadmap-node[data-module="${moduleId}"]`);
+            if (roadmapNode) {
+                if (isCompleted) {
+                    roadmapNode.classList.add('completed');
+                } else {
+                    roadmapNode.classList.remove('completed');
                 }
             }
         });
     }
     
-    // Function to check quiz answers
-    function checkAnswer(button, questionId) {
-        const correctOption = button.getAttribute('data-correct');
-        const questionContainer = button.closest('.quiz-container');
-        const options = questionContainer.querySelectorAll('.option-item');
-        const feedbackContainer = questionContainer.querySelector('.feedback-container');
-        
-        let selectedOption = null;
-        options.forEach(option => {
-            const radio = option.querySelector('input[type="radio"]');
-            if (radio && radio.checked) {
-                selectedOption = radio.value;
-            }
+    // Back to modules button handler
+    const backButton = document.getElementById('back-to-modules');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            // Hide lesson section with animation
+            const lessonSection = document.getElementById('lesson-content-section');
+            lessonSection.classList.add('animate__animated', 'animate__fadeOut');
+            
+            setTimeout(() => {
+                lessonSection.style.display = 'none';
+                lessonSection.classList.remove('animate__animated', 'animate__fadeOut');
+                
+                // Scroll to modules section
+                const modulesContainer = document.querySelector('.modules-container');
+                if (modulesContainer) {
+                    modulesContainer.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
         });
-        
-        // If no option selected, show alert
-        if (!selectedOption) {
-            alert('Please select an answer first!');
-            return;
-        }
-        
-        // Disable all inputs
-        options.forEach(option => {
-            const radio = option.querySelector('input[type="radio"]');
-            if (radio) {
-                radio.disabled = true;
-            }
-            
-            if (radio && radio.value === correctOption) {
-                option.classList.add('correct-option');
-            } else if (radio && radio.value === selectedOption && selectedOption !== correctOption) {
-                option.classList.add('incorrect-option');
-            }
-        });
-        
-        // Show feedback
-        if (feedbackContainer) {
-            feedbackContainer.style.display = 'block';
-            const isCorrect = selectedOption === correctOption;
-            
-            const correctAnswer = feedbackContainer.querySelector('.correct-answer');
-            const incorrectAnswer = feedbackContainer.querySelector('.incorrect-answer');
-            
-            if (correctAnswer) correctAnswer.style.display = isCorrect ? 'block' : 'none';
-            if (incorrectAnswer) incorrectAnswer.style.display = isCorrect ? 'none' : 'block';
-        }
-        
-        // Disable the check button
-        button.disabled = true;
-        button.textContent = selectedOption === correctOption ? 'Correct!' : 'Try Again';
     }
     
-    // Make global functions available for inline handlers
-    window.showLesson = showLesson;
-    window.checkAnswer = checkAnswer;
+    // Reset progress button
+    const resetButton = document.getElementById('reset-progress');
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
+                // Show visual feedback
+                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Resetting...';
+                
+                // Wait a moment for animation effect
+                setTimeout(() => {
+                    // Clear storage
+                    sessionStorage.removeItem(PROGRESS_KEY);
+                    
+                    // Reset progress object
+                    saveProgress({ completedLessons: [] });
+                    
+                    // Reset UI elements and update display
+                    updateLessonStatusIcons();
+                    updateQuizProgress();
+                    updateRoadmapProgress();
+                    
+                    // Reset button text
+                    this.innerHTML = 'Reset Progress';
+                    
+                    // Show confirmation
+                    alert('Your progress has been reset successfully!');
+                }, 800);
+            }
+        });
+    }
     
-    // Initialize the page
+    // Initialize everything on page load
     updateQuizProgress();
+    updateRoadmapProgress();
+    
+    // Make first tab active by default
+    const firstTab = document.querySelector('.tab-button');
+    if (firstTab) {
+        const moduleId = firstTab.getAttribute('data-module');
+        activateModule(moduleId);
+    }
+    
+    // Fix for quiz check answers - now using event delegation
+    document.addEventListener('click', function(event) {
+        const target = event.target;
+        
+        // Check if it's a quiz answer button
+        if (target.classList.contains('simple-button') && target.hasAttribute('data-correct')) {
+            const correctOption = target.getAttribute('data-correct');
+            const questionContainer = target.closest('.quiz-container');
+            
+            if (!questionContainer) return;
+            
+            const options = questionContainer.querySelectorAll('.simple-option input[type="radio"]');
+            const feedbackContainer = questionContainer.querySelector('.feedback-container');
+            
+            let selectedOption = null;
+            options.forEach(option => {
+                if (option.checked) {
+                    selectedOption = option.value;
+                }
+            });
+            
+            // If no option selected, show alert
+            if (!selectedOption) {
+                alert('Please select an answer first!');
+                return;
+            }
+            
+            // Show feedback with animation
+            if (feedbackContainer) {
+                feedbackContainer.style.display = 'block';
+                
+                const isCorrect = selectedOption === correctOption;
+                
+                // Show correct/incorrect message
+                feedbackContainer.querySelector('.correct-answer').style.display = isCorrect ? 'block' : 'none';
+                feedbackContainer.querySelector('.incorrect-answer').style.display = isCorrect ? 'none' : 'block';
+                
+                // Disable options
+                options.forEach(option => {
+                    option.disabled = true;
+                    
+                    // Highlight correct/incorrect options
+                    const optionContainer = option.closest('.simple-option');
+                    if (optionContainer) {
+                        if (option.value === correctOption) {
+                            optionContainer.classList.add('correct-option');
+                        } else if (option.checked) {
+                            optionContainer.classList.add('incorrect-option');
+                        }
+                    }
+                });
+                
+                // Update check button
+                target.disabled = true;
+                target.innerHTML = isCorrect ? '<i class="fas fa-check-circle"></i> Correct!' : '<i class="fas fa-times-circle"></i> Try Again';
+                target.className = isCorrect ? 'simple-button correct-answer-btn' : 'simple-button incorrect-answer-btn';
+            }
+        }
+    });
 });
-</script>
+</script></file_content_or_search_replace_blocks>
+</invoke>
