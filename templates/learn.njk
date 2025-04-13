@@ -694,6 +694,67 @@ title: Learn Cryptography - CipherLab
     }
 }
 
+/* Quiz styling */
+.quiz-container {
+    background-color: var(--darker);
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.quiz-question {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.option-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--medium-dark);
+    border: 1px solid var(--primary-dark);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-item:hover {
+    background-color: var(--light-dark);
+}
+
+.option-item input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.correct-option {
+    background-color: rgba(0, 255, 65, 0.2) !important;
+    border-color: var(--primary) !important;
+}
+
+.incorrect-option {
+    background-color: rgba(255, 0, 0, 0.2) !important;
+    border-color: #ff0000 !important;
+}
+
+.feedback-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.correct-answer {
+    color: var(--primary);
+}
+
+.incorrect-answer {
+    color: #ff5555;
+}
+
+.correct-answer i, .incorrect-answer i {
+    margin-right: 0.5rem;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .hero-title {
@@ -722,11 +783,25 @@ title: Learn Cryptography - CipherLab
 </style>
 
 <script>
+// Improved Learn Page JavaScript
 document.addEventListener('DOMContentLoaded', function() {
+    // Use sessionStorage for progress tracking to avoid caching issues
+    const PROGRESS_KEY = 'cipherLabQuizProgress';
+    
     // Tab functionality
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.module-content');
     
+    // Module data structure to organize lessons
+    const moduleData = {
+        module1: ['lesson1-1', 'lesson1-2', 'lesson1-3'],
+        module2: ['lesson2-1', 'lesson2-2', 'lesson2-3'],
+        module3: ['lesson3-1', 'lesson3-2', 'lesson3-3'],
+        module4: ['lesson4-1', 'lesson4-2', 'lesson4-3'],
+        module5: ['lesson5-1', 'lesson5-2', 'lesson5-3']
+    };
+    
+    // Tab switching functionality
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const moduleId = button.getAttribute('data-module');
@@ -741,27 +816,209 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Initialize progress from storage
-    updateQuizProgress();
+    // Handle lesson navigation
+    function showLesson(lessonId) {
+        // Extract module number from lessonId (e.g. lesson1-2 → module1)
+        const moduleNum = lessonId.charAt(6);
+        const moduleId = `module${moduleNum}`;
+        
+        // Set lesson title
+        const lessonElement = document.querySelector(`.lesson-box[onclick*="${lessonId}"]`);
+        if (lessonElement) {
+            const lessonTitle = document.getElementById('lesson-title');
+            if (lessonTitle) {
+                lessonTitle.textContent = lessonElement.querySelector('h4').textContent;
+            }
+        }
+        
+        // Hide all lesson content, then show the current one
+        const lessonContents = document.querySelectorAll('[id$="-content"]');
+        lessonContents.forEach(content => {
+            content.style.display = 'none';
+        });
+        
+        // Show the selected lesson
+        const currentLesson = document.getElementById(`${lessonId}-content`);
+        if (currentLesson) {
+            currentLesson.style.display = 'block';
+        }
+        
+        // Show the lesson content section
+        document.getElementById('lesson-content-section').style.display = 'block';
+        
+        // Update navigation buttons
+        updateNavigation(lessonId, moduleId);
+        
+        // Update complete button status
+        updateCompleteButton(lessonId);
+        
+        // Scroll to top of lesson
+        window.scrollTo({
+            top: document.getElementById('lesson-content-section').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Update navigation buttons based on current lesson
+    function updateNavigation(lessonId, moduleId) {
+        const prevButton = document.getElementById('prev-lesson');
+        const nextButton = document.getElementById('next-lesson');
+        
+        if (prevButton && nextButton) {
+            const lessons = moduleData[moduleId];
+            const currentIndex = lessons.indexOf(lessonId);
+            
+            // Update previous button
+            if (currentIndex > 0) {
+                prevButton.style.visibility = 'visible';
+                prevButton.onclick = () => showLesson(lessons[currentIndex - 1]);
+            } else {
+                prevButton.style.visibility = 'hidden';
+            }
+            
+            // Update next button
+            if (currentIndex < lessons.length - 1) {
+                nextButton.style.visibility = 'visible';
+                nextButton.onclick = () => showLesson(lessons[currentIndex + 1]);
+            } else {
+                nextButton.style.visibility = 'hidden';
+            }
+        }
+    }
+    
+    // Update the complete button status
+    function updateCompleteButton(lessonId) {
+        const completeButton = document.getElementById('complete-lesson');
+        
+        if (completeButton) {
+            const progress = loadProgress();
+            
+            if (progress.completedLessons && progress.completedLessons.includes(lessonId)) {
+                completeButton.classList.add('completed');
+                completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+            } else {
+                completeButton.classList.remove('completed');
+                completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Complete';
+            }
+            
+            // Complete button click handler
+            completeButton.onclick = () => {
+                const progress = loadProgress();
+                
+                if (!progress.completedLessons.includes(lessonId)) {
+                    progress.completedLessons.push(lessonId);
+                    saveProgress(progress);
+                    
+                    // Update status icon
+                    const statusIcon = document.getElementById(`status-${lessonId}`);
+                    const statusText = statusIcon ? statusIcon.nextElementSibling : null;
+                    
+                    if (statusIcon) {
+                        statusIcon.className = 'fas fa-check-circle';
+                    }
+                    
+                    if (statusText) {
+                        statusText.textContent = 'Completed';
+                    }
+                    
+                    // Update button
+                    completeButton.classList.add('completed');
+                    completeButton.classList.add('pulse-animation');
+                    completeButton.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    
+                    // Remove pulse after animation completes
+                    setTimeout(() => {
+                        completeButton.classList.remove('pulse-animation');
+                    }, 1000);
+                    
+                    // Update progress bar
+                    updateQuizProgress();
+                }
+            };
+        }
+    }
+    
+    // Load progress from sessionStorage
+    function loadProgress() {
+        try {
+            const progressData = sessionStorage.getItem(PROGRESS_KEY);
+            if (progressData) {
+                return JSON.parse(progressData);
+            }
+        } catch (e) {
+            console.error('Error loading progress:', e);
+        }
+        return { completedLessons: [] };
+    }
+    
+    // Save progress to sessionStorage
+    function saveProgress(progress) {
+        try {
+            sessionStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+        } catch (e) {
+            console.error('Error saving progress:', e);
+        }
+    }
+    
+    // Update quiz progress UI
+    function updateQuizProgress() {
+        const progress = loadProgress();
+        const completedLessons = progress.completedLessons || [];
+        const totalLessons = Object.values(moduleData).flat().length;
+        
+        const progressValue = document.getElementById('quiz-progress-value');
+        const progressPercentage = document.getElementById('progress-percentage');
+        
+        const percentage = Math.min(100, Math.round((completedLessons.length / totalLessons) * 100));
+        
+        if (progressValue) {
+            progressValue.style.width = `${percentage}%`;
+            progressValue.setAttribute('aria-valuenow', percentage);
+        }
+        
+        if (progressPercentage) {
+            progressPercentage.textContent = `${percentage}%`;
+        }
+        
+        // Update lesson status indicators
+        updateLessonStatusIcons();
+    }
+    
+    // Update all lesson status icons based on progress
+    function updateLessonStatusIcons() {
+        const progress = loadProgress();
+        
+        document.querySelectorAll('[id^="status-lesson"]').forEach(statusIcon => {
+            const lessonId = statusIcon.id.replace('status-', '');
+            const statusText = statusIcon.nextElementSibling;
+            
+            if (progress.completedLessons && progress.completedLessons.includes(lessonId)) {
+                statusIcon.className = 'fas fa-check-circle';
+                if (statusText) statusText.textContent = 'Completed';
+            } else {
+                statusIcon.className = 'fas fa-circle';
+                if (statusText) statusText.textContent = 'Not started';
+            }
+        });
+    }
+    
+    // Back to modules button handler
+    const backButton = document.getElementById('back-to-modules');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            document.getElementById('lesson-content-section').style.display = 'none';
+        });
+    }
     
     // Reset progress button functionality
     const resetButton = document.getElementById('reset-progress');
     if (resetButton) {
         resetButton.addEventListener('click', function() {
             if (confirm('Are you sure you want to reset your progress? This cannot be undone.')) {
-                sessionStorage.removeItem('cipherLabQuizProgress');
+                sessionStorage.removeItem(PROGRESS_KEY);
                 updateQuizProgress();
                 
-                // Reset lesson status indicators
-                document.querySelectorAll('.lesson-status').forEach(status => {
-                    const icon = status.querySelector('i');
-                    const text = status.querySelector('span');
-                    
-                    if (icon) icon.className = 'fas fa-circle';
-                    if (text) text.textContent = 'Not started';
-                });
-                
-                // Reset completed button
+                // Reset complete button
                 const completeButton = document.getElementById('complete-lesson');
                 if (completeButton) {
                     completeButton.classList.remove('completed');
@@ -770,5 +1027,64 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Function to check quiz answers
+    function checkAnswer(button, questionId) {
+        const correctOption = button.getAttribute('data-correct');
+        const questionContainer = button.closest('.quiz-container');
+        const options = questionContainer.querySelectorAll('.option-item');
+        const feedbackContainer = questionContainer.querySelector('.feedback-container');
+        
+        let selectedOption = null;
+        options.forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            if (radio && radio.checked) {
+                selectedOption = radio.value;
+            }
+        });
+        
+        // If no option selected, show alert
+        if (!selectedOption) {
+            alert('Please select an answer first!');
+            return;
+        }
+        
+        // Disable all inputs
+        options.forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.disabled = true;
+            }
+            
+            if (radio && radio.value === correctOption) {
+                option.classList.add('correct-option');
+            } else if (radio && radio.value === selectedOption && selectedOption !== correctOption) {
+                option.classList.add('incorrect-option');
+            }
+        });
+        
+        // Show feedback
+        if (feedbackContainer) {
+            feedbackContainer.style.display = 'block';
+            const isCorrect = selectedOption === correctOption;
+            
+            const correctAnswer = feedbackContainer.querySelector('.correct-answer');
+            const incorrectAnswer = feedbackContainer.querySelector('.incorrect-answer');
+            
+            if (correctAnswer) correctAnswer.style.display = isCorrect ? 'block' : 'none';
+            if (incorrectAnswer) incorrectAnswer.style.display = isCorrect ? 'none' : 'block';
+        }
+        
+        // Disable the check button
+        button.disabled = true;
+        button.textContent = selectedOption === correctOption ? 'Correct!' : 'Try Again';
+    }
+    
+    // Make global functions available for inline handlers
+    window.showLesson = showLesson;
+    window.checkAnswer = checkAnswer;
+    
+    // Initialize the page
+    updateQuizProgress();
 });
 </script>
