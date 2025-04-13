@@ -210,7 +210,7 @@ title: Cryptography Quiz - CipherLab
         const scorePercentageEl = document.getElementById('score-percentage');
         const passMessageEl = document.getElementById('pass-message');
         const failMessageEl = document.getElementById('fail-message');
-        const certLevelEl = document.getElementById('cert-level');
+        const achievementLevelEl = document.getElementById('achievement-level');
         
         // Hide questions, show results
         if (questionsSection) questionsSection.style.display = 'none';
@@ -227,14 +227,14 @@ title: Cryptography Quiz - CipherLab
             if (passMessageEl) passMessageEl.style.display = 'block';
             if (failMessageEl) failMessageEl.style.display = 'none';
             
-            // Set certificate level
-            if (certLevelEl) {
+            // Set achievement level
+            if (achievementLevelEl) {
                 if (percentage >= 90) {
-                    certLevelEl.textContent = 'Master Cryptographer';
+                    achievementLevelEl.textContent = 'Cryptography Expert';
                 } else if (percentage >= 80) {
-                    certLevelEl.textContent = 'Advanced Cryptographer';
+                    achievementLevelEl.textContent = 'Advanced Knowledge';
                 } else {
-                    certLevelEl.textContent = 'Certified Cryptographer';
+                    achievementLevelEl.textContent = 'Good Understanding';
                 }
             }
         } else {
@@ -250,7 +250,7 @@ title: Cryptography Quiz - CipherLab
                 score: score,
                 totalQuestions: window.quizData.length,
                 percentage: percentage,
-                certLevel: certLevelEl ? certLevelEl.textContent : '',
+                achievementLevel: achievementLevelEl ? achievementLevelEl.textContent : '',
                 completedDate: new Date().toISOString()
             };
             localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
@@ -833,7 +833,7 @@ title: Cryptography Quiz - CipherLab
                                 score: 30,
                                 totalQuestions: 30,
                                 percentage: 100,
-                                certLevel: 'Master Cryptographer',
+                                achievementLevel: 'Cryptography Expert',
                                 completedDate: new Date().toISOString()
                             };
                             localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));

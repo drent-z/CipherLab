@@ -1055,10 +1055,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (retakeQuizButton) retakeQuizButton.addEventListener('click', retakeQuiz);
         if (backToResultsButton) backToResultsButton.addEventListener('click', backToResults);
         
-        // Certificate generation
-        if (generateCertButton) {
-            generateCertButton.addEventListener('click', generateCertificate);
-        }
+        // Certificate generation has been removed
         
         console.log('Quiz event listeners set up successfully');
     } catch (error) {
@@ -1162,7 +1159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Set certificate level
                 const certLevelEl = document.getElementById('cert-level');
-                certLevelEl.textContent = quizStatus.certLevel;
+                achievementLevelEl.textContent = quizStatus.achievementLevel || 'Quiz Passed';
             } else {
                 passMessageEl.style.display = 'none';
                 failMessageEl.style.display = 'block';
@@ -1212,27 +1209,11 @@ function updateModuleProgress() {
     }
 }
 
-// Certificate generation function with enhanced error handling and fallbacks
-function generateCertificate() {
-    // Show loading state
-    const buttonText = document.querySelector('#generate-certificate .button-text');
-    const originalText = buttonText.textContent;
-    buttonText.textContent = "Generating...";
-    
-    // Disable button during generation
-    const generateBtn = document.getElementById('generate-certificate');
-    generateBtn.disabled = true;
-    generateBtn.classList.add('generating');
-    
-    // Get user input
-    const userName = certificateNameInput.value.trim();
-    if (!userName) {
-        alert('Please enter your name to generate the certificate.');
-        buttonText.textContent = originalText;
-        generateBtn.disabled = false;
-        generateBtn.classList.remove('generating');
-        return;
-    }
+// Certificate functionality has been removed
+function handleQuizCompletion() {
+    console.log('Quiz completed successfully');
+    // No further functionality needed as certificates have been removed
+}
     
     // Check if jsPDF needs to be loaded again
     const ensureLibraryLoaded = () => {
@@ -1844,23 +1825,27 @@ function submitQuiz() {
             const achievementLevelEl = document.getElementById('achievement-level');
             if (achievementLevelEl) {
                 if (percentage >= 90) {
-                    certLevel = "Cryptography Expert";
-                    achievementLevelEl.textContent = certLevel;
+                    const achievementLevel = "Cryptography Expert";
+                    achievementLevelEl.textContent = achievementLevel;
                 } else if (percentage >= 80) {
-                    certLevel = "Advanced Knowledge";
-                    achievementLevelEl.textContent = certLevel;
+                    const achievementLevel = "Advanced Knowledge";
+                    achievementLevelEl.textContent = achievementLevel;
                 } else {
-                    certLevel = "Good Understanding";
-                    achievementLevelEl.textContent = certLevel;
+                    const achievementLevel = "Good Understanding";
+                    achievementLevelEl.textContent = achievementLevel;
                 }
             }
             
             // Save to localStorage that the quiz was passed
             if (typeof saveFinalQuizStatus === 'function') {
-                saveFinalQuizStatus(true, score, percentage, certLevel);
+                // Get current achievement level
+                const achievementLevel = achievementLevelEl ? achievementLevelEl.textContent : "Quiz Passed";
+                saveFinalQuizStatus(true, score, percentage, achievementLevel);
             } else {
                 // Fallback if saveFinalQuizStatus not available
-                saveQuizResultsFallback(true, score, percentage, certLevel);
+                // Get current achievement level
+                const achievementLevel = achievementLevelEl ? achievementLevelEl.textContent : "Quiz Passed";
+                saveQuizResultsFallback(true, score, percentage, achievementLevel);
             }
             
             // Show congratulations notification
@@ -1916,7 +1901,7 @@ function submitQuiz() {
 }
 
 // Fallback function for saving quiz results if saveFinalQuizStatus is not available
-function saveQuizResultsFallback(passed, score, percentage, certLevel) {
+function saveQuizResultsFallback(passed, score, percentage, achievementLevel) {
     console.log('Using fallback method to save quiz results');
     
     try {
