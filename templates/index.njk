@@ -71,9 +71,338 @@ title: CipherLab - Cryptography Educational Platform
     </div>
 </section>
 
-<!-- Page-specific styles -->
+<!-- Optimized CSS for this page -->
 <style>
-    /* Responsive adjustments for the hero section */
+    /* --- CORE FIXES --- */
+    html, body {
+        max-width: 100%;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body * {
+        box-sizing: border-box;
+    }
+    
+    /* --- GRADIENT FIX (Single massive gradient) --- */
+    .hero-gradient-container {
+        position: fixed; /* FIXED position to ensure it covers everything */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: visible;
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    .hero-gradient-container::after {
+        content: "";
+        position: absolute;
+        top: -50vh; /* Extend upward */
+        left: -50vw; /* Extend leftward */
+        width: 200vw; /* Super wide */
+        height: 400vh; /* EXTREMELY tall - covers everything */
+        background: radial-gradient(
+            circle at center,
+            rgba(0, 255, 65, 0.15) 0%, 
+            rgba(0, 255, 65, 0.1) 15%,
+            rgba(0, 255, 65, 0.05) 30%,
+            rgba(0, 255, 65, 0.02) 60%,
+            transparent 80%
+        );
+        z-index: -1;
+        pointer-events: none;
+    }
+    
+    /* Force center align */
+    .text-center {
+        text-align: center !important;
+    }
+    
+    /* --- HERO SECTION --- */
+    .hero {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 0;
+        width: 100%;
+        max-width: 100%;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    
+    /* Force row to be full-width */
+    .hero-row {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+        padding: 0 1rem;
+        overflow: visible;
+    }
+    
+    /* Force column to be block displayed */
+    .hero .col-12 {
+        display: block !important;
+        float: none !important;
+        clear: both !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100%;
+        overflow: visible;
+    }
+    
+    /* --- WELCOME TEXT --- */
+    .typing-container {
+        width: 100% !important;
+        position: relative !important;
+        margin-bottom: 3rem !important;
+        text-align: center !important;
+        display: block !important;
+        overflow: visible;
+    }
+    
+    .welcome-container {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        width: 100%;
+        max-width: 90rem;
+        padding: 0 1rem;
+        overflow: visible;
+    }
+    
+    /* SVG container for welcome text */
+    .welcome-svg {
+        max-width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+    
+    .welcome-text-base {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 3rem;
+        fill: var(--primary);
+        filter: drop-shadow(0 0 2px var(--primary));
+    }
+    
+    .welcome-text-glitch {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 3rem;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        letter-spacing: -0.5px;
+    }
+    
+    .welcome-text-glitch1 {
+        fill: var(--primary);
+        clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+    
+    .welcome-text-glitch2 {
+        fill: var(--primary);
+        clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    }
+    
+    /* --- HERO CONTENT --- */
+    .hero-content {
+        margin-top: 2rem !important;
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        padding: 0 1rem;
+    }
+    
+    /* Hero subtitle styling */
+    .hero-subtitle {
+        font-size: 1.5rem !important;
+        line-height: 1.6 !important;
+        color: var(--text) !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1.5rem !important;
+        max-width: 800px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* CTA buttons styling */
+    .cta-buttons {
+        margin-top: 1rem !important;
+        position: relative !important;
+        z-index: 2 !important;
+        display: block !important;
+    }
+    
+    /* Binary stream animation - SIMPLIFIED */
+    .binary-stream {
+        position: absolute;
+        bottom: 20px;
+        font-family: 'IBM Plex Mono', monospace;
+        color: var(--primary);
+        opacity: 0.3;
+        font-size: 1rem;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 100vw;
+        pointer-events: none;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: binaryScroll 15s linear infinite;
+    }
+    
+    @keyframes binaryScroll {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+    
+    /* This keyframes is being defined in the index page to ensure it's available globally */
+    @keyframes shine {
+        to {
+            background-position: 200% center;
+        }
+    }
+    
+    /* --- FEATURES SECTION --- */
+    .section-title.centered-heading {
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+    
+    .features-container {
+        padding: 3rem 0;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: visible;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+    }
+    
+    .feature-box {
+        background-color: var(--medium-dark);
+        border: 1px solid var(--primary);
+        border-radius: 12px;
+        padding: 2.5rem;
+        position: relative;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        max-width: 100%;
+    }
+    
+    .feature-icon-container {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--dark);
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    
+    .feature-box h2 {
+        color: var(--primary);
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-box h2::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 3px;
+        background-color: var(--primary);
+        transition: width 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .feature-box p {
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        z-index: 1;
+        position: relative;
+        flex-grow: 1;
+    }
+    
+    .feature-button {
+        margin-top: auto;
+        padding-top: 1.5rem;
+    }
+    
+    .btn-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.5rem 0;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn-learn-more::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary);
+        transition: width 0.3s ease;
+    }
+    
+    /* --- RESPONSIVE SCALING --- */
     @media (max-width: 1400px) {
         .welcome-text-base,
         .welcome-text-glitch {
@@ -111,6 +440,15 @@ title: CipherLab - Cryptography Educational Platform
             font-size: 1.25rem !important;
         }
         
+        .features-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+        }
+        
         .hero {
             min-height: 80vh;
         }
@@ -140,6 +478,29 @@ title: CipherLab - Cryptography Educational Platform
         .hero-subtitle {
             font-size: 1.2rem !important;
             padding: 0 1rem;
+        }
+        
+        .typing-container {
+            margin-bottom: 2rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .cta-button {
+            padding: 1rem 2rem;
+            min-width: 200px;
         }
         
         /* Disable animation for mobile */
@@ -178,5 +539,163 @@ title: CipherLab - Cryptography Educational Platform
             font-size: 1.1rem !important;
             padding: 0 0.5rem;
         }
+        
+        .typing-container {
+            margin-bottom: 1.5rem !important;
+        }
+        
+        .feature-icon-container {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+        }
+        
+        .feature-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-box p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            font-size: 1.7rem;
+            margin-bottom: 2rem;
+        }
     }
+    
+    @media (max-width: 380px) {
+        .welcome-text-base,
+        .welcome-text-glitch {
+            font-size: 2.2rem;
+        }
+        
+        .welcome-svg {
+            height: auto;
+            min-height: 70px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem !important;
+        }
+        
+        .cta-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            min-width: 180px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+    }
+    
+    /* Fix for touch devices */
+    @media (pointer: coarse) {
+        .cta-button, 
+        .btn-learn-more,
+        .feature-box,
+        .feature-icon-container {
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
+        }
+        
+        /* Disable hover transformations on touch devices */
+        .feature-box:hover,
+        .btn-learn-more:hover,
+        .cta-button:hover {
+            transform: none !important;
+        }
+    }
+    
+    /* IMPORTANT - Detect low-power mode */
+@media (prefers-reduced-motion: reduce) {
+    .welcome-text-glitch,
+    .binary-stream {
+        display: none !important;
+    }
+    
+    .feature-box,
+    .cta-button,
+    .btn-learn-more {
+        transition: none !important;
+    }
+}
+
+/* Welcome text styling to match the footer CipherLab text */
+.welcome-svg {
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-text-base {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 48px;
+    fill: var(--primary);
+    filter: drop-shadow(0 0 2px var(--primary));
+    letter-spacing: -0.5px;
+}
+
+.welcome-text-glitch {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 48px;
+    opacity: 0.65;
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: -0.5px;
+}
+
+.welcome-text-glitch1 {
+    fill: var(--primary);
+    filter: drop-shadow(0 0 1px var(--primary));
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: welcome-glitch1 4s infinite linear alternate-reverse;
+}
+
+.welcome-text-glitch2 {
+    fill: var(--primary);
+    filter: drop-shadow(0 0 1px var(--primary));
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    animation: welcome-glitch2 3s infinite linear alternate-reverse;
+}
+
+@keyframes welcome-glitch1 {
+    0% { transform: translate(-2px, 0); }
+    20% { transform: translate(2px, 0); }
+    40% { transform: translate(-1px, 0); }
+    60% { transform: translate(1px, 0); }
+    80% { transform: translate(-1px, 0); }
+    100% { transform: translate(1px, 0); }
+}
+
+@keyframes welcome-glitch2 {
+    0% { transform: translate(2px, 0); }
+    20% { transform: translate(-2px, 0); }
+    40% { transform: translate(1px, 0); }
+    60% { transform: translate(-1px, 0); }
+    80% { transform: translate(1px, 0); }
+    100% { transform: translate(-1px, 0); }
+}
+
+/* Page heading styling (kept for compatibility) */
+.page-heading {
+    color: var(--primary);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
 </style>
