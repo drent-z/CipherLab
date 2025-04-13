@@ -119,7 +119,8 @@
                 <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
                     <i class="fas fa-play"></i> Start Final Quiz
                 </button>
-                <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none; margin-top: 1rem;">
+                <!-- The Submit Answers button should only appear after starting the quiz and reaching the last question -->
+                <button id="submit-quiz" class="cta-button final-quiz-button" style="display: none !important; margin-top: 1rem;">
                     <i class="fas fa-check"></i> Submit Answers
                 </button>
             </div>
@@ -1017,6 +1018,14 @@ const certificateLinkContainer = document.querySelector('.certificate-link');
 // Set up event listeners with improved error handling
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Setting up quiz event listeners...');
+    
+    // Ensure submit button is completely hidden initially
+    const submitButton = document.getElementById('submit-quiz');
+    if (submitButton) {
+        submitButton.style.display = 'none';
+        // Add !important to make sure it stays hidden
+        submitButton.setAttribute('style', 'display: none !important;');
+    }
     
     try {
         // Make quiz data and functions globally available for the auto-pass feature
@@ -2144,6 +2153,31 @@ function retakeQuiz() {
     width: 100%;
 }
 
+/* Improved option alignment for radio buttons and text */
+.option {
+    display: flex !important; 
+    align-items: center !important;
+}
+
+.option input[type="radio"] {
+    margin-right: 12px !important;
+    position: relative !important;
+    top: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.option label {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+}
+
+/* Make absolutely sure the submit button doesn't show on initial quiz load */
+#submit-quiz {
+    display: none !important;
+}
+
 .final-quiz-button {
     display: inline-block;
     background: linear-gradient(45deg, var(--primary-dark), var(--primary));
@@ -2200,6 +2234,7 @@ function retakeQuiz() {
     border: 1px solid var(--darker);
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .option:hover {
@@ -2214,12 +2249,22 @@ function retakeQuiz() {
 
 .option input[type="radio"] {
     margin-right: 1rem;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
 }
 
 .option label {
     font-size: 1.1rem;
     cursor: pointer;
     flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 1.3;
+    padding-top: 2px;
 }
 
 .quiz-navigation {
