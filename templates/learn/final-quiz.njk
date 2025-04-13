@@ -93,7 +93,7 @@
                     <div class="quiz-progress-value" id="quiz-progress-value" style="width: 100%;"></div>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="text-center" style="margin: 0 auto; text-align: center; width: 100%;">
                 <button id="start-final-quiz-btn" class="cta-button final-quiz-button">
                     <i class="fas fa-play"></i> Start Final Quiz
                 </button>
@@ -1461,17 +1461,23 @@ function handleQuizCompletion() {
 // Function to start the quiz
 function startQuiz() {
     console.log('Starting quiz...');
-    
+
     try {
         quizStarted = true;
         window.quizStarted = true;
-        
+
         // Update UI if elements exist
         if (introSection) introSection.style.display = 'none';
         if (questionsSection) questionsSection.style.display = 'block';
         if (startButton) startButton.style.display = 'none';
         // Hide submit button by default - it will only be shown on the last question
         if (submitButton) submitButton.style.display = 'none';
+        
+        // Hide the quiz footer (with the requirements text and progress bar)
+        const quizFooter = document.querySelector('.final-quiz-footer');
+        if (quizFooter) {
+            quizFooter.style.display = 'none';
+        }
         
         // Reset quiz state
         currentQuestion = 0;
@@ -1642,7 +1648,15 @@ function updateNavButtons() {
         
         // Show submit button only on the last question and only if quiz has started
         if (submitButton) {
-            submitButton.style.display = (quizStarted && currentQuestion === quizData.length - 1) ? 'block' : 'none';
+            if (quizStarted && currentQuestion === quizData.length - 1) {
+                // Show the button with proper styling
+                submitButton.style.display = 'inline-flex';
+                submitButton.style.margin = '2rem auto';
+                submitButton.style.width = 'auto';
+                submitButton.style.minWidth = '220px';
+            } else {
+                submitButton.style.display = 'none';
+            }
         }
     } catch (error) {
         console.error('Error updating navigation buttons:', error);
@@ -2045,8 +2059,16 @@ function retakeQuiz() {
     padding: 1.5rem;
     border-top: 1px solid var(--primary-dark);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+}
+
+.final-quiz-footer .requirements {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
 }
 
 .final-quiz-footer .text-center {
@@ -2093,7 +2115,7 @@ function retakeQuiz() {
 }
 
 .final-quiz-button {
-    display: inline-block;
+    display: inline-flex;
     background: linear-gradient(45deg, var(--primary-dark), var(--primary));
     color: var(--dark);
     font-weight: 700;
@@ -2106,13 +2128,13 @@ function retakeQuiz() {
     z-index: 1;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    margin: 0 auto !important;
     gap: 0.75rem;
     min-width: 200px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .final-quiz-button:hover {
