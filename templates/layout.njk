@@ -201,9 +201,11 @@
   
   <!-- Custom Scripts -->
   <script src="/assets/scripts.js"></script>
-  {% if title contains "Learn Cryptography" %}
-  <script src="/assets/learn.js"></script>
-  <script src="/assets/learn-enhancements.js"></script>
+  
+  <!-- Conditional Learn Scripts -->
+  {% if title == "Learn Cryptography - CipherLab" %}
+    <script src="/assets/learn.js"></script>
+    <script src="/assets/learn-enhancements.js"></script>
   {% endif %}
   
   <!-- Analytics -->
