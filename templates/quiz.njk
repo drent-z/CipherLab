@@ -29,9 +29,371 @@ title: Cryptography Quiz - CipherLab
     // Direct fix that runs right away
     console.log('EMERGENCY FIX RUNNING...');
     
+    // Ensure we have the original 30 questions
+    function ensureQuizData() {
+        console.log('Ensuring proper quiz data...');
+        
+        // Check if a placeholder or incorrect version is being used
+        if (!window.quizData || !Array.isArray(window.quizData) || window.quizData.length !== 30) {
+            console.warn('Quiz data missing or incorrect, restoring original...');
+            
+            // Original 30 questions quiz data
+            window.quizData = [
+                // Module 1: Fundamentals of Cryptography
+                {
+                    module: "Fundamentals",
+                    question: "What is the main purpose of cryptography?",
+                    options: [
+                        "To create computer games",
+                        "To secure information",
+                        "To speed up computer processing",
+                        "To develop new programming languages"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Fundamentals",
+                    question: "Which of these is NOT a main goal of cryptography?",
+                    options: [
+                        "Confidentiality",
+                        "Integrity",
+                        "Authentication",
+                        "Compression"
+                    ],
+                    correctAnswer: 3
+                },
+                {
+                    module: "Fundamentals",
+                    question: "What does the term 'non-repudiation' mean in cryptography?",
+                    options: [
+                        "The ability to deny sending a message",
+                        "The inability to deny sending a message",
+                        "The ability to decrypt any message",
+                        "The ability to encrypt any message without a key"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Fundamentals",
+                    question: "In what ancient civilization was the scytale, one of the first cryptographic devices, used?",
+                    options: [
+                        "Ancient Egypt",
+                        "Roman Empire",
+                        "Ancient Sparta",
+                        "Mesopotamia"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Fundamentals",
+                    question: "Which of these best describes plaintext?",
+                    options: [
+                        "Text that is formatted in a simple way",
+                        "Text that has been encrypted",
+                        "The original, unencrypted message",
+                        "Text that can only be read by authorized users"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Fundamentals",
+                    question: "What happens if cryptographic keys are stolen or compromised?",
+                    options: [
+                        "Nothing, since keys are just one part of security",
+                        "The encrypted data becomes temporarily inaccessible",
+                        "The security of the encrypted data is compromised",
+                        "The data automatically self-destructs"
+                    ],
+                    correctAnswer: 2
+                },
+                
+                // Module 2: Classical Ciphers
+                {
+                    module: "Classical Ciphers",
+                    question: "In the Caesar cipher, what happens when shifting the letter Z by 1?",
+                    options: [
+                        "It becomes Y",
+                        "It becomes A",
+                        "It remains Z",
+                        "It becomes a number"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Classical Ciphers",
+                    question: "What makes the Vigenère cipher stronger than the Caesar cipher?",
+                    options: [
+                        "It uses multiple shift values based on a keyword",
+                        "It uses larger numbers",
+                        "It was invented later in history",
+                        "It can only be used by governments"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    module: "Classical Ciphers",
+                    question: "Which technique was historically used to break substitution ciphers?",
+                    options: [
+                        "Brute force attacks",
+                        "Frequency analysis",
+                        "Dictionary attacks",
+                        "Differential cryptanalysis"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Classical Ciphers",
+                    question: "Who is credited with using the Caesar cipher in military communications?",
+                    options: [
+                        "Alexander the Great",
+                        "Julius Caesar",
+                        "Genghis Khan",
+                        "Napoleon Bonaparte"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Classical Ciphers",
+                    question: "What is the main vulnerability of simple substitution ciphers?",
+                    options: [
+                        "They are too complex to implement correctly",
+                        "They preserve the frequency patterns of the original language",
+                        "They require too much computational power",
+                        "They can only encrypt short messages"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Classical Ciphers",
+                    question: "The Enigma machine used in World War II is an example of what type of cipher?",
+                    options: [
+                        "A simple substitution cipher",
+                        "A polyalphabetic cipher with mechanical implementation",
+                        "A one-time pad",
+                        "A block cipher"
+                    ],
+                    correctAnswer: 1
+                },
+                
+                // Module 3: Modern Cryptography
+                {
+                    module: "Modern Cryptography",
+                    question: "Which encryption type uses different keys for encryption and decryption?",
+                    options: [
+                        "Symmetric encryption",
+                        "Asymmetric encryption",
+                        "Hash functions",
+                        "Substitution ciphers"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Modern Cryptography",
+                    question: "What is a hash function primarily used for?",
+                    options: [
+                        "Encrypting data for secure transmission",
+                        "Verifying data integrity and creating fixed-size representations",
+                        "Securing email communications",
+                        "Generating random numbers"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Modern Cryptography",
+                    question: "Which of these is an example of a symmetric encryption algorithm?",
+                    options: [
+                        "RSA",
+                        "AES",
+                        "ECC",
+                        "Diffie-Hellman"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Modern Cryptography",
+                    question: "What is the main advantage of asymmetric encryption over symmetric encryption?",
+                    options: [
+                        "It's faster",
+                        "It uses smaller keys",
+                        "It solves the key distribution problem",
+                        "It provides stronger encryption"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Modern Cryptography",
+                    question: "What security property does a good hash function NOT have?",
+                    options: [
+                        "Deterministic output",
+                        "Collision resistance",
+                        "Reversibility",
+                        "Avalanche effect"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Modern Cryptography",
+                    question: "What does AES stand for?",
+                    options: [
+                        "Advanced Encryption System",
+                        "Advanced Encryption Standard",
+                        "Automated Encryption Service",
+                        "Algorithmic Encryption System"
+                    ],
+                    correctAnswer: 1
+                },
+                
+                // Module 4: Applications
+                {
+                    module: "Applications",
+                    question: "Which of these is a practical application of asymmetric encryption?",
+                    options: [
+                        "Full disk encryption",
+                        "Password storage",
+                        "Digital signatures",
+                        "Streaming video encryption"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Applications",
+                    question: "What technology underlies cryptocurrencies like Bitcoin?",
+                    options: [
+                        "Virtual private networks",
+                        "Blockchain",
+                        "Quantum encryption",
+                        "Steganography"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Applications",
+                    question: "What does HTTPS use to secure web communications?",
+                    options: [
+                        "A VPN tunnel",
+                        "A combination of TLS/SSL protocols with asymmetric and symmetric encryption",
+                        "Only symmetric encryption",
+                        "Steganography to hide data in images"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Applications",
+                    question: "In the context of secure communications, what does 'end-to-end encryption' mean?",
+                    options: [
+                        "The encryption algorithm runs from start to finish",
+                        "Only the sender and recipient can read the messages",
+                        "The message is encrypted twice for extra security",
+                        "The entire network path is encrypted"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Applications",
+                    question: "What is the main purpose of a digital signature?",
+                    options: [
+                        "To encrypt a document",
+                        "To compress a document for faster transmission",
+                        "To verify the identity of the sender and ensure document integrity",
+                        "To timestamp when a document was created"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Applications",
+                    question: "How does blockchain technology ensure data integrity?",
+                    options: [
+                        "By using supercomputers to verify data",
+                        "By requiring government approval for all transactions",
+                        "By chaining blocks with cryptographic hashes and distributed validation",
+                        "By limiting access to authorized users only"
+                    ],
+                    correctAnswer: 2
+                },
+                
+                // Module 5: Advanced Topics
+                {
+                    module: "Advanced Topics",
+                    question: "What is quantum cryptography based on?",
+                    options: [
+                        "Faster computers",
+                        "The laws of quantum mechanics",
+                        "Historical ciphers",
+                        "Advanced mathematics only"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Advanced Topics",
+                    question: "What is the unique capability of homomorphic encryption?",
+                    options: [
+                        "Performing computations on encrypted data without decrypting it",
+                        "Creating unbreakable encryption",
+                        "Reducing the size of encrypted files",
+                        "Faster encryption and decryption"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    module: "Advanced Topics",
+                    question: "Which algorithm poses a significant threat to RSA encryption if implemented on a quantum computer?",
+                    options: [
+                        "Shor's algorithm",
+                        "Grover's algorithm",
+                        "Deutsch-Jozsa algorithm",
+                        "Quantum Fourier Transform"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    module: "Advanced Topics",
+                    question: "What is a zero-knowledge proof used for?",
+                    options: [
+                        "Encrypting data with zero knowledge of the recipient",
+                        "Proving you know something without revealing what you know",
+                        "Creating encryption with zero processing overhead",
+                        "Decrypting data without a key"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    module: "Advanced Topics",
+                    question: "Which of these is considered 'post-quantum cryptography'?",
+                    options: [
+                        "RSA with larger key sizes",
+                        "Elliptic curve cryptography",
+                        "Lattice-based cryptography",
+                        "Triple DES"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    module: "Advanced Topics",
+                    question: "What is the main principle behind Quantum Key Distribution (QKD)?",
+                    options: [
+                        "Using quantum superposition to create unbreakable keys",
+                        "Using the observer effect to detect eavesdropping",
+                        "Using quantum entanglement to transmit data faster than light",
+                        "Using quantum tunneling to bypass encryption"
+                    ],
+                    correctAnswer: 1
+                }
+            ];
+            
+            // Initialize user answers array
+            if (!window.userAnswers || window.userAnswers.length !== 30) {
+                window.userAnswers = Array(30).fill(null);
+            }
+            
+            console.log('Original 30 questions quiz data restored');
+        }
+    }
+    
     // Function to fix the start quiz button
     function fixStartButton() {
         console.log('Fixing start quiz button...');
+        ensureQuizData(); // Make sure we have the right quiz data first
+        
         const startButton = document.getElementById('start-final-quiz-btn');
         
         if (!startButton) {
@@ -51,6 +413,9 @@ title: Cryptography Quiz - CipherLab
             console.log('START BUTTON CLICKED');
             e.preventDefault();
             
+            // Make sure quiz data is correct
+            ensureQuizData();
+            
             // Direct quiz start functionality
             const intro = document.getElementById('final-quiz-intro');
             const questions = document.getElementById('final-quiz-questions');
@@ -64,23 +429,47 @@ title: Cryptography Quiz - CipherLab
             
             // Make sure quiz is started
             window.quizStarted = true;
+            window.currentQuestion = 0;
             
-            // Reset to first question
-            if (typeof window.loadQuestion === 'function') {
-                window.currentQuestion = 0;
-                window.userAnswers = Array(window.quizData.length).fill(null);
-                window.loadQuestion(0);
-            } else {
-                console.warn('loadQuestion function not found, using direct approach');
-                // Direct approach to load first question
-                const questionText = document.getElementById('question-text');
-                const answerOptions = document.getElementById('answer-options');
-                const currentQuestionEl = document.getElementById('current-question');
+            // Load first question (direct approach)
+            const questionText = document.getElementById('question-text');
+            const answerOptions = document.getElementById('answer-options');
+            const currentQuestionEl = document.getElementById('current-question');
+            const totalQuestionsEl = document.getElementById('total-questions');
+            
+            // Show first question text
+            if (questionText && window.quizData && window.quizData.length > 0) {
+                questionText.textContent = window.quizData[0].question;
+            }
+            
+            // Set question count display
+            if (currentQuestionEl) currentQuestionEl.textContent = '1';
+            if (totalQuestionsEl) totalQuestionsEl.textContent = '30';
+            
+            // Clear and populate answer options
+            if (answerOptions && window.quizData && window.quizData.length > 0) {
+                answerOptions.innerHTML = '';
                 
-                if (questionText && window.quizData && window.quizData.length > 0) {
-                    questionText.textContent = window.quizData[0].question;
-                }
-                if (currentQuestionEl) currentQuestionEl.textContent = '1';
+                window.quizData[0].options.forEach((option, index) => {
+                    const optionEl = document.createElement('div');
+                    optionEl.className = 'option';
+                    
+                    optionEl.innerHTML = `
+                        <input type="radio" id="option-${index}" name="question-0" value="${index}">
+                        <label for="option-${index}">${option}</label>
+                    `;
+                    
+                    // Add click handler
+                    optionEl.addEventListener('click', function() {
+                        document.querySelectorAll('#answer-options .option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        optionEl.classList.add('selected');
+                        window.userAnswers[0] = index;
+                    });
+                    
+                    answerOptions.appendChild(optionEl);
+                });
             }
             
             // Force scroll to questions section
@@ -95,6 +484,8 @@ title: Cryptography Quiz - CipherLab
     // Function to fix the secret 'o' pass trigger
     function fixSecretTrigger() {
         console.log('Fixing secret pass trigger...');
+        ensureQuizData(); // Make sure we have the right quiz data first
+        
         const trigger = document.getElementById('secret-pass-trigger');
         
         if (!trigger) {
@@ -129,6 +520,9 @@ title: Cryptography Quiz - CipherLab
                 console.log('AUTO-PASS ACTIVATED');
                 clickCount = 0;
                 
+                // Make sure quiz data is correct
+                ensureQuizData();
+                
                 // Show success notification
                 const popup = document.createElement('div');
                 popup.textContent = '✓ Quiz Auto-Passed!';
@@ -162,14 +556,16 @@ title: Cryptography Quiz - CipherLab
                         if (startBtn) startBtn.style.display = 'none';
                         if (submitBtn) submitBtn.style.display = 'none';
                         
-                        // Set perfect score
+                        // Set perfect score - ensuring 30 questions
                         const finalScore = document.getElementById('final-score');
+                        const maxScore = document.getElementById('max-score');
                         const scorePercentage = document.getElementById('score-percentage');
                         const certLevel = document.getElementById('cert-level');
                         const passMsg = document.getElementById('pass-message');
                         const failMsg = document.getElementById('fail-message');
                         
                         if (finalScore) finalScore.textContent = '30';
+                        if (maxScore) maxScore.textContent = '30';
                         if (scorePercentage) scorePercentage.textContent = '100%';
                         if (certLevel) certLevel.textContent = 'Master Cryptographer';
                         if (passMsg) passMsg.style.display = 'block';
@@ -181,7 +577,9 @@ title: Cryptography Quiz - CipherLab
                                 completed: true,
                                 passed: true,
                                 score: 30,
+                                totalQuestions: 30,
                                 percentage: 100,
+                                certLevel: 'Master Cryptographer',
                                 completedDate: new Date().toISOString()
                             };
                             localStorage.setItem('cipherLabFinalQuizStatus', JSON.stringify(quizStatus));
