@@ -6,8 +6,8 @@
                 <i class="fas fa-trophy"></i>
             </div>
             <div class="quiz-info">
-                <h3>Final Certification Quiz</h3>
-                <p>Test your knowledge and earn your cryptography certification</p>
+                <h3>Final Knowledge Quiz</h3>
+                <p>Test your understanding of cryptography concepts</p>
             </div>
 <div class="quiz-status">
                 <span id="quiz-status-text">Unl<button id="secret-pass-trigger" style="background: none; border: none; color: inherit; font: inherit; cursor: default; padding: 0; margin: 0; outline: none;">o</button>cked</span>
@@ -24,7 +24,7 @@
                     <li>Applications</li>
                     <li>Advanced Topics</li>
                 </ul>
-                <p>The quiz consists of 30 questions with 6 questions from each module. You need to score at least 70% to pass and earn your certification. Higher scores unlock premium certificate levels!</p>
+                <p>The quiz consists of 30 questions with 6 questions from each module. You need to score at least 70% to pass the quiz and demonstrate your understanding of cryptography concepts.</p>
                 <p>Good luck!</p>
             </div>
             
@@ -60,31 +60,9 @@
                 <div class="results-message" id="pass-message" style="display: none;">
                     <i class="fas fa-check-circle"></i>
                     <h4>Congratulations!</h4>
-                    <p>You've successfully completed the Cryptography Certification Quiz. You now have a solid understanding of cryptographic principles and applications across all modules!</p>
-                    <div class="certificate-level">
-                        <span id="cert-level">Master Cryptographer</span>
-                    </div>
-                    
-                    <div class="certificate-form">
-                        <p>Enter your name to generate your personalized certificate:</p>
-                        <div class="name-input-container">
-                            <input type="text" id="certificate-name" placeholder="Enter your full name" class="name-input">
-                            <button id="generate-certificate" class="fancy-generate-button" title="Generate your personalized certificate">
-                                <span class="button-icon"><i class="fas fa-certificate"></i></span>
-                                <span class="button-text">Generate Certificate</span>
-                            </button>
-                        </div>
-                        <p class="form-help-text" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">
-                            <i class="fas fa-info-circle"></i> Your name will appear exactly as entered on the certificate
-                        </p>
-                    </div>
-                    
-                    <div class="certificate-link" style="display: none;">
-                        <p class="success-message"><i class="fas fa-check-circle"></i> Your certificate has been generated successfully!</p>
-                        <a href="#" id="certificate-download">Download Certificate</a>
-                        <p class="file-info" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">
-                            <i class="fas fa-file-pdf"></i> PDF file will be saved to your downloads folder
-                        </p>
+                    <p>You've successfully completed the Cryptography Quiz. You now have a solid understanding of cryptographic principles and applications across all modules!</p>
+                    <div class="achievement-level">
+                        <span id="achievement-level">Excellent Knowledge</span>
                     </div>
                 </div>
                 <div class="results-message" id="fail-message" style="display: none;">
@@ -393,7 +371,7 @@ function manuallyDisplayResults() {
     const scorePercentageEl = document.getElementById('score-percentage');
     const passMessageEl = document.getElementById('pass-message');
     const failMessageEl = document.getElementById('fail-message');
-    const certLevelEl = document.getElementById('cert-level');
+    const achievementLevelEl = document.getElementById('achievement-level');
     
     if (finalScoreEl) finalScoreEl.textContent = score;
     if (scorePercentageEl) scorePercentageEl.textContent = `${percentage}%`;
@@ -401,7 +379,7 @@ function manuallyDisplayResults() {
     if (passMessageEl) passMessageEl.style.display = 'block';
     if (failMessageEl) failMessageEl.style.display = 'none';
     
-    if (certLevelEl) certLevelEl.textContent = 'Master Cryptographer';
+    if (achievementLevelEl) achievementLevelEl.textContent = 'Cryptography Expert';
     
     // Save to localStorage
     try {
@@ -410,7 +388,7 @@ function manuallyDisplayResults() {
             score: score,
             totalQuestions: quizData.length,
             percentage: percentage,
-            certLevel: 'Master Cryptographer',
+            achievementLevel: 'Cryptography Expert',
             userAnswers: userAnswers,
             completedDate: new Date().toISOString()
         };
@@ -1010,10 +988,7 @@ const reviewQuestionsButton = document.getElementById('review-questions');
 const retakeQuizButton = document.getElementById('retake-quiz');
 const backToResultsButton = document.getElementById('back-to-results');
 const reviewContentEl = document.getElementById('review-content');
-const generateCertButton = document.getElementById('generate-certificate');
-const certificateNameInput = document.getElementById('certificate-name');
-const certificateDownloadLink = document.getElementById('certificate-download');
-const certificateLinkContainer = document.querySelector('.certificate-link');
+const achievementLevelEl = document.getElementById('achievement-level');
 
 // Set up event listeners with improved error handling
 document.addEventListener('DOMContentLoaded', function() {
@@ -1162,7 +1137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="notification-content">
                 <h4>Quiz Completed</h4>
                 <p>You passed this quiz with a score of ${quizStatus.percentage} (${quizStatus.score}/${quizData.length}).</p>
-                <p>Your certification level: <strong>${quizStatus.certLevel}</strong></p>
+                <p>Your achievement: <strong>${quizStatus.achievementLevel || 'Quiz Completed'}</strong></p>
                 <div class="notification-actions">
                     <button id="view-results-btn" class="cta-button">View Results</button>
                     <button id="retake-anyway-btn" class="secondary-button">Retake Quiz</button>
@@ -1770,8 +1745,8 @@ function isLocalStorageAvailable() {
 }
 
 // Simple quiz progress save/load functions
-function saveFinalQuizStatus(completed, score, percentage, certLevel) {
-    console.log("Saving quiz status:", { completed, score, percentage, certLevel });
+function saveFinalQuizStatus(completed, score, percentage, achievementLevel) {
+    console.log("Saving quiz status:", { completed, score, percentage, achievementLevel });
     
     // Create status object with all necessary data
     const quizStatus = {
@@ -1865,18 +1840,18 @@ function submitQuiz() {
             if (passMessageEl) passMessageEl.style.display = 'block';
             if (failMessageEl) failMessageEl.style.display = 'none';
             
-            // Set certificate level based on score
-            const certLevelEl = document.getElementById('cert-level');
-            if (certLevelEl) {
+            // Set achievement level based on score
+            const achievementLevelEl = document.getElementById('achievement-level');
+            if (achievementLevelEl) {
                 if (percentage >= 90) {
-                    certLevel = "Master Cryptographer";
-                    certLevelEl.textContent = certLevel;
-                } else if (percentage >= 80) {
                     certLevel = "Cryptography Expert";
-                    certLevelEl.textContent = certLevel;
+                    achievementLevelEl.textContent = certLevel;
+                } else if (percentage >= 80) {
+                    certLevel = "Advanced Knowledge";
+                    achievementLevelEl.textContent = certLevel;
                 } else {
-                    certLevel = "Cryptography Specialist";
-                    certLevelEl.textContent = certLevel;
+                    certLevel = "Good Understanding";
+                    achievementLevelEl.textContent = certLevel;
                 }
             }
             
@@ -1951,7 +1926,7 @@ function saveQuizResultsFallback(passed, score, percentage, certLevel) {
             score: score,
             totalQuestions: quizData.length,
             percentage: percentage,
-            certLevel: certLevel,
+            achievementLevel: achievementLevel,
             userAnswers: userAnswers,
             completedDate: new Date().toISOString()
         };
@@ -2383,7 +2358,7 @@ function retakeQuiz() {
     color: #ff4d4d;
 }
 
-.certificate-level {
+.achievement-level {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     background-color: rgba(0, 255, 65, 0.2);
@@ -2391,19 +2366,13 @@ function retakeQuiz() {
     display: inline-block;
 }
 
-.certificate-level span {
+.achievement-level span {
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--primary);
 }
 
-.certificate-form {
-    margin-top: 2rem;
-    background-color: var(--darker);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--primary-dark);
-}
+/* Certificate form styles removed */
 
 .certificate-form p {
     margin-bottom: 1rem;
