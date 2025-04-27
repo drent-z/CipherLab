@@ -1,0 +1,21 @@
+{
+  "name": "cipherlab",
+  "version": "1.0.0",
+  "description": "Cryptography Educational Platform",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [
+    "cryptography",
+    "education",
+    "ciphers",
+    "eleventy"
+  ],
+  "author": "Daniel Rentz, Aileen Medina, Kevin Zopfi",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
