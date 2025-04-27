@@ -18,6 +18,9 @@ if %errorlevel% neq 0 (
     echo After installing Node.js, please run this script again.
     pause
     exit /b
+) else (
+    echo Node.js %NODE_VERSION% is already installed.
+    echo.
 )
 
 REM Start the server
