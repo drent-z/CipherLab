@@ -4,8 +4,11 @@
   "description": "Cryptography Educational Platform",
   "main": "index.js",
   "scripts": {
-    "start": "eleventy --serve",
-    "build": "eleventy"
+    "start": "npx @11ty/eleventy --serve --quiet=false",
+    "dev": "npx @11ty/eleventy --serve --quiet=false",
+    "build": "npx @11ty/eleventy",
+    "clean": "rimraf _site",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy --serve"
   },
   "keywords": [
     "cryptography",
@@ -16,6 +19,10 @@
   "author": "Daniel Rentz, Aileen Medina, Kevin Zopfi",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1"
+    "@11ty/eleventy": "^2.0.1",
+    "rimraf": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
