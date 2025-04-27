@@ -19,6 +19,7 @@ if %errorlevel% neq 0 (
     pause
     exit /b
 ) else (
+    for /f "tokens=*" %%i in ('node -v') do set NODE_VERSION=%%i
     echo Node.js %NODE_VERSION% is already installed.
     echo.
 )
